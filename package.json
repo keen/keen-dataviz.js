@@ -1,0 +1,26 @@
+{
+  "name": "keen-dataviz",
+  "description": "Data Visualization SDK for Keen IO",
+  "license": "MIT",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/keen/keen-dataviz.js.git"
+  },
+  "bugs": "https://github.com/keen/keen-dataviz.js/issues",
+  "author": "Dustin Larimer <dustin@keen.io> (https://keen.io/)",
+  "contributors": [
+    "Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)",
+    "Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)",
+    "Eric Anderson <eric@keen.io> (https://github.com/aroc)",
+    "Joe Wegner <joe@keen.io> (https://github.com/josephwegner)"
+  ],
+  "engines": {
+    "node": "4.0.x"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}
