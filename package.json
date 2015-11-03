@@ -19,7 +19,9 @@
   "engines": {
     "node": "4.0.x"
   },
-  "dependencies": {},
+  "dependencies": {
+    "component-emitter": "^1.2.0"
+  },
   "devDependencies": {
     "gulp": "^3.9.0"
   }
