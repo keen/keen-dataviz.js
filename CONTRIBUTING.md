@@ -4,8 +4,7 @@ This is an open source project and we love involvement from the community! Hit u
 
 **TODO:**
 
-* [ ] Validate `Keen.utils.listener()` form submit binding on IE8
-* [ ] Expose `A` element click event and `FORM` element submit event timeouts (default: 500ms)
+* [ ] ...
 
 Run the following commands to install and build this project:
 
@@ -22,7 +21,7 @@ $ gulp
 
 # Build and launch to view test results
 $ gulp with-tests
-$ open http://localhost:9000
+$ open http://localhost:9002
 ```
 
 ## Pull Request Template
@@ -35,7 +34,7 @@ Please use the PR template below.
 
 * added the coolest feature ever
 * refactored [Dustin's](https://github.com/dustinlarimer) gross code
-* added tests (ahhh!! thank you!!)
+* added tests (hooray! thank you!!)
 
 **How should this be tested? (if appropriate)**
 
