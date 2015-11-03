@@ -33,14 +33,16 @@ Include [keen-js](https://github.com/keen/keen-js), [keen-dataviz.js](dist/keen-
 ```html
 <html>
   <head>
-    <!-- CSS Dependencies -->
-    <link href='c3.min.css' rel='stylesheet' />
-    <link href='keen-dataviz.css' rel='stylesheet' />
+    <!-- Dependencies -->
+    <link href='//oss.maxcdn.com/c3/0.1.42/c3.css' rel='stylesheet' />
+    <script src='//oss.maxcdn.com/d3js/3.5.6/d3.min.js'></script>
+    <script src='//oss.maxcdn.com/c3/0.1.42/c3.min.js'></script>
 
-    <!-- JS Dependencies -->
-    <script src='d3.min.js'></script>
-    <script src='c3.min.js'></script>
-    <script src='keen.js'></script>
+    <!-- Keen JS SDK -->
+    <script src='//oss.maxcdn.com/keen.js/3.2.7/keen.min.js'></script>
+
+    <!-- Keen.Dataviz -->
+    <link href='keen-dataviz.css' rel='stylesheet' />
     <script src='keen-dataviz.js'></script>
   </head>
   <body>
@@ -288,22 +290,6 @@ function myParser(response){
   // ds.set(['Result', 'Value'], response.result);
   return ds;
 }
-
-/*
-  Parser pattern (curried):
-  var myParser = Dataset.parsers('extraction');
-  var myDataset = myParser(res);
-  ---
-  'metric'
-  'grouped-metric'
-  'grouped-interval'
-  'double-grouped-metric'
-  'double-grouped-interval'
-  'funnel'
-  'list'
-  'extraction'
-*/
-
 
 /*
 
