@@ -14,7 +14,8 @@ var data_extraction = require('./sample-data/extraction'),
     data_interval_groupBy_empties = require('./sample-data/interval-groupBy-empties'),
     data_interval_groupBy_boolean = require('./sample-data/interval-groupBy-boolean'),
     data_interval_groupBy_nulls = require('./sample-data/interval-groupBy-nulls'),
-    data_funnel = require('./sample-data/funnel');
+    data_funnel = require('./sample-data/funnel'),
+    data_uniques = require('./sample-data/select-unique');
 
 describe('Dataset', function(){
 
@@ -891,6 +892,7 @@ describe('Dataset', function(){
       var dataset = parser(data_double_groupBy, [
         'session.geo_information.city',
         'session.geo_information.province' ]);
+
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(118);
       expect(dataset.data()[0])
@@ -909,6 +911,13 @@ describe('Dataset', function(){
         .and.to.be.of.length(5);
       expect(dataset.selectColumn(0)[1]).to.be.a('string')
         .and.to.eql('2014-04-23T07:00:00.000Z');
+    });
+
+    it('select-unique.json', function(){
+      var dataset = Dataset.parsers('list')(data_uniques);
+
+      expect(dataset.data()).to.be.an('array')
+        .and.to.be.of.length(60);
     });
 
   });
