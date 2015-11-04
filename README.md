@@ -53,7 +53,8 @@ Include [keen-js](https://github.com/keen/keen-js), [keen-dataviz.js](dist/keen-
     <script>
     Keen.ready(function(){
 
-      var chart = new Keen.Dataviz('#my-chart-div')
+      var chart = new Keen.Dataviz()
+        .el('#my-chart-div')
         .colors(['red', 'orange', 'green'])
         .height(500)
         .title('New Customers per Week')

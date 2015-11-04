@@ -20,7 +20,6 @@
     "node": "4.0.x"
   },
   "dependencies": {
-    "component-emitter": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^3.4.0",
