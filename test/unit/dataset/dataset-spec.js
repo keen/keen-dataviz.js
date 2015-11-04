@@ -779,7 +779,7 @@ describe('Dataset', function(){
   describe('Parse with #set', function() {
 
     it('metric.json', function(){
-      var dataset = Dataset.parsers('metric')(data_metric);
+      var dataset = Dataset.parser('metric')(data_metric);
 
       expect(dataset.data())
         .to.be.an('array')
@@ -791,7 +791,7 @@ describe('Dataset', function(){
     });
 
     it('interval.json (indexed by timeframe.end)', function(){
-      var dataset = Dataset.parsers('interval')(data_interval, 'timeframe.end');
+      var dataset = Dataset.parser('interval')(data_interval, 'timeframe.end');
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(13);
@@ -805,7 +805,7 @@ describe('Dataset', function(){
     });
 
     it('groupby.json', function(){
-      var dataset = Dataset.parsers('grouped-metric')(data_groupBy);
+      var dataset = Dataset.parser('grouped-metric')(data_groupBy);
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(56);
@@ -828,13 +828,13 @@ describe('Dataset', function(){
     });
 
     it('interval-groupBy-empties.json', function(){
-      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_empties);
+      var dataset = Dataset.parser('grouped-interval')(data_interval_groupBy_empties);
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
     });
 
     it('interval-groupBy-boolean.json (indexed by timeframe.end)', function(){
-      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_boolean, 'timeframe.end');
+      var dataset = Dataset.parser('grouped-interval')(data_interval_groupBy_boolean, 'timeframe.end');
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
       expect(dataset.data()[1][0])
@@ -842,7 +842,7 @@ describe('Dataset', function(){
     });
 
     it('interval-groupBy-nulls.json', function(){
-      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_nulls);
+      var dataset = Dataset.parser('grouped-interval')(data_interval_groupBy_nulls);
 
       dataset.sortColumns('desc', dataset.sum, 1);
       dataset.sortRows('asc');
@@ -856,7 +856,7 @@ describe('Dataset', function(){
     });
 
     it('extraction.json 1', function(){
-      var dataset = Dataset.parsers('extraction')(data_extraction);
+      var dataset = Dataset.parser('extraction')(data_extraction);
 
       expect(dataset.data())
         .to.be.an('array')
@@ -868,7 +868,7 @@ describe('Dataset', function(){
     });
 
     it('extraction-uneven.json', function(){
-      var dataset = Dataset.parsers('extraction')(data_extraction_uneven);
+      var dataset = Dataset.parser('extraction')(data_extraction_uneven);
 
       expect(dataset.data())
         .to.be.an('array')
@@ -876,7 +876,7 @@ describe('Dataset', function(){
     });
 
     it('funnel.json', function(){
-      var dataset = Dataset.parsers('funnel')(data_funnel);
+      var dataset = Dataset.parser('funnel')(data_funnel);
 
       expect(dataset.data())
         .to.be.an('array')
@@ -888,7 +888,7 @@ describe('Dataset', function(){
     });
 
     it('double-groupBy.json', function(){
-      var parser = Dataset.parsers('double-grouped-metric');
+      var parser = Dataset.parser('double-grouped-metric');
       var dataset = parser(data_double_groupBy, [
         'session.geo_information.city',
         'session.geo_information.province' ]);
@@ -900,7 +900,7 @@ describe('Dataset', function(){
     });
 
     it('interval-double-groupBy.json (indexed by timeframe.end)', function(){
-      var parser = Dataset.parsers('double-grouped-interval');
+      var parser = Dataset.parser('double-grouped-interval');
       var dataset = parser(data_interval_double_groupBy, [
         'first.property',
         'second.property' ], 'timeframe.end');
@@ -914,7 +914,7 @@ describe('Dataset', function(){
     });
 
     it('select-unique.json', function(){
-      var dataset = Dataset.parsers('list')(data_uniques);
+      var dataset = Dataset.parser('list')(data_uniques);
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(60);
