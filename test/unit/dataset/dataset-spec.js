@@ -779,7 +779,8 @@ describe('Dataset', function(){
   describe('Parse with #set', function() {
 
     it('metric.json', function(){
-      var dataset = Dataset.parser('metric')(data_metric);
+      var parser = Dataset.parser('metric');
+      var dataset = parser(data_metric);
 
       expect(dataset.data())
         .to.be.an('array')
@@ -791,7 +792,8 @@ describe('Dataset', function(){
     });
 
     it('interval.json (indexed by timeframe.end)', function(){
-      var dataset = Dataset.parser('interval')(data_interval, 'timeframe.end');
+      var parser = Dataset.parser('interval', 'timeframe.end');
+      var dataset = parser(data_interval);
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(13);
@@ -815,12 +817,9 @@ describe('Dataset', function(){
     });
 
     it('groupBy-boolean.json', function(){
-      var dataset = new Dataset();
-      each(data_groupBy_boolean.result, function(record, i){
-        dataset.set([ 'result', String(record.switch) ], record.result);
-      });
-
+      var dataset = Dataset.parser('grouped-metric')(data_groupBy_boolean);
       dataset.sortRows('desc', dataset.sum, 1);
+
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(4);
       expect(dataset.data()[1][0]).to.eql('true');
@@ -834,7 +833,8 @@ describe('Dataset', function(){
     });
 
     it('interval-groupBy-boolean.json (indexed by timeframe.end)', function(){
-      var dataset = Dataset.parser('grouped-interval')(data_interval_groupBy_boolean, 'timeframe.end');
+      var parser = Dataset.parser('grouped-interval', 'timeframe.end');
+      var dataset = parser(data_interval_groupBy_boolean);
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
       expect(dataset.data()[1][0])
@@ -888,10 +888,10 @@ describe('Dataset', function(){
     });
 
     it('double-groupBy.json', function(){
-      var parser = Dataset.parser('double-grouped-metric');
-      var dataset = parser(data_double_groupBy, [
+      var parser = Dataset.parser('double-grouped-metric', [
         'session.geo_information.city',
         'session.geo_information.province' ]);
+      var dataset = parser(data_double_groupBy);
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(118);
@@ -900,10 +900,10 @@ describe('Dataset', function(){
     });
 
     it('interval-double-groupBy.json (indexed by timeframe.end)', function(){
-      var parser = Dataset.parser('double-grouped-interval');
-      var dataset = parser(data_interval_double_groupBy, [
+      var parser = Dataset.parser('double-grouped-interval', [
         'first.property',
         'second.property' ], 'timeframe.end');
+      var dataset = parser(data_interval_double_groupBy);
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(4);
