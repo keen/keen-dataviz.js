@@ -9,6 +9,7 @@ var data_extraction = require('./sample-data/extraction'),
     data_interval = require('./sample-data/interval'),
     data_groupBy = require('./sample-data/groupBy'),
     data_groupBy_boolean = require('./sample-data/groupBy-boolean'),
+    data_double_groupBy = require('./sample-data/double-groupBy'),
     data_interval_double_groupBy = require('./sample-data/interval-double-groupBy'),
     data_interval_groupBy_empties = require('./sample-data/interval-groupBy-empties'),
     data_interval_groupBy_boolean = require('./sample-data/interval-groupBy-boolean'),
@@ -788,14 +789,18 @@ describe('Dataset', function(){
       expect(dataset.data()[1][1]).to.eql(2450);
     });
 
-    it('interval.json', function(){
-      var dataset = Dataset.parsers('interval')(data_interval);
+    it('interval.json (indexed by timeframe.end)', function(){
+      var dataset = Dataset.parsers('interval')(data_interval, 'timeframe.end');
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(13);
       expect(dataset.data()[0]).to.be.of.length(2);
       expect(dataset.data()[0][0]).to.eql('Index');
       expect(dataset.data()[0][1]).to.eql('Result');
+
+      // timeframe.end
+      expect(dataset.data()[1][0])
+        .to.eql('2015-01-01T00:00:00.000Z');
     });
 
     it('groupby.json', function(){
@@ -827,10 +832,12 @@ describe('Dataset', function(){
         .and.to.be.of.length(7);
     });
 
-    it('interval-groupBy-boolean.json', function(){
-      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_boolean);
+    it('interval-groupBy-boolean.json (indexed by timeframe.end)', function(){
+      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_boolean, 'timeframe.end');
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
+      expect(dataset.data()[1][0])
+        .to.eql('2013-11-01T07:00:00.000Z');
     });
 
     it('interval-groupBy-nulls.json', function(){
@@ -879,18 +886,29 @@ describe('Dataset', function(){
       expect(dataset.data()[1][1]).to.be.eql(42);
     });
 
+    it('double-groupBy.json', function(){
+      var parser = Dataset.parsers('double-grouped-metric');
+      var dataset = parser(data_double_groupBy, [
+        'session.geo_information.city',
+        'session.geo_information.province' ]);
+      expect(dataset.data()).to.be.an('array')
+        .and.to.be.of.length(118);
+      expect(dataset.data()[0])
+        .to.be.of.length(193);
+    });
 
-    it('interval-double-groupBy.json', function(){
-      var dataset = new Dataset();
-      each(data_interval_double_groupBy.result, function(record, i){
-        each(record.value, function(group, j){
-          var label = group['first.property'] + ' ' + group['second.property'];
-          dataset.set( [ label, record.timeframe.start ], group.result );
-        });
-      });
+    it('interval-double-groupBy.json (indexed by timeframe.end)', function(){
+      var parser = Dataset.parsers('double-grouped-interval');
+      var dataset = parser(data_interval_double_groupBy, [
+        'first.property',
+        'second.property' ], 'timeframe.end');
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(4);
+      expect(dataset.data()[0]).to.be.an('array')
+        .and.to.be.of.length(5);
+      expect(dataset.selectColumn(0)[1]).to.be.a('string')
+        .and.to.eql('2014-04-23T07:00:00.000Z');
     });
 
   });
