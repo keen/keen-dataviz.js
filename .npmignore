@@ -10,4 +10,5 @@ gulpfile.js
 # karma.conf.js
 
 dist
+docs
 test
