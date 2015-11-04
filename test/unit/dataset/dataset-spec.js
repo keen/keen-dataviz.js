@@ -6,6 +6,7 @@ var each = require('../../../lib/utils/each');
 var data_extraction = require('./sample-data/extraction'),
     data_extraction_uneven = require('./sample-data/extraction-uneven')
     data_metric = require('./sample-data/metric'),
+    data_interval = require('./sample-data/interval'),
     data_groupBy = require('./sample-data/groupBy'),
     data_groupBy_boolean = require('./sample-data/groupBy-boolean'),
     data_interval_double_groupBy = require('./sample-data/interval-double-groupBy'),
@@ -776,29 +777,35 @@ describe('Dataset', function(){
   describe('Parse with #set', function() {
 
     it('metric.json', function(){
-      var dataset = new Dataset();
-      dataset.set(['value', 'result'], data_metric.result);
+      var dataset = Dataset.parsers('metric')(data_metric);
 
       expect(dataset.data())
         .to.be.an('array')
         .and.to.be.of.length(2);
       expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('value');
-      expect(dataset.data()[1][0]).to.eql('result');
+      expect(dataset.data()[0][1]).to.eql('Value');
+      expect(dataset.data()[1][0]).to.eql('Result');
       expect(dataset.data()[1][1]).to.eql(2450);
     });
 
+    it('interval.json', function(){
+      var dataset = Dataset.parsers('interval')(data_interval);
+
+      expect(dataset.data()).to.be.an('array')
+        .and.to.be.of.length(13);
+      expect(dataset.data()[0]).to.be.of.length(2);
+      expect(dataset.data()[0][0]).to.eql('Index');
+      expect(dataset.data()[0][1]).to.eql('Result');
+    });
+
     it('groupby.json', function(){
-      var dataset = new Dataset();
-      each(data_groupBy.result, function(record, i){
-        dataset.set(['result', record.page], record.result);
-      });
+      var dataset = Dataset.parsers('grouped-metric')(data_groupBy);
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(56);
       expect(dataset.data()[0]).to.be.of.length(2);
       expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('result');
+      expect(dataset.data()[0][1]).to.eql('Result');
     });
 
     it('groupBy-boolean.json', function(){
@@ -815,49 +822,19 @@ describe('Dataset', function(){
     });
 
     it('interval-groupBy-empties.json', function(){
-      var dataset = new Dataset()
-      each(data_interval_groupBy_empties.result, function(record, i){
-        if (record.value.length) {
-          each(record.value, function(group, j){
-            dataset.set([ group['parsed_user_agent.os.family'] || '', record.timeframe.start ], group.result);
-          });
-        }
-        else {
-          dataset.appendRow(record.timeframe.start);
-        }
-      });
+      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_empties);
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
     });
 
     it('interval-groupBy-boolean.json', function(){
-      var dataset = new Dataset();
-      each(data_interval_groupBy_boolean.result, function(record, i){
-        if (record.value.length) {
-          each(record.value, function(group, j){
-            dataset.set([ String(group.key) || '', record.timeframe.start ], group.result);
-          });
-        }
-        else {
-          dataset.appendRow(record.timeframe.start);
-        }
-      });
+      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_boolean);
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
     });
 
     it('interval-groupBy-nulls.json', function(){
-      var dataset = new Dataset()
-      each(data_interval_groupBy_nulls.result, function(record, i){
-        if (record.value.length) {
-          each(record.value, function(group, j){
-            dataset.set([ group['parsed_user_agent.os.family'] || '', record.timeframe.start ], group.result);
-          });
-        }
-        else {
-          dataset.appendRow(record.timeframe.start);
-        }
-      });
+      var dataset = Dataset.parsers('grouped-interval')(data_interval_groupBy_nulls);
 
       dataset.sortColumns('desc', dataset.sum, 1);
       dataset.sortRows('asc');
@@ -871,91 +848,33 @@ describe('Dataset', function(){
     });
 
     it('extraction.json 1', function(){
-      var dataset = new Dataset();
-      each(data_extraction.result, function(record, i){
-        dataset
-          .set( [ 'Time', i+1 ], record.keen.timestamp )
-          .set( [ 'Page', i+1 ], record.page )
-          .set( [ 'Referrer', i+1 ], record.referrer );
-        // each(record.keen, function(value, key){
-        //   dataset.set([ key, i+1 ], value);
-        // });
-        // each(record, function(value, key){
-        //   if (key === 'keen') return;
-        //   dataset.set([ key, i+1 ], value);
-        // });
-      });
-      dataset.deleteColumn(0);
+      var dataset = Dataset.parsers('extraction')(data_extraction);
 
       expect(dataset.data())
         .to.be.an('array')
         .and.to.be.of.length(data_extraction.result.length+1);
-      expect(dataset.data()[0]).to.be.of.length(3);
-      expect(dataset.data()[0][0]).to.eql('Time');
-      expect(dataset.data()[0][1]).to.eql('Page');
-      expect(dataset.data()[0][2]).to.eql('Referrer');
+      expect(dataset.data()[0]).to.be.of.length(7);
+      expect(dataset.data()[0][0]).to.eql('keen.timestamp');
+      expect(dataset.data()[0][1]).to.eql('keen.created_at');
+      expect(dataset.data()[0][2]).to.eql('keen.id');
     });
 
-    // it('extraction.json 2', function(){
-    //   var dataset = new Dataset();
-    //   each(data_extraction.result, function(record, i){
-    //     dataset
-    //       .set( [ 'keen.timestamp', i+1 ], record.keen.timestamp )
-    //       .set( [ 'page', i+1 ], record.page )
-    //       .set( [ 'referrer', i+1 ], record.referrer )
-    //   });
-    //   dataset.deleteColumn(0);
-    //
-    //   expect(dataset.data()).to.be.an('array')
-    //     .and.to.be.of.length(data_extraction.result.length+1);
-    //   expect(dataset.data()[0]).to.be.of.length(3);
-    //   expect(dataset.data()[0][0]).to.eql('keen.timestamp');
-    //   expect(dataset.data()[0][1]).to.eql('page');
-    //   expect(dataset.data()[0][2]).to.eql('referrer');
-    // });
-
-
     it('extraction-uneven.json', function(){
-      var dataset = new Dataset();
-      each(data_extraction_uneven.result, function(record, i){
-        dataset
-          .set( [ 'keen.timestamp', i+1 ], (record.keen ? record.keen.timestamp : null ) )
-          .set( [ 'page', i+1 ], record.page || null )
-          .set( [ 'key', i+1 ], record.key || null )
-      });
-      dataset.deleteColumn(0);
+      var dataset = Dataset.parsers('extraction')(data_extraction_uneven);
 
       expect(dataset.data())
         .to.be.an('array')
         .and.to.be.of.length(data_extraction_uneven.result.length+1);
     });
 
-
-    // it('extraction-uneven.json SELECT ALL', function(){
-    //   var dataset = new Dataset().parse(data_extraction_uneven, {
-    //     records: 'result',
-    //     select: true
-    //   });
-    //   dataset.sortRows('asc');
-    //   expect(dataset.data())
-    //     .to.be.an('array')
-    //     .and.to.be.of.length(data_extraction_uneven.result.length+1);
-    //   expect(dataset.data()[0]).to.be.of.length(7);
-    //   expect(dataset.data()[0][0]).to.eql('keen.timestamp');
-    // });
-
-
     it('funnel.json', function(){
-      var dataset = new Dataset();
-      each(data_funnel.result, function(record, i){
-        dataset.set( [ 'step', data_funnel.steps[i].event_collection ], record );
-      });
+      var dataset = Dataset.parsers('funnel')(data_funnel);
 
       expect(dataset.data())
         .to.be.an('array')
         .and.to.be.of.length(6);
       expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('step');
+      expect(dataset.data()[0][1]).to.eql('Step Value');
       expect(dataset.data()[1][0]).to.be.eql('pageview');
       expect(dataset.data()[1][1]).to.be.eql(42);
     });
