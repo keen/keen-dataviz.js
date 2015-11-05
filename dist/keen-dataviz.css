@@ -1,3 +1,75 @@
-.test .ok {
+.keen-dataviz .keen-dataviz-title {
+  color: #404a54;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 24px;
+}
+.keen-dataviz .keen-dataviz-stage {
   display: block;
 }
+.keen-dataviz .keen-dataviz-notes {
+  color: #768798;
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+.keen-dataviz .keen-dataviz-message {
+  color: #c5ccd3;
+  display: block;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 21px;
+  font-weight: light;
+  text-align: center;
+}
+.keen-dataviz .keen-dataviz-metric {
+  background-color: #00cfbb;
+  border-radius: 4px;
+  color: #fff;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 10px;
+  text-align: center;
+}
+.keen-dataviz .keen-dataviz-metric .keen-dataviz-metric-value {
+  display: block;
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 84px;
+}
+.keen-dataviz .keen-dataviz-metric .keen-dataviz-metric-title {
+  display: block;
+  font-size: 24px;
+  font-weight: 200;
+}
+/*
+
+  New: Themed/styled wrapper within target node
+  Why?
+    - Title/footnotes are important, but are not
+      universally supported by charting libraries
+    - A simple theme/style switch formats this
+      wrapper for dashboard use case (less > more)
+
+  New: Applying a custom theme removes all default styling
+  Why?
+    - Prefer full CSS control over fighting inheritance
+
+  // HTML:
+  <div class='keen-dataviz'>
+    <div class='keen-dataviz-title'>
+      Pageviews (last 24 hours)
+    </div>
+    <div class='keen-dataviz-stage'>
+      {{visualization}}
+    </div>
+    <div class='keen-dataviz-notes'>
+      Last updated: 43 minutes ago (cached)
+    </div>
+  </div>
+
+  // CSS (theming):
+  .my-custom-theme {}
+  .my-custom-theme .keen-dataviz-title {}
+  .my-custom-theme .keen-dataviz-stage {}
+  .my-custom-theme .keen-dataviz-notes {}
+*/

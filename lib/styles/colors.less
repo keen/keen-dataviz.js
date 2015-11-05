@@ -1,0 +1,75 @@
+// default colors
+
+@red:                   #fe6672; // Pantone 1785c
+@teal:                  #00bbde; // Pantone 2199u
+@mint:                  #00cfbb; // Pantone 3255u
+
+@blue:                  hsl(212, 80%, 64%);
+@lavender:              hsl(310, 42%, 63%);
+@yellow:                hsl(35, 82%, 64%);
+@green:                 hsl(105, 48%, 63%);
+@green:                 hsl(130, 53%, 64%);
+@purple:                hsl(240, 48%, 69%);
+@orange:                hsl(15, 100%, 68%);
+
+
+// vars used in generating more colors
+
+@tint:                   18%;
+@saturation:             6%;
+
+@lighten-color:          #fff;
+@lighten-mix:            @tint;
+@lighten-saturation:     @saturation;
+
+@darken-color:          #000;
+@darken-mix:            @tint;
+@darken-saturation:     @saturation;
+
+// light variants
+
+@red-light:             saturate( mix(@lighten-color, @red,      @lighten-mix), @lighten-saturation - 3);
+@orange-light:          saturate( mix(@lighten-color, @orange,   @lighten-mix), @lighten-saturation);
+@yellow-light:          saturate( mix(@lighten-color, @yellow,   @lighten-mix), @lighten-saturation);
+@green-light:           saturate( mix(@lighten-color, @green,    @lighten-mix), @lighten-saturation);
+@mint-light:            saturate( mix(@lighten-color, @mint,     @lighten-mix), @lighten-saturation);
+@teal-light:            saturate( mix(@lighten-color, @teal,     @lighten-mix), @lighten-saturation);
+@blue-light:            saturate( mix(@lighten-color, @blue,     @lighten-mix), @lighten-saturation);
+@purple-light:          saturate( mix(@lighten-color, @purple,   @lighten-mix), @lighten-saturation);
+@lavender-light:        saturate( mix(@lighten-color, @lavender, @lighten-mix), @lighten-saturation + 2);
+
+// dark variants
+
+@red-dark:              saturate( mix(@darken-color, @red,      @darken-mix), @darken-saturation);
+@orange-dark:           saturate( mix(@darken-color, @orange,   @darken-mix), @darken-saturation);
+@yellow-dark:           saturate( mix(@darken-color, @yellow,   @darken-mix), @darken-saturation);
+@green-dark:            saturate( mix(@darken-color, @green,    @darken-mix), @darken-saturation);
+@mint-dark:             saturate( mix(@darken-color, @mint,     @darken-mix), @darken-saturation);
+@teal-dark:             saturate( mix(@darken-color, @teal,     @darken-mix), @darken-saturation);
+@blue-dark:             saturate( mix(@darken-color, @blue,     @darken-mix), @darken-saturation);
+@purple-dark:           saturate( mix(@darken-color, @purple,   @darken-mix), @darken-saturation);
+@lavender-dark:         saturate( mix(@darken-color, @lavender, @darken-mix), @darken-saturation);
+
+//black and white
+
+@black:                 @gray-2;
+@white:                 #fff;
+
+//grayscale
+
+@gray-0:                hsl(210,14%,4%);
+@gray-1:                hsl(210,14%,10%);
+@gray-2:                hsl(210,14%,14%); // @gray-darker
+@gray-3:                hsl(210,14%,20%); // @gray-dark
+@gray-4:                hsl(210,14%,29%);
+@gray-5:                hsl(210,14%,35%); // @gray
+@gray-6:                hsl(210,14%,40%);
+@gray-7:                hsl(210,14%,45%);
+@gray-8:                hsl(210,14%,53%);
+@gray-9:                hsl(210,14%,60%); // @gray-light
+@gray-a:                hsl(210,14%,67%);
+@gray-b:                hsl(210,14%,72%);
+@gray-c:                hsl(210,14%,80%);
+@gray-d:                hsl(210,14%,87%);
+@gray-e:                hsl(210,14%,92%); // @gray-lighter
+@gray-f:                hsl(210,14%,96%);

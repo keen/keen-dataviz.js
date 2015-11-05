@@ -1,1 +1,103 @@
-@import 'type';
+@import 'colors';
+
+@scope: keen-dataviz;
+
+@font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', @font-family-secondary;
+
+// WRAPPER
+.@{scope} {
+
+  .@{scope}-title {
+    color: @gray-4;
+    font-family: @font-family-primary;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 24px;
+  }
+
+  .@{scope}-stage {
+    display: block;
+  }
+
+  .@{scope}-notes {
+    color: @gray-8;
+    display: block;
+    font-family: @font-family-secondary;
+    font-size: 12px;
+  }
+
+  // MESSAGE
+  .@{scope}-message {
+    color: @gray-c;
+    display: block;
+    font-family: @font-family-primary;
+    font-size: 21px;
+    font-weight: light;
+    text-align: center;
+  }
+
+  // METRIC
+  .@{scope}-metric {
+    background-color: @mint;
+    border-radius: 4px;
+    color: @white;
+    font-family: @font-family-primary;
+    padding: 10px;
+    text-align: center;
+
+    .@{scope}-metric-value {
+      display: block;
+      font-size: 84px;
+      font-weight: 700;
+      line-height: 84px;
+    }
+    .@{scope}-metric-title {
+      display: block;
+      font-size: 24px;
+      font-weight: 200;
+    }
+
+    .@{scope}-metric-prefix {
+      //
+    }
+    .@{scope}-metric-suffix {
+      //
+    }
+
+  }
+}
+
+
+/*
+
+  New: Themed/styled wrapper within target node
+  Why?
+    - Title/footnotes are important, but are not
+      universally supported by charting libraries
+    - A simple theme/style switch formats this
+      wrapper for dashboard use case (less > more)
+
+  New: Applying a custom theme removes all default styling
+  Why?
+    - Prefer full CSS control over fighting inheritance
+
+  // HTML:
+  <div class='keen-dataviz'>
+    <div class='keen-dataviz-title'>
+      Pageviews (last 24 hours)
+    </div>
+    <div class='keen-dataviz-stage'>
+      {{visualization}}
+    </div>
+    <div class='keen-dataviz-notes'>
+      Last updated: 43 minutes ago (cached)
+    </div>
+  </div>
+
+  // CSS (theming):
+  .my-custom-theme {}
+  .my-custom-theme .keen-dataviz-title {}
+  .my-custom-theme .keen-dataviz-stage {}
+  .my-custom-theme .keen-dataviz-notes {}
+*/

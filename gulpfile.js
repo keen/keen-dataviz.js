@@ -17,17 +17,26 @@ var browserify = require('browserify'),
     // aws = require('gulp-awspublish'),
     // moment = require('moment'),
 
-gulp.task('default', ['test:unit']);
+gulp.task('default', ['build', 'watch']);
 
 gulp.task('build', ['build:script', 'build:styles']);
+
+gulp.task('watch', ['build'], function() {
+  gulp.watch([
+      'lib/**/*.js',
+      'gulpfile.js'
+    ], ['build:script']);
+  gulp.watch([
+      'lib/**/*.less',
+      'gulpfile.js'
+    ], ['build:styles']);
+});
 
 gulp.task('build:script', function(){
   return gulp.src('./lib/index.js')
     .pipe(through2.obj(function(file, enc, next){
       browserify(file.path)
-        // .transform('stripify')
         .bundle(function(err, res){
-            // assumes file.contents is a Buffer
             file.contents = res;
             next(null, file);
         });
