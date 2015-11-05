@@ -1,4 +1,3 @@
-/* globals: sinon */
 var expect = require('chai').expect;
 
 var Dataset = require('../../../lib/dataset'),
@@ -9,6 +8,7 @@ describe('Dataviz', function(){
   beforeEach(function(){
     this.dataviz = new Dataviz();
   });
+
   afterEach(function(){
     this.dataviz = null;
     Dataviz.visuals = new Array();
