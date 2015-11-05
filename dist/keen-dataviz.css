@@ -15,11 +15,12 @@
   font-size: 12px;
 }
 .keen-dataviz .keen-dataviz-message {
-  color: #c5ccd3;
+  color: #aeb8c2;
   display: block;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 21px;
-  font-weight: light;
+  font-weight: 200;
+  line-height: 24px;
   text-align: center;
 }
 .keen-dataviz .keen-dataviz-metric {

@@ -1,4 +1,31 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function (global){
+;(function (f) {
+  if ('undefined' !== typeof define && define.amd && typeof define === 'function') {
+    define('keen-dataviz', [], function(){ return f(); });
+  }
+  if (typeof exports === 'object' && typeof module !== 'undefined') {
+    module.exports = f();
+  }
+  var g = null;
+  if (typeof window !== 'undefined') {
+    g = window;
+  } else if (typeof global !== 'undefined') {
+    g = global;
+  } else if (typeof self !== 'undefined') {
+    g = self;
+  }
+  if (g) {
+    g.Dataviz = f();
+  }
+})(function() {
+  'use strict';
+  var Dataviz = require('./');
+  module.exports = Dataviz;
+  return Dataviz;
+});
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./":14}],2:[function(require,module,exports){
 /*
   Dataset SDK
 */
@@ -51,7 +78,7 @@ extend(Dataset.prototype, update);
 extend(Dataset.prototype, analyses);
 Dataset.parser = parsers(Dataset);
 module.exports = Dataset;
-},{"../utils/extend":20,"./modifiers/append":2,"./modifiers/delete":3,"./modifiers/filter":4,"./modifiers/insert":5,"./modifiers/select":6,"./modifiers/sort":7,"./modifiers/update":8,"./utils/analyses":9,"./utils/parsers":12}],2:[function(require,module,exports){
+},{"../utils/extend":21,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -130,7 +157,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":19,"../utils/create-null-list":10}],3:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -153,7 +180,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":19}],4:[function(require,module,exports){
+},{"../../utils/each":20}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -187,7 +214,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":19}],5:[function(require,module,exports){
+},{"../../utils/each":20}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -266,7 +293,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":19,"../utils/create-null-list":10,"./append":2}],6:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -290,7 +317,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":19}],7:[function(require,module,exports){
+},{"../../utils/each":20}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -340,7 +367,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":19}],8:[function(require,module,exports){
+},{"../../utils/each":20}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -414,7 +441,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":19,"../utils/create-null-list":10,"./append":2}],9:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -476,7 +503,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":19,"../../utils/extend":20}],10:[function(require,module,exports){
+},{"../../utils/each":20,"../../utils/extend":21}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -484,7 +511,7 @@ module.exports = function(len){
   }
   return list;
 };
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = flatten;
 function flatten(ob){
   var toReturn = {};
@@ -502,7 +529,7 @@ function flatten(ob){
   }
   return toReturn;
 };
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var Dataset; /* injected */
 var each = require('../../utils/each'),
     flatten = require('../utils/flatten');
@@ -642,7 +669,7 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":19,"../utils/flatten":11}],13:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/flatten":12}],14:[function(require,module,exports){
 var Dataset = require('./dataset');
 var libraries = {
   'default': require('./libraries/default')()
@@ -666,11 +693,16 @@ function Dataviz(){
       '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e',
       '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'
     ],
+    colorMapping: {},
     el: undefined,
     height: 400,
     indexBy: 'timeframe.start',
+    labels: [],
+    labelMapping: {},
     library: 'default',
     notes: undefined,
+    sortGroups: undefined,
+    sortIntervals: undefined,
     stacked: false,
     theme: 'keen-dataviz',
     title: undefined,
@@ -695,22 +727,38 @@ Dataviz.prototype.call = function(fn){
   return this;
 };
 Dataviz.prototype.chartOptions = function(obj){
+  var self = this;
   if (!arguments.length) return this.view.chartOptions;
-  this.view.chartOptions = (obj ? obj : null);
+  if (obj === null) {
+    this.view.chartOptions = {};
+  }
+  else if (typeof obj === 'object') {
+    each(obj, function(value, key){
+      self.view.chartOptions[key] = (value ? value : null);
+    });
+  }
   return this;
 };
 Dataviz.prototype.colors = function(arr){
   if (!arguments.length) return this.view.colors;
-  this.view.colors = (arr instanceof Array ? arr : null);
+  this.view.colors = (arr instanceof Array ? arr : []);
   return this;
 };
 Dataviz.prototype.colorMapping = function(obj){
+  var self = this;
   if (!arguments.length) return this.view.colorMapping;
-  this.view.colorMapping = (obj ? obj : null);
+  if (obj === null) {
+    this.view.colorMapping = {};
+  }
+  else if (typeof obj === 'object') {
+    each(obj, function(value, key){
+      self.view.colorMapping[key] = (value ? value : null);
+    });
+  }
   return this;
 };
 Dataviz.prototype.data = function(data){
-  if (!arguments.length) return this.dataset.output();
+  if (!arguments.length) return this.dataset.data();
   if (data instanceof Dataset) {
     this.dataset = data;
   }
@@ -753,7 +801,7 @@ Dataviz.prototype.height = function(num){
 };
 Dataviz.prototype.indexBy = function(str){
   if (!arguments.length) return this.view.indexBy;
-  this.view.indexBy = (str ? String(str) : Dataviz.defaults.indexBy);
+  this.view.indexBy = (str ? String(str) : 'timeframe.start');
   return this;
 };
 Dataviz.prototype.labels = function(arr){
@@ -761,13 +809,21 @@ Dataviz.prototype.labels = function(arr){
       return this.view.labels;
   }
   else {
-    this.view.labels = (arr instanceof Array ? arr : null);
+    this.view.labels = (arr instanceof Array ? arr : []);
     return this;
   }
 };
 Dataviz.prototype.labelMapping = function(obj){
+  var self = this;
   if (!arguments.length) return this.view.labelMapping;
-  this.view.labelMapping = (obj ? obj : null);
+  if (obj === null) {
+    this.view.labelMapping = {};
+  }
+  else if (typeof obj === 'object') {
+    each(obj, function(value, key){
+      self.view.labelMapping[key] = (value ? value : null);
+    });
+  }
   return this;
 };
 Dataviz.prototype.library = function(str){
@@ -776,6 +832,17 @@ Dataviz.prototype.library = function(str){
   return this;
 };
 Dataviz.prototype.message = function(){
+  var loader;
+  if (this.view._rendered) {
+    this.destroy();
+  }
+  if (this.el()) {
+    this.el().innerHTML = '';
+    message = Dataviz.libraries['default'].message;
+    if (message.render) {
+      message.render.apply(this, arguments);
+    }
+  }
   return this;
 };
 Dataviz.prototype.notes = function(str){
@@ -826,9 +893,9 @@ Dataviz.prototype.sortGroups = function(str){
   this.view.sortGroups = (str ? String(str) : null);
   return this;
 };
-Dataviz.prototype.sortInterval = function(str){
+Dataviz.prototype.sortIntervals = function(str){
   if (!arguments.length) return this.view.sortInterval;
-  this.view.sortInterval = (str ? String(str) : null);
+  this.view.sortIntervals = (str ? String(str) : null);
   if (this.view.sortIntervals) {
     this.dataset.sortRows(this.view.sortIntervals);
   }
@@ -893,28 +960,25 @@ Dataviz.find = function(target){
   return match;
 };
 module.exports = Dataviz;
-},{"./dataset":1,"./libraries/default":14,"./utils/apply-color-mapping":15,"./utils/apply-label-mapping":16,"./utils/apply-labels":17,"./utils/apply-sort-groups":18,"./utils/each":19,"./utils/extend":20}],14:[function(require,module,exports){
+},{"./dataset":2,"./libraries/default":15,"./utils/apply-color-mapping":16,"./utils/apply-label-mapping":17,"./utils/apply-labels":18,"./utils/apply-sort-groups":19,"./utils/each":20,"./utils/extend":21}],15:[function(require,module,exports){
+var Spinner = require('spin.js');
 var each = require('../utils/each'),
-    extend = require('../utils/extend');
+    extend = require('../utils/extend'),
+    prettyNumber = require('../utils/pretty-number');
 var types = {};
-var c3Types = [
-  'gauge',
-  'donut',
-  'pie',
-  'bar',
-  'area',
-  'area-spline',
-  'spline',
-  'line',
-  'step',
-  'area-step'
-];
 function initialize(){
   defineC3();
-  defineCustom();
+  defineCustomMessage();
+  defineCustomMetric();
+  defineCustomSpinner();
   return types;
 }
 function defineC3(){
+  var c3Types = [
+    'area', 'area-spline', 'area-step',
+    'bar', 'donut', 'gauge', 'line',
+    'pie', 'step', 'spline'
+  ];
   each(c3Types, function(type, index) {
     types[type] = {
       render: function(){
@@ -953,27 +1017,125 @@ function getC3SetupTemplate(type){
   setup['data']['type'] = type;
   return setup;
 }
-function defineCustom(){
+function defineCustomMessage(){
+  types['message'] = {
+    render: function(text){
+      var elem = document.createElement('div'),
+          msg = document.createElement('span');
+      elem.className = 'keen-dataviz-message';
+      elem.style.paddingTop = (this.height() / 2 - 12) + 'px';
+      elem.style.paddingBottom = (this.height() / 2 - 12) + 'px';
+      elem.style.width = String(this.width() + 'px');
+      msg.innerHTML = text || '';
+      elem.appendChild(msg);
+      this.el().innerHTML = '';
+      this.el().appendChild(elem);
+    },
+    update: function(){
+      this.render();
+    },
+    destroy: function(){
+    }
+  };
+}
+function defineCustomMetric(){
+  types['metric'] = {
+    render: function(){
+      var title = this.title() || this.data()[1][0],
+          value = this.data()[1][1] || '-',
+          width = this.width(),
+          opts = this.chartOptions(),
+          prefix = '',
+          suffix = '';
+      var styles = {
+        'width': (width) ? width + 'px' : 'auto'
+      };
+      var formattedNum = value;
+      if ( (typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true)
+        && !isNaN(parseInt(value)) ) {
+          formattedNum = prettyNumber(value);
+      }
+      if (opts['prefix']) {
+        prefix = '<span class="keen-dataviz-metric-prefix">' + opts['prefix'] + '</span>';
+      }
+      if (opts['suffix']) {
+        suffix = '<span class="keen-dataviz-metric-suffix">' + opts['suffix'] + '</span>';
+      }
+      this.el().innerHTML = '' +
+        '<div class="keen-dataviz-metric" style="width:' + styles.width + ';" title="' + value + '">' +
+          '<span class="keen-dataviz-metric-value">' + prefix + formattedNum + suffix + '</span>' +
+          '<span class="keen-dataviz-metric-title">' + title + '</span>' +
+        '</div>';
+    },
+    update: function(){
+      this.render();
+    },
+    destroy: function(){
+    }
+  };
+}
+function defineCustomSpinner(){
+  var defaults = {
+    height: 138,         
+    lines: 10,           
+    length: 8,           
+    width: 3,            
+    radius: 10,          
+    corners: 1,          
+    rotate: 0,           
+    direction: 1,        
+    color: '#4D4D4D',    
+    speed: 1.67,         
+    trail: 60,           
+    shadow: false,       
+    hwaccel: false,      
+    className: 'spinner',
+    zIndex: 2e9,         
+    top: '50%',          
+    left: '50%'          
+  };
+  types['spinner'] = {
+    render: function(){
+      console.log('RENDER');
+      var spinner = document.createElement('div');
+      var height = this.height() || defaults.height;
+      spinner.className = 'keen-dataviz-spinning';
+      spinner.style.height = String(height + 'px');
+      spinner.style.position = 'relative';
+      spinner.style.width = String(this.width() + 'px');
+      this.el().innerHTML = '';
+      this.el().appendChild(spinner);
+      this.view._artifacts['spinner'] = new Spinner(defaults).spin(spinner);
+    },
+    update: function(){},
+    destroy: function(){
+      console.log('DESTROY');
+      if (this.view._artifacts['spinner']) {
+        this.view._artifacts['spinner'].stop();
+        this.view._artifacts['spinner'] = null;
+      }
+    }
+  };
 }
 module.exports = initialize;
-},{"../utils/each":19,"../utils/extend":20}],15:[function(require,module,exports){
+},{"../utils/each":20,"../utils/extend":21,"../utils/pretty-number":22,"spin.js":23}],16:[function(require,module,exports){
 module.exports = applyColorMapping;
 function applyColorMapping(){
 }
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = applyLabelMapping;
 function applyLabelMapping(){
 }
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = applyLabels;
 function applyLabels(){
 }
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = applySortGroups;
 function applySortGroups(){
   return;
 }
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -998,7 +1160,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1008,4 +1170,381 @@ function extend(target){
   }
   return target;
 }
-},{}]},{},[13]);
+},{}],22:[function(require,module,exports){
+module.exports = prettyNumber;
+function prettyNumber(input) {
+  var input = Number(input),
+      sciNo = input.toPrecision(3),
+      prefix = '',
+      suffixes = ['', 'k', 'M', 'B', 'T'];
+  if (Number(sciNo) == input && String(input).length <= 4) {
+    return String(input);
+  }
+  if (input >= 1 || input <= -1) {
+    if (input < 0){
+      input = -input;
+      prefix = '-';
+    }
+    return prefix + recurse(input, 0);
+  }
+  else {
+    return input.toPrecision(3);
+  }
+  function recurse(input, iteration) {
+    var input = String(input);
+    var split = input.split('.');
+    if (split.length > 1) {
+      input = split[0];
+      var rhs = split[1];
+      if (input.length == 2 && rhs.length > 0) {
+        if (rhs.length > 0) {
+          input = input + '.' + rhs.charAt(0);
+        }
+        else {
+          input += '0';
+        }
+      }
+      else if (input.length == 1 && rhs.length > 0) {
+        input = input + '.' + rhs.charAt(0);
+        if (rhs.length > 1) {
+          input += rhs.charAt(1);
+        }
+        else {
+          input += '0';
+        }
+      }
+    }
+    var numNumerals = input.length;
+    if (input.split('.').length > 1) {
+      numNumerals--;
+    }
+    if (numNumerals <= 3) {
+      return String(input) + suffixes[iteration];
+    }
+    else {
+      return recurse(Number(input) / 1000, iteration + 1);
+    }
+  }
+}
+},{}],23:[function(require,module,exports){
+/**
+ * Copyright (c) 2011-2014 Felix Gnass
+ * Licensed under the MIT license
+ * http://spin.js.org/
+ *
+ * Example:
+    var opts = {
+      lines: 12            
+    , length: 7            
+    , width: 5             
+    , radius: 10           
+    , scale: 1.0           
+    , corners: 1           
+    , color: '#000'        
+    , opacity: 1/4         
+    , rotate: 0            
+    , direction: 1         
+    , speed: 1             
+    , trail: 100           
+    , fps: 20              
+    , zIndex: 2e9          
+    , className: 'spinner' 
+    , top: '50%'           
+    , left: '50%'          
+    , shadow: false        
+    , hwaccel: false       
+    , position: 'absolute' 
+    }
+    var target = document.getElementById('foo')
+    var spinner = new Spinner(opts).spin(target)
+ */
+;(function (root, factory) {
+  /* CommonJS */
+  if (typeof module == 'object' && module.exports) module.exports = factory()
+  /* AMD module */
+  else if (typeof define == 'function' && define.amd) define(factory)
+  /* Browser global */
+  else root.Spinner = factory()
+}(this, function () {
+  "use strict"
+  var prefixes = ['webkit', 'Moz', 'ms', 'O'] /* Vendor prefixes */
+    , animations = {} /* Animation rules keyed by their name */
+    , useCssAnimations /* Whether to use CSS animations or setTimeout */
+    , sheet /* A stylesheet to hold the @keyframe or VML rules. */
+  /**
+   * Utility function to create elements. If no tag name is given,
+   * a DIV is created. Optionally properties can be passed.
+   */
+  function createEl (tag, prop) {
+    var el = document.createElement(tag || 'div')
+      , n
+    for (n in prop) el[n] = prop[n]
+    return el
+  }
+  /**
+   * Appends children and returns the parent.
+   */
+  function ins (parent /* child1, child2, ...*/) {
+    for (var i = 1, n = arguments.length; i < n; i++) {
+      parent.appendChild(arguments[i])
+    }
+    return parent
+  }
+  /**
+   * Creates an opacity keyframe animation rule and returns its name.
+   * Since most mobile Webkits have timing issues with animation-delay,
+   * we create separate rules for each line/segment.
+   */
+  function addAnimation (alpha, trail, i, lines) {
+    var name = ['opacity', trail, ~~(alpha * 100), i, lines].join('-')
+      , start = 0.01 + i/lines * 100
+      , z = Math.max(1 - (1-alpha) / trail * (100-start), alpha)
+      , prefix = useCssAnimations.substring(0, useCssAnimations.indexOf('Animation')).toLowerCase()
+      , pre = prefix && '-' + prefix + '-' || ''
+    if (!animations[name]) {
+      sheet.insertRule(
+        '@' + pre + 'keyframes ' + name + '{' +
+        '0%{opacity:' + z + '}' +
+        start + '%{opacity:' + alpha + '}' +
+        (start+0.01) + '%{opacity:1}' +
+        (start+trail) % 100 + '%{opacity:' + alpha + '}' +
+        '100%{opacity:' + z + '}' +
+        '}', sheet.cssRules.length)
+      animations[name] = 1
+    }
+    return name
+  }
+  /**
+   * Tries various vendor prefixes and returns the first supported property.
+   */
+  function vendor (el, prop) {
+    var s = el.style
+      , pp
+      , i
+    prop = prop.charAt(0).toUpperCase() + prop.slice(1)
+    if (s[prop] !== undefined) return prop
+    for (i = 0; i < prefixes.length; i++) {
+      pp = prefixes[i]+prop
+      if (s[pp] !== undefined) return pp
+    }
+  }
+  /**
+   * Sets multiple style properties at once.
+   */
+  function css (el, prop) {
+    for (var n in prop) {
+      el.style[vendor(el, n) || n] = prop[n]
+    }
+    return el
+  }
+  /**
+   * Fills in default values.
+   */
+  function merge (obj) {
+    for (var i = 1; i < arguments.length; i++) {
+      var def = arguments[i]
+      for (var n in def) {
+        if (obj[n] === undefined) obj[n] = def[n]
+      }
+    }
+    return obj
+  }
+  /**
+   * Returns the line color from the given string or array.
+   */
+  function getColor (color, idx) {
+    return typeof color == 'string' ? color : color[idx % color.length]
+  }
+  var defaults = {
+    lines: 12            
+  , length: 7            
+  , width: 5             
+  , radius: 10           
+  , scale: 1.0           
+  , corners: 1           
+  , color: '#000'        
+  , opacity: 1/4         
+  , rotate: 0            
+  , direction: 1         
+  , speed: 1             
+  , trail: 100           
+  , fps: 20              
+  , zIndex: 2e9          
+  , className: 'spinner' 
+  , top: '50%'           
+  , left: '50%'          
+  , shadow: false        
+  , hwaccel: false       
+  , position: 'absolute' 
+  }
+  /** The constructor */
+  function Spinner (o) {
+    this.opts = merge(o || {}, Spinner.defaults, defaults)
+  }
+  Spinner.defaults = {}
+  merge(Spinner.prototype, {
+    /**
+     * Adds the spinner to the given target element. If this instance is already
+     * spinning, it is automatically removed from its previous target b calling
+     * stop() internally.
+     */
+    spin: function (target) {
+      this.stop()
+      var self = this
+        , o = self.opts
+        , el = self.el = createEl(null, {className: o.className})
+      css(el, {
+        position: o.position
+      , width: 0
+      , zIndex: o.zIndex
+      , left: o.left
+      , top: o.top
+      })
+      if (target) {
+        target.insertBefore(el, target.firstChild || null)
+      }
+      el.setAttribute('role', 'progressbar')
+      self.lines(el, self.opts)
+      if (!useCssAnimations) {
+        var i = 0
+          , start = (o.lines - 1) * (1 - o.direction) / 2
+          , alpha
+          , fps = o.fps
+          , f = fps / o.speed
+          , ostep = (1 - o.opacity) / (f * o.trail / 100)
+          , astep = f / o.lines
+        ;(function anim () {
+          i++
+          for (var j = 0; j < o.lines; j++) {
+            alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
+            self.opacity(el, j * o.direction + start, alpha, o)
+          }
+          self.timeout = self.el && setTimeout(anim, ~~(1000 / fps))
+        })()
+      }
+      return self
+    }
+    /**
+     * Stops and removes the Spinner.
+     */
+  , stop: function () {
+      var el = this.el
+      if (el) {
+        clearTimeout(this.timeout)
+        if (el.parentNode) el.parentNode.removeChild(el)
+        this.el = undefined
+      }
+      return this
+    }
+    /**
+     * Internal method that draws the individual lines. Will be overwritten
+     * in VML fallback mode below.
+     */
+  , lines: function (el, o) {
+      var i = 0
+        , start = (o.lines - 1) * (1 - o.direction) / 2
+        , seg
+      function fill (color, shadow) {
+        return css(createEl(), {
+          position: 'absolute'
+        , width: o.scale * (o.length + o.width) + 'px'
+        , height: o.scale * o.width + 'px'
+        , background: color
+        , boxShadow: shadow
+        , transformOrigin: 'left'
+        , transform: 'rotate(' + ~~(360/o.lines*i + o.rotate) + 'deg) translate(' + o.scale*o.radius + 'px' + ',0)'
+        , borderRadius: (o.corners * o.scale * o.width >> 1) + 'px'
+        })
+      }
+      for (; i < o.lines; i++) {
+        seg = css(createEl(), {
+          position: 'absolute'
+        , top: 1 + ~(o.scale * o.width / 2) + 'px'
+        , transform: o.hwaccel ? 'translate3d(0,0,0)' : ''
+        , opacity: o.opacity
+        , animation: useCssAnimations && addAnimation(o.opacity, o.trail, start + i * o.direction, o.lines) + ' ' + 1 / o.speed + 's linear infinite'
+        })
+        if (o.shadow) ins(seg, css(fill('#000', '0 0 4px #000'), {top: '2px'}))
+        ins(el, ins(seg, fill(getColor(o.color, i), '0 0 1px rgba(0,0,0,.1)')))
+      }
+      return el
+    }
+    /**
+     * Internal method that adjusts the opacity of a single line.
+     * Will be overwritten in VML fallback mode below.
+     */
+  , opacity: function (el, i, val) {
+      if (i < el.childNodes.length) el.childNodes[i].style.opacity = val
+    }
+  })
+  function initVML () {
+    /* Utility function to create a VML tag */
+    function vml (tag, attr) {
+      return createEl('<' + tag + ' xmlns="urn:schemas-microsoft.com:vml" class="spin-vml">', attr)
+    }
+    sheet.addRule('.spin-vml', 'behavior:url(#default#VML)')
+    Spinner.prototype.lines = function (el, o) {
+      var r = o.scale * (o.length + o.width)
+        , s = o.scale * 2 * r
+      function grp () {
+        return css(
+          vml('group', {
+            coordsize: s + ' ' + s
+          , coordorigin: -r + ' ' + -r
+          })
+        , { width: s, height: s }
+        )
+      }
+      var margin = -(o.width + o.length) * o.scale * 2 + 'px'
+        , g = css(grp(), {position: 'absolute', top: margin, left: margin})
+        , i
+      function seg (i, dx, filter) {
+        ins(
+          g
+        , ins(
+            css(grp(), {rotation: 360 / o.lines * i + 'deg', left: ~~dx})
+          , ins(
+              css(
+                vml('roundrect', {arcsize: o.corners})
+              , { width: r
+                , height: o.scale * o.width
+                , left: o.scale * o.radius
+                , top: -o.scale * o.width >> 1
+                , filter: filter
+                }
+              )
+            , vml('fill', {color: getColor(o.color, i), opacity: o.opacity})
+            , vml('stroke', {opacity: 0})
+            )
+          )
+        )
+      }
+      if (o.shadow)
+        for (i = 1; i <= o.lines; i++) {
+          seg(i, -2, 'progid:DXImageTransform.Microsoft.Blur(pixelradius=2,makeshadow=1,shadowopacity=.3)')
+        }
+      for (i = 1; i <= o.lines; i++) seg(i)
+      return ins(el, g)
+    }
+    Spinner.prototype.opacity = function (el, i, val, o) {
+      var c = el.firstChild
+      o = o.shadow && o.lines || 0
+      if (c && i + o < c.childNodes.length) {
+        c = c.childNodes[i + o]; c = c && c.firstChild; c = c && c.firstChild
+        if (c) c.opacity = val
+      }
+    }
+  }
+  if (typeof document !== 'undefined') {
+    sheet = (function () {
+      var el = createEl('style', {type : 'text/css'})
+      ins(document.getElementsByTagName('head')[0], el)
+      return el.sheet || el.styleSheet
+    }())
+    var probe = css(createEl('group'), {behavior: 'url(#default#VML)'})
+    if (!vendor(probe, 'transform') && probe.adj) initVML()
+    else useCssAnimations = vendor(probe, 'animation')
+  }
+  return Spinner
+}));
+},{}]},{},[1]);

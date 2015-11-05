@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Keen Dataviz Demo | Keen IO</title>
+    <link rel="stylesheet" href="../dist/keen-dataviz.css">
+    <script src="../dist/keen-dataviz.js"></script>
+  </head>
+  <body onload="init()">
+    <div class="demo-chart keen-dataviz" id="demo-chart"></div>
+    <script>
+    function init(){
+      window.chart = new Dataviz()
+        .height(200)
+        .el('#demo-chart')
+        .prepare();
+
+        // .type('spinner')
+        // .render();
+    }
+    </script>
+    <style>
+    body {
+      background: #f2f2f2;
+      padding: 20px 0;
+    }
+    .demo-chart {
+      background: #fff;
+      margin: 0 auto;
+      /*padding: 10px;*/
+      width: 600px;
+    }
+    </style>
+  </body>
+</html>

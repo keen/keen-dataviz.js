@@ -17,7 +17,14 @@ var browserify = require('browserify'),
     // aws = require('gulp-awspublish'),
     // moment = require('moment'),
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build', 'connect', 'watch']);
+
+gulp.task('connect', ['build'], function () {
+  return connect.server({
+      root: [ __dirname, 'test', 'test/unit', 'test/demo' ],
+      port: 9002
+    });
+});
 
 gulp.task('build', ['build:script', 'build:styles']);
 
@@ -33,7 +40,7 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('build:script', function(){
-  return gulp.src('./lib/index.js')
+  return gulp.src('./lib/browser.js')
     .pipe(through2.obj(function(file, enc, next){
       browserify(file.path)
         .bundle(function(err, res){

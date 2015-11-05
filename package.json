@@ -19,7 +19,9 @@
   "engines": {
     "node": "4.0.x"
   },
-  "dependencies": {},
+  "dependencies": {
+    "spin.js": "^2.3.2"
+  },
   "devDependencies": {
     "chai": "^3.4.0",
     "del": "^2.0.2",
