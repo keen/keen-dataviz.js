@@ -1023,8 +1023,8 @@ function defineMessage(){
       var elem = document.createElement('div'),
           msg = document.createElement('span');
       elem.className = 'keen-dataviz-message';
+      elem.style.height = String(this.height() + 'px');
       elem.style.paddingTop = (this.height() / 2 - 12) + 'px';
-      elem.style.paddingBottom = (this.height() / 2 - 12) + 'px';
       elem.style.width = String(this.width() + 'px');
       msg.innerHTML = text || '';
       elem.appendChild(msg);
