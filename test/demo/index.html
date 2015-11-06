@@ -2,20 +2,50 @@
 <html>
   <head>
     <title>Keen Dataviz Demo | Keen IO</title>
+    <link rel="stylesheet" href="./keen-bootstrap.min.css">
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
     <script src="../dist/keen-dataviz.js"></script>
   </head>
   <body onload="init()">
-    <div class="demo-chart keen-dataviz" id="demo-chart"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div id="chart-demo-spinner" class="keen-dataviz"></div>
+        </div>
+        <div class="col-sm-4">
+          <div class="chart-demo-message keen-dataviz"></div>
+        </div>
+        <div class="col-sm-4" id="nested">
+          <div class="chart-demo-metric keen-dataviz"></div>
+        </div>
+      </div>
+    </div>
+
     <script>
     function init(){
-      window.chart = new Dataviz()
-        .height(200)
-        .el('#demo-chart')
+
+      window.spinner = new Dataviz()
+        .height(140)
+        .el('#chart-demo-spinner')
+        .type('spinner')
+        .render();
+
+      window.message = new Dataviz()
+        .height(140)
+        .el('.chart-demo-message')
+        .message('This is a manual message!');
+
+      window.metric = new Dataviz()
+        .height(140)
+        .el('#nested .chart-demo-metric')
+        .type('metric')
         .prepare();
 
-        // .type('spinner')
-        // .render();
+      setTimeout(function(){
+        window.metric.call(function(){
+          this.dataset.matrix = [['Index', 'Value'],['Result', 24502]];
+        }).render();
+      }, 1 * 1000);
     }
     </script>
     <style>

@@ -968,9 +968,9 @@ var each = require('../utils/each'),
 var types = {};
 function initialize(){
   defineC3();
-  defineCustomMessage();
-  defineCustomMetric();
-  defineCustomSpinner();
+  defineMessage();
+  defineMetric();
+  defineSpinner();
   return types;
 }
 function defineC3(){
@@ -1017,7 +1017,7 @@ function getC3SetupTemplate(type){
   setup['data']['type'] = type;
   return setup;
 }
-function defineCustomMessage(){
+function defineMessage(){
   types['message'] = {
     render: function(text){
       var elem = document.createElement('div'),
@@ -1038,7 +1038,7 @@ function defineCustomMessage(){
     }
   };
 }
-function defineCustomMetric(){
+function defineMetric(){
   types['metric'] = {
     render: function(){
       var title = this.title() || this.data()[1][0],
@@ -1074,7 +1074,7 @@ function defineCustomMetric(){
     }
   };
 }
-function defineCustomSpinner(){
+function defineSpinner(){
   var defaults = {
     height: 138,         
     lines: 10,           
@@ -1096,7 +1096,6 @@ function defineCustomSpinner(){
   };
   types['spinner'] = {
     render: function(){
-      console.log('RENDER');
       var spinner = document.createElement('div');
       var height = this.height() || defaults.height;
       spinner.className = 'keen-dataviz-spinning';
@@ -1107,9 +1106,9 @@ function defineCustomSpinner(){
       this.el().appendChild(spinner);
       this.view._artifacts['spinner'] = new Spinner(defaults).spin(spinner);
     },
-    update: function(){},
+    update: function(){
+    },
     destroy: function(){
-      console.log('DESTROY');
       if (this.view._artifacts['spinner']) {
         this.view._artifacts['spinner'].stop();
         this.view._artifacts['spinner'] = null;
