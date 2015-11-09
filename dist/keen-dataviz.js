@@ -988,7 +988,20 @@ function defineC3(){
         this.update();
       },
       update: function(){
-        var self = this, cols = [];
+        var cols = [];
+        if (type === 'gauge') {
+          this.view._artifacts['c3'].load({
+            columns: [[
+              this.title() || this.data()[1][0],
+              this.data()[1][1]
+            ]]
+          });
+        }
+        else if (type === 'pie' || type === 'donut') {
+          this.view._artifacts['c3'].load({
+            columns: this.data().slice(1)
+          });
+        }
       },
       destroy: function(){
         if (this.view._artifacts['c3']) {
@@ -1004,7 +1017,8 @@ function getC3SetupTemplate(type){
     axis: {},
     bindto: this.el(),
     data: {
-      columns: []
+      columns: [],
+      type: type
     },
     color: {
       pattern: this.colors()
@@ -1014,7 +1028,6 @@ function getC3SetupTemplate(type){
       width: this.width()
     }
   };
-  setup['data']['type'] = type;
   return setup;
 }
 function defineMessage(){

@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>Keen Dataviz Demo | Keen IO</title>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' />
+    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
+
     <link rel="stylesheet" type="text/css" href="//cloud.typography.com/737368/747986/css/fonts.css" />
     <link rel="stylesheet" href="./keen-bootstrap.min.css">
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
@@ -9,17 +13,43 @@
   </head>
   <body onload="init()">
     <div class="container">
+
+      <div class="page-header">
+        <h1>Custom types</h1>
+      </div>
       <div class="row">
-        <div class="col-sm-4">
-          <div id="chart-demo-spinner" class="keen-dataviz"></div>
-        </div>
-        <div class="col-sm-4">
-          <div class="chart-demo-message keen-dataviz"></div>
-        </div>
         <div class="col-sm-4" id="nested">
+          <h4>metric</h4>
           <div class="chart-demo-metric keen-dataviz"></div>
         </div>
+        <div class="col-sm-4">
+          <h4>message</h4>
+          <div class="chart-demo-message keen-dataviz"></div>
+        </div>
+        <div class="col-sm-4">
+          <h4>spinner</h4>
+          <div id="chart-demo-spinner" class="keen-dataviz"></div>
+        </div>
       </div>
+
+      <div class="page-header">
+        <h1>C3.js types</h1>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <h4>gauge</h4>
+          <div class="chart-c3-gauge keen-dataviz"></div>
+        </div>
+        <div class="col-sm-4">
+          <h4>donut</h4>
+          <div class="chart-c3-donut keen-dataviz"></div>
+        </div>
+        <div class="col-sm-4">
+          <h4>pie</h4>
+          <div class="chart-c3-pie keen-dataviz"></div>
+        </div>
+      </div>
+
     </div>
 
     <script>
@@ -47,6 +77,58 @@
           this.dataset.matrix = [['Index', 'Value'],['Result', 24502]];
         }).render();
       }, 1 * 1000);
+
+      window.gauge = new Dataviz()
+        .height(200)
+        .el('.chart-c3-gauge')
+        .title('Percentage of awesome')
+        .type('gauge')
+        .chartOptions({
+          // gauge: {
+          //   min: 0,
+          //   max: 100
+          // }
+        })
+        .call(function(){
+          this.dataset.matrix = [['Index', 'Value'],['Result', 79.1]];
+        })
+        .render();
+
+      window.donut = new Dataviz()
+        // .height(200)
+        .el('.chart-c3-donut')
+        .title('Mmmm, donuts...')
+        .type('donut')
+        .chartOptions({
+        })
+        .call(function(){
+          this.dataset.matrix = [
+            ['Index', 'Value'],
+            ['A', 189.98],
+            ['B', 135.83],
+            ['C', 124.56],
+            ['D', 117.22],
+            ['E', 55.12]
+          ];
+        })
+        .render();
+
+      window.pie = new Dataviz()
+        // .height(200)
+        .el('.chart-c3-pie')
+        .title('Mmmm, pie...')
+        .type('pie')
+        .call(function(){
+          this.dataset.matrix = [
+            ['Index', 'Value'],
+            ['A', 189.98],
+            ['B', 135.83],
+            ['C', 124.56],
+            ['D', 117.22],
+            ['E', 55.12]
+          ];
+        })
+        .render();
     }
     </script>
     <style>
