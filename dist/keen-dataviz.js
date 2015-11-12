@@ -982,26 +982,69 @@ function defineC3(){
   each(c3Types, function(type, index) {
     types[type] = {
       render: function(){
-        var setup = getC3SetupTemplate.call(this, type);
-        var options = extend(setup, this.chartOptions());
-        this.view._artifacts['c3'] = c3.generate(options);
-        this.update();
-      },
-      update: function(){
-        var cols = [];
+        var self = this;
+        var options = extend({
+          axis: {},
+          bindto: this.el(),
+          data: {
+            columns: [],
+            type: this.type()
+          },
+          color: {
+            pattern: this.colors()
+          },
+          size: {
+            height: this.height(),
+            width: this.width()
+          }
+        }, this.chartOptions());
         if (type === 'gauge') {
-          this.view._artifacts['c3'].load({
-            columns: [[
-              this.title() || this.data()[1][0],
-              this.data()[1][1]
-            ]]
-          });
+          options.data.columns = [[
+            this.title() || this.data()[1][0],
+            this.data()[1][1]
+          ]];
         }
         else if (type === 'pie' || type === 'donut') {
-          this.view._artifacts['c3'].load({
-            columns: this.data().slice(1)
+          options.data.columns = this.data().slice(1);
+        }
+        else {
+          if (!isNaN(new Date(this.data()[1][0]).getTime())) {
+            options.axis.x = {
+              type: 'timeseries',
+              tick: { format: '%Y-%m-%d' }
+            };
+            options.data.columns[0] = [];
+            each(this.dataset.selectColumn(0), function(cell, i){
+              if (i > 0) {
+                cell = new Date(cell);
+              }
+              options.data.columns[0][i] = cell;
+            });
+            options.data.columns[0][0] = 'x';
+            options.data.x = 'x';
+            if (this.stacked() && this.data()[0].length > 2) {
+              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+            }
+          }
+          else {
+            options.axis.x = {
+              type: 'category',
+              categories: this.dataset.selectColumn(0).slice(1)
+            };
+            if (this.stacked() && this.data()[0].length > 2) {
+              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+            }
+          }
+          each(this.data()[0], function(cell, i){
+            if (i > 0) {
+              options.data.columns.push(self.dataset.selectColumn(i));
+            }
           });
         }
+        this.view._artifacts['c3'] = c3.generate(options);
+      },
+      update: function(){
+        this.render();
       },
       destroy: function(){
         if (this.view._artifacts['c3']) {
@@ -1011,24 +1054,6 @@ function defineC3(){
       }
     };
   });
-}
-function getC3SetupTemplate(type){
-  var setup = {
-    axis: {},
-    bindto: this.el(),
-    data: {
-      columns: [],
-      type: type
-    },
-    color: {
-      pattern: this.colors()
-    },
-    size: {
-      height: this.height(),
-      width: this.width()
-    }
-  };
-  return setup;
 }
 function defineMessage(){
   types['message'] = {
@@ -1121,6 +1146,7 @@ function defineSpinner(){
       this.view._artifacts['spinner'] = new Spinner(defaults).spin(spinner);
     },
     update: function(){
+      this.render();
     },
     destroy: function(){
       if (this.view._artifacts['spinner']) {
