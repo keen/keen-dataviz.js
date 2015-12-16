@@ -1,84 +1,75 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (global){
-;(function (f) {
-  if ('undefined' !== typeof define && define.amd && typeof define === 'function') {
-    define('keen-dataviz', [], function(){ return f(); });
-  }
-  if (typeof exports === 'object' && typeof module !== 'undefined') {
-    module.exports = f();
-  }
-  var g = null;
-  if (typeof window !== 'undefined') {
-    g = window;
-  } else if (typeof global !== 'undefined') {
-    g = global;
-  } else if (typeof self !== 'undefined') {
-    g = self;
-  }
-  if (g) {
-    g.Dataviz = f();
-  }
-})(function() {
-  'use strict';
-  var Dataviz = require('./');
-  module.exports = Dataviz;
-  return Dataviz;
-});
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./":14}],2:[function(require,module,exports){
 /*
   Dataset SDK
 */
-var append = require('./modifiers/append'),
-    del = require('./modifiers/delete'),
-    filter = require('./modifiers/filter'),
-    insert = require('./modifiers/insert'),
-    select = require('./modifiers/select'),
-    sort   = require('./modifiers/sort'),
-    update = require('./modifiers/update');
-var analyses = require('./utils/analyses'),
-    extend = require('../utils/extend'),
-    parsers = require('./utils/parsers');
-function Dataset(){
-  this.matrix = [
-    ['Index']
-  ];
-}
-Dataset.prototype.data = function(arr){
-  if (!arguments.length) return this.matrix;
-  this.matrix = (arr instanceof Array ? arr : null);
-  return this;
-};
-Dataset.prototype.set = function(coords, value){
-  if (arguments.length < 2 || coords.length < 2) {
-    throw Error('Incorrect arguments provided for #set method');
+(function(root){
+  var append = require('./modifiers/append'),
+      del = require('./modifiers/delete'),
+      filter = require('./modifiers/filter'),
+      insert = require('./modifiers/insert'),
+      select = require('./modifiers/select'),
+      sort   = require('./modifiers/sort'),
+      update = require('./modifiers/update');
+  var analyses = require('./utils/analyses'),
+      extend = require('../utils/extend'),
+      parsers = require('./utils/parsers');
+  function Dataset(){
+    if (this instanceof Dataset === false) {
+      return new Dataset();
+    }
+    this.matrix = [
+      ['Index']
+    ];
   }
-  var colIndex = 'number' === typeof coords[0] ? coords[0] : this.matrix[0].indexOf(coords[0]),
-      rowIndex = 'number' === typeof coords[1] ? coords[1] : select.selectColumn.call(this, 0).indexOf(coords[1]);
-  var colResult = select.selectColumn.call(this, coords[0]),
-      rowResult = select.selectRow.call(this, coords[1]);
-  if (colResult.length < 1) {
-    append.appendColumn.call(this, coords[0]);
-    colIndex = this.matrix[0].length - 1;
+  Dataset.prototype.data = function(arr){
+    if (!arguments.length) return this.matrix;
+    this.matrix = (arr instanceof Array ? arr : null);
+    return this;
+  };
+  Dataset.prototype.set = function(coords, value){
+    if (arguments.length < 2 || coords.length < 2) {
+      throw Error('Incorrect arguments provided for #set method');
+    }
+    var colIndex = 'number' === typeof coords[0] ? coords[0] : this.matrix[0].indexOf(coords[0]),
+        rowIndex = 'number' === typeof coords[1] ? coords[1] : select.selectColumn.call(this, 0).indexOf(coords[1]);
+    var colResult = select.selectColumn.call(this, coords[0]),
+        rowResult = select.selectRow.call(this, coords[1]);
+    if (colResult.length < 1) {
+      append.appendColumn.call(this, coords[0]);
+      colIndex = this.matrix[0].length - 1;
+    }
+    if (rowResult.length < 1) {
+      append.appendRow.call(this, coords[1]);
+      rowIndex = this.matrix.length - 1;
+    }
+    this.matrix[ rowIndex ][ colIndex ] = value;
+    return this;
   }
-  if (rowResult.length < 1) {
-    append.appendRow.call(this, coords[1]);
-    rowIndex = this.matrix.length - 1;
+  extend(Dataset.prototype, append);
+  extend(Dataset.prototype, del);
+  extend(Dataset.prototype, filter);
+  extend(Dataset.prototype, insert);
+  extend(Dataset.prototype, select);
+  extend(Dataset.prototype, sort);
+  extend(Dataset.prototype, update);
+  extend(Dataset.prototype, analyses);
+  Dataset.parser = parsers(Dataset);
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Dataset;
   }
-  this.matrix[ rowIndex ][ colIndex ] = value;
-  return this;
-}
-extend(Dataset.prototype, append);
-extend(Dataset.prototype, del);
-extend(Dataset.prototype, filter);
-extend(Dataset.prototype, insert);
-extend(Dataset.prototype, select);
-extend(Dataset.prototype, sort);
-extend(Dataset.prototype, update);
-extend(Dataset.prototype, analyses);
-Dataset.parser = parsers(Dataset);
-module.exports = Dataset;
-},{"../utils/extend":21,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+  if (typeof define !== 'undefined' && define.amd) {
+    define('keen-dataset', [], function(){
+      return Dataset;
+    });
+  }
+  root.Dataset = Dataset;
+  if (typeof global !== 'undefined') {
+    global.Dataset = Dataset;
+  }
+}(this));
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../utils/extend":20,"./modifiers/append":2,"./modifiers/delete":3,"./modifiers/filter":4,"./modifiers/insert":5,"./modifiers/select":6,"./modifiers/sort":7,"./modifiers/update":8,"./utils/analyses":9,"./utils/parsers":12}],2:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -157,7 +148,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":20,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":19,"../utils/create-null-list":10}],3:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -180,7 +171,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":20}],5:[function(require,module,exports){
+},{"../../utils/each":19}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -214,7 +205,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":20}],6:[function(require,module,exports){
+},{"../../utils/each":19}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -293,7 +284,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":19,"../utils/create-null-list":10,"./append":2}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -317,7 +308,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":20}],8:[function(require,module,exports){
+},{"../../utils/each":19}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -367,7 +358,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":20}],9:[function(require,module,exports){
+},{"../../utils/each":19}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -441,7 +432,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":19,"../utils/create-null-list":10,"./append":2}],9:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -503,7 +494,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":20,"../../utils/extend":21}],11:[function(require,module,exports){
+},{"../../utils/each":19,"../../utils/extend":20}],10:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -511,7 +502,7 @@ module.exports = function(len){
   }
   return list;
 };
-},{}],12:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports = flatten;
 function flatten(ob){
   var toReturn = {};
@@ -529,7 +520,7 @@ function flatten(ob){
   }
   return toReturn;
 };
-},{}],13:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var Dataset; /* injected */
 var each = require('../../utils/each'),
     flatten = require('../utils/flatten');
@@ -669,291 +660,309 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":20,"../utils/flatten":12}],14:[function(require,module,exports){
-var Dataset = require('./dataset');
-var libraries = {
-  'default': require('./libraries/default')()
-};
-var applyColorMapping = require('./utils/apply-color-mapping'),
-    applyLabelMapping = require('./utils/apply-label-mapping'),
-    applyLabels = require('./utils/apply-labels'),
-    applySortGroups = require('./utils/apply-sort-groups'),
-    each = require('./utils/each'),
-    extend = require('./utils/extend'),
-    parseData = require('./utils/parse-data');
-function Dataviz(){
-  this.dataset = new Dataset();
-  this.view = {
-    _prepared: false,
-    _rendered: false,
-    _artifacts: { /* state bin */ },
-    chartOptions: {},
-    colors: [ /*
-      teal       red        yellow     purple     orange     mint       blue       green      lavender  */
-      '#00bbde', '#fe6672', '#eeb058', '#8a8ad6', '#ff855c', '#00cfbb', '#5a9eed', '#73d483', '#c879bb',
-      '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e',
-      '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'
-    ],
-    colorMapping: {},
-    el: undefined,
-    height: 400,
-    indexBy: 'timeframe.start',
-    labels: [],
-    labelMapping: {},
-    library: 'default',
-    notes: undefined,
-    sortGroups: undefined,
-    sortIntervals: undefined,
-    stacked: false,
-    theme: 'keen-dataviz',
-    title: undefined,
-    type: undefined,
-    width: undefined
+},{"../../utils/each":19,"../utils/flatten":11}],13:[function(require,module,exports){
+(function (global){
+(function(root){
+  var Dataset = require('./dataset');
+  var libraries = {
+    'default': require('./libraries/default')()
   };
-  Dataviz.visuals.push(this);
-};
-Dataviz.prototype.attributes = function(obj){
-  if (!arguments.length) return this.view;
-  var view = this.view;
-  each(obj, function(prop, key){
-    if (key === 'chartType') {
-      key = 'type';
+  var applyColorMapping = require('./utils/apply-color-mapping'),
+      applyLabelMapping = require('./utils/apply-label-mapping'),
+      applyLabels = require('./utils/apply-labels'),
+      applySortGroups = require('./utils/apply-sort-groups'),
+      each = require('./utils/each'),
+      extend = require('./utils/extend'),
+      parseData = require('./utils/parse-data');
+  function Dataviz(){
+    if (this instanceof Dataviz === false) {
+      return new Dataviz();
     }
-    view[key] = prop;
-  });
-  return this;
-};
-Dataviz.prototype.call = function(fn){
-  fn.call(this);
-  return this;
-};
-Dataviz.prototype.chartOptions = function(obj){
-  var self = this;
-  if (!arguments.length) return this.view.chartOptions;
-  if (obj === null) {
-    this.view.chartOptions = {};
-  }
-  else if (typeof obj === 'object') {
-    each(obj, function(value, key){
-      self.view.chartOptions[key] = (value ? value : null);
+    this.dataset = new Dataset();
+    this.view = {
+      _prepared: false,
+      _rendered: false,
+      _artifacts: { /* state bin */ },
+      chartOptions: {},
+      colors: [ /*
+        teal       red        yellow     purple     orange     mint       blue       green      lavender  */
+        '#00bbde', '#fe6672', '#eeb058', '#8a8ad6', '#ff855c', '#00cfbb', '#5a9eed', '#73d483', '#c879bb',
+        '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e',
+        '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'
+      ],
+      colorMapping: {},
+      el: undefined,
+      height: 400,
+      indexBy: 'timeframe.start',
+      labels: [],
+      labelMapping: {},
+      library: 'default',
+      notes: undefined,
+      sortGroups: undefined,
+      sortIntervals: undefined,
+      stacked: false,
+      theme: 'keen-dataviz',
+      title: undefined,
+      type: undefined,
+      width: undefined
+    };
+    Dataviz.visuals.push(this);
+  };
+  Dataviz.prototype.attributes = function(obj){
+    if (!arguments.length) return this.view;
+    var view = this.view;
+    each(obj, function(prop, key){
+      if (key === 'chartType') {
+        key = 'type';
+      }
+      view[key] = prop;
     });
-  }
-  return this;
-};
-Dataviz.prototype.colors = function(arr){
-  if (!arguments.length) return this.view.colors;
-  this.view.colors = (arr instanceof Array ? arr : []);
-  return this;
-};
-Dataviz.prototype.colorMapping = function(obj){
-  var self = this;
-  if (!arguments.length) return this.view.colorMapping;
-  if (obj === null) {
-    this.view.colorMapping = {};
-  }
-  else if (typeof obj === 'object') {
-    each(obj, function(value, key){
-      self.view.colorMapping[key] = (value ? value : null);
-    });
-  }
-  return this;
-};
-Dataviz.prototype.data = parseData;
-Dataviz.prototype.destroy = function(){
-  var library = this.library(),
-      type = this.type(),
-      element = this.el();
-  if (library && type && Dataviz.libraries[library][type].destroy) {
-    Dataviz.libraries[library][type].destroy.apply(this, arguments);
-  }
-  if (element) {
-    element.innerHTML = '';
-  }
-  this.view._prepared = false;
-  this.view._rendered = false;
-  this.view._artifacts = {};
-  return this;
-};
-Dataviz.prototype.el = function(target){
-  if (!arguments.length) return this.view.el;
-  if (target) {
-    if (target.nodeName) {
-      this.view.el = target;
-    }
-    else if (document.querySelector) {
-      this.view.el = document.querySelector(target);
-    }
-  }
-  return this;
-};
-Dataviz.prototype.height = function(num){
-  if (!arguments.length) return this.view['height'];
-  this.view['height'] = (!isNaN(parseInt(num)) ? parseInt(num) : null);
-  return this;
-};
-Dataviz.prototype.indexBy = function(str){
-  if (!arguments.length) return this.view.indexBy;
-  this.view.indexBy = (str ? String(str) : 'timeframe.start');
-  return this;
-};
-Dataviz.prototype.labels = function(arr){
-  if (!arguments.length) {
-      return this.view.labels;
-  }
-  else {
-    this.view.labels = (arr instanceof Array ? arr : []);
     return this;
+  };
+  Dataviz.prototype.call = function(fn){
+    fn.call(this);
+    return this;
+  };
+  Dataviz.prototype.chartOptions = function(obj){
+    var self = this;
+    if (!arguments.length) return this.view.chartOptions;
+    if (obj === null) {
+      this.view.chartOptions = {};
+    }
+    else if (typeof obj === 'object') {
+      each(obj, function(value, key){
+        self.view.chartOptions[key] = (value ? value : null);
+      });
+    }
+    return this;
+  };
+  Dataviz.prototype.colors = function(arr){
+    if (!arguments.length) return this.view.colors;
+    this.view.colors = (arr instanceof Array ? arr : []);
+    return this;
+  };
+  Dataviz.prototype.colorMapping = function(obj){
+    var self = this;
+    if (!arguments.length) return this.view.colorMapping;
+    if (obj === null) {
+      this.view.colorMapping = {};
+    }
+    else if (typeof obj === 'object') {
+      each(obj, function(value, key){
+        self.view.colorMapping[key] = (value ? value : null);
+      });
+    }
+    return this;
+  };
+  Dataviz.prototype.data = parseData;
+  Dataviz.prototype.destroy = function(){
+    var library = this.library(),
+        type = this.type(),
+        element = this.el();
+    if (library && type && Dataviz.libraries[library][type].destroy) {
+      Dataviz.libraries[library][type].destroy.apply(this, arguments);
+    }
+    if (element) {
+      element.innerHTML = '';
+    }
+    this.view._prepared = false;
+    this.view._rendered = false;
+    this.view._artifacts = {};
+    return this;
+  };
+  Dataviz.prototype.el = function(target){
+    if (!arguments.length) return this.view.el;
+    if (target) {
+      if (target.nodeName) {
+        this.view.el = target;
+      }
+      else if (document.querySelector) {
+        this.view.el = document.querySelector(target);
+      }
+    }
+    return this;
+  };
+  Dataviz.prototype.height = function(num){
+    if (!arguments.length) return this.view['height'];
+    this.view['height'] = (!isNaN(parseInt(num)) ? parseInt(num) : null);
+    return this;
+  };
+  Dataviz.prototype.indexBy = function(str){
+    if (!arguments.length) return this.view.indexBy;
+    this.view.indexBy = (str ? String(str) : 'timeframe.start');
+    return this;
+  };
+  Dataviz.prototype.labels = function(arr){
+    if (!arguments.length) {
+        return this.view.labels;
+    }
+    else {
+      this.view.labels = (arr instanceof Array ? arr : []);
+      return this;
+    }
+  };
+  Dataviz.prototype.labelMapping = function(obj){
+    var self = this;
+    if (!arguments.length) return this.view.labelMapping;
+    if (obj === null) {
+      this.view.labelMapping = {};
+    }
+    else if (typeof obj === 'object') {
+      each(obj, function(value, key){
+        self.view.labelMapping[key] = (value ? value : null);
+      });
+    }
+    return this;
+  };
+  Dataviz.prototype.library = function(str){
+    if (!arguments.length) return this.view['library'];
+    this.view['library'] = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.message = function(){
+    var loader;
+    if (this.view._rendered) {
+      this.destroy();
+    }
+    if (this.el()) {
+      this.el().innerHTML = '';
+      message = Dataviz.libraries['default'].message;
+      if (message.render) {
+        message.render.apply(this, arguments);
+      }
+    }
+    return this;
+  };
+  Dataviz.prototype.notes = function(str){
+    if (!arguments.length) return this.view['notes'];
+    this.view['notes'] = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.prepare = function(){
+    var loader;
+    if (this.view._rendered) {
+      this.destroy();
+    }
+    if (this.el()) {
+      this.el().innerHTML = '';
+      loader = Dataviz.libraries['default'].spinner;
+      if (loader.render) {
+        loader.render.apply(this, arguments);
+      }
+      this.view._prepared = true;
+    }
+    return this;
+  };
+  Dataviz.prototype.render = function(){
+    var loader = Dataviz.libraries['default'].spinner,
+        library = this.library(),
+        type = this.type(),
+        element = this.el();
+    if (this.view._prepared && loader.destroy) {
+      loader.destroy.apply(this, arguments);
+    }
+    else if (this.el()) {
+      this.el().innerHTML = '';
+    }
+    if (library && type && element && Dataviz.libraries[library][type].render) {
+      Dataviz.libraries[library][type].render.apply(this, arguments);
+      this.view._rendered = true;
+    }
+    return this;
+  };
+  Dataviz.prototype.sortGroups = function(str){
+    if (!arguments.length) return this.view.sortGroups;
+    this.view.sortGroups = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.sortIntervals = function(str){
+    if (!arguments.length) return this.view.sortInterval;
+    this.view.sortIntervals = (str ? String(str) : null);
+    if (this.view.sortIntervals) {
+      this.dataset.sortRows(this.view.sortIntervals);
+    }
+    return this;
+  };
+  Dataviz.prototype.stacked = function(bool){
+    if (!arguments.length) return this.view['stacked'];
+    this.view['stacked'] = bool ? true : false;
+    return this;
+  };
+  Dataviz.prototype.theme = function(str){
+    if (!arguments.length) return this.view.theme;
+    this.view.theme = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.title = function(str){
+    if (!arguments.length) return this.view['title'];
+    this.view['title'] = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.type = function(str){
+    if (!arguments.length) return this.view['type'];
+    this.view['type'] = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.update = function(){
+    var library = this.library(),
+        type = this.type(),
+        element = this.el();
+    if (library && type && element && Dataviz.libraries[library][type].update) {
+      Dataviz.libraries[library][type].update.apply(this, arguments);
+    }
+    return;
+  };
+  Dataviz.prototype.width = function(num){
+    if (!arguments.length) return this.view['width'];
+    this.view['width'] = (!isNaN(parseInt(num)) ? parseInt(num) : null);
+    return this;
+  };
+  Dataviz.prototype.chartType = Dataviz.prototype.type;
+  Dataviz.prototype.error = Dataviz.prototype.message;
+  Dataviz.prototype.parseRawData = Dataviz.prototype.data;
+  Dataviz.prototype.parseRequest = function(){
+    return this;
+  };
+  Dataviz.prototype.initialize = function(){
+    return this;
+  };
+  extend(Dataviz, {
+    libraries: libraries,
+    visuals: []
+  });
+  Dataviz.register = function(name, actions){
+    Dataviz.libraries[name] = Dataviz.libraries[name] || {};
+    each(actions, function(method, key){
+      Dataviz.libraries[name][key] = method;
+    });
+  };
+  Dataviz.find = function(target){
+    if (!arguments.length) return Dataviz.visuals;
+    var el = target.nodeName ? target : document.querySelector(target),
+        match = null;
+    each(Dataviz.visuals, function(visual){
+      if (el == visual.el()){
+        match = visual;
+        return false;
+      }
+    });
+    return match;
+  };
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Dataviz;
   }
-};
-Dataviz.prototype.labelMapping = function(obj){
-  var self = this;
-  if (!arguments.length) return this.view.labelMapping;
-  if (obj === null) {
-    this.view.labelMapping = {};
-  }
-  else if (typeof obj === 'object') {
-    each(obj, function(value, key){
-      self.view.labelMapping[key] = (value ? value : null);
+  if (typeof define !== 'undefined' && define.amd) {
+    define('keen-dataviz', [], function(){
+      return Dataviz;
     });
   }
-  return this;
-};
-Dataviz.prototype.library = function(str){
-  if (!arguments.length) return this.view['library'];
-  this.view['library'] = (str ? String(str) : null);
-  return this;
-};
-Dataviz.prototype.message = function(){
-  var loader;
-  if (this.view._rendered) {
-    this.destroy();
+  root.Dataviz = Dataviz;
+  if (typeof global !== 'undefined') {
+    global.Dataviz = Dataviz;
   }
-  if (this.el()) {
-    this.el().innerHTML = '';
-    message = Dataviz.libraries['default'].message;
-    if (message.render) {
-      message.render.apply(this, arguments);
-    }
-  }
-  return this;
-};
-Dataviz.prototype.notes = function(str){
-  if (!arguments.length) return this.view['notes'];
-  this.view['notes'] = (str ? String(str) : null);
-  return this;
-};
-Dataviz.prototype.prepare = function(){
-  var loader;
-  if (this.view._rendered) {
-    this.destroy();
-  }
-  if (this.el()) {
-    this.el().innerHTML = '';
-    loader = Dataviz.libraries['default'].spinner;
-    if (loader.render) {
-      loader.render.apply(this, arguments);
-    }
-    this.view._prepared = true;
-  }
-  return this;
-};
-Dataviz.prototype.render = function(){
-  var loader = Dataviz.libraries['default'].spinner,
-      library = this.library(),
-      type = this.type(),
-      element = this.el();
-  if (this.view._prepared && loader.destroy) {
-    loader.destroy.apply(this, arguments);
-  }
-  else if (this.el()) {
-    this.el().innerHTML = '';
-  }
-  if (library && type && element && Dataviz.libraries[library][type].render) {
-    Dataviz.libraries[library][type].render.apply(this, arguments);
-    this.view._rendered = true;
-  }
-  return this;
-};
-Dataviz.prototype.sortGroups = function(str){
-  if (!arguments.length) return this.view.sortGroups;
-  this.view.sortGroups = (str ? String(str) : null);
-  return this;
-};
-Dataviz.prototype.sortIntervals = function(str){
-  if (!arguments.length) return this.view.sortInterval;
-  this.view.sortIntervals = (str ? String(str) : null);
-  if (this.view.sortIntervals) {
-    this.dataset.sortRows(this.view.sortIntervals);
-  }
-  return this;
-};
-Dataviz.prototype.stacked = function(bool){
-  if (!arguments.length) return this.view['stacked'];
-  this.view['stacked'] = bool ? true : false;
-  return this;
-};
-Dataviz.prototype.theme = function(str){
-  if (!arguments.length) return this.view.theme;
-  this.view.theme = (str ? String(str) : null);
-  return this;
-};
-Dataviz.prototype.title = function(str){
-  if (!arguments.length) return this.view['title'];
-  this.view['title'] = (str ? String(str) : null);
-  return this;
-};
-Dataviz.prototype.type = function(str){
-  if (!arguments.length) return this.view['type'];
-  this.view['type'] = (str ? String(str) : null);
-  return this;
-};
-Dataviz.prototype.update = function(){
-  var library = this.library(),
-      type = this.type(),
-      element = this.el();
-  if (library && type && element && Dataviz.libraries[library][type].update) {
-    Dataviz.libraries[library][type].update.apply(this, arguments);
-  }
-  return;
-};
-Dataviz.prototype.width = function(num){
-  if (!arguments.length) return this.view['width'];
-  this.view['width'] = (!isNaN(parseInt(num)) ? parseInt(num) : null);
-  return this;
-};
-Dataviz.prototype.chartType = Dataviz.prototype.type;
-Dataviz.prototype.error = Dataviz.prototype.message;
-Dataviz.prototype.parseRawData = Dataviz.prototype.data;
-Dataviz.prototype.parseRequest = function(){
-  return this;
-};
-Dataviz.prototype.initialize = function(){
-  return this;
-};
-extend(Dataviz, {
-  libraries: libraries,
-  visuals: []
-});
-Dataviz.register = function(name, actions){
-  Dataviz.libraries[name] = Dataviz.libraries[name] || {};
-  each(actions, function(method, key){
-    Dataviz.libraries[name][key] = method;
-  });
-};
-Dataviz.find = function(target){
-  if (!arguments.length) return Dataviz.visuals;
-  var el = target.nodeName ? target : document.querySelector(target),
-      match = null;
-  each(Dataviz.visuals, function(visual){
-    if (el == visual.el()){
-      match = visual;
-      return false;
-    }
-  });
-  return match;
-};
-module.exports = Dataviz;
-},{"./dataset":2,"./libraries/default":15,"./utils/apply-color-mapping":16,"./utils/apply-label-mapping":17,"./utils/apply-labels":18,"./utils/apply-sort-groups":19,"./utils/each":20,"./utils/extend":21,"./utils/parse-data":22}],15:[function(require,module,exports){
+}(this));
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./dataset":1,"./libraries/default":14,"./utils/apply-color-mapping":15,"./utils/apply-label-mapping":16,"./utils/apply-labels":17,"./utils/apply-sort-groups":18,"./utils/each":19,"./utils/extend":20,"./utils/parse-data":21}],14:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
@@ -1160,24 +1169,24 @@ function defineSpinner(){
   };
 }
 module.exports = initialize;
-},{"../utils/each":20,"../utils/extend":21,"../utils/pretty-number":23,"spin.js":24}],16:[function(require,module,exports){
+},{"../utils/each":19,"../utils/extend":20,"../utils/pretty-number":22,"spin.js":23}],15:[function(require,module,exports){
 module.exports = applyColorMapping;
 function applyColorMapping(){
 }
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 module.exports = applyLabelMapping;
 function applyLabelMapping(){
 }
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = applyLabels;
 function applyLabels(){
 }
-},{}],19:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = applySortGroups;
 function applySortGroups(){
   return;
 }
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1202,7 +1211,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],21:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1212,7 +1221,7 @@ function extend(target){
   }
   return target;
 }
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var Dataset = require('../dataset');
 var extend = require('./extend');
 module.exports = function(data){
@@ -1331,7 +1340,7 @@ function parseResponse(response){
   }
   return dataset;
 }
-},{"../dataset":2,"./extend":21}],23:[function(require,module,exports){
+},{"../dataset":1,"./extend":20}],22:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1387,7 +1396,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],24:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
@@ -1708,4 +1717,4 @@ function prettyNumber(input) {
   }
   return Spinner
 }));
-},{}]},{},[1]);
+},{}]},{},[13]);

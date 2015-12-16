@@ -40,7 +40,7 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('build:script', function(){
-  return gulp.src('./lib/browser.js')
+  return gulp.src('./lib/index.js')
     .pipe(through2.obj(function(file, enc, next){
       browserify(file.path)
         .bundle(function(err, res){
