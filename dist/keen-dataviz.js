@@ -923,11 +923,11 @@ Dataviz.prototype.width = function(num){
 };
 Dataviz.prototype.chartType = Dataviz.prototype.type;
 Dataviz.prototype.error = Dataviz.prototype.message;
-Dataviz.prototype.parseRawData = function(data){
-  parseData.call(this, data);
+Dataviz.prototype.parseRawData = Dataviz.prototype.data;
+Dataviz.prototype.parseRequest = function(){
   return this;
 };
-Dataviz.prototype.parseRequest = function(){
+Dataviz.prototype.initialize = function(){
   return this;
 };
 extend(Dataviz, {
@@ -970,7 +970,14 @@ function defineC3(){
   var c3Types = [
     'area', 'area-spline', 'area-step',
     'bar', 'donut', 'gauge', 'line',
-    'pie', 'step', 'spline'
+    'pie', 'step', 'spline',
+    'horizontal-area',
+    'horizontal-area-spline',
+    'horizontal-area-step',
+    'horizontal-bar',
+    'horizontal-line',
+    'horizontal-step',
+    'horizontal-spline'
   ];
   each(c3Types, function(type, index) {
     types[type] = {
@@ -981,7 +988,7 @@ function defineC3(){
           bindto: this.el(),
           data: {
             columns: [],
-            type: this.type()
+            type: type.replace('horizontal-', '')
           },
           color: {
             pattern: this.colors()
@@ -1001,6 +1008,9 @@ function defineC3(){
           options.data.columns = this.data().slice(1);
         }
         else {
+          if (type.indexOf('horizontal-') > -1) {
+            options.axis.rotated = true;
+          }
           if (!isNaN(new Date(this.data()[1][0]).getTime())) {
             options.axis.x = {
               type: 'timeseries',
