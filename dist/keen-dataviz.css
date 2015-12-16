@@ -13,6 +13,7 @@
   display: block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
+  line-height: 24px;
 }
 .keen-dataviz .keen-dataviz-message {
   color: #aeb8c2;

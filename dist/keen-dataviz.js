@@ -839,37 +839,66 @@ function parseExtraction(){
     return this;
   };
   Dataviz.prototype.prepare = function(){
-    var loader;
-    if (this.view._rendered) {
-      this.destroy();
+    var self = this, loader;
+    if (!this.el()) {
+      throw 'A DOM element is required. Check out the .el() method.';
+      return;
     }
-    if (this.el()) {
-      this.el().innerHTML = '';
-      loader = Dataviz.libraries['default'].spinner;
-      if (loader.render) {
-        loader.render.apply(this, arguments);
+    domReady(function(){
+      if (self.view._rendered) {
+        self.destroy();
       }
-      this.view._prepared = true;
-    }
+      if (self.el()) {
+        self.el().innerHTML = '';
+        loader = Dataviz.libraries['default'].spinner;
+        if (loader.render) {
+          loader.render.apply(self, arguments);
+        }
+        self.view._prepared = true;
+      }
+    });
     return this;
   };
   Dataviz.prototype.render = function(){
-    var loader = Dataviz.libraries['default'].spinner,
+    var self = this,
+        loader = Dataviz.libraries['default'].spinner,
         library = this.library(),
         type = this.type(),
         element = this.el();
-    if (this.view._prepared && loader.destroy) {
-      loader.destroy.apply(this, arguments);
+    if (!this.el()) {
+      throw 'A DOM element is required. Check out the .el() method.';
+      return;
     }
-    else if (this.el()) {
-      this.el().innerHTML = '';
-    }
-    if (library && type && element && Dataviz.libraries[library][type].render) {
-      Dataviz.libraries[library][type].render.apply(this, arguments);
-      this.view._rendered = true;
-    }
+    domReady(function(){
+      if (self.view._prepared && loader.destroy) {
+        loader.destroy.apply(self, arguments);
+      }
+      self.el().innerHTML = '';
+      if (library && type && element && Dataviz.libraries[library][type].render) {
+        buildDomWrapper(self.el(), {
+          notes: self.notes(),
+          theme: self.theme(),
+          title: self['title']()
+        });
+        Dataviz.libraries[library][type].render.apply(self, arguments);
+        self.view._rendered = true;
+      }
+    });
     return this;
   };
+  function buildDomWrapper(el, options){
+    var html = '';
+    html += '<div class="' + options.theme + '">';
+    if (options['title']) {
+      html += '<div class="' + options.theme + '-title">' + options['title'] + '</div>';
+    }
+    html += '<div class="' + options.theme + '-stage"><div class="' + options.theme + '-rendering"></div></div>';
+    if (options.notes) {
+      html += '<div class="' + options.theme + '-notes">' + options.notes + '</div>';
+    }
+    html += '</div>';
+    el.innerHTML = html;
+  }
   Dataviz.prototype.sortGroups = function(str){
     if (!arguments.length) return this.view.sortGroups;
     this.view.sortGroups = (str ? String(str) : null);
@@ -948,6 +977,34 @@ function parseExtraction(){
     });
     return match;
   };
+  domReady(function(){
+    console.log('ready');
+  });
+  function domReady(fn){
+    if ('undefined' !== typeof document
+      || 'undefined' === typeof window) {
+        fn();
+        return;
+    }
+    if(document.readyState == null && document.addEventListener){
+      document.addEventListener('DOMContentLoaded', function DOMContentLoaded(){
+        document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
+        document.readyState = 'complete';
+      }, false);
+      document.readyState = 'loading';
+    }
+    testDom(fn);
+  }
+  function testDom(fn){
+    if (/in/.test(document.readyState)) {
+      setTimeout(function(){
+        testDom(fn);
+      }, 9);
+    }
+    else {
+      fn();
+    }
+  }
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Dataviz;
   }
@@ -992,9 +1049,10 @@ function defineC3(){
     types[type] = {
       render: function(){
         var self = this;
+        var targetSelector = '.' + this.theme() + '-rendering';
         var options = extend({
           axis: {},
-          bindto: this.el(),
+          bindto: this.el().querySelector(targetSelector),
           data: {
             columns: [],
             type: type.replace('horizontal-', '')
@@ -1003,7 +1061,7 @@ function defineC3(){
             pattern: this.colors()
           },
           size: {
-            height: this.height(),
+            height: getDomWrapperHeightOffset.call(this),
             width: this.width()
           }
         }, this.chartOptions());
@@ -1066,6 +1124,19 @@ function defineC3(){
       }
     };
   });
+}
+function getDomWrapperHeightOffset(){
+  var height = this.height(),
+      notesEl = this.el().querySelector('.' + this.theme() + '-notes'),
+      notesHeight,
+      stageEl = this.el().querySelector('.' + this.theme() + '-stage'),
+      stageHeight,
+      titleEl = this.el().querySelector('.' + this.theme() + '-title'),
+      titleHeight;
+  notesHeight = notesEl ? notesEl.offsetHeight : 0;
+  stageHeight = stageEl ? stageEl.offsetHeight : 0;
+  titleHeight = titleEl ? titleEl.offsetHeight : 0;
+  return Number(height) - Number(titleHeight + stageHeight + notesHeight);
 }
 function defineMessage(){
   types['message'] = {
