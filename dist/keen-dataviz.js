@@ -619,7 +619,7 @@ function parseDoubleGroupedMetric(){
   return function(res){
     var dataset = new Dataset();
     each(res.result, function(record, i){
-      dataset.set([ record[options[0][0]], record[options[0][1]] ], record.result);
+      dataset.set([ 'Result', record[options[0][0]] + ' ' + record[options[0][1]] ], record.result);
     });
     return dataset;
   }
@@ -679,7 +679,8 @@ var applyColorMapping = require('./utils/apply-color-mapping'),
     applyLabels = require('./utils/apply-labels'),
     applySortGroups = require('./utils/apply-sort-groups'),
     each = require('./utils/each'),
-    extend = require('./utils/extend');
+    extend = require('./utils/extend'),
+    parseData = require('./utils/parse-data');
 function Dataviz(){
   this.dataset = new Dataset();
   this.view = {
@@ -757,16 +758,7 @@ Dataviz.prototype.colorMapping = function(obj){
   }
   return this;
 };
-Dataviz.prototype.data = function(data){
-  if (!arguments.length) return this.dataset.data();
-  if (data instanceof Dataset) {
-    this.dataset = data;
-  }
-  else {
-    this.parseRawData(data);
-  }
-  return this;
-};
+Dataviz.prototype.data = parseData;
 Dataviz.prototype.destroy = function(){
   var library = this.library(),
       type = this.type(),
@@ -850,12 +842,6 @@ Dataviz.prototype.notes = function(str){
   this.view['notes'] = (str ? String(str) : null);
   return this;
 };
-Dataviz.prototype.parseRawData = function(obj){
-  return this;
-};
-Dataviz.prototype.parseRequest = function(request){
-  return this;
-};
 Dataviz.prototype.prepare = function(){
   var loader;
   if (this.view._rendered) {
@@ -937,6 +923,13 @@ Dataviz.prototype.width = function(num){
 };
 Dataviz.prototype.chartType = Dataviz.prototype.type;
 Dataviz.prototype.error = Dataviz.prototype.message;
+Dataviz.prototype.parseRawData = function(data){
+  parseData.call(this, data);
+  return this;
+};
+Dataviz.prototype.parseRequest = function(){
+  return this;
+};
 extend(Dataviz, {
   libraries: libraries,
   visuals: []
@@ -960,7 +953,7 @@ Dataviz.find = function(target){
   return match;
 };
 module.exports = Dataviz;
-},{"./dataset":2,"./libraries/default":15,"./utils/apply-color-mapping":16,"./utils/apply-label-mapping":17,"./utils/apply-labels":18,"./utils/apply-sort-groups":19,"./utils/each":20,"./utils/extend":21}],15:[function(require,module,exports){
+},{"./dataset":2,"./libraries/default":15,"./utils/apply-color-mapping":16,"./utils/apply-label-mapping":17,"./utils/apply-labels":18,"./utils/apply-sort-groups":19,"./utils/each":20,"./utils/extend":21,"./utils/parse-data":22}],15:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
@@ -1157,7 +1150,7 @@ function defineSpinner(){
   };
 }
 module.exports = initialize;
-},{"../utils/each":20,"../utils/extend":21,"../utils/pretty-number":22,"spin.js":23}],16:[function(require,module,exports){
+},{"../utils/each":20,"../utils/extend":21,"../utils/pretty-number":23,"spin.js":24}],16:[function(require,module,exports){
 module.exports = applyColorMapping;
 function applyColorMapping(){
 }
@@ -1210,6 +1203,125 @@ function extend(target){
   return target;
 }
 },{}],22:[function(require,module,exports){
+var Dataset = require('../dataset');
+var extend = require('./extend');
+module.exports = function(data){
+  if (!arguments.length) return this.dataset.data();
+  if (data instanceof Dataset) {
+    this.dataset = data;
+  }
+  else {
+    if (!this.title()) {
+      this.title(getDefaultTitle(data.query));
+    }
+    this.dataset = parseResponse.call(this, data);
+  }
+  return this;
+};
+function getDefaultTitle(query){
+  var analysis = query.analysis_type.replace('_', ' '),
+      title;
+  title = analysis.replace( /\b./g, function(a){
+    return a.toUpperCase();
+  });
+  if (query.event_collection) {
+    title += ' - ' + query.event_collection;
+  }
+  return title;
+}
+function parseResponse(response){
+  var dataset,
+      indexBy,
+      parser,
+      parserArgs = [],
+      query;
+  indexBy = this.indexBy() ? this.indexBy() : 'timestamp.start';
+  query = (typeof response.query !== 'undefined') ? response.query : {};
+  query = extend({
+    analysis_type: null,
+    event_collection: null,
+    filters: [],
+    group_by: null,
+    interval: null,
+    timeframe: null,
+    timezone: null
+  }, query);
+  if (query.analysis_type === 'funnel') {
+    parser = 'funnel';
+  }
+  else if (query.analysis_type === 'extraction'){
+    parser = 'extraction';
+  }
+  else if (query.analysis_type === 'select_unique') {
+    if (!query.group_by && !query.interval) {
+      parser = 'list';
+    }
+  }
+  else if (query.analysis_type) {
+    if (!query.group_by && !query.interval) {
+      parser = 'metric';
+    }
+    else if (query.group_by && !query.interval) {
+      if (typeof query.group_by === 'string') {
+        parser = 'grouped-metric';
+      }
+      else {
+        parser = 'double-grouped-metric';
+        parserArgs.push(query.group_by);
+      }
+    }
+    else if (query.interval && !query.group_by) {
+      parser = 'interval';
+      parserArgs.push(indexBy);
+    }
+    else if (query.group_by && query.interval) {
+      if (typeof query.group_by === 'string') {
+        parser = 'grouped-interval';
+        parserArgs.push(indexBy);
+      }
+      else {
+        parser = 'double-grouped-interval';
+        parserArgs.push(query.group_by);
+        parserArgs.push(indexBy);
+      }
+    }
+  }
+  if (!parser) {
+    if (typeof response.result === 'number'){
+      parser = 'metric';
+    }
+    if (response.result instanceof Array && response.result.length > 0){
+      if (response.result[0].timeframe && (typeof response.result[0].value == 'number' || response.result[0].value == null)) {
+        parser = 'interval';
+        parserArgs.push(indexBy)
+      }
+      if (typeof response.result[0].result == 'number'){
+        parser = 'grouped-metric';
+      }
+      if (response.result[0].value instanceof Array){
+        parser = 'grouped-interval';
+        parserArgs.push(indexBy)
+      }
+      if (typeof response.result[0] == 'number' && typeof response.steps !== 'undefined'){
+        parser = 'funnel';
+      }
+      if ((typeof response.result[0] == 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined'){
+        parser = 'list';
+      }
+      if (!parser) {
+        parser = 'extraction';
+      }
+    }
+  }
+  dataset = Dataset.parser.apply(this, [parser].concat(parserArgs))(response);
+  if (parser.indexOf('interval') > -1) {
+    dataset.updateColumn(0, function(value, i){
+      return new Date(value);
+    });
+  }
+  return dataset;
+}
+},{"../dataset":2,"./extend":21}],23:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1265,7 +1377,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
