@@ -103,7 +103,7 @@ chart.colorMapping({
 chart.colorMapping();
 ```
 
-### .data(objectOrDataset)
+### .data()
 
 This method accepts two forms of input data.
 

@@ -20,15 +20,14 @@ If you haven't done so already, login to Keen IO to create a project. The Projec
 
 * [Install the library and dependencies](#install-the-library)
 * [Create and configure a new Dataviz instance](#create-a-dataviz-instance)
-* [Load and parse data](./docs/README.md#dataobjectOrDataset)
-* [Handle loading and message states](./docs)
+* [Load and parse data](./docs/README.md#data)
 * [Render into the page](./docs/README.md#render)
 
 **Advanced usage:**
 
-* [Create and visualize custom Dataset instances](./docs/dataset/parsers.md)
-* [Create custom themes](./docs/themes.md)
-* [Create custom visualizations](./docs/dataset/types-and-libraries.md)
+* [Create and visualize custom Dataset instances](./docs/dataset/parsers.md#data-parsers)
+* [Create custom themes](./docs/themes.md#custom-themes)
+* [Create custom visualizations](./docs/types-and-libraries.md#custom-types-and-libraries)
 
 <a name="upgrading-from-keen-js"></a>
 **Upgrading from keen-js:**
@@ -49,31 +48,30 @@ There are several breaking changes and deprecations from [keen-js](https://githu
 * **Dataset:** the `Dataset` instance prototype and internal architecture have been heavily refactored:
     * `.input()` has been removed, as instances no longer maintain the original raw input data
     * `.output()` has been renamed to `.data()` (no alias)
-    * `Dataset.parser()` returns parsing functions for all standard API response types. These functions will correctly parse a given response and return a new Dataset instance. [Learn more about these parsers](https://github.com/keen/keen-dataviz.js/blob/master/lib/dataset/utils/parsers.js#L8-L16)
+    * `Dataset.parser()` returns parsing functions for all standard API response types. These functions will correctly parse a given response and return a new Dataset instance. [Learn more about these parsers](./docs/dataset/parsers.md#data-parsers)
 
+<a name="additional-resources"></a>
 **Additional resources:**
 
 * [Example setup](#create-a-dataviz-instance) demonstrates how to put all of this to work
-* [Debugging](#debugging) options can make life a little easier
 * [Contributing](#contributing) is awesome and we hope you do!
 * [Custom builds](#custom-builds) are encouraged as well - have fun!
 
-Support:
+<a name="support"></a>
+**Support:**
 
-Need a hand with something? Shoot us an email at contact@keen.io. We're always happy to help, or just hear what you're building! Here are a few other resources worth checking out:
+Need a hand with something? Shoot us an email at [contact@keen.io](mailto:contact@keen.io). We're always happy to help, or just hear what you're building! Here are a few other resources worth checking out:
 
-- API status
-- API reference
-- How-to guides
-- Data modeling guide
-- Slack (public)
-
-
+* [API status](http://status.keen.io/)
+* [API reference](https://keen.io/docs/api)
+* [How-to guides](https://keen.io/guides)
+* [Data modeling guide](https://keen.io/guides/data-modeling-guide/)
+* [Slack (public)](http://slack.keen.io/)
 
 
 ## Install the library
 
-Include [keen-dataviz.js](dist/keen-dataviz.js), and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies should be included first.
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies should be included first.
 
 ```html
 <html>
@@ -154,6 +152,7 @@ This is an open source project and we love involvement from the community! Hit u
 **TODO:**
 
 * [ ] Move `google` and `chartjs` adapters from [keen-js](https://github.com/keen/keen-js) into `/lib/libraries`
+* [ ] Design and build debugging tools
 
 [Learn more about contributing to this project](./CONTRIBUTING.md).
 
