@@ -135,7 +135,7 @@ function parseResponse(response){
   return this;
 }
 function getDefaultTitle(query){
-  var analysis = query.analysis_type.replace('_', ' '),
+  var analysis = query.analysis_type ? query.analysis_type.replace('_', ' ') : '',
       title;
   title = analysis.replace( /\b./g, function(a){
     return a.toUpperCase();

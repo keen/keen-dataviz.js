@@ -4,7 +4,12 @@ This is an open source project and we love involvement from the community! Hit u
 
 **TODO:**
 
-* [ ] ...
+* [ ] Rebuild `.colorMapping()` color palette transform
+* [ ] Rebuild `.labels()` Dataset transform
+* [ ] Rebuild `.labelMapping()` Dataset transform
+* [ ] Rebuild `.sortGroups()` Dataset transform
+* [ ] Move `google` and `chartjs` adapters from [keen-js](https://github.com/keen/keen-js) into `/lib/libraries`
+* [ ] Design and build debugging tools
 
 Run the following commands to install and build this project:
 
@@ -19,9 +24,9 @@ $ npm install
 # npm install -g gulp
 $ gulp
 
-# Build and launch to view test results
-$ gulp with-tests
-$ open http://localhost:9002
+# Build and launch to view demo page
+$ gulp
+$ open http://localhost:9002/demo
 ```
 
 ## Pull Request Template
@@ -38,7 +43,7 @@ Please use the PR template below.
 
 **How should this be tested? (if appropriate)**
 
-* run `gulp with-tests`
+* run `gulp test:unit`
 * confirm tests pass
 
 **Are there any related issues open?**
