@@ -4,9 +4,9 @@ var gulp = require('gulp'),
 var browserify = require('browserify'),
     connect = require('gulp-connect'),
     compress = require('gulp-yuicompressor'),
-    del = require('del'),
-    karma = require('karma').server,
+    karma = require('karma').Server,
     less = require('gulp-less'),
+    minifyCss = require('gulp-minify-css'),
     mocha = require('gulp-mocha'),
     mochaPhantomJS = require('gulp-mocha-phantomjs'),
     rename = require('gulp-rename'),
@@ -26,7 +26,10 @@ gulp.task('connect', ['build'], function () {
     });
 });
 
-gulp.task('build', ['build:script', 'build:styles']);
+gulp.task('build', [
+  'build:script', 'build:minify-script',
+  'build:styles', 'build:minify-styles'
+]);
 
 gulp.task('watch', ['build'], function() {
   gulp.watch([
@@ -50,46 +53,84 @@ gulp.task('build:script', function(){
     }))
     .pipe(strip({ line: true }))
     .pipe(squash())
-    .pipe(rename('keen-dataviz.js'))
+    .pipe(rename(pkg.name + '.js'))
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('build:minify-script', ['build:script'], function(){
+  return gulp.src('./dist/' + pkg.name + '.js')
+    .pipe(compress({ type: 'js' }))
+    .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('build:styles', function(){
   gulp.src('./lib/styles/index.less')
     .pipe(less())
-    .pipe(rename('keen-dataviz.css'))
+    .pipe(rename(pkg.name + '.css'))
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('test:unit', ['test-with-mocha']);
-
-// gulp.task('test:clean', function (callback) {
-//   del(['./test/unit/build'], callback);
-// });
-//
-// gulp.task('test:build', ['test:clean'], function () {
-//   return gulp.src('./test/unit/index.js')
-//     .pipe(transform(function(filename) {
-//       var b = browserify(filename);
-//       return b.bundle();
-//     }))
-//     .pipe(rename('browserified-tests.js'))
-//     .pipe(gulp.dest('./test/unit/build'));
-// });
-
-gulp.task('test-with-mocha', function () {
-  return gulp.src('./test/unit/server.js', { read: false })
-  .pipe(mocha({ reporter: 'nyan' }));
+gulp.task('build:minify-styles', ['build:styles'], function(){
+  gulp.src('./dist/' + pkg.name + '.css')
+    .pipe(minifyCss({ compatibility: 'ie9' }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest('./dist/'));
 });
 
-// gulp.task('test-with-phantom', ['build', 'test:prepare'], function () {
-//   return gulp.src('./test/unit/index.html')
-//     .pipe(mochaPhantomJS());
-// });
-//
-// gulp.task('test-with-karma', ['build', 'test:prepare'], function (done){
-//   karma.start({
-//     configFile: __dirname + '/karma.conf.js',
-//     singleRun: true
-//   }, done);
-// });
+// ---------------------
+
+gulp.task('test:unit', ['test:phantom', 'test:mocha']);
+
+gulp.task('test:browserify', function(){
+  return gulp.src('./test/unit/index.js')
+    .pipe(through2.obj(function(file, enc, next){
+      browserify(file.path)
+        .bundle(function(err, res){
+            file.contents = res;
+            next(null, file);
+        });
+    }))
+    .pipe(strip({ line: true }))
+    .pipe(squash())
+    .pipe(rename('browserified-tests.js'))
+    .pipe(gulp.dest('./test/unit/build'));
+});
+
+gulp.task('test:mocha', ['test:browserify'], function () {
+  return gulp.src('./test/unit/server.js', { read: false })
+    .pipe(mocha({
+      reporter: 'nyan',
+      timeout: 300 * 1000
+    }));
+});
+
+gulp.task('test:phantom', ['test:browserify'], function () {
+  return gulp.src('./test/unit/index.html')
+    .pipe(mochaPhantomJS({
+      mocha: {
+        reporter: 'nyan',
+        timeout: 300 * 1000
+      }
+    }))
+    .once('error', function () {
+      process.exit(1);
+    })
+    .once('end', function () {
+      process.exit();
+    });
+});
+
+gulp.task('test:karma', ['build', 'test:browserify'], function (done){
+  new karma({
+    configFile: __dirname + '/config-karma.js',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('test:sauce', ['build', 'test:browserify'], function(done){
+  new karma({
+    configFile: __dirname + '/config-sauce.js',
+    singleRun: true
+  }, done).start();
+});

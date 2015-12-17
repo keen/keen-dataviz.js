@@ -222,10 +222,9 @@ describe('Dataviz', function(){
   });
 
   describe('.height()', function(){
-    it('should return 400 by default', function(){
+    it('should return undefined by default', function(){
       expect(this.dataviz.height())
-        .to.be.a('number')
-        .and.to.eql(400);
+        .to.be.undefined;
     });
     it('should set and get a new height', function(){
       var height = 375;
