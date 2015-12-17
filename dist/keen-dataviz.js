@@ -1,4 +1,151 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Dataset = require('./dataset');
+var extend = require('./utils/extend');
+module.exports = function(data){
+  if (!arguments.length) return this.dataset.data();
+  if (data instanceof Dataset) {
+    this.dataset = data;
+    return this;
+  }
+  else {
+    return parseResponse.call(this, data);
+  }
+};
+function parseResponse(response){
+  var dataset,
+      indexBy,
+      parser,
+      parserArgs = [],
+      query,
+      type;
+  indexBy = this.indexBy() ? this.indexBy() : 'timestamp.start';
+  query = (typeof response.query !== 'undefined') ? response.query : {};
+  query = extend({
+    analysis_type: null,
+    event_collection: null,
+    filters: [],
+    group_by: null,
+    interval: null,
+    timeframe: null,
+    timezone: null
+  }, query);
+  if (query.analysis_type === 'funnel') {
+    parser = 'funnel';
+  }
+  else if (query.analysis_type === 'extraction'){
+    parser = 'extraction';
+  }
+  else if (query.analysis_type === 'select_unique') {
+    if (!query.group_by && !query.interval) {
+      parser = 'list';
+    }
+  }
+  else if (query.analysis_type) {
+    if (!query.group_by && !query.interval) {
+      parser = 'metric';
+    }
+    else if (query.group_by && !query.interval) {
+      if (typeof query.group_by === 'string') {
+        parser = 'grouped-metric';
+      }
+      else {
+        parser = 'double-grouped-metric';
+        parserArgs.push(query.group_by);
+      }
+    }
+    else if (query.interval && !query.group_by) {
+      parser = 'interval';
+      parserArgs.push(indexBy);
+    }
+    else if (query.group_by && query.interval) {
+      if (typeof query.group_by === 'string') {
+        parser = 'grouped-interval';
+        parserArgs.push(indexBy);
+      }
+      else {
+        parser = 'double-grouped-interval';
+        parserArgs.push(query.group_by);
+        parserArgs.push(indexBy);
+      }
+    }
+  }
+  if (!parser) {
+    if (typeof response.result === 'number'){
+      parser = 'metric';
+    }
+    if (response.result instanceof Array && response.result.length > 0){
+      if (response.result[0].timeframe && (typeof response.result[0].value == 'number' || response.result[0].value == null)) {
+        parser = 'interval';
+        parserArgs.push(indexBy)
+      }
+      if (typeof response.result[0].result == 'number'){
+        parser = 'grouped-metric';
+      }
+      if (response.result[0].value instanceof Array){
+        parser = 'grouped-interval';
+        parserArgs.push(indexBy)
+      }
+      if (typeof response.result[0] == 'number' && typeof response.steps !== 'undefined'){
+        parser = 'funnel';
+      }
+      if ((typeof response.result[0] == 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined'){
+        parser = 'list';
+      }
+      if (!parser) {
+        parser = 'extraction';
+      }
+    }
+  }
+  if (!this.title()) {
+    this.title(getDefaultTitle(query));
+  }
+  if (!this.type()) {
+    switch (parser) {
+      case 'metric':
+        type = 'metric';
+        break;
+      case 'interval':
+        type = 'area';
+        break;
+      case 'grouped-metric':
+      case 'double-grouped-metric':
+        type = 'bar';
+        break;
+      case 'grouped-interval':
+      case 'double-grouped-interval':
+        type = 'line';
+        break;
+      case 'funnel':
+        type = 'horizontal-bar';
+        break;
+      case 'list':
+      case 'extraction':
+      default:
+        type = 'table';
+    }
+    this.type(type);
+  }
+  dataset = Dataset.parser.apply(this, [parser].concat(parserArgs))(response);
+  if (parser.indexOf('interval') > -1) {
+    dataset.updateColumn(0, function(value, i){
+      return new Date(value);
+    });
+  }
+  this.dataset = dataset;
+  return this;
+}
+function getDefaultTitle(query){
+  var analysis = query.analysis_type.replace('_', ' '),
+      title;
+  title = analysis.replace( /\b./g, function(a){
+    return a.toUpperCase();
+  });
+  if (query.event_collection) {
+    title += ' - ' + query.event_collection;
+  }
+  return title;
+}
+},{"./dataset":2,"./utils/extend":17}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -75,7 +222,7 @@
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":20,"./modifiers/append":2,"./modifiers/delete":3,"./modifiers/filter":4,"./modifiers/insert":5,"./modifiers/select":6,"./modifiers/sort":7,"./modifiers/update":8,"./utils/analyses":9,"./utils/parsers":12}],2:[function(require,module,exports){
+},{"../utils/extend":17,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -154,7 +301,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":19,"../utils/create-null-list":10}],3:[function(require,module,exports){
+},{"../../utils/each":16,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -177,7 +324,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":19}],4:[function(require,module,exports){
+},{"../../utils/each":16}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -211,7 +358,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":19}],5:[function(require,module,exports){
+},{"../../utils/each":16}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -290,7 +437,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":19,"../utils/create-null-list":10,"./append":2}],6:[function(require,module,exports){
+},{"../../utils/each":16,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -314,7 +461,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":19}],7:[function(require,module,exports){
+},{"../../utils/each":16}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -364,7 +511,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":19}],8:[function(require,module,exports){
+},{"../../utils/each":16}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -438,7 +585,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":19,"../utils/create-null-list":10,"./append":2}],9:[function(require,module,exports){
+},{"../../utils/each":16,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -500,7 +647,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":19,"../../utils/extend":20}],10:[function(require,module,exports){
+},{"../../utils/each":16,"../../utils/extend":17}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -508,7 +655,7 @@ module.exports = function(len){
   }
   return list;
 };
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports = flatten;
 function flatten(ob){
   var toReturn = {};
@@ -526,7 +673,7 @@ function flatten(ob){
   }
   return toReturn;
 };
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 var Dataset; /* injected */
 var each = require('../../utils/each'),
     flatten = require('../utils/flatten');
@@ -666,20 +813,20 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":19,"../utils/flatten":11}],13:[function(require,module,exports){
+},{"../../utils/each":16,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
-  var Dataset = require('./dataset');
+  var Dataset = require('./dataset'),
+      data = require('./data');
   var libraries = {
     'default': require('./libraries/default')()
   };
-  var applyColorMapping = require('./utils/apply-color-mapping'),
+  /* var applyColorMapping = require('./utils/apply-color-mapping'),
       applyLabelMapping = require('./utils/apply-label-mapping'),
       applyLabels = require('./utils/apply-labels'),
-      applySortGroups = require('./utils/apply-sort-groups'),
-      each = require('./utils/each'),
-      extend = require('./utils/extend'),
-      parseData = require('./utils/parse-data');
+      applySortGroups = require('./utils/apply-sort-groups');, */
+  var each = require('./utils/each'),
+      extend = require('./utils/extend');
   function Dataviz(){
     if (this instanceof Dataviz === false) {
       return new Dataviz();
@@ -760,7 +907,7 @@ function parseExtraction(){
     }
     return this;
   };
-  Dataviz.prototype.data = parseData;
+  Dataviz.prototype.data = data;
   Dataviz.prototype.destroy = function(){
     var library = this.library(),
         type = this.type(),
@@ -1037,7 +1184,7 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./dataset":1,"./libraries/default":14,"./utils/apply-color-mapping":15,"./utils/apply-label-mapping":16,"./utils/apply-labels":17,"./utils/apply-sort-groups":18,"./utils/each":19,"./utils/extend":20,"./utils/parse-data":21}],14:[function(require,module,exports){
+},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/each":16,"./utils/extend":17}],15:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
@@ -1259,24 +1406,7 @@ function defineSpinner(){
   };
 }
 module.exports = initialize;
-},{"../utils/each":19,"../utils/extend":20,"../utils/pretty-number":22,"spin.js":23}],15:[function(require,module,exports){
-module.exports = applyColorMapping;
-function applyColorMapping(){
-}
-},{}],16:[function(require,module,exports){
-module.exports = applyLabelMapping;
-function applyLabelMapping(){
-}
-},{}],17:[function(require,module,exports){
-module.exports = applyLabels;
-function applyLabels(){
-}
-},{}],18:[function(require,module,exports){
-module.exports = applySortGroups;
-function applySortGroups(){
-  return;
-}
-},{}],19:[function(require,module,exports){
+},{"../utils/each":16,"../utils/extend":17,"../utils/pretty-number":18,"spin.js":19}],16:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1301,7 +1431,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],20:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1311,126 +1441,7 @@ function extend(target){
   }
   return target;
 }
-},{}],21:[function(require,module,exports){
-var Dataset = require('../dataset');
-var extend = require('./extend');
-module.exports = function(data){
-  if (!arguments.length) return this.dataset.data();
-  if (data instanceof Dataset) {
-    this.dataset = data;
-  }
-  else {
-    if (!this.title()) {
-      this.title(getDefaultTitle(data.query));
-    }
-    this.dataset = parseResponse.call(this, data);
-  }
-  return this;
-};
-function getDefaultTitle(query){
-  var analysis = query.analysis_type.replace('_', ' '),
-      title;
-  title = analysis.replace( /\b./g, function(a){
-    return a.toUpperCase();
-  });
-  if (query.event_collection) {
-    title += ' - ' + query.event_collection;
-  }
-  return title;
-}
-function parseResponse(response){
-  var dataset,
-      indexBy,
-      parser,
-      parserArgs = [],
-      query;
-  indexBy = this.indexBy() ? this.indexBy() : 'timestamp.start';
-  query = (typeof response.query !== 'undefined') ? response.query : {};
-  query = extend({
-    analysis_type: null,
-    event_collection: null,
-    filters: [],
-    group_by: null,
-    interval: null,
-    timeframe: null,
-    timezone: null
-  }, query);
-  if (query.analysis_type === 'funnel') {
-    parser = 'funnel';
-  }
-  else if (query.analysis_type === 'extraction'){
-    parser = 'extraction';
-  }
-  else if (query.analysis_type === 'select_unique') {
-    if (!query.group_by && !query.interval) {
-      parser = 'list';
-    }
-  }
-  else if (query.analysis_type) {
-    if (!query.group_by && !query.interval) {
-      parser = 'metric';
-    }
-    else if (query.group_by && !query.interval) {
-      if (typeof query.group_by === 'string') {
-        parser = 'grouped-metric';
-      }
-      else {
-        parser = 'double-grouped-metric';
-        parserArgs.push(query.group_by);
-      }
-    }
-    else if (query.interval && !query.group_by) {
-      parser = 'interval';
-      parserArgs.push(indexBy);
-    }
-    else if (query.group_by && query.interval) {
-      if (typeof query.group_by === 'string') {
-        parser = 'grouped-interval';
-        parserArgs.push(indexBy);
-      }
-      else {
-        parser = 'double-grouped-interval';
-        parserArgs.push(query.group_by);
-        parserArgs.push(indexBy);
-      }
-    }
-  }
-  if (!parser) {
-    if (typeof response.result === 'number'){
-      parser = 'metric';
-    }
-    if (response.result instanceof Array && response.result.length > 0){
-      if (response.result[0].timeframe && (typeof response.result[0].value == 'number' || response.result[0].value == null)) {
-        parser = 'interval';
-        parserArgs.push(indexBy)
-      }
-      if (typeof response.result[0].result == 'number'){
-        parser = 'grouped-metric';
-      }
-      if (response.result[0].value instanceof Array){
-        parser = 'grouped-interval';
-        parserArgs.push(indexBy)
-      }
-      if (typeof response.result[0] == 'number' && typeof response.steps !== 'undefined'){
-        parser = 'funnel';
-      }
-      if ((typeof response.result[0] == 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined'){
-        parser = 'list';
-      }
-      if (!parser) {
-        parser = 'extraction';
-      }
-    }
-  }
-  dataset = Dataset.parser.apply(this, [parser].concat(parserArgs))(response);
-  if (parser.indexOf('interval') > -1) {
-    dataset.updateColumn(0, function(value, i){
-      return new Date(value);
-    });
-  }
-  return dataset;
-}
-},{"../dataset":1,"./extend":20}],22:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1486,7 +1497,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],23:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
@@ -1807,4 +1818,4 @@ function prettyNumber(input) {
   }
   return Spinner
 }));
-},{}]},{},[13]);
+},{}]},{},[14]);
