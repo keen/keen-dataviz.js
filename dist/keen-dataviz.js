@@ -771,15 +771,21 @@ function parseExtraction(){
     return this;
   };
   Dataviz.prototype.el = function(target){
+    var self = this;
     if (!arguments.length) return this.view.el;
-    if (target) {
-      if (target.nodeName) {
-        this.view.el = target;
+    domReady(function(){
+      if (target && target !== null) {
+        if (target.nodeName) {
+          self.view.el = target;
+        }
+        else if (document.querySelector) {
+          self.view.el = document.querySelector(target);
+        }
       }
-      else if (document.querySelector) {
-        this.view.el = document.querySelector(target);
+      else {
+        self.view.el = undefined;
       }
-    }
+    });
     return this;
   };
   Dataviz.prototype.height = function(num){
