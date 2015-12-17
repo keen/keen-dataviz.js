@@ -2,8 +2,6 @@
 
 This project contains the most advanced data visualization functionality available for Keen IO, and will soon be built directly into [keen-js](https://github.com/keen/keen-js), replacing and upgrading the current visualization capabilities of that library.
 
-Why did we split this library out of [keen-js](https://github.com/keen/keen-js)? Tracking and Analysis+Dataviz are two distinct workflows and it rarely makes sense for these tools to be duct-taped together. Monolithic codebases bring more heartache than Nirvana.
-
 **What's new:**
 
 * Visualizations are powered by [C3.js](http://c3js.org/); a [D3.js](http://d3js.org/)-based reusable chart library: [check out what's available!](./docs/README.md#chart-types)
