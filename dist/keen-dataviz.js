@@ -63,8 +63,14 @@
       return Dataset;
     });
   }
+  if (root.Keen) {
+    root.Keen.Dataset = Dataset;
+  }
   root.Dataset = Dataset;
   if (typeof global !== 'undefined') {
+    if (global.Keen) {
+      global.Keen.Dataset = Dataset;
+    }
     global.Dataset = Dataset;
   }
 }(this));
@@ -1019,8 +1025,14 @@ function parseExtraction(){
       return Dataviz;
     });
   }
+  if (root.Keen) {
+    root.Keen.Dataviz = Dataviz;
+  }
   root.Dataviz = Dataviz;
   if (typeof global !== 'undefined') {
+    if (global.Keen) {
+      global.Keen.Dataviz = Dataviz;
+    }
     global.Dataviz = Dataviz;
   }
 }(this));
