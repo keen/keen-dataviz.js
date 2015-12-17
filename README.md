@@ -6,7 +6,7 @@ Why did we split this library out of [keen-js](https://github.com/keen/keen-js)?
 
 **What's new:**
 
-* Visualizations are powered by [C3.js](http://c3js.org/); a [D3.js](http://d3js.org/)-based reusable chart library: [check out what's available!](./docs/README.md#available-chart-types)
+* Visualizations are powered by [C3.js](http://c3js.org/); a [D3.js](http://d3js.org/)-based reusable chart library: [check out what's available!](./docs/README.md#chart-types)
 * Breaking changes from [keen-js](https://github.com/keen/keen-js): [learn more about upgrading](#upgrading-from-keen-js)
 * Lightweight and blazing fast, with dramatic performance improvements
 
