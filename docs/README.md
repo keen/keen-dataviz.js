@@ -130,6 +130,9 @@ chart.colors();
 
 ### .colorMapping(object)
 
+**Not yet available.**
+
+<!--
 ```javascript
 chart.colorMapping({
   Label A: #ffff00,
@@ -140,6 +143,7 @@ chart.colorMapping({
 // Return current color map object
 chart.colorMapping();
 ```
+-->
 
 ### .data()
 
@@ -199,6 +203,9 @@ chart.indexBy();
 
 ### .labels(array)
 
+**Not yet available.**
+
+<!--
 Avoid if possible, but can be useful for funnels.
 
 ```javascript
@@ -211,9 +218,13 @@ chart.labels([
 // Return array of labels
 chart.labels();
 ```
+-->
 
 ### .labelMapping(object)
 
+**Not yet available.**
+
+<!--
 ```javascript
 chart.labelMapping({
   visit_adv_inbound: First visit,
@@ -223,6 +234,7 @@ chart.labelMapping({
 // Return current label map object
 chart.labelMapping();
 ```
+-->
 
 ### .library(string)
 

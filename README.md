@@ -149,6 +149,9 @@ This is an open source project and we love involvement from the community! Hit u
 
 **TODO:**
 
+* [ ] Rebuild `.colorMapping()` color palette transform
+* [ ] Rebuild `.labels()` Dataset transform
+* [ ] Rebuild `.labelMapping()` Dataset transform
 * [ ] Move `google` and `chartjs` adapters from [keen-js](https://github.com/keen/keen-js) into `/lib/libraries`
 * [ ] Design and build debugging tools
 
