@@ -32,28 +32,7 @@ setInterval(function(){
 
 ```
 
-## DOM Element
-
-### .el(DOMElement)
-
-Put this awesome chart somewhere!
-
-```javascript
-chart.el(document.getElementById('myChart'));
-```
-
-### .prepare()
-
-Clears `el` DOM element and kicks off a loading indicator
-
-```javascript
-chart
-  .el(document.getElementById('my-chart'))
-  .prepare(); // loading indicator begins
-```
-
-
-## Visual Attributes
+## Dataviz API
 
 ### .attributes(object)
 
@@ -67,6 +46,35 @@ chart.attributes({
 
 // Return attributes object
 chart.attributes();
+```
+
+### .call(function)
+
+Call arbitrary functions within the prototype/instance context.
+
+```javascript
+chart
+  .call(function(){
+    var total = this.data().slice(1).length;
+    this.title("Total Results: " + total);
+  })
+```
+
+### .chartOptions(object)
+
+Set configuration options intended for the underlying charting library adapter. Each adapter will document how this works for various libraries and chartTypes.
+
+```javascript
+chart
+  .chartOptions({
+    isStacked: true,
+    legend: {
+      position: "none"
+    }
+  });
+
+// Return current chartOptions
+chart.chartOptions();
 ```
 
 ### .colors(array)
@@ -95,6 +103,42 @@ chart.colorMapping({
 chart.colorMapping();
 ```
 
+### .data(objectOrDataset)
+
+This method accepts two forms of input data.
+
+* **Object:** Raw data, either from a query API response or a manually constructed object
+* **Keen.Dataset instance**
+
+```javascript
+// Object
+chart.data({ result: 621 });
+
+// Dataset instance
+var ds = new Keen.Dataset();
+ds.set(['Value', 'Result'], 621);
+chart.data(ds);
+
+// Return current Dataset.data() output
+chart.data();
+```
+
+### .destroy()
+
+Destroy a visualization and remove all rendered DOM elements.
+
+```javascript
+chart.destroy();
+```
+
+### .el(DOMElement)
+
+Put this awesome chart somewhere!
+
+```javascript
+chart.el(document.getElementById('myChart'));
+```
+
 ### .height(number)
 
 ```javascript
@@ -117,9 +161,7 @@ chart.indexBy();
 
 ### .labels(array)
 
-**Important:** this method **must** be called _after_ `.data()`, `.parseRequest()`, or `.parseRawData()`, and _before_ `.render()` to take effect. This method executes a one-time, permanent modification of the underlying `Dataset` instance, and will be overwritten every time the chart consumes new data.
-
-_Avoid if possible, but can be useful for funnels._
+Avoid if possible, but can be useful for funnels.
 
 ```javascript
 chart.labels([
@@ -144,6 +186,22 @@ chart.labelMapping({
 chart.labelMapping();
 ```
 
+### .library(string)
+
+Specify the library for a visualization. _Default value is 'default'_.
+
+```javascript
+chart.library('my-custom-library');
+```
+
+### .message(string)
+
+Display a message for a visualization. _Previously `.error()`)_.
+
+```javascript
+chart.message('Oops, an error occured!');
+```
+
 ### .notes(string)
 
 Include footnotes beneath the chart.
@@ -153,6 +211,22 @@ chart.notes('String of text to include as chart notes');
 
 // Return current notes
 chart.notes();
+```
+
+### .prepare()
+
+Activate the spinner for a visualization.
+
+```javascript
+chart.prepare();
+```
+
+### .render()
+
+Render the visualization.
+
+```javascript
+chart.render();
 ```
 
 ### .sortGroups(string)
@@ -177,14 +251,15 @@ chart.sortIntervals('desc');
 chart.sortIntervals();
 ```
 
-### .stacked(boolean)
+### .theme(string)
 
-Determine whether or not the intervals of time/sequence-based charts are stacked. This setting interfaces with the various stacking methods of supported charting libraries, so there may be alternative ways to do this with `.chartOptions()`.
+Learn more about themes [here](/docs/themes.md).
 
 ```javascript
-chart.stacked(true);
-chart.stacked(); // returns the stacked state
-// Default: false
+chart.theme('custom-theme');
+
+// Return current theme
+chart.theme();
 ```
 
 ### .title(string)
@@ -196,6 +271,17 @@ chart.title('Hi, I\'m a chart!');
 chart.title();
 ```
 
+### .type(string)
+
+Specify the visualization type. _Previously `.chartType()`)_.
+
+```javascript
+chart.type('bar');
+
+// Return current type
+chart.type();
+```
+
 ### .width(number)
 
 ```javascript
@@ -203,136 +289,4 @@ chart.width(900);
 
 // Return current width
 chart.width();
-```
-
-
-## Adapter Actions
-
-Adapters are small modules that we've designed to manage visualizations, sort of like a controller would manage views of a web app.
-
-### .render()
-
-Render the chosen visualization with available data.
-
-```javascript
-chart
-  .title('Daily Active Users')
-  .height(240)
-  .render();
-```
-
-### .message(string)
-
-Display a given message in place of the chart
-
-```javascript
-chart.message('Sorry, something went wrong!');
-```
-
-
-### .destroy()
-
-Remove this chart from the DOM, free up memory, etc.
-
-```javascript
-chart.destroy();
-```
-
-
-## Data Handling
-
-### .data(input)
-
-This method is something of a Swiss Army knife, accepting several different types of input.
-
-1. Keen.Request instance, from within a query response callback
-2. Raw data, typically from modifying a query response manually
-3. Keen.Dataset instance (new)
-
-```javascript
-chart.data({ result: 0 });
-chart.data(); // returns current Dataset instance
-```
-
-If you pass in a Keen.Request instance, this method will forward the call to `.parseRequest()`, which is explicitly intended for this type of work. Feel free to use that method when possible.
-
-If you pas in raw data, this method will forward the call to `.parseRawData()`, which tries it's best to make sense of what you've given it. If you run into trouble here, just give us a shout.
-
-Each of these scenarios results in a new Keen.Dataset instance. If you pass in a Keen.Dataset instance directly, it will be piped directly into to fierce beating heart of the Dataviz beast.
-
-
-### .parseRequest(<Keen.Request>)
-
-Evaluates both the API response and the Query that inspired it, to figure out exactly what type of data we're working with. This method sets a few defaults, like `title`, `dataType` and `defaultChartType`, which help the library kick out the right default visualizations.
-
-```javascript
-var client = new Keen({ ... });
-var query = new Keen.Query('count', {
-  eventCollection: 'pageviews'
-});
-client.run(query, function(){
-  chart.parseRequest(this);
-})
-```
-
-### .parseRawData(object)
-
-Evaluates the API response structure to figure out what it might be, and helps the visualization get to know its true self.
-
-```javascript
-var client = new Keen({ ... });
-var query = new Keen.Query('count', {
-  eventCollection: 'pageviews'
-});
-client.run(query, function(res){
-  res.result = 12321414;
-  chart.parseRawData(res);
-})
-```
-
-## Custom Internal Access
-
-### .call(fn)
-
-Call arbitrary functions within the chaining context.
-
-```javascript
-chart
-  .call(function(){
-    var total = this.data().slice(1).length;
-    this.title('Total Results: ' + total);
-  })
-  .colors(['blue', 'green', 'aqua', 'peach'])
-  .render();
-```
-
-
-## Adapter Selection
-
-#### .library(string)
-
-```javascript
-chart.library('chartjs');
-chart.library(); // returns current library selection
-```
-
-#### .type(string)
-
-```javascript
-chart.type('bar');
-chart.type(); // returns current chartType selection
-```
-
-#### .chartOptions(object)
-
-Set configuration options intended for the underlying charting library adapter. Each adapter will document how this works for various libraries and chartTypes.
-
-```
-chart.chartOptions({
-  isStacked: true,
-  legend: {
-    position: 'none'
-  }
-});
-chart.chartOptions(); // return current chartOptions
 ```

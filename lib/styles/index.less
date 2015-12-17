@@ -70,37 +70,3 @@
 
   }
 }
-
-
-/*
-
-  New: Themed/styled wrapper within target node
-  Why?
-    - Title/footnotes are important, but are not
-      universally supported by charting libraries
-    - A simple theme/style switch formats this
-      wrapper for dashboard use case (less > more)
-
-  New: Applying a custom theme removes all default styling
-  Why?
-    - Prefer full CSS control over fighting inheritance
-
-  // HTML:
-  <div class='keen-dataviz'>
-    <div class='keen-dataviz-title'>
-      Pageviews (last 24 hours)
-    </div>
-    <div class='keen-dataviz-stage'>
-      {{visualization}}
-    </div>
-    <div class='keen-dataviz-notes'>
-      Last updated: 43 minutes ago (cached)
-    </div>
-  </div>
-
-  // CSS (theming):
-  .my-custom-theme {}
-  .my-custom-theme .keen-dataviz-title {}
-  .my-custom-theme .keen-dataviz-stage {}
-  .my-custom-theme .keen-dataviz-notes {}
-*/
