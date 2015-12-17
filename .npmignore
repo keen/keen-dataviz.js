@@ -5,9 +5,9 @@
 *.md
 .awspublish-keen-js
 
-# bower.json
 gulpfile.js
-# karma.conf.js
+config-karma.js
+config-sauce.js
 
 dist
 docs

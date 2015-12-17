@@ -80,8 +80,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script src='//oss.maxcdn.com/c3/0.1.42/c3.min.js'></script>
 
     <!-- Keen.Dataviz -->
-    <link href='keen-dataviz.css' rel='stylesheet' />
-    <script src='keen-dataviz.js'></script>
+    <link href='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.1.css' rel='stylesheet' />
+    <script src='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.1.js'></script>
   </head>
   <body>
     <!-- DOM Element -->

@@ -1136,9 +1136,6 @@ function parseExtraction(){
     });
     return match;
   };
-  domReady(function(){
-    console.log('ready');
-  });
   function domReady(fn){
     if ('undefined' !== typeof document
       || 'undefined' === typeof window) {
