@@ -35,11 +35,11 @@ gulp.task('watch', ['build'], function() {
   gulp.watch([
       'lib/**/*.js',
       'gulpfile.js'
-    ], ['build:script']);
+    ], ['build:minify-script']);
   gulp.watch([
       'lib/**/*.less',
       'gulpfile.js'
-    ], ['build:styles']);
+    ], ['build:minify-styles']);
 });
 
 gulp.task('build:script', function(){

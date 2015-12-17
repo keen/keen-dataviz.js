@@ -174,7 +174,7 @@ $ npm install
 # npm install -g gulp
 $ gulp
 
-# Build and launch to view test results
-$ gulp with-tests
-$ open http://localhost:9002
+# Build and launch to view demo page
+$ gulp
+$ open http://localhost:9002/demo
 ```
