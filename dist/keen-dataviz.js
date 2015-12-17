@@ -692,7 +692,7 @@ function parseExtraction(){
       ],
       colorMapping: {},
       el: undefined,
-      height: 400,
+      height: undefined,
       indexBy: 'timeframe.start',
       labels: [],
       labelMapping: {},
@@ -1049,10 +1049,9 @@ function defineC3(){
     types[type] = {
       render: function(){
         var self = this;
-        var targetSelector = '.' + this.theme() + '-rendering';
         var options = extend({
           axis: {},
-          bindto: this.el().querySelector(targetSelector),
+          bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
           data: {
             columns: [],
             type: type.replace('horizontal-', '')
@@ -1061,7 +1060,7 @@ function defineC3(){
             pattern: this.colors()
           },
           size: {
-            height: getDomWrapperHeightOffset.call(this),
+            height: this.height() ? this.height() - this.el().offsetHeight : 400,
             width: this.width()
           }
         }, this.chartOptions());
@@ -1125,32 +1124,23 @@ function defineC3(){
     };
   });
 }
-function getDomWrapperHeightOffset(){
-  var height = this.height(),
-      notesEl = this.el().querySelector('.' + this.theme() + '-notes'),
-      notesHeight,
-      stageEl = this.el().querySelector('.' + this.theme() + '-stage'),
-      stageHeight,
-      titleEl = this.el().querySelector('.' + this.theme() + '-title'),
-      titleHeight;
-  notesHeight = notesEl ? notesEl.offsetHeight : 0;
-  stageHeight = stageEl ? stageEl.offsetHeight : 0;
-  titleHeight = titleEl ? titleEl.offsetHeight : 0;
-  return Number(height) - Number(titleHeight + stageHeight + notesHeight);
-}
 function defineMessage(){
   types['message'] = {
     render: function(text){
-      var elem = document.createElement('div'),
-          msg = document.createElement('span');
-      elem.className = this.theme() + '-message';
-      elem.style.height = String(this.height() + 'px');
-      elem.style.paddingTop = (this.height() / 2 - 12) + 'px';
-      elem.style.width = String(this.width() + 'px');
+      var outer = document.createElement('div'),
+          inner = document.createElement('div'),
+          msg = document.createElement('span'),
+          height = this.height() || 140;
+      outer.className = this.theme();
+      inner.className = this.theme() + '-message';
+      inner.style.height = String(height + 'px');
+      inner.style.paddingTop = (height / 2 - 12) + 'px';
+      inner.style.width = String(this.width() + 'px');
       msg.innerHTML = text || '';
-      elem.appendChild(msg);
+      inner.appendChild(msg);
+      outer.appendChild(inner);
       this.el().innerHTML = '';
-      this.el().appendChild(elem);
+      this.el().appendChild(outer);
     },
     update: function(){
       this.render();
@@ -1163,16 +1153,17 @@ function defineMetric(){
   types['metric'] = {
     render: function(){
       var theme = this.theme(),
-          title = this.title() || this.data()[1][0],
+          title = this.title(),
           value = this.data()[1][1] || '-',
+          height = this.height() || 140,
           width = this.width(),
           opts = this.chartOptions(),
+          html = '',
           prefix = '',
-          suffix = '';
-      var styles = {
-        'width': (width) ? width + 'px' : 'auto'
-      };
-      var formattedNum = value;
+          suffix = '',
+          formattedNum,
+          valueEl;
+      formattedNum = value;
       if ( (typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true)
         && !isNaN(parseInt(value)) ) {
           formattedNum = prettyNumber(value);
@@ -1183,11 +1174,18 @@ function defineMetric(){
       if (opts['suffix']) {
         suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
       }
-      this.el().innerHTML = '' +
-        '<div class="' + theme + '-metric" style="width:' + styles.width + ';" title="' + value + '">' +
-          '<span class="' + theme + '-metric-value">' + prefix + formattedNum + suffix + '</span>' +
-          '<span class="' + theme + '-metric-title">' + title + '</span>' +
-        '</div>';
+      html += '<div class="' + theme + '">';
+      html +=   '<div class="' + theme + '-metric" style="width: ' + (width ? width + 'px' : 'auto') + ';" title="' + value + '">';
+      html +=     '<span class="' + theme + '-metric-value">' + prefix + formattedNum + suffix + '</span>';
+      if (title) {
+        html +=   '<span class="' + theme + '-metric-title">' + title + '</span>';
+      }
+      html +=   '</div>';
+      html += '</div>';
+      this.el().innerHTML = html;
+      valueEl = this.el().querySelector('.' + theme + '-metric-value');
+      valueEl.style.paddingTop = ((height - this.el().offsetHeight) / 2) + 'px';
+      this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
     },
     update: function(){
       this.render();
@@ -1198,7 +1196,7 @@ function defineMetric(){
 }
 function defineSpinner(){
   var defaults = {
-    height: 138,         
+    height: 140,         
     lines: 10,           
     length: 8,           
     width: 3,            
@@ -1218,14 +1216,17 @@ function defineSpinner(){
   };
   types['spinner'] = {
     render: function(){
-      var spinner = document.createElement('div');
-      var height = this.height() || defaults.height;
-      spinner.className = this.theme() + '-spinning';
+      var height = this.height() || defaults.height,
+          outer = document.createElement('div'),
+          spinner = document.createElement('div');
+      outer.className = this.theme();
+      spinner.className = this.theme() + '-spinner';
       spinner.style.height = String(height + 'px');
       spinner.style.position = 'relative';
       spinner.style.width = String(this.width() + 'px');
+      outer.appendChild(spinner);
       this.el().innerHTML = '';
-      this.el().appendChild(spinner);
+      this.el().appendChild(outer);
       this.view._artifacts['spinner'] = new Spinner(defaults).spin(spinner);
     },
     update: function(){
