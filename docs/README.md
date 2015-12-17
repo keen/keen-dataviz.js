@@ -152,6 +152,8 @@ This method accepts two forms of input data.
 * **Object:** Raw data, either from a query API response or a manually constructed object
 * **Keen.Dataset instance**
 
+**Important:** objects passed into `.data()` will be inspected to infer which type of response is being handled, and to parse accordingly. This is where the library determines a default `type` (listed above) to use, if no type value has been set.
+
 ```javascript
 // Object
 chart.data({ result: 621 });
@@ -163,6 +165,9 @@ chart.data(ds);
 
 // Return current Dataset.data() output
 chart.data();
+
+// Check out what 'type' we have set:
+chart.type(); // 'metric' for this example
 ```
 
 ### .destroy()
@@ -323,7 +328,7 @@ chart.title();
 
 ### .type(string)
 
-Specify the visualization type. _Previously `.chartType()`)_.
+Specify the visualization type. _Previously `.chartType()`)_. If no type is set, the library will set the best option when you pass an API response to [`.data()`](#data).
 
 ```javascript
 chart.type(bar);
