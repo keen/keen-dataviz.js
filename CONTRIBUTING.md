@@ -15,7 +15,7 @@ Run the following commands to install and build this project:
 
 ```ssh
 # Clone the repo
-$ git clone https://github.com/keen/keen-dataviz.js.git && cd keen-tracking.js
+$ git clone https://github.com/keen/keen-dataviz.js.git && cd keen-dataviz.js
 
 # Install project dependencies
 $ npm install
