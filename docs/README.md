@@ -18,7 +18,7 @@ var req = client.run(query, function(err, res){
   }
   else {
     chart
-      .parseRequest(this)
+      .data(res)
       .title(New Customers per Week)
       .render();
   }
