@@ -101,7 +101,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
       // Make async request to Keen API, then:
       chart
-        .parseRawData({
+        .data({
           result: 2450
         })
         .render();
