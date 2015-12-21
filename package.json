@@ -24,6 +24,7 @@
     "spin.js": "^2.3.2"
   },
   "devDependencies": {
+    "browserify": "^12.0.1",
     "chai": "^3.4.0",
     "chai-dom": "^1.4.0",
     "gulp": "^3.9.0",
