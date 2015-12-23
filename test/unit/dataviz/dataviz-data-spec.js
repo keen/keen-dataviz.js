@@ -33,7 +33,13 @@ describe('Dataviz', function(){
       expect(this.dataviz.type()).to.eql('metric');
     });
     it('should parse \'grouped-metric\' data and set the correct type', function(){
-      this.dataviz.data(data_groupBy);
+      this.dataviz.data({
+        query: {
+          analysis_type: 'count',
+          group_by: ['page']
+        },
+        result: data_groupBy.result
+      });
       expect(this.dataviz.type()).to.eql('bar');
     });
     it('should parse \'double-grouped-metric\' data and set the correct type', function(){
@@ -46,7 +52,14 @@ describe('Dataviz', function(){
       expect(this.dataviz.type()).to.eql('area');
     });
     it('should parse \'grouped-interval\' data and set the correct type', function(){
-      this.dataviz.data(data_interval_groupBy_empties);
+      this.dataviz.data({
+        query: {
+          analysis_type: 'count',
+          group_by: ['key'],
+          interval: 'daily'
+        },
+        result: data_interval_groupBy_empties.result
+      });
       expect(this.dataviz.type()).to.eql('line');
     });
     it('should parse \'double-grouped-interval\' data and set the correct type', function(){

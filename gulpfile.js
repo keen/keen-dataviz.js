@@ -17,7 +17,7 @@ var aws = require('gulp-awspublish'),
 
 gulp.task('default', ['build', 'connect', 'watch']);
 
-gulp.task('connect', ['build'], function () {
+gulp.task('connect', ['build',], function () {
   return connect.server({
       root: [ __dirname, 'test', 'test/unit', 'test/demo' ],
       port: 9002
@@ -29,11 +29,11 @@ gulp.task('build', [
   'build:styles', 'build:minify-styles'
 ]);
 
-gulp.task('watch', ['build'], function() {
+gulp.task('watch', ['build', 'test:browserify'], function() {
   gulp.watch([
       'lib/**/*.js',
       'gulpfile.js'
-    ], ['build:minify-script']);
+    ], ['build:minify-script', 'test:browserify']);
   gulp.watch([
       'lib/**/*.less',
       'gulpfile.js'
