@@ -1216,7 +1216,8 @@ function defineC3(){
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
           data: {
             columns: [],
-            type: type.replace('horizontal-', '')
+            type: type.replace('horizontal-', ''),
+            colors: this.colorMapping()
           },
           color: {
             pattern: this.colors()
