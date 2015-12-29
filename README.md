@@ -75,9 +75,9 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 <html>
   <head>
     <!-- Dependencies -->
-    <link href='//oss.maxcdn.com/c3/0.1.42/c3.css' rel='stylesheet' />
-    <script src='//oss.maxcdn.com/d3js/3.5.6/d3.min.js'></script>
-    <script src='//oss.maxcdn.com/c3/0.1.42/c3.min.js'></script>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' />
+    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
 
     <!-- Keen.Dataviz -->
     <link href='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.2.css' rel='stylesheet' />
