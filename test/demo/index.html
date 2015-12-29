@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <h3>Timeseries</h3>
+      <h3>Timeseries (yearly)</h3>
       <div class="row">
         <div class="col-sm-4">
           <div class="chart-c3-bar-time"></div>
@@ -95,7 +95,7 @@
         </div>
       </div>
 
-      <h3>Timeseries</h3>
+      <h3>Timeseries (daily)</h3>
       <div class="row">
         <div class="col-sm-4">
           <div class="chart-c3-line-time"></div>
@@ -125,7 +125,7 @@
         </div>
       </div>
 
-      <h3>Timeseries</h3>
+      <h3>Timeseries (hourly)</h3>
       <div class="row">
         <div class="col-sm-4">
           <div class="chart-c3-spline-time"></div>
@@ -156,7 +156,7 @@
         </div>
       </div>
 
-      <h3>Timeseries</h3>
+      <h3>Timeseries (minutely)</h3>
       <div class="row">
         <div class="col-sm-4">
           <div class="chart-c3-area-time"></div>
@@ -185,7 +185,7 @@
         </div>
       </div>
 
-      <h3>Timeseries</h3>
+      <h3>Timeseries (secondly)</h3>
       <div class="row">
         <div class="col-sm-4">
           <div class="chart-c3-area-spline-time"></div>
@@ -310,6 +310,109 @@
         [ '2015-02-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
         [ '2015-03-01T00:00:00.000Z', 117.22, 434.37, 488.12 ],
         [ '2015-04-01T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+
+      // Yearly dataset
+
+      var intervalDataYearly = [
+        [ 'Index', 'First' ],
+        [ '2011-01-01T00:00:00.000Z', 189.98 ],
+        [ '2012-01-01T00:00:00.000Z', 135.83 ],
+        [ '2013-01-01T00:00:00.000Z', 124.56 ],
+        [ '2014-01-01T00:00:00.000Z', 117.22 ],
+        [ '2015-01-01T00:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataYearly = [
+        [ 'Index', 'First', 'Second', 'Last' ],
+        [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2012-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2013-01-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2014-01-01T00:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-01-01T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+      // Secondly dataset
+
+      var intervalDataSecondly = [
+        [ 'Index', 'First' ],
+        [ '2015-12-01T10:59:56.000Z', 189.98 ],
+        [ '2015-12-01T10:59:57.000Z', 135.83 ],
+        [ '2015-12-01T10:59:58.000Z', 124.56 ],
+        [ '2015-12-01T10:59:59.000Z', 117.22 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataSecondly = [
+        [ 'Index', 'First', 'Second', 'Last' ],
+        [ '2015-12-01T10:59:56.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-01T10:59:57.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-01T10:59:58.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-01T10:59:59.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+      // Minutely dataset
+
+      var intervalDataMinutely = [
+        [ 'Index', 'First' ],
+        [ '2015-12-01T10:56:00.000Z', 189.98 ],
+        [ '2015-12-01T10:57:00.000Z', 135.83 ],
+        [ '2015-12-01T10:58:00.000Z', 124.56 ],
+        [ '2015-12-01T10:59:00.000Z', 117.22 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataMinutely = [
+        [ 'Index', 'First', 'Second', 'Last' ],
+        [ '2015-12-01T10:56:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-01T10:57:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-01T10:58:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-01T10:59:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+
+      // Hourly dataset
+
+      var intervalDataHourly = [
+        [ 'Index', 'First' ],
+        [ '2015-12-01T10:00:00.000Z', 189.98 ],
+        [ '2015-12-01T11:00:00.000Z', 135.83 ],
+        [ '2015-12-01T12:00:00.000Z', 124.56 ],
+        [ '2015-12-01T13:00:00.000Z', 117.22 ],
+        [ '2015-12-01T14:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataHourly = [
+        [ 'Index', 'First', 'Second', 'Last' ],
+        [ '2015-12-01T10:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-01T11:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-01T12:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-01T13:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-01T14:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+
+      // Daily dataset
+
+      var intervalDataDaily = [
+        [ 'Index', 'First' ],
+        [ '2015-12-01T00:00:00.000Z', 189.98 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataDaily = [
+        [ 'Index', 'First', 'Second', 'Last' ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55  ]
       ];
 
       window.spinner = new Dataviz()
@@ -440,7 +543,7 @@
         .title('Bar Chart')
         .type('bar')
         .call(function(){
-          this.dataset.matrix = intervalData;
+          this.dataset.matrix = intervalDataYearly;
         })
         .render();
 
@@ -450,7 +553,7 @@
         .title('Bar Chart')
         .type('bar')
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataYearly;
         })
         .render();
 
@@ -461,7 +564,7 @@
         .type('bar')
         .stacked(true)
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataYearly;
         })
         .render();
 
@@ -514,7 +617,7 @@
         .title('Line Chart')
         .type('line')
         .call(function(){
-          this.dataset.matrix = intervalData;
+          this.dataset.matrix = intervalDataDaily;
         })
         .render();
 
@@ -524,7 +627,7 @@
         .title('Line Chart')
         .type('line')
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataDaily;
         })
         .render();
 
@@ -535,7 +638,7 @@
         .type('line')
         .stacked(true)
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataDaily;
         })
         .render();
 
@@ -588,7 +691,7 @@
         .title('Spline Chart')
         .type('spline')
         .call(function(){
-          this.dataset.matrix = intervalData;
+          this.dataset.matrix = intervalDataHourly;
         })
         .render();
 
@@ -598,7 +701,7 @@
         .title('Spline Chart')
         .type('spline')
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataHourly;
         })
         .render();
 
@@ -609,7 +712,7 @@
         .type('spline')
         .stacked(true)
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataHourly;
         })
         .render();
 
@@ -663,7 +766,7 @@
         .title('Area Chart')
         .type('area')
         .call(function(){
-          this.dataset.matrix = intervalData;
+          this.dataset.matrix = intervalDataMinutely;
         })
         .render();
 
@@ -673,7 +776,7 @@
         .title('Area Chart')
         .type('area')
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataMinutely;
         })
         .render();
 
@@ -684,7 +787,7 @@
         .type('area')
         .stacked(true)
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataMinutely;
         })
         .render();
 
@@ -738,7 +841,7 @@
         .title('Area-Spline Chart')
         .type('area-spline')
         .call(function(){
-          this.dataset.matrix = intervalData;
+          this.dataset.matrix = intervalDataSecondly;
         })
         .render();
 
@@ -748,7 +851,7 @@
         .title('Area-Spline Chart')
         .type('area-spline')
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataSecondly;
         })
         .render();
 
@@ -759,7 +862,7 @@
         .type('area-spline')
         .stacked(true)
         .call(function(){
-          this.dataset.matrix = intervalMultiData;
+          this.dataset.matrix = intervalMultiDataSecondly;
         })
         .render();
 
