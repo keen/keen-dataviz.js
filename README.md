@@ -80,8 +80,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script src='//oss.maxcdn.com/c3/0.1.42/c3.min.js'></script>
 
     <!-- Keen.Dataviz -->
-    <link href='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.1.css' rel='stylesheet' />
-    <script src='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.1.js'></script>
+    <link href='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.2.css' rel='stylesheet' />
+    <script src='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-0.0.2.js'></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -147,16 +147,7 @@ chart
 
 This is an open source project and we love involvement from the community! Hit us up with pull requests and issues. The more contributions the better!
 
-**TODO:**
-
-* [ ] Rebuild `.colorMapping()` color palette transform
-* [ ] Rebuild `.labels()` Dataset transform
-* [ ] Rebuild `.labelMapping()` Dataset transform
-* [ ] Rebuild `.sortGroups()` Dataset transform
-* [ ] Move `google` and `chartjs` adapters from [keen-js](https://github.com/keen/keen-js) into `/lib/libraries`
-* [ ] Design and build debugging tools
-
-[Learn more about contributing to this project](./CONTRIBUTING.md).
+[Learn about contributing to this project](./CONTRIBUTING.md).
 
 
 ## Custom builds
