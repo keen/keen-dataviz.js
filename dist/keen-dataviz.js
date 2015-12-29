@@ -1216,7 +1216,8 @@ function defineC3(){
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
           data: {
             columns: [],
-            type: type.replace('horizontal-', '')
+            type: type.replace('horizontal-', ''),
+            colors: this.colorMapping()
           },
           color: {
             pattern: this.colors()
@@ -1241,8 +1242,10 @@ function defineC3(){
           }
           if (!isNaN(new Date(this.data()[1][0]).getTime())) {
             options.axis.x = {
-              type: 'timeseries',
-              tick: { format: '%Y-%m-%d' }
+              type: 'timeseries'
+            };
+            options.axis.x.tick = options.axis.x.tick || {
+              format: getDateFormatDefault(this.data()[1][0], this.data()[2][0])
             };
             options.data.columns[0] = [];
             each(this.dataset.selectColumn(0), function(cell, i){
@@ -1285,6 +1288,33 @@ function defineC3(){
       }
     };
   });
+}
+function getDateFormatDefault(a, b){
+  var d = Math.abs(new Date(a).getTime() - new Date(b).getTime());
+  var months = [
+    'Jan', 'Feb', 'Mar',
+    'Apr', 'May', 'June',
+    'July', 'Aug', 'Sept',
+    'Oct', 'Nov', 'Dec'
+  ];
+  if (d >= 2419200000) {
+    return function(ms){
+      var date = new Date(ms);
+      return months[date.getMonth()] + ' ' + date.getFullYear();
+    };
+  }
+  else if (d >= 86400000) {
+    return function(ms){
+      var date = new Date(ms);
+      return months[date.getMonth()] + ' ' + date.getDate();
+    };
+  }
+  else if (d >= 3600000) {
+    return '%I:%M %p';
+  }
+  else {
+    return '%I:%M:%S %p';
+  }
 }
 function defineMessage(){
   types['message'] = {

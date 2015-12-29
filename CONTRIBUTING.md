@@ -4,7 +4,6 @@ This is an open source project and we love involvement from the community! Hit u
 
 **TODO:**
 
-* [ ] Rebuild `.colorMapping()` color palette transform
 * [ ] Rebuild `.labels()` Dataset transform
 * [ ] Rebuild `.labelMapping()` Dataset transform
 * [ ] Rebuild `.sortGroups()` Dataset transform
