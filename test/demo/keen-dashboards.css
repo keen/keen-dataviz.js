@@ -1,0 +1,132 @@
+/*
+  Important: all definitions must begin with a '.' class,
+  and will be auto-prefixed with '.keen-dashboard'
+*/
+
+/*! Tile Container */
+.keen-dashboard-rows {}
+
+/*! Tile Rows */
+.keen-dashboard-row {
+}
+.keen-dashboard-row-tiles {
+}
+.keen-dashboard-row-title {
+  color: #4D4D4D;
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 32px;
+  line-height: 2rem;
+  padding: 16px 0 0;
+  padding: 1rem 0 0;
+}
+
+/*! Keen UI */
+
+.keen-ui-row {
+  margin-left: -8px;
+  margin-left: -0.5rem;
+}
+
+.keen-ui-row:after,
+.keen-ui-row:before {
+  content: " ";
+  display: table;
+}
+.keen-ui-row:after {
+  clear: both;
+}
+
+/*! Tiles */
+.keen-ui-col {
+  box-sizing: border-box;
+  padding: 8px;
+  padding: .5rem;
+}
+
+@media (min-width: 52em) {
+  .keen-ui-col {
+    float: left;
+  }
+
+  /*! Grid units */
+  .keen-ui-col-1 {
+    width: 8.33333%;
+  }
+  .keen-ui-col-2 {
+    width: 16.66667%;
+  }
+  .keen-ui-col-3 {
+    width: 25%;
+  }
+  .keen-ui-col-4 {
+    width: 33.33333%;
+  }
+  .keen-ui-col-5 {
+    width: 41.66667%;
+  }
+  .keen-ui-col-6 {
+    width: 50%;
+  }
+  .keen-ui-col-7 {
+    width: 58.33333%;
+  }
+  .keen-ui-col-8 {
+    width: 66.66667%;
+  }
+  .keen-ui-col-9 {
+    width: 75%;
+  }
+  .keen-ui-col-10 {
+    width: 83.33333%;
+  }
+  .keen-ui-col-11 {
+    width: 91.66667%;
+  }
+  .keen-ui-col-12 {
+    width: 100%;
+  }
+
+  /*! Grid offset units */
+  .keen-ui-col-offset-1 {
+    margin-left: 8.33333%;
+  }
+  .keen-ui-col-offset-2 {
+    margin-left: 16.66667%;
+  }
+  .keen-ui-col-offset-3 {
+    margin-left: 25%;
+  }
+  .keen-ui-col-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /*! No offsets > 4 grid units */
+}
+
+/*! Viewer app styles */
+.keen-dashboard {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0 0 32px;
+  margin: 0 0 2rem;
+}
+.keen-dashboard-title {
+  color: #1A1A1A;
+  font-size: 21px;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 32px;
+  line-height: 2rem;
+  margin: 0;
+}
+.keen-dashboard-notes {
+  color: #808080;
+  font-size: 12px;
+  font-size: .75rem;
+  font-weight: 200;
+  line-height: 16px;
+  line-height: 1rem;
+  padding: 16px 0 0;
+  padding: 1rem 0 0;
+}

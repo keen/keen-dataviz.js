@@ -44,3 +44,50 @@
   line-height: 24px;
   padding-top: 8px;
 }
+.keen-dataviz .keen-dataviz-table {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  margin-bottom: 10px;
+  max-height: 300px;
+  overflow: scroll;
+  position: relative;
+}
+.keen-dataviz .keen-dataviz-table table {
+  background: #FFF;
+  border-collapse: collapse;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  position: relative;
+  width: 100%;
+}
+.keen-dataviz .keen-dataviz-table th,
+.keen-dataviz .keen-dataviz-table td {
+  font-size: 13px;
+  padding: 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+.keen-dataviz .keen-dataviz-table th {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  color: #404a54;
+}
+.keen-dataviz .keen-dataviz-table td {
+  border-bottom: 1px solid #F2F2F2;
+  color: #4d5966;
+}
+.keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
+  background: #fbfbfb;
+}
+.keen-dataviz .keen-dataviz-table tr:hover td {
+  background: #4d5966;
+  color: #FFF;
+}
+.keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
+  visibility: hidden;
+}
+.keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
+  background: #FFF;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 0;
+  transition: top .1s;
+}

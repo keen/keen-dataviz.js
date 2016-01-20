@@ -69,4 +69,57 @@
     }
 
   }
+
+
+  // METRIC
+  .@{scope}-table {
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    margin-bottom: 10px;
+    max-height: 300px;
+    overflow: scroll;
+    position: relative;
+
+    table {
+      background: #FFF;
+      border-collapse: collapse;
+      font-family: @font-family-primary;
+      margin: 0;
+      position: relative;
+      width: 100%;
+    }
+    thead {
+
+    }
+    th, td {
+      font-size: 13px;
+      padding: 10px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    th {
+      border-bottom: 1px solid rgba(0,0,0,.15);
+      color: @gray-4;
+    }
+    td {
+      border-bottom: 1px solid #F2F2F2;
+      color: @gray-5;
+    }
+    tr:nth-child(even) td {
+      background: #fbfbfb;
+    }
+    tr:hover td {
+      background: @gray-5;
+      color: #FFF;
+    }
+    .@{scope}-table-dataset thead {
+      visibility: hidden;
+    }
+    .@{scope}-table-fixed-header {
+      background: #FFF;
+      border-bottom: 1px solid rgba(0,0,0,.15);
+      position: absolute;
+      top: 0;
+      transition: top .1s;
+    }
+  }
 }
