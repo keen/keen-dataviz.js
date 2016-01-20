@@ -1444,7 +1444,7 @@ function defineTable(){
     render: function(){
       var dataset = this.data(),
           el = this.el(),
-          height = this.height() || defaults.height,
+          height = (this.height() || defaults.height) - this.el().offsetHeight,
           theme = this.theme(),
           width = this.width() || defaults.width;
       var html = '',
@@ -1460,7 +1460,7 @@ function defineTable(){
           colWidths[i] = (String(cell).length > colWidths[i]) ? String(cell).length : colWidths[i];
         });
       });
-      html += '<div class="' + theme + '-table">';
+      html += '<div class="' + theme + '-table" style="height: '+(height ? height+'px' : 'auto')+'; width: '+(width ? width+'px' : 'auto')+';">';
       html +=   '<table class="' + theme + '-table-dataset">';
       html +=     '<thead>';
       html +=       '<tr>';

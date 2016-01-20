@@ -1,3 +1,6 @@
+.keen-dataviz {
+  box-sizing: border-box;
+}
 .keen-dataviz .keen-dataviz-title {
   color: #404a54;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -13,7 +16,7 @@
   display: block;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
-  line-height: 24px;
+  line-height: 32px;
 }
 .keen-dataviz .keen-dataviz-message {
   color: #aeb8c2;
@@ -44,10 +47,12 @@
   line-height: 24px;
   padding-top: 8px;
 }
+.keen-dataviz .keen-dataviz-message {
+  box-sizing: border-box;
+}
 .keen-dataviz .keen-dataviz-table {
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-  margin-bottom: 10px;
-  max-height: 300px;
+  box-sizing: border-box;
   overflow: scroll;
   position: relative;
 }
@@ -61,6 +66,7 @@
 }
 .keen-dataviz .keen-dataviz-table th,
 .keen-dataviz .keen-dataviz-table td {
+  border-collapse: collapse;
   font-size: 13px;
   padding: 10px;
   text-align: left;
@@ -71,15 +77,16 @@
   color: #404a54;
 }
 .keen-dataviz .keen-dataviz-table td {
-  border-bottom: 1px solid #F2F2F2;
+  background-color: #FFF;
   color: #4d5966;
+  transition: background-color 0.1s, color 0.05s;
 }
 .keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
-  background: #fbfbfb;
+  background-color: #fbfbfb;
 }
 .keen-dataviz .keen-dataviz-table tr:hover td {
-  background: #4d5966;
-  color: #FFF;
+  background-color: #e8ebed;
+  color: #404a54;
 }
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
   visibility: hidden;

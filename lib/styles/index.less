@@ -7,6 +7,7 @@
 
 // WRAPPER
 .@{scope} {
+  box-sizing: border-box;
 
   .@{scope}-title {
     color: @gray-4;
@@ -25,7 +26,7 @@
     display: block;
     font-family: @font-family-secondary;
     font-size: 12px;
-    line-height: 24px;
+    line-height: 32px;
   }
 
   // MESSAGE
@@ -70,12 +71,17 @@
 
   }
 
+  // MESSAGE
+  .@{scope}-message {
+    box-sizing: border-box;
+  }
 
-  // METRIC
+
+  // TABLE
   .@{scope}-table {
     border-bottom: 1px solid rgba(0,0,0,.15);
-    margin-bottom: 10px;
-    max-height: 300px;
+    box-sizing: border-box;
+    // margin-bottom: 10px;
     overflow: scroll;
     position: relative;
 
@@ -91,6 +97,7 @@
 
     }
     th, td {
+      border-collapse: collapse;
       font-size: 13px;
       padding: 10px;
       text-align: left;
@@ -101,15 +108,16 @@
       color: @gray-4;
     }
     td {
-      border-bottom: 1px solid #F2F2F2;
+      background-color: #FFF;
       color: @gray-5;
+      transition: background-color 0.1s, color 0.05s;
     }
     tr:nth-child(even) td {
-      background: #fbfbfb;
+      background-color: #fbfbfb;
     }
     tr:hover td {
-      background: @gray-5;
-      color: #FFF;
+      background-color: @gray-e;
+      color: @gray-4;
     }
     .@{scope}-table-dataset thead {
       visibility: hidden;
