@@ -789,6 +789,7 @@ describe('Dataset', function(){
       expect(dataset.data()[0][1]).to.eql('Value');
       expect(dataset.data()[1][0]).to.eql('Result');
       expect(dataset.data()[1][1]).to.eql(2450);
+      expect(dataset.type()).to.eql('metric');
     });
 
     it('interval.json (indexed by timeframe.end)', function(){
@@ -804,6 +805,7 @@ describe('Dataset', function(){
       // timeframe.end
       expect(dataset.data()[1][0])
         .to.eql('2015-01-01T00:00:00.000Z');
+      expect(dataset.type()).to.eql('interval');
     });
 
     it('groupby.json', function(){
@@ -814,6 +816,7 @@ describe('Dataset', function(){
       expect(dataset.data()[0]).to.be.of.length(2);
       expect(dataset.data()[0][0]).to.eql('Index');
       expect(dataset.data()[0][1]).to.eql('Result');
+      expect(dataset.type()).to.eql('grouped-metric');
     });
 
     it('groupBy-boolean.json', function(){
@@ -824,12 +827,14 @@ describe('Dataset', function(){
         .and.to.be.of.length(4);
       expect(dataset.data()[1][0]).to.eql('true');
       expect(dataset.data()[2][0]).to.eql('false');
+      expect(dataset.type()).to.eql('grouped-metric');
     });
 
     it('interval-groupBy-empties.json', function(){
       var dataset = Dataset.parser('grouped-interval')(data_interval_groupBy_empties);
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(7);
+      expect(dataset.type()).to.eql('grouped-interval');
     });
 
     it('interval-groupBy-boolean.json (indexed by timeframe.end)', function(){
@@ -839,6 +844,7 @@ describe('Dataset', function(){
         .and.to.be.of.length(7);
       expect(dataset.data()[1][0])
         .to.eql('2013-11-01T07:00:00.000Z');
+      expect(dataset.type()).to.eql('grouped-interval');
     });
 
     it('interval-groupBy-nulls.json', function(){
@@ -853,6 +859,7 @@ describe('Dataset', function(){
       expect(dataset.data()[0][0]).to.eql('Index');
       expect(dataset.data()[0][1]).to.eql('');
       expect(dataset.data()[0][2]).to.eql('Windows Vista');
+      expect(dataset.type()).to.eql('grouped-interval');
     });
 
     it('extraction.json 1', function(){
@@ -865,6 +872,7 @@ describe('Dataset', function(){
       expect(dataset.data()[0][0]).to.eql('keen.timestamp');
       expect(dataset.data()[0][1]).to.eql('keen.created_at');
       expect(dataset.data()[0][2]).to.eql('keen.id');
+      expect(dataset.type()).to.eql('extraction');
     });
 
     it('extraction-uneven.json', function(){
@@ -873,6 +881,7 @@ describe('Dataset', function(){
       expect(dataset.data())
         .to.be.an('array')
         .and.to.be.of.length(data_extraction_uneven.result.length+1);
+      expect(dataset.type()).to.eql('extraction');
     });
 
     it('funnel.json', function(){
@@ -885,6 +894,7 @@ describe('Dataset', function(){
       expect(dataset.data()[0][1]).to.eql('Step Value');
       expect(dataset.data()[1][0]).to.be.eql('pageview');
       expect(dataset.data()[1][1]).to.be.eql(42);
+      expect(dataset.type()).to.eql('funnel');
     });
 
     it('double-groupBy.json', function(){
@@ -897,6 +907,7 @@ describe('Dataset', function(){
         .and.to.be.of.length(194);
       expect(dataset.data()[0])
         .to.be.of.length(2);
+      expect(dataset.type()).to.eql('double-grouped-metric');
     });
 
     it('interval-double-groupBy.json (indexed by timeframe.end)', function(){
@@ -911,6 +922,7 @@ describe('Dataset', function(){
         .and.to.be.of.length(5);
       expect(dataset.selectColumn(0)[1]).to.be.a('string')
         .and.to.eql('2014-04-23T07:00:00.000Z');
+      expect(dataset.type()).to.eql('double-grouped-interval');
     });
 
     it('select-unique.json', function(){
@@ -918,6 +930,7 @@ describe('Dataset', function(){
 
       expect(dataset.data()).to.be.an('array')
         .and.to.be.of.length(60);
+      expect(dataset.type()).to.eql('list');
     });
 
   });
