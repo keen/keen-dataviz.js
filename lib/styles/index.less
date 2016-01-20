@@ -79,7 +79,7 @@
 
   // TABLE
   .@{scope}-table {
-    border-bottom: 1px solid rgba(0,0,0,.15);
+    border-bottom: 1px solid @gray-d;
     box-sizing: border-box;
     // margin-bottom: 10px;
     overflow: scroll;
@@ -93,9 +93,7 @@
       position: relative;
       width: 100%;
     }
-    thead {
 
-    }
     th, td {
       border-collapse: collapse;
       font-size: 13px;
@@ -104,7 +102,7 @@
       white-space: nowrap;
     }
     th {
-      border-bottom: 1px solid rgba(0,0,0,.15);
+      border-bottom: 1px solid @gray-d;
       color: @gray-4;
     }
     td {
@@ -113,7 +111,7 @@
       transition: background-color 0.1s, color 0.05s;
     }
     tr:nth-child(even) td {
-      background-color: #fbfbfb;
+      background-color: @gray-f;
     }
     tr:hover td {
       background-color: @gray-e;

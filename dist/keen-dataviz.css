@@ -51,7 +51,7 @@
   box-sizing: border-box;
 }
 .keen-dataviz .keen-dataviz-table {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #d9dee2;
   box-sizing: border-box;
   overflow: scroll;
   position: relative;
@@ -73,7 +73,7 @@
   white-space: nowrap;
 }
 .keen-dataviz .keen-dataviz-table th {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #d9dee2;
   color: #404a54;
 }
 .keen-dataviz .keen-dataviz-table td {
@@ -82,7 +82,7 @@
   transition: background-color 0.1s, color 0.05s;
 }
 .keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
-  background-color: #fbfbfb;
+  background-color: #f3f5f6;
 }
 .keen-dataviz .keen-dataviz-table tr:hover td {
   background-color: #e8ebed;
