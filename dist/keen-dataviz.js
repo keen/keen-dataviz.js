@@ -168,6 +168,9 @@ function getDefaultTitle(query){
     this.matrix = [
       ['Index']
     ];
+    this.meta = {
+      type: undefined
+    };
   }
   Dataset.prototype.data = function(arr){
     if (!arguments.length) return this.matrix;
@@ -192,7 +195,12 @@ function getDefaultTitle(query){
     }
     this.matrix[ rowIndex ][ colIndex ] = value;
     return this;
-  }
+  };
+  Dataset.prototype.type = function(str){
+    if (!arguments.length) return this.meta['type'];
+    this.meta['type'] = (str ? String(str) : undefined);
+    return this;
+  };
   extend(Dataset.prototype, append);
   extend(Dataset.prototype, del);
   extend(Dataset.prototype, filter);
@@ -703,14 +711,16 @@ function initialize(lib){
 }
 function parseMetric(){
   return function(res){
-    var dataset = new Dataset();
-    return dataset.set(['Value', 'Result'], res.result);
+    return new Dataset()
+      .set(['Value', 'Result'], res.result)
+      .type('metric');
   }
 }
 function parseInterval(){
   var options = Array.prototype.slice.call(arguments);
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('interval');
     each(res.result, function(record, i){
       var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
       dataset.set(['Result', index], record.value);
@@ -720,7 +730,8 @@ function parseInterval(){
 }
 function parseGroupedMetric(){
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('grouped-metric');
     each(res.result, function(record, i){
       var label;
       each(record, function(value, key){
@@ -736,7 +747,8 @@ function parseGroupedMetric(){
 function parseGroupedInterval(){
   var options = Array.prototype.slice.call(arguments);
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('grouped-interval');
     each(res.result, function(record, i){
       var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
       if (record.value.length) {
@@ -761,7 +773,8 @@ function parseDoubleGroupedMetric(){
   var options = Array.prototype.slice.call(arguments);
   if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('double-grouped-metric');
     each(res.result, function(record, i){
       dataset.set([ 'Result', record[options[0][0]] + ' ' + record[options[0][1]] ], record.result);
     });
@@ -772,7 +785,8 @@ function parseDoubleGroupedInterval(){
   var options = Array.prototype.slice.call(arguments);
   if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('double-grouped-interval');
     each(res.result, function(record, i){
       var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
       each(record['value'], function(value, j){
@@ -785,7 +799,8 @@ function parseDoubleGroupedInterval(){
 }
 function parseFunnel(){
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('funnel');
     each(res.result, function(value, i){
       dataset.set( [ 'Step Value', res.steps[i].event_collection ], value );
     });
@@ -794,7 +809,8 @@ function parseFunnel(){
 }
 function parseList(){
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('list');
     each(res.result, function(value, i){
       dataset.set( [ 'Value', i+1 ], value );
     });
@@ -803,7 +819,8 @@ function parseList(){
 }
 function parseExtraction(){
   return function(res){
-    var dataset = new Dataset();
+    var dataset = new Dataset()
+      .type('extraction');
     each(res.result, function(record, i){
       each(flatten(record), function(value, key){
         dataset.set([key, i+1], value);
