@@ -7,7 +7,10 @@
     <script src='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
 
     <link rel="stylesheet" type="text/css" href="//cloud.typography.com/737368/747986/css/fonts.css" />
-    <link rel="stylesheet" href="./keen-bootstrap.min.css">
+
+    <!-- Safe, minimal layout -->
+    <link rel="stylesheet" href="./keen-dashboards.css">
+
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
     <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-0.0.5.min.js"></script>
     <script src="../dist/keen-dataviz.js"></script>
@@ -17,33 +20,40 @@
 
       <h1>Dataviz Examples</h1>
 
-      <div class="row">
-        <div class="col-sm-4" id="nested">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4" id="nested">
           <h2>Metric</h2>
           <div class="chart-demo-metric"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <h2>Message</h2>
           <div class="chart-demo-message"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <h2>Spinner</h2>
           <div id="chart-demo-spinner"></div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-12">
+          <h2>Table</h2>
+          <div class="chart-demo-table"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <h2>Gauge</h2>
           <div class="chart-c3-gauge"></div>
           <hr>
           <div class="chart-c3-gauge2"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <h2>Donut</h2>
           <div class="chart-c3-donut"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <h2>Pie</h2>
           <div class="chart-c3-pie"></div>
         </div>
@@ -54,27 +64,27 @@
       <h2>Bar chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-bar"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-bar-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-bar-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (yearly)</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-bar-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-bar-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-bar-time-stacked"></div>
         </div>
       </div>
@@ -83,27 +93,27 @@
       <h2>Line chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-line"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-line-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-line-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (daily)</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-line-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-line-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-line-time-stacked"></div>
         </div>
       </div>
@@ -113,27 +123,27 @@
       <h2>Spline chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-spline"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-spline-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-spline-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (hourly)</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-spline-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-spline-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-spline-time-stacked"></div>
         </div>
       </div>
@@ -144,27 +154,27 @@
       <h2>Area chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (minutely)</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-time-stacked"></div>
         </div>
       </div>
@@ -173,27 +183,27 @@
       <h2>Area-Spline chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-spline"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-spline-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-spline-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (secondly)</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-spline-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-spline-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-spline-time-stacked"></div>
         </div>
       </div>
@@ -202,27 +212,27 @@
       <h2>Area-Step chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-step"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-step-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-step-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-step-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-step-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-area-step-time-stacked"></div>
         </div>
       </div>
@@ -231,27 +241,27 @@
       <h2>Step chart</h2>
 
       <h3>Categorical</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-step"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-step-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-step-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-step-time"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-step-time-multi"></div>
         </div>
-        <div class="col-sm-4">
+        <div class="keen-ui-col keen-ui-col-4">
           <div class="chart-c3-step-time-stacked"></div>
         </div>
       </div>
@@ -415,6 +425,25 @@
         [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55  ]
       ];
 
+      var tableData = [
+        [ 'Index', 'First', 'Second', 'Another', 'Fourth', 'Fifth', 'Last' ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ]
+      ];
+
       window.spinner = new Dataviz()
         .height(280)
         .el('#chart-demo-spinner')
@@ -432,6 +461,18 @@
         .type('metric')
         .title('High-fives today')
         .prepare();
+
+      window.table = new Dataviz()
+        .el('.chart-demo-table')
+        // .theme('custom-theme')
+        .height(300)
+        .type('table')
+        .title('Basic table view')
+        .notes('Footnotes for this table')
+        .call(function(){
+          this.dataset.matrix = tableData;
+        })
+        .render();
 
       setTimeout(function(){
         window.metric.call(function(){
@@ -1024,7 +1065,12 @@
     <style>
     body {
       background: #f2f2f2;
-      padding: 20px 0;
+      /*font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+      padding: 20px;
+    }
+    .container {
+      margin: 0 auto;
+      max-width: 980px;
     }
     h2 {
       border-top: 1px solid rgba(0,0,0,.1);
@@ -1033,7 +1079,7 @@
       margin: 48px 0 24px;
       padding-top: 48px;
     }
-    .row h2 {
+    .keen-ui-row h2 {
       border-top: medium none;
       padding-top: 0;
     }
@@ -1048,9 +1094,9 @@
       /*padding: 10px;*/
       width: 600px;
     }
-    .row {
+    /*.keen-ui-row {
       margin-bottom: 24px;
-    }
+    }*/
     </style>
     <style>
       .custom-theme {

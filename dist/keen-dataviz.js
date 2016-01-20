@@ -1192,6 +1192,7 @@ function initialize(){
   defineMessage();
   defineMetric();
   defineSpinner();
+  defineTable();
   return types;
 }
 function defineC3(){
@@ -1429,6 +1430,78 @@ function defineSpinner(){
         this.view._artifacts['spinner'].stop();
         this.view._artifacts['spinner'] = null;
       }
+    }
+  };
+}
+function defineTable(){
+  var defaults = {
+    height: undefined,
+    width: undefined,
+    stickyHeader: true,
+    stickyFooter: false
+  };
+  types['table'] = {
+    render: function(){
+      var dataset = this.data(),
+          el = this.el(),
+          height = (this.height() || defaults.height) - this.el().offsetHeight,
+          theme = this.theme(),
+          width = this.width() || defaults.width;
+      var html = '',
+          colAligns = new Array(dataset[0].length),
+          colWidths = new Array(dataset[0].length),
+          fixedHeader;
+      each(dataset, function(row){
+        each(row, function(cell, i){
+          if (!colWidths[i]) {
+            colWidths[i] = 0;
+          }
+          colAligns[i] = (typeof cell === 'number') ? 'right' : 'left';
+          colWidths[i] = (String(cell).length > colWidths[i]) ? String(cell).length : colWidths[i];
+        });
+      });
+      html += '<div class="' + theme + '-table" style="height: '+(height ? height+'px' : 'auto')+'; width: '+(width ? width+'px' : 'auto')+';">';
+      html +=   '<table class="' + theme + '-table-dataset">';
+      html +=     '<thead>';
+      html +=       '<tr>';
+      for (var i = 0; i < dataset[0].length; i++) {
+        html +=       '<th style="width: '+ (10 * colWidths[i]) +'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+      }
+      html +=       '</tr>';
+      html +=     '</thead>';
+      html +=     '<tbody>';
+      for (var i = 0; i < dataset.length; i++) {
+        if (i > 0) {
+          html +=   '<tr>';
+          for (var j = 0; j < dataset[i].length; j++) {
+            html +=   '<td style="min-width: '+ (10 * colWidths[j]) +'px; text-align: ' + colAligns[j] + ';">' + dataset[i][j] + '</td>';
+          }
+          html +=   '</tr>';
+        }
+      }
+      html +=     '</tbody>';
+      html +=   '</table>';
+      html +=   '<table class="' + theme + '-table-fixed-header">';
+      html +=     '<thead>';
+      html +=       '<tr>';
+      for (var i = 0; i < dataset[0].length; i++) {
+        html +=       '<th style="min-width: '+ (10 * colWidths[i]) +'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+      }
+      html +=       '</tr>';
+      html +=     '</thead>';
+      html +=   '</table>';
+      html += '</div>';
+      el.querySelector('.' + theme + '-rendering').innerHTML = html;
+      fixedHeader = el.querySelector('.' + theme + '-table-fixed-header');
+      el.querySelector('.' + theme + '-table').onscroll = function(e){
+        fixedHeader.style.top = e.target.scrollTop + 'px';
+      };
+    },
+    update: function(){
+      this.render();
+    },
+    destroy: function(){
+      this.el().querySelector('.' + theme + '-table').onscroll = undefined;
     }
   };
 }
