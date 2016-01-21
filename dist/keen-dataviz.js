@@ -838,8 +838,7 @@ function parseExtraction(){
   var libraries = {
     'default': require('./libraries/default')()
   };
-  /* var applyColorMapping = require('./utils/apply-color-mapping'),
-      applyLabelMapping = require('./utils/apply-label-mapping'),
+  /* var applyLabelMapping = require('./utils/apply-label-mapping'),
       applyLabels = require('./utils/apply-labels'),
       applySortGroups = require('./utils/apply-sort-groups');, */
   var each = require('./utils/each'),
@@ -969,13 +968,23 @@ function parseExtraction(){
     return this;
   };
   Dataviz.prototype.labels = function(arr){
-    if (!arguments.length) {
-        return this.view.labels;
+    if (!arguments.length) return this.view.labels;
+    this.view.labels = (arr instanceof Array ? arr : []);
+    if (this.data()[0].length === 2 && isNaN(new Date(this.data()[1][0]).getTime())) {
+      each(this.dataset.matrix, function(row, i){
+        if (i > 0 && this.view.labels[i-1]) {
+          this.dataset.matrix[i][0] = String(this.view.labels[i-1]);
+        }
+      }.bind(this));
     }
     else {
-      this.view.labels = (arr instanceof Array ? arr : []);
-      return this;
+      each(this.dataset.matrix[0], function(cell, i){
+        if (i > 0 && this.view.labels[i-1]) {
+          this.dataset.matrix[0][i] = String(this.view.labels[i-1]);
+        }
+      }.bind(this));
     }
+    return this;
   };
   Dataviz.prototype.labelMapping = function(obj){
     var self = this;
