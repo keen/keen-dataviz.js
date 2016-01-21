@@ -1,3 +1,10 @@
+<a name="0.0.3"></a>
+# 0.0.3 Dataset types, parser identification
+
+**NEW:**
+* Exposed a `.type(string)` accessor for identifying the type of data represented. Each `Dataset.parser()` function will set this type on `Dataset` instances when used.
+
+
 <a name="0.0.2"></a>
 # 0.0.2 Better dates and colors
 
