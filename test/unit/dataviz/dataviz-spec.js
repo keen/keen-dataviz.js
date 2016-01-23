@@ -148,6 +148,36 @@ describe('Dataviz', function(){
         .and.to.have.length(0);
     });
 
+    it('should rewrite the labels in a categorical Dataset instance', function(){
+      var array = ['A','B'];
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'Result'],
+        ['Row 1', 1],
+        ['Row 2', 2],
+        ['Row 3', 3]
+      ];
+      this.dataviz.data(ds).labels(array);
+      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
+        .and.to.have.length(4)
+        .and.to.eql(['Index', 'A', 'B', 'Row 3']);
+    });
+
+    it('should rewrite the labels in a timeseries Dataset instance', function(){
+      var array = ['A'];
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'First', 'Next'],
+        ['2012', 1, 3],
+        ['2013', 2, 2],
+        ['2014', 3, 1]
+      ];
+      this.dataviz.data(ds).labels(array);
+      expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
+        .and.to.have.length(3)
+        .and.to.eql(['Index', 'A', 'Next']);
+    });
+
   });
 
   describe('.labelMapping()', function(){

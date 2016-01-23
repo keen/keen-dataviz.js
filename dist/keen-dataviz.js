@@ -145,7 +145,7 @@ function getDefaultTitle(query){
   }
   return title;
 }
-},{"./dataset":2,"./utils/extend":17}],2:[function(require,module,exports){
+},{"./dataset":2,"./utils/extend":18}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -230,7 +230,7 @@ function getDefaultTitle(query){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":17,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+},{"../utils/extend":18,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -309,7 +309,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":16,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":17,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -332,7 +332,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":16}],5:[function(require,module,exports){
+},{"../../utils/each":17}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -366,7 +366,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":16}],6:[function(require,module,exports){
+},{"../../utils/each":17}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -445,7 +445,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":16,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -469,7 +469,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":16}],8:[function(require,module,exports){
+},{"../../utils/each":17}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -519,7 +519,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":16}],9:[function(require,module,exports){
+},{"../../utils/each":17}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -593,7 +593,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":16,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -655,7 +655,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":16,"../../utils/extend":17}],11:[function(require,module,exports){
+},{"../../utils/each":17,"../../utils/extend":18}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -830,7 +830,7 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":16,"../utils/flatten":12}],14:[function(require,module,exports){
+},{"../../utils/each":17,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
   var Dataset = require('./dataset'),
@@ -839,10 +839,10 @@ function parseExtraction(){
     'default': require('./libraries/default')()
   };
   /* var applyLabelMapping = require('./utils/apply-label-mapping'),
-      applyLabels = require('./utils/apply-labels'),
       applySortGroups = require('./utils/apply-sort-groups');, */
   var each = require('./utils/each'),
-      extend = require('./utils/extend');
+      extend = require('./utils/extend'),
+      isDateString = require('./utils/assert-date-string');
   function Dataviz(){
     if (this instanceof Dataviz === false) {
       return new Dataviz();
@@ -970,17 +970,23 @@ function parseExtraction(){
   Dataviz.prototype.labels = function(arr){
     if (!arguments.length) return this.view.labels;
     this.view.labels = (arr instanceof Array ? arr : []);
-    if (this.data()[0].length === 2 && isNaN(new Date(this.data()[1][0]).getTime())) {
-      each(this.dataset.matrix, function(row, i){
-        if (i > 0 && this.view.labels[i-1]) {
-          this.dataset.matrix[i][0] = String(this.view.labels[i-1]);
+    if (this.data()[0].length === 2 && !isDateString(this.data()[1][0])) {
+      this.dataset.updateColumn(0, function(value, index){
+        if (this.view.labels[index-1]) {
+          return String(this.view.labels[index-1]);
+        }
+        else {
+          return value;
         }
       }.bind(this));
     }
     else {
-      each(this.dataset.matrix[0], function(cell, i){
-        if (i > 0 && this.view.labels[i-1]) {
-          this.dataset.matrix[0][i] = String(this.view.labels[i-1]);
+      this.dataset.updateRow(0, function(value, index){
+        if (index > 0 && this.view.labels[index-1]) {
+          return String(this.view.labels[index-1]);
+        }
+        else {
+          return value;
         }
       }.bind(this));
     }
@@ -1207,10 +1213,11 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/each":16,"./utils/extend":17}],15:[function(require,module,exports){
+},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":18}],15:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
+    isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
 var types = {};
 function initialize(){
@@ -1267,7 +1274,7 @@ function defineC3(){
           if (type.indexOf('horizontal-') > -1) {
             options.axis.rotated = true;
           }
-          if (!isNaN(new Date(this.data()[1][0]).getTime())) {
+          if (isDateString(this.data()[1][0])) {
             options.axis.x = {
               type: 'timeseries'
             };
@@ -1532,7 +1539,16 @@ function defineTable(){
   };
 }
 module.exports = initialize;
-},{"../utils/each":16,"../utils/extend":17,"../utils/pretty-number":18,"spin.js":19}],16:[function(require,module,exports){
+},{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":18,"../utils/pretty-number":19,"spin.js":20}],16:[function(require,module,exports){
+module.exports = function(str){
+  var split;
+  if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
+    split = str.split('-');
+    return !isNaN(split[0]) && split[0].length === 4;
+  }
+  return false;
+};
+},{}],17:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1557,7 +1573,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1567,7 +1583,7 @@ function extend(target){
   }
   return target;
 }
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1623,7 +1639,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
