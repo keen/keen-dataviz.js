@@ -221,33 +221,42 @@ describe('Dataviz', function(){
     });
 
     // TODO: re-activate
-    // it('should provide full text replacement of categorical values', function(){
-    //   var num_viz = new Dataviz()
-    //     .call(function(){
-    //       this.dataset.output([
-    //         [ 'Index', 'Count' ],
-    //         [ 'Sunday', 10 ],
-    //         [ 'Monday', 11 ],
-    //         [ 'Tuesday', 12 ],
-    //         [ 'Wednesday', 13 ]
-    //       ]);
-    //       this.dataset.meta.schema = { records: 'result', select: true };
-    //       this.dataType('categorical');
-    //     })
-    //     .labelMapping({
-    //       'Sunday'    : 'Sun',
-    //       'Monday'    : 'Mon',
-    //       'Tuesday'   : 'Tues'
-    //     });
-    //   expect(num_viz.dataset.output()[1][0]).to.be.a('string')
-    //     .and.to.eql('Sun');
-    //   expect(num_viz.dataset.output()[2][0]).to.be.a('string')
-    //     .and.to.eql('Mon');
-    //   expect(num_viz.dataset.output()[3][0]).to.be.a('string')
-    //     .and.to.eql('Tues');
-    //   expect(num_viz.dataset.output()[4][0]).to.be.a('string')
-    //     .and.to.eql('Wednesday');
-    // });
+    it('should rewrite the labels in a categorical Dataset instance', function(){
+      var labels = {
+        'First': 'A',
+        'Row 1': 'A',
+        'Row 2': 'B'
+      };
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'Result'],
+        ['Row 1', 1],
+        ['Row 2', 2],
+        ['Row 3', 3]
+      ];
+      this.dataviz.data(ds).labelMapping(labels);
+      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
+        .and.to.have.length(4)
+        .and.to.eql(['Index', 'A', 'B', 'Row 3']);
+    });
+
+    it('should rewrite the labels in a timeseries Dataset instance', function(){
+      var labels = {
+        'First': 'A',
+        'Row 2': 'B'
+      };
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'First', 'Next'],
+        ['2012', 1, 3],
+        ['2013', 2, 2],
+        ['2014', 3, 1]
+      ];
+      this.dataviz.data(ds).labelMapping(labels);
+      expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
+        .and.to.have.length(3)
+        .and.to.eql(['Index', 'A', 'Next']);
+    });
 
   });
 

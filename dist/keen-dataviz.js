@@ -993,15 +993,34 @@ function parseExtraction(){
     return this;
   };
   Dataviz.prototype.labelMapping = function(obj){
-    var self = this;
     if (!arguments.length) return this.view.labelMapping;
     if (obj === null) {
       this.view.labelMapping = {};
     }
     else if (typeof obj === 'object') {
       each(obj, function(value, key){
-        self.view.labelMapping[key] = (value ? value : null);
-      });
+        this.view.labelMapping[key] = (value ? value : null);
+      }.bind(this));
+    }
+    if (this.data()[0].length === 2 && !isDateString(this.data()[1][0])) {
+      this.dataset.updateColumn(0, function(value){
+        if (this.view.labelMapping[value]) {
+          return String(this.view.labelMapping[value]);
+        }
+        else {
+          return value;
+        }
+      }.bind(this));
+    }
+    else {
+      this.dataset.updateRow(0, function(value){
+        if (this.view.labelMapping[value]) {
+          return String(this.view.labelMapping[value]);
+        }
+        else {
+          return value;
+        }
+      }.bind(this));
     }
     return this;
   };
@@ -1251,7 +1270,7 @@ function defineC3(){
           data: {
             columns: [],
             type: type.replace('horizontal-', ''),
-            colors: this.colorMapping()
+            colors: extend({}, this.colorMapping())
           },
           color: {
             pattern: this.colors()
