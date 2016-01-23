@@ -98,3 +98,7 @@
   top: 0;
   transition: top .1s;
 }
+.keen-dataviz .c3 svg,
+.keen-dataviz .c3-tooltip-container {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
