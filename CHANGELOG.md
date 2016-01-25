@@ -1,3 +1,10 @@
+<a name="0.0.4"></a>
+# 0.0.4 Restore label/group handling
+
+**NEW:**
+* Re-connected `.labels(array)` and `.labelMapping(object)` methods, added tests
+* Improved C3.js default settings and styling
+
 <a name="0.0.3"></a>
 # 0.0.3 Dataset types, parser identification
 
