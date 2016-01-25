@@ -838,8 +838,6 @@ function parseExtraction(){
   var libraries = {
     'default': require('./libraries/default')()
   };
-  /* var applyLabelMapping = require('./utils/apply-label-mapping'),
-      applySortGroups = require('./utils/apply-sort-groups');, */
   var each = require('./utils/each'),
       extend = require('./utils/extend'),
       isDateString = require('./utils/assert-date-string');
@@ -1112,6 +1110,14 @@ function parseExtraction(){
   Dataviz.prototype.sortGroups = function(str){
     if (!arguments.length) return this.view.sortGroups;
     this.view.sortGroups = (str ? String(str) : null);
+    if (this.view.sortGroups && this.data().length > 1) {
+      if (isDateString(this.data()[1][0])) {
+        this.dataset.sortColumns(this.view.sortGroups, this.dataset.getColumnSum);
+      }
+      else {
+        this.dataset.sortRows(this.view.sortGroups, this.dataset.getRowSum);
+      }
+    }
     return this;
   };
   Dataviz.prototype.sortIntervals = function(str){
