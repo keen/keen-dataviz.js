@@ -5,9 +5,13 @@
 *.md
 .awspublish-keen-js
 
+bower.json
 gulpfile.js
 config-karma.js
 config-sauce.js
+
+CHANGELOG.md
+README.md
 
 dist
 docs
