@@ -1276,7 +1276,8 @@ function defineC3(){
           data: {
             columns: [],
             type: type.replace('horizontal-', ''),
-            colors: extend({}, this.colorMapping())
+            colors: extend({}, this.colorMapping()),
+            order: null
           },
           color: {
             pattern: this.colors()
