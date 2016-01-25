@@ -489,6 +489,34 @@ describe('Dataviz', function(){
         .to.not.exist;
     });
 
+    it('should sort labels in a categorical Dataset instance', function(){
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'Result'],
+        ['Row 1', 1],
+        ['Row 2', 2],
+        ['Row 3', 3]
+      ];
+      this.dataviz.data(ds).sortGroups('desc');
+      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
+        .and.to.have.length(4)
+        .and.to.eql(['Index', 'Row 3', 'Row 2', 'Row 1']);
+    });
+
+    it('should sort labels in a timeseries Dataset instance', function(){
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'First', 'Next'],
+        ['2012', 3, 3],
+        ['2013', 3, 2],
+        ['2014', 3, 1]
+      ];
+      this.dataviz.data(ds).sortGroups('asc');
+      expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
+        .and.to.have.length(3)
+        .and.to.eql(['Index', 'Next', 'First']);
+    });
+
   });
 
 
@@ -510,6 +538,20 @@ describe('Dataviz', function(){
       this.dataviz.sortIntervals(null);
       expect(this.dataviz.view.sortIntervals)
         .to.not.exist;
+    });
+
+    it('should sort intervals in a timeseries Dataset instance', function(){
+      var ds = new Dataset();
+      ds.matrix = [
+        ['Index', 'First', 'Next'],
+        ['2012', 3, 3],
+        ['2013', 3, 2],
+        ['2014', 3, 1]
+      ];
+      this.dataviz.data(ds).sortIntervals('desc');
+      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
+        .and.to.have.length(4)
+        .and.to.eql(['Index', '2014', '2013', '2012']);
     });
 
   });
