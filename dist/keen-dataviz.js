@@ -841,6 +841,7 @@ function parseExtraction(){
   var each = require('./utils/each'),
       extend = require('./utils/extend'),
       isDateString = require('./utils/assert-date-string');
+  handleWindowResize();
   function Dataviz(){
     if (this instanceof Dataviz === false) {
       return new Dataviz();
@@ -1218,6 +1219,32 @@ function parseExtraction(){
       fn();
     }
   }
+  function bindResizeListener(fn){
+    if ('undefined' === typeof window) return;
+    window.onresize = window.resize = function(){};
+    if (window.addEventListener) {
+      window.addEventListener('resize', fn, true);
+    }
+    else if (window.attachEvent) {
+      window.attachEvent('onresize', fn);
+    }
+  }
+  function handleWindowResize(){
+    var timer, delay;
+    bindResizeListener(function(){
+      if (timer) {
+        clearTimeout(timer);
+      }
+      delay = (Dataviz.visuals.length > 12) ? 1000 : 250;
+      timer = setTimeout(function(){
+        each(Dataviz.visuals, function(chart){
+          if (chart.view._artifacts.c3) {
+              chart.view._artifacts.c3.resize();
+          }
+        });
+      }, delay);
+    });
+  }
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Dataviz;
   }
@@ -1274,10 +1301,10 @@ function defineC3(){
           axis: {},
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
           data: {
-            columns: [],
-            type: type.replace('horizontal-', ''),
             colors: extend({}, this.colorMapping()),
-            order: null
+            columns: [],
+            order: null,
+            type: type.replace('horizontal-', '')
           },
           color: {
             pattern: this.colors()
@@ -1285,6 +1312,9 @@ function defineC3(){
           size: {
             height: this.height() ? this.height() - this.el().offsetHeight : 400,
             width: this.width()
+          },
+          transition: {
+            duration: 0
           }
         }, this.chartOptions());
         if (type === 'gauge') {
