@@ -138,3 +138,12 @@
 .keen-dataviz .c3-tooltip-container {
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+.keen-dataviz .paginated-legend {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: block;
+  float: right;
+  width: 50%;
+}
+.keen-dataviz .legend-navigation {
+  cursor: pointer;
+}

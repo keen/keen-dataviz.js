@@ -1,0 +1,149 @@
+@import 'colors';
+
+@scope: keen-dataviz;
+
+@font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', @font-family-secondary;
+
+// WRAPPER
+.@{scope} {
+  box-sizing: border-box;
+
+  .@{scope}-title {
+    color: @gray-4;
+    font-family: @font-family-primary;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 32px;
+  }
+
+  .@{scope}-stage {
+    display: block;
+  }
+
+  .@{scope}-notes {
+    color: @gray-8;
+    display: block;
+    font-family: @font-family-secondary;
+    font-size: 12px;
+    line-height: 32px;
+  }
+
+  // MESSAGE
+  .@{scope}-message {
+    color: @gray-b;
+    display: block;
+    font-family: @font-family-primary;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 24px;
+    text-align: center;
+  }
+
+  // METRIC
+  .@{scope}-metric {
+    background-color: @teal;
+    border-radius: 4px;
+    color: @white;
+    font-family: @font-family-primary;
+    text-align: center;
+
+    .@{scope}-metric-value {
+      display: block;
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 72px;
+    }
+    .@{scope}-metric-title {
+      display: block;
+      font-size: 24px;
+      font-weight: 200;
+      line-height: 24px;
+      padding-top: 8px;
+    }
+
+    .@{scope}-metric-prefix {
+      //
+    }
+    .@{scope}-metric-suffix {
+      //
+    }
+
+  }
+
+  // MESSAGE
+  .@{scope}-message {
+    box-sizing: border-box;
+  }
+
+
+  // TABLE
+  .@{scope}-table {
+    border-bottom: 1px solid @gray-d;
+    box-sizing: border-box;
+    // margin-bottom: 10px;
+    overflow: scroll;
+    position: relative;
+
+    table {
+      background: #FFF;
+      border-collapse: collapse;
+      font-family: @font-family-primary;
+      margin: 0;
+      position: relative;
+      width: 100%;
+    }
+
+    th, td {
+      border-collapse: collapse;
+      font-size: 13px;
+      padding: 10px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    th {
+      border-bottom: 1px solid @gray-d;
+      color: @gray-4;
+    }
+    td {
+      background-color: #FFF;
+      color: @gray-5;
+      transition: background-color 0.1s, color 0.05s;
+    }
+    tr:nth-child(even) td {
+      background-color: @gray-f;
+    }
+    tr:hover td {
+      background-color: @gray-e;
+      color: @gray-4;
+    }
+    .@{scope}-table-dataset thead {
+      visibility: hidden;
+    }
+    .@{scope}-table-fixed-header {
+      background: #FFF;
+      border-bottom: 1px solid rgba(0,0,0,.15);
+      position: absolute;
+      top: 0;
+      transition: top .1s;
+    }
+  }
+
+  // C3 CUSTOMIZATIONS
+  .c3 svg,
+  .c3-tooltip-container {
+    font-family: @font-family-primary;
+  }
+
+  // PAGINATED GRAPH STYLES
+  .paginated-legend {
+    font-family: @font-family-primary;
+    display: block;
+    float: right;
+    width: 50%;
+  }
+
+  .legend-navigation {
+    cursor: pointer;
+  }
+}

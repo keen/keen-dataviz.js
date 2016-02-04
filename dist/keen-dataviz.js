@@ -313,7 +313,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":18,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -336,7 +336,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":17}],5:[function(require,module,exports){
+},{"../../utils/each":18}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -370,7 +370,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":17}],6:[function(require,module,exports){
+},{"../../utils/each":18}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -449,7 +449,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":18,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -473,7 +473,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":17}],8:[function(require,module,exports){
+},{"../../utils/each":18}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -523,7 +523,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":17}],9:[function(require,module,exports){
+},{"../../utils/each":18}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -597,7 +597,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":18,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -659,7 +659,11 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
+<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
 },{"../../utils/each":17,"../../utils/extend":19}],11:[function(require,module,exports){
+=======
+},{"../../utils/each":18,"../../utils/extend":19}],11:[function(require,module,exports){
+>>>>>>> Paginated line graphs
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -849,7 +853,7 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":17,"../utils/flatten":12}],14:[function(require,module,exports){
+},{"../../utils/each":18,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
   var Dataset = require('./dataset'),
@@ -1303,13 +1307,82 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
 },{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":19}],15:[function(require,module,exports){
+=======
+},{"./data":1,"./dataset":2,"./libraries/default":16,"./utils/assert-date-string":17,"./utils/each":18,"./utils/extend":19}],15:[function(require,module,exports){
+var each = require('../../utils/each');
+var isDateString = require('../../utils/assert-date-string');
+function paginateLine(chart, dataset) {
+  var columns = chart.internal.config.data_columns;
+  var allData = [];
+  each(dataset.matrix[0], function(item, i) {
+    if(i > 0) {
+      allData.push(dataset.selectColumn(i));
+    }
+  });
+  var currentPage = 0;
+  var countPerPage = 15;
+  var totalPages = Math.ceil(allData.length / countPerPage);
+  var currentData = allData.slice(0, countPerPage);
+  var navigation = _buildLegendNavigation(chart);
+  var navItems = _buildNavigationItems(navigation, currentPage, totalPages);
+  chart.load({ columns: columns.concat(currentData), x: 'x'});
+  navItems.leftNav.on('click', function() {
+    if (currentPage ===  0) {
+      return;
+    }
+    currentPage = currentPage - 1;
+    currentData = allData.slice(currentPage*countPerPage, (currentPage+1)*countPerPage);
+    _updateCounter(navItems.counter, currentPage, totalPages);
+    chart.load({
+      unload: chart.data().map(function(d) { return d.id; }),
+      columns: columns.concat(currentData)
+    });
+  });
+  navItems.rightNav.on('click', function() {
+    if (currentPage === totalPages-1) {
+      return;
+    }
+    currentPage = currentPage + 1;
+    currentData = allData.slice(currentPage*countPerPage, (currentPage+1)*countPerPage);
+    _updateCounter(navItems.counter, currentPage, totalPages);
+    chart.load({
+      unload: chart.data().map(function(d) { return d.id; }),
+      columns: columns.concat(currentData)
+    });
+  });
+}
+function _buildLegendNavigation(chart) {
+  return d3.select(chart.element)
+    .append('div').classed('paginated-legend', true)
+    .append('div').classed('legend-navigation', true);
+}
+function _buildNavigationItems(navigation, currentPage, totalPages) {
+  var leftNav = navigation
+    .append('span').classed('left', true)
+    .text('<-');
+  var counter = navigation
+    .append('span').classed('counter', true)
+    .text((currentPage+1) + ' / ' + totalPages);
+  var rightNav = navigation
+    .append('span').classed('right', true)
+    .text('->');
+  return { leftNav: leftNav, rightNav: rightNav, counter: counter };
+}
+function _updateCounter(counter, currentPage, totalPages) {
+  counter.text((currentPage+1) + ' / ' + totalPages);
+}
+module.exports = paginateLine;
+},{"../../utils/assert-date-string":17,"../../utils/each":18}],16:[function(require,module,exports){
+>>>>>>> Paginated line graphs
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
     extendDeep = require('../utils/extend-deep'),
     isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
+var paginateLine = require('./c3_extentions/paginate-line');
 var types = {};
 function initialize(lib){
   var timer, delay;
@@ -1420,16 +1493,30 @@ function defineC3(){
               options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
             }
           }
+<<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
           if (this.data()[0].length === 2) {
             options.legend.show = options.legend.show || false;
           }
+=======
+        }
+        this.view._artifacts['c3'] = c3.generate(options);
+        if (type === 'line' && this.data()[0].length > 15) {
+          var chart = this.view._artifacts['c3'];
+          paginateLine(chart, this.dataset);
+        }
+        else {
+>>>>>>> Paginated line graphs
           each(this.data()[0], function(cell, i){
             if (i > 0) {
               options.data.columns.push(this.dataset.selectColumn(i));
             }
+<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
           }.bind(this));
+=======
+          });
+          this.view._artifacts['c3'].load(options.data);
+>>>>>>> Paginated line graphs
         }
-        this.view._artifacts['c3'] = c3.generate(options);
       },
       update: function(){
         this.render();
@@ -1479,6 +1566,8 @@ function getDateFormatDefault(a, b){
   else {
     return '%I:%M:%S %p';
   }
+}
+function renderLine() {
 }
 function defineMessage(){
   types['message'] = {
@@ -1669,7 +1758,9 @@ function defineTable(){
   };
 }
 module.exports = initialize;
+<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
 },{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
+<<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
 module.exports = function(input){
   if (typeof input === 'object'
     && typeof input.getTime === 'function'
@@ -1680,10 +1771,20 @@ module.exports = function(input){
     && !isNaN(input.split('-')[0])
       && !isNaN(new Date(input).getTime())) {
         return true;
+=======
+=======
+},{"../utils/assert-date-string":17,"../utils/each":18,"../utils/extend":19,"../utils/pretty-number":20,"./c3_extentions/paginate-line":15,"spin.js":21}],17:[function(require,module,exports){
+>>>>>>> Paginated line graphs
+module.exports = function(str){
+  var split;
+  if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
+    split = str.split('-');
+    return !isNaN(split[0]) && split[0].length === 4;
+>>>>>>> Paginated line graphs
   }
   return false;
 };
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1708,6 +1809,7 @@ function each(o, cb, s){
   }
   return 1;
 }
+<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
 },{}],18:[function(require,module,exports){
 var each = require('./each');
 module.exports = extendDeep;
@@ -1727,6 +1829,9 @@ function extendDeep(target){
   return target;
 }
 },{"./each":17}],19:[function(require,module,exports){
+=======
+},{}],19:[function(require,module,exports){
+>>>>>>> Paginated line graphs
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
