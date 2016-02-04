@@ -582,4 +582,29 @@ describe('Dataviz', function(){
 
   });
 
+  describe('.summarized()', function() {
+
+    it('should return false by default', function(){
+      expect(this.dataviz.summarized())
+        .to.be.a('boolean')
+        .and.to.eql(false);
+    });
+
+    it('should set `summarized` to true by passing true', function(){
+      this.dataviz.summarized(true);
+      expect(this.dataviz.view.summarized)
+        .to.be.a('boolean')
+        .and.to.eql(true);
+    });
+
+    it('should set `summarized` to false by passing null', function(){
+      this.dataviz.summarized(true);
+      this.dataviz.summarized(null);
+      expect(this.dataviz.view.summarized)
+        .to.be.a('boolean')
+        .and.to.eql(false);
+    });
+
+  });
+
 });

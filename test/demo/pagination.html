@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Keen Dataviz Demo (Pagination Tests) | Keen IO</title>
+    <link href='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' />
+    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="//cloud.typography.com/737368/747986/css/fonts.css">
+
+    <!-- Safe, minimal layout -->
+    <link rel="stylesheet" href="./keen-dashboards.css">
+
+    <link rel="stylesheet" href="../dist/keen-dataviz.css">
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-0.0.5.min.js"></script>
+    <script src="../dist/keen-dataviz.js"></script>
+  </head>
+
+  <body onload="init()">
+    <div class="container">
+      <h1>Paginated Examples</h1>
+
+      <h2>Line chart</h2>
+
+      <h3>Time Series</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-12">
+          <div class="chart-c3-line"></div>
+        </div>
+      </div>
+
+      <h2>Bar chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-12">
+          <div class="chart-c3-bar"></div>
+        </div>
+      </div>
+
+      <h3>Categorical - Summarized</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-12">
+          <div class="chart-c3-bar-summarized"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      var intervalMultiDataDailyPaginated = [
+        [ 'Index', 'First', 'Second', 'Third', 'Fourth', 'Fifth',
+        'Sixth', 'Seventh', 'Eigth', 'Ninth', 'Tenth', 'Eleventh',
+        'Twelfth', 'Thirteenth', 'Fourteenth', 'Fifteenth',
+        'Sixteenth', 'Seventeenth', 'Eighteenth', 'Nineteenth',
+        'Twenteith', 'Last'],
+        [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44,
+        295.55, 134.55, 224.64, 214.17, 705.4, 454.1, 203.2,
+        559.0, 513.6, 299.78, 981.5, 198.62, 238.4, 244.73,
+        230.20, 205.90, 238.88, 0],
+        [ '2012-01-01T00:00:00.000Z', 127.8, 211.26, 182.64,
+        150.32, 192.76, 179.41, 269.77, 129.88, 174.07, 269.44,
+        267.74, 511.6, 266.35, 497.6, 847.8, 161.19, 247.79,
+        325.11, 119.83, 296.62, 872 ],
+        [ '2013-01-01T00:00:00.000Z', 115.53, 306.8, 126.79,
+        309.41, 969.1, 206.21, 229.59, 518.3, 291.36, 733.4,
+        234.64, 327.60, 134.75, 104.87, 211.97, 567.5, 327.52,
+        312.97, 159.40, 254.15, 267.51 ],
+        [ '2014-01-01T00:00:00.000Z', 185.35, 181.62, 202.62,
+        175.85, 274.98, 147.01, 187.37, 640.0, 209.88, 270.2,
+        569.7, 301.75, 221.15, 243.23, 207.56, 122.7, 211.02,
+        100.90, 138.80, 534.2, 956.7 ],
+        [ '2015-01-01T00:00:00.000Z', 1871.9, 396.6, 193.48,
+        119.52, 709.8, 314.84, 870.5, 302.94, 154.16, 130.14,
+        359.0, 226.41, 847.2, 192.75, 170.02, 732.6, 145.59,
+        786.4, 160.84, 613.4, 248.39 ] ];
+
+      var groupedMultiDataPaginated = [
+        [ 'Index', 'First', 'Second', 'Third', 'Fourth', 'Fifth',
+        'Sixth', 'Seventh', 'Eigth', 'Ninth', 'Tenth', 'Eleventh',
+        'Twelfth', 'Thirteenth', 'Fourteenth', 'Fifteenth',
+        'Sixteenth', 'Seventeenth', 'Eighteenth', 'Nineteenth',
+        'Twenteith', 'Last'],
+        [ 'A', 189.98, 322.43, 654.44,
+        295.55, 134.55, 224.64, 214.17, 705.4, 454.1, 203.2,
+        559.0, 513.6, 299.78, 981.5, 198.62, 238.4, 244.73,
+        230.20, 205.90, 238.88, 0],
+        [ 'B', 127.8, 211.26, 182.64,
+        150.32, 192.76, 179.41, 269.77, 129.88, 174.07, 269.44,
+        267.74, 511.6, 266.35, 497.6, 847.8, 161.19, 247.79,
+        325.11, 119.83, 296.62, 872 ],
+        [ 'C', 115.53, 306.8, 126.79,
+        309.41, 969.1, 206.21, 229.59, 518.3, 291.36, 733.4,
+        234.64, 327.60, 134.75, 104.87, 211.97, 567.5, 327.52,
+        312.97, 159.40, 254.15, 267.51 ],
+        [ 'D', 185.35, 181.62, 202.62,
+        175.85, 274.98, 147.01, 187.37, 640.0, 209.88, 270.2,
+        569.7, 301.75, 221.15, 243.23, 207.56, 122.7, 211.02,
+        100.90, 138.80, 534.2, 956.7 ],
+        [ 'E', 1871.9, 396.6, 193.48,
+        119.52, 709.8, 314.84, 870.5, 302.94, 154.16, 130.14,
+        359.0, 226.41, 847.2, 192.75, 170.02, 732.6, 145.59,
+        786.4, 160.84, 613.4, 248.39 ] ];
+
+      function init() {
+        var lineWithPagination = new Dataviz()
+          .height(300)
+          .el('.chart-c3-line')
+          .title('Line Chart with Pagination')
+          .type('line')
+          .call(function(){
+            this.dataset.matrix = intervalMultiDataDailyPaginated;
+          })
+          .render()
+
+        var barWithPagination = new Dataviz()
+          .height(300)
+          .el('.chart-c3-bar')
+          .title('Bar Chart (with pagination)')
+          .type('bar')
+          .call(function(){
+            this.dataset.matrix = groupedMultiDataPaginated;
+          })
+          .render();
+
+        var barMultiStackedSummarized = new Dataviz()
+          .height(300)
+          .el('.chart-c3-bar-summarized')
+          .title('Bar Chart')
+          .type('bar')
+          .stacked(true)
+          .summarized(true)
+          .call(function(){
+            this.dataset.matrix = groupedMultiDataPaginated;
+          })
+          .render();
+      }
+    </script>
+
+    <style>
+    body {
+      background: #f2f2f2;
+      /*font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+      padding: 20px;
+    }
+    .container {
+      margin: 0 auto;
+      max-width: 980px;
+    }
+    h2 {
+      border-top: 1px solid rgba(0,0,0,.1);
+      color: #444;
+      font-size: 24px;
+      margin: 48px 0 24px;
+      padding-top: 48px;
+    }
+    .keen-ui-row h2 {
+      border-top: medium none;
+      padding-top: 0;
+    }
+    h3 {
+      color: #555;
+      font-size: 16px;
+      margin: 0 0 24px;
+    }
+    .demo-chart {
+      background: #fff;
+      margin: 0 auto;
+      /*padding: 10px;*/
+      width: 600px;
+    }
+    /*.keen-ui-row {
+      margin-bottom: 24px;
+    }*/
+
+    .custom-theme {
+      background: #fff;
+      border: 1px solid #d7d7d7;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .custom-theme-title {
+      border-bottom: 1px solid #d7d7d7;
+      border-radius: 5px 5px 0 0;
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      font-size: 16px;
+      padding: 5px 10px;
+    }
+    .custom-theme-notes {
+      background: #fbfbfb;
+      border-radius: 0 0 5px 5px;
+      border-top: 1px solid #d7d7d7;
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      font-size: 11px;
+      padding: 5px 10px;
+    }
+    </style>
+
+  </body>
+</html>

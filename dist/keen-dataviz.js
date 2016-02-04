@@ -149,7 +149,7 @@ function getDefaultTitle(query){
   }
   return title;
 }
-},{"./dataset":2,"./utils/extend":19}],2:[function(require,module,exports){
+},{"./dataset":2,"./utils/extend":22}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -234,7 +234,7 @@ function getDefaultTitle(query){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":19,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+},{"../utils/extend":22,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -313,7 +313,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":18,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -336,7 +336,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":18}],5:[function(require,module,exports){
+},{"../../utils/each":20}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -370,7 +370,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":18}],6:[function(require,module,exports){
+},{"../../utils/each":20}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -449,7 +449,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":18,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -473,7 +473,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":18}],8:[function(require,module,exports){
+},{"../../utils/each":20}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -523,7 +523,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":18}],9:[function(require,module,exports){
+},{"../../utils/each":20}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -597,7 +597,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":18,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -659,11 +659,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
-},{"../../utils/each":17,"../../utils/extend":19}],11:[function(require,module,exports){
-=======
-},{"../../utils/each":18,"../../utils/extend":19}],11:[function(require,module,exports){
->>>>>>> Paginated line graphs
+},{"../../utils/each":20,"../../utils/extend":22}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -853,7 +849,7 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":18,"../utils/flatten":12}],14:[function(require,module,exports){
+},{"../../utils/each":20,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
   var Dataset = require('./dataset'),
@@ -891,6 +887,7 @@ function parseExtraction(){
       sortGroups: undefined,
       sortIntervals: undefined,
       stacked: false,
+      summarized: false,
       theme: 'keen-dataviz',
       title: undefined,
       type: undefined,
@@ -1179,6 +1176,11 @@ function parseExtraction(){
     this.view['stacked'] = bool ? true : false;
     return this;
   };
+  Dataviz.prototype.summarized = function(bool) {
+    if (!arguments.length) return this.view['summarized'];
+    this.view['summarized'] = bool ? true : false;
+    return this;
+  };
   Dataviz.prototype.theme = function(str){
     if (!arguments.length) return this.view.theme;
     this.view.theme = (str ? String(str) : null);
@@ -1307,13 +1309,41 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
-},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":19}],15:[function(require,module,exports){
-=======
-},{"./data":1,"./dataset":2,"./libraries/default":16,"./utils/assert-date-string":17,"./utils/each":18,"./utils/extend":19}],15:[function(require,module,exports){
+},{"./data":1,"./dataset":2,"./libraries/default":18,"./utils/assert-date-string":19,"./utils/each":20,"./utils/extend":22}],15:[function(require,module,exports){
+function legendNavigation(chart, totalPages) {
+  this.chart = chart;
+  this.totalPages = totalPages;
+  this.navigation = this._buildLegendNavigation();
+  var navItems = this._buildNavigationItems();
+  this.leftNav = navItems.leftNav;
+  this.rightNav = navItems.rightNav;
+  this.counter = navItems.counter;
+}
+legendNavigation.prototype.updateCounter = function(currentPage, totalPages) {
+  this.counter.text((currentPage+1) + ' / ' + totalPages);
+}
+legendNavigation.prototype._buildLegendNavigation = function() {
+  return d3.select(this.chart.element)
+    .append('div').classed('paginated-legend', true)
+    .append('div').classed('legend-navigation', true);
+}
+legendNavigation.prototype._buildNavigationItems = function() {
+  var leftNav = this.navigation
+    .append('span').classed('left', true)
+    .text('<-');
+  var counter = this.navigation
+    .append('span').classed('counter', true)
+    .text('1 / ' + this.totalPages);
+  var rightNav = this.navigation
+    .append('span').classed('right', true)
+    .text('->');
+  return { leftNav: leftNav, rightNav: rightNav, counter: counter };
+}
+module.exports = legendNavigation;
+},{}],16:[function(require,module,exports){
 var each = require('../../utils/each');
-var isDateString = require('../../utils/assert-date-string');
-function paginateLine(chart, dataset) {
+var LegendNavigation = require('./legend-navigation');
+function paginateChart(chart, dataset) {
   var columns = chart.internal.config.data_columns;
   var allData = [];
   each(dataset.matrix[0], function(item, i) {
@@ -1325,64 +1355,107 @@ function paginateLine(chart, dataset) {
   var countPerPage = 15;
   var totalPages = Math.ceil(allData.length / countPerPage);
   var currentData = allData.slice(0, countPerPage);
-  var navigation = _buildLegendNavigation(chart);
-  var navItems = _buildNavigationItems(navigation, currentPage, totalPages);
-  chart.load({ columns: columns.concat(currentData), x: 'x'});
-  navItems.leftNav.on('click', function() {
+  chart.load({ columns: columns.concat(currentData) });
+  var legendNavigation = new LegendNavigation(chart, totalPages);
+  legendNavigation.leftNav.on('click', function() {
     if (currentPage ===  0) {
       return;
     }
     currentPage = currentPage - 1;
     currentData = allData.slice(currentPage*countPerPage, (currentPage+1)*countPerPage);
-    _updateCounter(navItems.counter, currentPage, totalPages);
+    legendNavigation.updateCounter(currentPage, totalPages);
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
       columns: columns.concat(currentData)
     });
   });
-  navItems.rightNav.on('click', function() {
+  legendNavigation.rightNav.on('click', function() {
     if (currentPage === totalPages-1) {
       return;
     }
     currentPage = currentPage + 1;
     currentData = allData.slice(currentPage*countPerPage, (currentPage+1)*countPerPage);
-    _updateCounter(navItems.counter, currentPage, totalPages);
+    legendNavigation.updateCounter(currentPage, totalPages);
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
       columns: columns.concat(currentData)
     });
   });
 }
-function _buildLegendNavigation(chart) {
-  return d3.select(chart.element)
-    .append('div').classed('paginated-legend', true)
-    .append('div').classed('legend-navigation', true);
+module.exports = paginateChart;
+},{"../../utils/each":20,"./legend-navigation":15}],17:[function(require,module,exports){
+var each = require('../../utils/each');
+var LegendNavigation = require('./legend-navigation');
+function summarizeChart(chart, dataset) {
+  var columns = chart.internal.config.data_columns;
+  var allData = [];
+  each(dataset.matrix[0], function(item, i) {
+    if(i > 0) {
+      allData.push(dataset.selectColumn(i));
+    }
+  });
+  var currentPage = 0;
+  var countPerPage = 15;
+  var totalPages = Math.ceil(allData.length / countPerPage);
+  chart.load({
+    unload: chart.data().map(function(d) { return d.id; }),
+    columns: _createCurrentColumns(allData, 0, countPerPage),
+    colors: {
+      "Other": "#aaa"
+    }
+  });
+  var legendNavigation = new LegendNavigation(chart, totalPages);
+  legendNavigation.leftNav.on('click', function() {
+    if (currentPage ===  0) {
+      return;
+    }
+    currentPage = currentPage - 1;
+    legendNavigation.updateCounter(currentPage, totalPages);
+    chart.load({
+      unload: chart.data().map(function(d) { return d.id; }),
+      columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage))
+    });
+  });
+  legendNavigation.rightNav.on('click', function() {
+    if (currentPage === totalPages-1) {
+      return;
+    }
+    currentPage = currentPage + 1;
+    legendNavigation.updateCounter(currentPage, totalPages);
+    chart.load({
+      unload: chart.data().map(function(d) { return d.id; }),
+      columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage))
+    });
+  });
 }
-function _buildNavigationItems(navigation, currentPage, totalPages) {
-  var leftNav = navigation
-    .append('span').classed('left', true)
-    .text('<-');
-  var counter = navigation
-    .append('span').classed('counter', true)
-    .text((currentPage+1) + ' / ' + totalPages);
-  var rightNav = navigation
-    .append('span').classed('right', true)
-    .text('->');
-  return { leftNav: leftNav, rightNav: rightNav, counter: counter };
+function _createCurrentColumns(allData, currentPage, countPerPage) {
+  var startIndex = currentPage * countPerPage;
+  var endIndex = startIndex + countPerPage;
+  return _createOtherColumn(allData, startIndex, endIndex).concat(
+    allData.slice(startIndex, endIndex)
+  );
 }
-function _updateCounter(counter, currentPage, totalPages) {
-  counter.text((currentPage+1) + ' / ' + totalPages);
+function _createOtherColumn(allData, startIndex, endIndex) {
+  var otherDatasets = allData.slice(0, startIndex).concat(allData.slice(endIndex, allData.length));
+  var otherColumn = ['Other'];
+  for(var i=1; i<otherDatasets[0].length; i++) {
+    var sumAtIndex = otherDatasets.reduce(function(previousValue, currentValue, currentIndex) {
+      return previousValue + otherDatasets[currentIndex][i];
+    }, 0);
+    otherColumn.push(sumAtIndex);
+  }
+  return [otherColumn];
 }
-module.exports = paginateLine;
-},{"../../utils/assert-date-string":17,"../../utils/each":18}],16:[function(require,module,exports){
->>>>>>> Paginated line graphs
+module.exports = summarizeChart;
+},{"../../utils/each":20,"./legend-navigation":15}],18:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
     extendDeep = require('../utils/extend-deep'),
     isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
-var paginateLine = require('./c3_extentions/paginate-line');
+var paginateChart = require('./c3_extentions/paginate-chart');
+var summarizeChart = require('./c3_extentions/summarize-chart');
 var types = {};
 function initialize(lib){
   var timer, delay;
@@ -1490,7 +1563,7 @@ function defineC3(){
             options.axis.x.type = 'category';
             options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+              options.data.groups = [ ["Other"].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
 <<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
@@ -1500,9 +1573,11 @@ function defineC3(){
 =======
         }
         this.view._artifacts['c3'] = c3.generate(options);
-        if (type === 'line' && this.data()[0].length > 15) {
-          var chart = this.view._artifacts['c3'];
-          paginateLine(chart, this.dataset);
+        if (shouldBePaginated(type, this)) {
+          paginateChart(this.view._artifacts['c3'], this.dataset);
+        }
+        else if(shouldBeSummarized(type, this)) {
+          summarizeChart(this.view._artifacts['c3'], this.dataset);
         }
         else {
 >>>>>>> Paginated line graphs
@@ -1510,12 +1585,8 @@ function defineC3(){
             if (i > 0) {
               options.data.columns.push(this.dataset.selectColumn(i));
             }
-<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
           }.bind(this));
-=======
-          });
           this.view._artifacts['c3'].load(options.data);
->>>>>>> Paginated line graphs
         }
       },
       update: function(){
@@ -1567,7 +1638,22 @@ function getDateFormatDefault(a, b){
     return '%I:%M:%S %p';
   }
 }
-function renderLine() {
+function shouldBePaginated(type, dataviz) {
+  var supportedTypes = [
+    'area', 'bar',
+    'line', 'step', 'spline'
+  ];
+  return supportedTypes.indexOf(type) > -1 &&
+    dataviz.data()[0].length > 15 &&
+    !dataviz.summarized();
+}
+function shouldBeSummarized(type, dataviz) {
+  var supportedTypes= [
+    'area', 'bar'
+  ]
+  return supportedTypes.indexOf(type) > -1 &&
+    dataviz.data()[0].length > 15 &&
+    dataviz.summarized();
 }
 function defineMessage(){
   types['message'] = {
@@ -1758,6 +1844,7 @@ function defineTable(){
   };
 }
 module.exports = initialize;
+<<<<<<< 501bd70f800a9e2d2b6afae92c66c2bac9d8e4b3
 <<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
 },{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
 <<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
@@ -1775,6 +1862,9 @@ module.exports = function(input){
 =======
 },{"../utils/assert-date-string":17,"../utils/each":18,"../utils/extend":19,"../utils/pretty-number":20,"./c3_extentions/paginate-line":15,"spin.js":21}],17:[function(require,module,exports){
 >>>>>>> Paginated line graphs
+=======
+},{"../utils/assert-date-string":19,"../utils/each":20,"../utils/extend":22,"../utils/extend-deep":21,"../utils/pretty-number":23,"./c3_extentions/paginate-chart":16,"./c3_extentions/summarize-chart":17,"spin.js":24}],19:[function(require,module,exports){
+>>>>>>> support pagination for other chart types
 module.exports = function(str){
   var split;
   if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
@@ -1784,7 +1874,7 @@ module.exports = function(str){
   }
   return false;
 };
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1809,8 +1899,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 var each = require('./each');
 module.exports = extendDeep;
 function extendDeep(target){
@@ -1828,10 +1917,7 @@ function extendDeep(target){
   }
   return target;
 }
-},{"./each":17}],19:[function(require,module,exports){
-=======
-},{}],19:[function(require,module,exports){
->>>>>>> Paginated line graphs
+},{"./each":20}],22:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1841,7 +1927,7 @@ function extend(target){
   }
   return target;
 }
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1897,7 +1983,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],21:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
