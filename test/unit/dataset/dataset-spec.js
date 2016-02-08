@@ -15,6 +15,7 @@ var data_extraction = require('./sample-data/extraction'),
     data_interval_groupBy_boolean = require('./sample-data/interval-groupBy-boolean'),
     data_interval_groupBy_nulls = require('./sample-data/interval-groupBy-nulls'),
     data_funnel = require('./sample-data/funnel'),
+    data_saved_funnel = require('./sample-data/saved-funnel'),
     data_uniques = require('./sample-data/select-unique');
 
 describe('Dataset', function(){
@@ -886,6 +887,19 @@ describe('Dataset', function(){
 
     it('funnel.json', function(){
       var dataset = Dataset.parser('funnel')(data_funnel);
+
+      expect(dataset.data())
+        .to.be.an('array')
+        .and.to.be.of.length(6);
+      expect(dataset.data()[0][0]).to.eql('Index');
+      expect(dataset.data()[0][1]).to.eql('Step Value');
+      expect(dataset.data()[1][0]).to.be.eql('pageview');
+      expect(dataset.data()[1][1]).to.be.eql(42);
+      expect(dataset.type()).to.eql('funnel');
+    });
+
+    it('saved-funnel.json', function(){
+      var dataset = Dataset.parser('funnel')(data_saved_funnel);
 
       expect(dataset.data())
         .to.be.an('array')
