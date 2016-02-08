@@ -836,12 +836,11 @@ function parseExtraction(){
   var Dataset = require('./dataset'),
       data = require('./data');
   var libraries = {
-    'default': require('./libraries/default')()
+    'default': require('./libraries/default')(Dataviz)
   };
   var each = require('./utils/each'),
       extend = require('./utils/extend'),
       isDateString = require('./utils/assert-date-string');
-  handleWindowResize();
   function Dataviz(){
     if (this instanceof Dataviz === false) {
       return new Dataviz();
@@ -1219,32 +1218,6 @@ function parseExtraction(){
       fn();
     }
   }
-  function bindResizeListener(fn){
-    if ('undefined' === typeof window) return;
-    window.onresize = window.resize = function(){};
-    if (window.addEventListener) {
-      window.addEventListener('resize', fn, true);
-    }
-    else if (window.attachEvent) {
-      window.attachEvent('onresize', fn);
-    }
-  }
-  function handleWindowResize(){
-    var timer, delay;
-    bindResizeListener(function(){
-      if (timer) {
-        clearTimeout(timer);
-      }
-      delay = (Dataviz.visuals.length > 12) ? 1000 : 250;
-      timer = setTimeout(function(){
-        each(Dataviz.visuals, function(chart){
-          if (chart.view._artifacts.c3) {
-              chart.view._artifacts.c3.resize();
-          }
-        });
-      }, delay);
-    });
-  }
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = Dataviz;
   }
@@ -1272,7 +1245,21 @@ var each = require('../utils/each'),
     isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
 var types = {};
-function initialize(){
+function initialize(lib){
+  var timer, delay;
+  bindResizeListener(function(){
+    if (timer) {
+      clearTimeout(timer);
+    }
+    delay = (lib.visuals.length > 12) ? 1000 : 250;
+    timer = setTimeout(function(){
+      each(lib.visuals, function(chart){
+        if (chart.view._artifacts.c3) {
+            chart.view._artifacts.c3.resize();
+        }
+      });
+    }, delay);
+  });
   defineC3();
   defineMessage();
   defineMetric();
@@ -1378,6 +1365,16 @@ function defineC3(){
       }
     };
   });
+}
+function bindResizeListener(fn){
+  if ('undefined' === typeof window) return;
+  window.onresize = window.resize = function(){};
+  if (window.addEventListener) {
+    window.addEventListener('resize', fn, true);
+  }
+  else if (window.attachEvent) {
+    window.attachEvent('onresize', fn);
+  }
 }
 function getDateFormatDefault(a, b){
   var d = Math.abs(new Date(a).getTime() - new Date(b).getTime());
