@@ -16,6 +16,13 @@ module.exports = {
     },
     {
       "timezone": null,
+      "event_collection": "pageview",
+      "actor_property": "keen.id",
+      "filters": [],
+      "timeframe": null
+    },
+    {
+      "timezone": null,
       "event_collection": "signup",
       "actor_property": "keen.id",
       "filters": [],

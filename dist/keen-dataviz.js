@@ -17,6 +17,7 @@ function parseResponse(response){
       parser,
       parserArgs = [],
       query,
+      selectedParser,
       type;
   indexBy = this.indexBy() ? this.indexBy() : 'timestamp.start';
   query = (typeof response.query !== 'undefined') ? response.query : {};
@@ -85,10 +86,12 @@ function parseResponse(response){
         parser = 'grouped-interval';
         parserArgs.push(indexBy)
       }
-      if (typeof response.result[0] == 'number' && typeof response.steps !== 'undefined'){
-        parser = 'funnel';
+      if (typeof response.result[0] === 'number'
+        && typeof response.steps !== 'undefined'){
+          parser = 'funnel';
+          query.steps = response.steps;          
       }
-      if ((typeof response.result[0] == 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined'){
+      if ((typeof response.result[0] === 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined'){
         parser = 'list';
       }
       if (!parser) {
@@ -125,7 +128,8 @@ function parseResponse(response){
     }
     this.type(type);
   }
-  dataset = Dataset.parser.apply(this, [parser].concat(parserArgs))(response);
+  selectedParser = Dataset.parser.apply(this, [parser].concat(parserArgs));
+  dataset = selectedParser(extend(response, { 'query': query }));
   if (parser.indexOf('interval') > -1) {
     dataset.updateColumn(0, function(value, i){
       return new Date(value);
@@ -799,10 +803,10 @@ function parseDoubleGroupedInterval(){
 }
 function parseFunnel(){
   return function(res){
-    var dataset = new Dataset()
-      .type('funnel');
+    var dataset = new Dataset().type('funnel');
+    dataset.appendColumn('Step Value');
     each(res.result, function(value, i){
-      dataset.set( [ 'Step Value', res.steps[i].event_collection ], value );
+      dataset.appendRow(res.query.steps[i].event_collection, [ value ]);
     });
     return dataset;
   }
