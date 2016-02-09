@@ -145,7 +145,7 @@ function getDefaultTitle(query){
   }
   return title;
 }
-},{"./dataset":2,"./utils/extend":18}],2:[function(require,module,exports){
+},{"./dataset":2,"./utils/extend":19}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -230,7 +230,7 @@ function getDefaultTitle(query){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":18,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+},{"../utils/extend":19,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -655,7 +655,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":17,"../../utils/extend":18}],11:[function(require,module,exports){
+},{"../../utils/each":17,"../../utils/extend":19}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -836,7 +836,7 @@ function parseExtraction(){
   var Dataset = require('./dataset'),
       data = require('./data');
   var libraries = {
-    'default': require('./libraries/default')()
+    'default': require('./libraries/default')(Dataviz)
   };
   var each = require('./utils/each'),
       extend = require('./utils/extend'),
@@ -1238,14 +1238,29 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":18}],15:[function(require,module,exports){
+},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":19}],15:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
+    extendDeep = require('../utils/extend-deep'),
     isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
 var types = {};
-function initialize(){
+function initialize(lib){
+  var timer, delay;
+  bindResizeListener(function(){
+    if (timer) {
+      clearTimeout(timer);
+    }
+    delay = (lib.visuals.length > 12) ? 1000 : 250;
+    timer = setTimeout(function(){
+      each(lib.visuals, function(chart){
+        if (chart.view._artifacts.c3) {
+            chart.view._artifacts.c3.resize();
+        }
+      });
+    }, delay);
+  });
   defineC3();
   defineMessage();
   defineMetric();
@@ -1269,24 +1284,36 @@ function defineC3(){
   each(c3Types, function(type, index) {
     types[type] = {
       render: function(){
-        var self = this;
-        var options = extend({
+        var DEFAULT_OPTIONS,
+            ENFORCED_OPTIONS,
+            options;
+        DEFAULT_OPTIONS = {
           axis: {},
-          bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
+          color: {},
           data: {
-            columns: [],
-            type: type.replace('horizontal-', ''),
-            colors: extend({}, this.colorMapping()),
             order: null
-          },
+          }
+        };
+        ENFORCED_OPTIONS = {
+          bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
           color: {
             pattern: this.colors()
+          },
+          data: {
+            colors: extend({}, this.colorMapping()),
+            columns: [],
+            type: type.replace('horizontal-', '')
           },
           size: {
             height: this.height() ? this.height() - this.el().offsetHeight : 400,
             width: this.width()
           }
-        }, this.chartOptions());
+        };
+        options = extendDeep({}, DEFAULT_OPTIONS, this.chartOptions());
+        options = extendDeep(options, ENFORCED_OPTIONS);
+        options.color.pattern = ENFORCED_OPTIONS.color.pattern;
+        options.data.colors = ENFORCED_OPTIONS.data.colors;
+        options.data.columns = ENFORCED_OPTIONS.data.columns;
         if (type === 'gauge') {
           options.data.columns = [[
             this.title() || this.data()[1][0],
@@ -1301,9 +1328,8 @@ function defineC3(){
             options.axis.rotated = true;
           }
           if (isDateString(this.data()[1][0])) {
-            options.axis.x = {
-              type: 'timeseries'
-            };
+            options.axis.x = options.axis.x || {};
+            options.axis.x.type = 'timeseries';
             options.axis.x.tick = options.axis.x.tick || {
               format: getDateFormatDefault(this.data()[1][0], this.data()[2][0])
             };
@@ -1321,19 +1347,18 @@ function defineC3(){
             }
           }
           else {
-            options.axis.x = {
-              type: 'category',
-              categories: this.dataset.selectColumn(0).slice(1)
-            };
+            options.axis.x = options.axis.x || {};
+            options.axis.x.type = 'category';
+            options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
             if (this.stacked() && this.data()[0].length > 2) {
               options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
             }
           }
           each(this.data()[0], function(cell, i){
             if (i > 0) {
-              options.data.columns.push(self.dataset.selectColumn(i));
+              options.data.columns.push(this.dataset.selectColumn(i));
             }
-          });
+          }.bind(this));
         }
         this.view._artifacts['c3'] = c3.generate(options);
       },
@@ -1348,6 +1373,16 @@ function defineC3(){
       }
     };
   });
+}
+function bindResizeListener(fn){
+  if ('undefined' === typeof window) return;
+  window.onresize = window.resize = function(){};
+  if (window.addEventListener) {
+    window.addEventListener('resize', fn, true);
+  }
+  else if (window.attachEvent) {
+    window.attachEvent('onresize', fn);
+  }
 }
 function getDateFormatDefault(a, b){
   var d = Math.abs(new Date(a).getTime() - new Date(b).getTime());
@@ -1565,7 +1600,7 @@ function defineTable(){
   };
 }
 module.exports = initialize;
-},{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":18,"../utils/pretty-number":19,"spin.js":20}],16:[function(require,module,exports){
+},{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
 module.exports = function(str){
   var split;
   if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
@@ -1600,6 +1635,24 @@ function each(o, cb, s){
   return 1;
 }
 },{}],18:[function(require,module,exports){
+var each = require('./each');
+module.exports = extendDeep;
+function extendDeep(target){
+  for (var i = 1; i < arguments.length; i++) {
+    each(arguments[i], function(prop, key){
+      if (( typeof target[key] !== 'undefined' && typeof prop !== 'undefined' ) &&
+          ( typeof target[key] === 'object'    && typeof prop === 'object' ) &&
+          ( target[key] !== null               && prop !== null )) {
+            extendDeep(target[key], prop);
+      }
+      else {
+        target[key] = prop;
+      }
+    });
+  }
+  return target;
+}
+},{"./each":17}],19:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1609,7 +1662,7 @@ function extend(target){
   }
   return target;
 }
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1665,7 +1718,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
