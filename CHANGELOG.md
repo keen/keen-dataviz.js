@@ -1,9 +1,21 @@
+<a name="0.0.5"></a>
+# 0.0.5 Restore label/group handling
+
+**FIXED:**
+* Fix `Dataset.parser` for funnels to allow for handling steps from the same collection
+* Improve C3.js option construction to allow for greater flexibility and customization via `chartOptions`
+
+**NEW:**
+* Remove C3.js `window.onresize` handler and manually update charts in a more resource-conscious way with a custom resize handler
+
+
 <a name="0.0.4"></a>
 # 0.0.4 Restore label/group handling
 
 **NEW:**
 * Re-connected `.labels(array)` and `.labelMapping(object)` methods, added tests
 * Improved C3.js default settings and styling
+
 
 <a name="0.0.3"></a>
 # 0.0.3 Dataset types, parser identification
