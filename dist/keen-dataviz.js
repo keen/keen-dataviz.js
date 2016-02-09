@@ -1314,7 +1314,6 @@ function defineC3(){
         options.color.pattern = ENFORCED_OPTIONS.color.pattern;
         options.data.colors = ENFORCED_OPTIONS.data.colors;
         options.data.columns = ENFORCED_OPTIONS.data.columns;
-        console.log(options);
         if (type === 'gauge') {
           options.data.columns = [[
             this.title() || this.data()[1][0],
