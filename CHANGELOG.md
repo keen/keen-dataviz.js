@@ -1,5 +1,5 @@
 <a name="0.0.5"></a>
-# 0.0.5 Restore label/group handling
+# 0.0.5 C3.js improvements
 
 **FIXED:**
 * Fix `Dataset.parser` for funnels to allow for handling steps from the same collection
