@@ -45,6 +45,7 @@ gulp.task('build:script', function(){
     .pipe(through2.obj(function(file, enc, next){
       browserify(file.path)
         .bundle(function(err, res){
+            if(err) { console.log(err.message); }
             file.contents = res;
             next(null, file);
         });
