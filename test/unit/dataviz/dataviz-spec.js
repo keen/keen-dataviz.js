@@ -323,6 +323,28 @@ describe('Dataviz', function(){
 
   });
 
+  describe('.visibilityThreshold()', function(){
+
+    it('should return undefined by default', function(){
+      expect(this.dataviz.visibilityThreshold()).to.be.an('undefined');
+    });
+
+    it('should set and get a new visibilityThreshold', function(){
+      var visibilityThreshold = 0.2;
+      this.dataviz.visibilityThreshold(visibilityThreshold);
+      expect(this.dataviz.view.visibilityThreshold)
+        .to.be.a('number')
+        .and.to.eql(visibilityThreshold);
+    });
+
+    it('should unset the width by passing null', function(){
+      this.dataviz.visibilityThreshold(null);
+      expect(this.dataviz.view.visibilityThreshold)
+        .to.not.exist;
+    });
+
+  });
+
   describe('.width()', function(){
 
     it('should return undefined by default', function(){
@@ -582,25 +604,25 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.summarized()', function() {
+  describe('.summarize()', function() {
 
     it('should return false by default', function(){
-      expect(this.dataviz.summarized())
+      expect(this.dataviz.summarize())
         .to.be.a('boolean')
         .and.to.eql(false);
     });
 
-    it('should set `summarized` to true by passing true', function(){
-      this.dataviz.summarized(true);
-      expect(this.dataviz.view.summarized)
+    it('should set `summarize` to true by passing true', function(){
+      this.dataviz.summarize(true);
+      expect(this.dataviz.view.summarize)
         .to.be.a('boolean')
         .and.to.eql(true);
     });
 
-    it('should set `summarized` to false by passing null', function(){
-      this.dataviz.summarized(true);
-      this.dataviz.summarized(null);
-      expect(this.dataviz.view.summarized)
+    it('should set `summarize` to false by passing null', function(){
+      this.dataviz.summarize(true);
+      this.dataviz.summarize(null);
+      expect(this.dataviz.view.summarize)
         .to.be.a('boolean')
         .and.to.eql(false);
     });

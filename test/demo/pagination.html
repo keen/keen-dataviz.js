@@ -45,6 +45,18 @@
         </div>
       </div>
 
+      <h3>Pie and Donut Charts</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col keen-ui-col-6">
+          <h2>Donut</h2>
+          <div class="chart-c3-donut"></div>
+        </div>
+        <div class="keen-ui-col keen-ui-col-6">
+          <h2>Pie</h2>
+          <div class="chart-c3-pie"></div>
+        </div>
+      </div>
+
     </div>
 
     <script>
@@ -102,6 +114,21 @@
         359.0, 226.41, 847.2, 192.75, 170.02, 732.6, 145.59,
         786.4, 160.84, 613.4, 248.39 ] ];
 
+      var groupedData = [
+        [ 'Index', 'First' ],
+        [ 'A', 189.98 ],
+        [ 'B', 135.83 ],
+        [ 'C', 124.56 ],
+        [ 'D', 117.22 ],
+        [ 'E', 55.12  ],
+        [ 'F', 0.2 ],
+        [ 'G', 1.0 ],
+        [ 'H', 1.2 ],
+        [ 'I', 0.3 ],
+        [ 'J', 4.5 ],
+        [ 'K', 12 ]
+      ];
+
       function init() {
         var lineWithPagination = new Dataviz()
           .height(300)
@@ -129,10 +156,33 @@
           .title('Bar Chart')
           .type('bar')
           .stacked(true)
-          .summarized(true)
+          .summarize(true)
           .call(function(){
             this.dataset.matrix = groupedMultiDataPaginated;
           })
+          .render();
+
+          var pie = new Dataviz()
+            // .height(200)
+            .el('.chart-c3-pie')
+            .title('Pie Chart')
+            .type('pie')
+            .visibilityThreshold(0.1)
+            .call(function(){
+              this.dataset.matrix = groupedData;
+            })
+          .render();
+
+          var donut = new Dataviz()
+            // .height(200)
+            .el('.chart-c3-donut')
+            .title('Donut Chart')
+            .type('donut')
+            .chartOptions({})
+            .visibilityThreshold(0.05)
+            .call(function(){
+              this.dataset.matrix = groupedData;
+            })
           .render();
       }
     </script>

@@ -149,7 +149,7 @@ function getDefaultTitle(query){
   }
   return title;
 }
-},{"./dataset":2,"./utils/extend":22}],2:[function(require,module,exports){
+},{"./dataset":2,"./utils/extend":23}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -234,7 +234,7 @@ function getDefaultTitle(query){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":22,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+},{"../utils/extend":23,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -313,7 +313,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":20,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -336,7 +336,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":20}],5:[function(require,module,exports){
+},{"../../utils/each":21}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -370,7 +370,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":20}],6:[function(require,module,exports){
+},{"../../utils/each":21}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -449,7 +449,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -473,7 +473,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":20}],8:[function(require,module,exports){
+},{"../../utils/each":21}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -523,7 +523,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":20}],9:[function(require,module,exports){
+},{"../../utils/each":21}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -597,7 +597,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":20,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -659,7 +659,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":20,"../../utils/extend":22}],11:[function(require,module,exports){
+},{"../../utils/each":21,"../../utils/extend":23}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -849,7 +849,7 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":20,"../utils/flatten":12}],14:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
   var Dataset = require('./dataset'),
@@ -887,7 +887,7 @@ function parseExtraction(){
       sortGroups: undefined,
       sortIntervals: undefined,
       stacked: false,
-      summarized: false,
+      summarize: false,
       theme: 'keen-dataviz',
       title: undefined,
       type: undefined,
@@ -1176,9 +1176,9 @@ function parseExtraction(){
     this.view['stacked'] = bool ? true : false;
     return this;
   };
-  Dataviz.prototype.summarized = function(bool) {
-    if (!arguments.length) return this.view['summarized'];
-    this.view['summarized'] = bool ? true : false;
+  Dataviz.prototype.summarize = function(bool) {
+    if (!arguments.length) return this.view['summarize'];
+    this.view['summarize'] = bool ? true : false;
     return this;
   };
   Dataviz.prototype.theme = function(str){
@@ -1204,6 +1204,11 @@ function parseExtraction(){
       Dataviz.libraries[library][type].update.apply(this, arguments);
     }
     return;
+  };
+  Dataviz.prototype.visibilityThreshold = function(num){
+    if (!arguments.length) return this.view['visibilityThreshold'];
+    this.view['visibilityThreshold'] = (!isNaN(parseFloat(num)) ? parseFloat(num) : null);
+    return this;
   };
   Dataviz.prototype.width = function(num){
     if (!arguments.length) return this.view['width'];
@@ -1309,7 +1314,7 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./data":1,"./dataset":2,"./libraries/default":18,"./utils/assert-date-string":19,"./utils/each":20,"./utils/extend":22}],15:[function(require,module,exports){
+},{"./data":1,"./dataset":2,"./libraries/default":19,"./utils/assert-date-string":20,"./utils/each":21,"./utils/extend":23}],15:[function(require,module,exports){
 function legendNavigation(chart, totalPages) {
   this.chart = chart;
   this.totalPages = totalPages;
@@ -1383,7 +1388,34 @@ function paginateChart(chart, dataset) {
   });
 }
 module.exports = paginateChart;
-},{"../../utils/each":20,"./legend-navigation":15}],17:[function(require,module,exports){
+},{"../../utils/each":21,"./legend-navigation":15}],17:[function(require,module,exports){
+function renderPieChart(chart, visibilityThreshold, data) {
+  if (visibilityThreshold) {
+    var total = data.reduce(function(previous, current) {
+      return previous + current[1];
+    }, 0);
+    var overVisibilityThreshold = [];
+    var underVisibilityThreshold = [];
+    for (var i=0; i < data.length; i++) {
+      var value = data[i][1];
+      if (value/total > visibilityThreshold) {
+        overVisibilityThreshold.push(data[i]);
+      }
+      else {
+        underVisibilityThreshold.push(data[i]);
+      }
+    }
+    var otherValue = underVisibilityThreshold.reduce(function(previous, current) {
+      return previous + current[1];
+    }, 0);
+    chart.load({
+      unload: chart.data().map(function(d) { return d.id; }),
+      columns: overVisibilityThreshold.concat([['Other', otherValue]])
+    })
+  }
+}
+module.exports = renderPieChart;
+},{}],18:[function(require,module,exports){
 var each = require('../../utils/each');
 var LegendNavigation = require('./legend-navigation');
 function summarizeChart(chart, dataset) {
@@ -1447,7 +1479,7 @@ function _createOtherColumn(allData, startIndex, endIndex) {
   return [otherColumn];
 }
 module.exports = summarizeChart;
-},{"../../utils/each":20,"./legend-navigation":15}],18:[function(require,module,exports){
+},{"../../utils/each":21,"./legend-navigation":15}],19:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
@@ -1456,6 +1488,7 @@ var each = require('../utils/each'),
     prettyNumber = require('../utils/pretty-number');
 var paginateChart = require('./c3_extentions/paginate-chart');
 var summarizeChart = require('./c3_extentions/summarize-chart');
+var renderPieChart = require('./c3_extentions/render-pie-chart');
 var types = {};
 function initialize(lib){
   var timer, delay;
@@ -1563,7 +1596,7 @@ function defineC3(){
             options.axis.x.type = 'category';
             options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ ["Other"].concat(this.dataset.selectRow(0).slice(1)) ];
+              options.data.groups = [ ['Other'].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
 <<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
@@ -1578,6 +1611,9 @@ function defineC3(){
         }
         else if(shouldBeSummarized(type, this)) {
           summarizeChart(this.view._artifacts['c3'], this.dataset);
+        }
+        else if (type === 'donut' || type === 'pie') {
+          renderPieChart(this.view._artifacts['c3'], this.view.visibilityThreshold, this.data().slice(1));
         }
         else {
 >>>>>>> Paginated line graphs
@@ -1645,7 +1681,7 @@ function shouldBePaginated(type, dataviz) {
   ];
   return supportedTypes.indexOf(type) > -1 &&
     dataviz.data()[0].length > 15 &&
-    !dataviz.summarized();
+    !dataviz.summarize();
 }
 function shouldBeSummarized(type, dataviz) {
   var supportedTypes= [
@@ -1653,7 +1689,7 @@ function shouldBeSummarized(type, dataviz) {
   ]
   return supportedTypes.indexOf(type) > -1 &&
     dataviz.data()[0].length > 15 &&
-    dataviz.summarized();
+    dataviz.summarize();
 }
 function defineMessage(){
   types['message'] = {
@@ -1844,6 +1880,7 @@ function defineTable(){
   };
 }
 module.exports = initialize;
+<<<<<<< 0a8c8fc64a82063537712f02f2c0a65c4f2bc930
 <<<<<<< 501bd70f800a9e2d2b6afae92c66c2bac9d8e4b3
 <<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
 },{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
@@ -1865,6 +1902,9 @@ module.exports = function(input){
 =======
 },{"../utils/assert-date-string":19,"../utils/each":20,"../utils/extend":22,"../utils/extend-deep":21,"../utils/pretty-number":23,"./c3_extentions/paginate-chart":16,"./c3_extentions/summarize-chart":17,"spin.js":24}],19:[function(require,module,exports){
 >>>>>>> support pagination for other chart types
+=======
+},{"../utils/assert-date-string":20,"../utils/each":21,"../utils/extend":23,"../utils/extend-deep":22,"../utils/pretty-number":24,"./c3_extentions/paginate-chart":16,"./c3_extentions/render-pie-chart":17,"./c3_extentions/summarize-chart":18,"spin.js":25}],20:[function(require,module,exports){
+>>>>>>> visibilityThreshold for pie/donut charts
 module.exports = function(str){
   var split;
   if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
@@ -1874,7 +1914,7 @@ module.exports = function(str){
   }
   return false;
 };
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1899,7 +1939,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 var each = require('./each');
 module.exports = extendDeep;
 function extendDeep(target){
@@ -1917,7 +1957,7 @@ function extendDeep(target){
   }
   return target;
 }
-},{"./each":20}],22:[function(require,module,exports){
+},{"./each":21}],23:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1927,7 +1967,7 @@ function extend(target){
   }
   return target;
 }
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1983,7 +2023,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license

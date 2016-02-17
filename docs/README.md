@@ -294,6 +294,21 @@ chart.sortIntervals('desc');
 chart.sortIntervals();
 ```
 
+### .summarize(boolean)
+
+Option for stacked bar or stacked area graph to display 15 items at a time.
+Values that aren't displayed are placed in an 'Other' bar.
+
+If there is already a category named 'Other', then that category will be named
+'Other (Generated)'.
+
+```javascript
+chart
+  .type('bar')
+  .stacked(true)
+  .summarize(true)
+```
+
 ### .theme(string)
 
 Learn more about themes [here](/docs/themes.md).
@@ -325,6 +340,25 @@ chart.type('bar');
 chart.type();
 ```
 
+### .visibilityThreshold(number)
+
+Set the minimum percentage (given as a float between 0 and 1) that a value has to be
+in order for a slice in a donut or pie chart to be visible. All values with a percentage
+less than the threshold will be placed in a slice called 'Other'.
+
+Ex:
+
+``` javascript
+var res = { result: [ ['A', 1], ['B', 10], ['C', 11], ['D', 0.5] ] };
+
+chart
+.type('pie') // or donut
+.data(res)
+.visibilityThreshold(0.2) // Visibility is 0.2 (20%)
+```
+
+`['A', 1]` and `['D', 0.5]` will be placed in the 'Other' slice.
+
 ### .width(number)
 
 ```javascript
@@ -333,3 +367,5 @@ chart.width(900);
 // Return current width
 chart.width();
 ```
+
+## C3 Extensions
