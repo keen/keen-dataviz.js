@@ -297,16 +297,16 @@ chart.sortIntervals();
 ### .summarize(boolean)
 
 Option for stacked bar or stacked area graph to display 15 items at a time.
-Values that aren't displayed are placed in an 'Other' bar.
+Values that aren't displayed are placed in an 'Other (Generated)' bar.
 
-If there is already a category named 'Other', then that category will be named
-'Other (Generated)'.
+You can set the color of the 'Other (Generated)' category in the `colorMapping` method.
 
 ```javascript
 chart
   .type('bar')
   .stacked(true)
   .summarize(true)
+  .colorMapping({ "Other (Generated)": "#888" }) // Setting 'Other' bar color to gray.
 ```
 
 ### .theme(string)
@@ -344,7 +344,9 @@ chart.type();
 
 Set the minimum percentage (given as a float between 0 and 1) that a value has to be
 in order for a slice in a donut or pie chart to be visible. All values with a percentage
-less than the threshold will be placed in a slice called 'Other'.
+less than the threshold will be placed in a slice called 'Other (Generated)'.
+
+You can set the color of the 'Other (Generated)' category in the `colorMapping` method.
 
 Ex:
 
@@ -355,9 +357,10 @@ chart
 .type('pie') // or donut
 .data(res)
 .visibilityThreshold(0.2) // Visibility is 0.2 (20%)
+.colorMapping({ "Other (Generated)": "#888" }) // Setting slice color to gray.
 ```
 
-`['A', 1]` and `['D', 0.5]` will be placed in the 'Other' slice.
+`['A', 1]` and `['D', 0.5]` will be placed in the 'Other (Generated)' slice.
 
 ### .width(number)
 

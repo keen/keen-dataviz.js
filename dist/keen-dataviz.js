@@ -1408,9 +1408,10 @@ function renderPieChart(chart, visibilityThreshold, data) {
     var otherValue = underVisibilityThreshold.reduce(function(previous, current) {
       return previous + current[1];
     }, 0);
+    var otherCategoryName = 'Other (Generated)';
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
-      columns: overVisibilityThreshold.concat([['Other', otherValue]])
+      columns: overVisibilityThreshold.concat([[otherCategoryName, otherValue]])
     })
   }
 }
@@ -1430,11 +1431,9 @@ function summarizeChart(chart, dataset) {
   var countPerPage = 15;
   var totalPages = Math.ceil(allData.length / countPerPage);
   chart.load({
+    groups: [ chart.groups()[0].concat(['Other (Generated)']) ],
     unload: chart.data().map(function(d) { return d.id; }),
-    columns: _createCurrentColumns(allData, 0, countPerPage),
-    colors: {
-      "Other": "#aaa"
-    }
+    columns: _createCurrentColumns(allData, 0, countPerPage)
   });
   var legendNavigation = new LegendNavigation(chart, totalPages);
   legendNavigation.leftNav.on('click', function() {
@@ -1469,7 +1468,7 @@ function _createCurrentColumns(allData, currentPage, countPerPage) {
 }
 function _createOtherColumn(allData, startIndex, endIndex) {
   var otherDatasets = allData.slice(0, startIndex).concat(allData.slice(endIndex, allData.length));
-  var otherColumn = ['Other'];
+  var otherColumn = ['Other (Generated)'];
   for(var i=1; i<otherDatasets[0].length; i++) {
     var sumAtIndex = otherDatasets.reduce(function(previousValue, currentValue, currentIndex) {
       return previousValue + otherDatasets[currentIndex][i];
@@ -1596,7 +1595,7 @@ function defineC3(){
             options.axis.x.type = 'category';
             options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ ['Other'].concat(this.dataset.selectRow(0).slice(1)) ];
+              options.data.groups = [ ['Other (Generated)'].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
 <<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
