@@ -884,6 +884,7 @@ function parseExtraction(){
       labelMapping: {},
       library: 'default',
       notes: undefined,
+      paginate: true,
       sortGroups: undefined,
       sortIntervals: undefined,
       stacked: false,
@@ -1078,6 +1079,12 @@ function parseExtraction(){
   Dataviz.prototype.notes = function(str){
     if (!arguments.length) return this.view['notes'];
     this.view['notes'] = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.paginate = function(bool) {
+    if (!arguments.length) return this.view['paginate'];
+    if (bool === null) this.view['paginate'] = true;
+    else this.view['paginate'] = bool;
     return this;
   };
   Dataviz.prototype.prepare = function(){
@@ -1680,6 +1687,7 @@ function shouldBePaginated(type, dataviz) {
   ];
   return supportedTypes.indexOf(type) > -1 &&
     dataviz.data()[0].length > 15 &&
+    dataviz.paginate() &&
     !dataviz.summarize();
 }
 function shouldBeSummarized(type, dataviz) {

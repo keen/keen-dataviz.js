@@ -256,6 +256,17 @@ chart.notes('String of text to include as chart notes');
 chart.notes();
 ```
 
+### .paginate(boolean)
+
+Allows line, bar, and area charts to be "paginated". 15 results will be displayed
+at a time.
+
+This value is set to `true` by default.
+
+```javascript
+chart.type('line').paginate(true);
+```
+
 ### .prepare()
 
 Activate the spinner for a visualization.
@@ -370,5 +381,3 @@ chart.width(900);
 // Return current width
 chart.width();
 ```
-
-## C3 Extensions
