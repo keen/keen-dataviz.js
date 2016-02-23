@@ -267,6 +267,9 @@ This value is set to `true` by default.
 chart.type('line').paginate(true);
 ```
 
+If `paginate` and `stacked` are set to true, the graph will render an
+`Other (Generated)` column.
+
 ### .prepare()
 
 Activate the spinner for a visualization.
@@ -303,21 +306,6 @@ chart.sortIntervals('desc');
 
 // Return current value
 chart.sortIntervals();
-```
-
-### .summarize(boolean)
-
-Option for stacked bar or stacked area graph to display 15 items at a time.
-Values that aren't displayed are placed in an 'Other (Generated)' bar.
-
-You can set the color of the 'Other (Generated)' category in the `colorMapping` method.
-
-```javascript
-chart
-  .type('bar')
-  .stacked(true)
-  .summarize(true)
-  .colorMapping({ "Other (Generated)": "#888" }) // Setting 'Other' bar color to gray.
 ```
 
 ### .theme(string)

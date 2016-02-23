@@ -888,7 +888,6 @@ function parseExtraction(){
       sortGroups: undefined,
       sortIntervals: undefined,
       stacked: false,
-      summarize: false,
       theme: 'keen-dataviz',
       title: undefined,
       type: undefined,
@@ -1181,11 +1180,6 @@ function parseExtraction(){
   Dataviz.prototype.stacked = function(bool){
     if (!arguments.length) return this.view['stacked'];
     this.view['stacked'] = bool ? true : false;
-    return this;
-  };
-  Dataviz.prototype.summarize = function(bool) {
-    if (!arguments.length) return this.view['summarize'];
-    this.view['summarize'] = bool ? true : false;
     return this;
   };
   Dataviz.prototype.theme = function(str){
@@ -1493,7 +1487,7 @@ var each = require('../utils/each'),
     isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
 var paginateChart = require('./c3_extentions/paginate-chart');
-var summarizeChart = require('./c3_extentions/summarize-chart');
+var paginateStackedChart = require('./c3_extentions/summarize-chart');
 var renderPieChart = require('./c3_extentions/render-pie-chart');
 var types = {};
 function initialize(lib){
@@ -1615,8 +1609,8 @@ function defineC3(){
         if (shouldBePaginated(type, this)) {
           paginateChart(this.view._artifacts['c3'], this.dataset);
         }
-        else if(shouldBeSummarized(type, this)) {
-          summarizeChart(this.view._artifacts['c3'], this.dataset);
+        else if(shouldBeStackedAndPaginated(type, this)) {
+          paginateStackedChart(this.view._artifacts['c3'], this.dataset);
         }
         else if (type === 'donut' || type === 'pie') {
           renderPieChart(this.view._artifacts['c3'], this.view.visibilityThreshold, this.data().slice(1));
@@ -1688,15 +1682,16 @@ function shouldBePaginated(type, dataviz) {
   return supportedTypes.indexOf(type) > -1 &&
     dataviz.data()[0].length > 15 &&
     dataviz.paginate() &&
-    !dataviz.summarize();
+    !dataviz.stacked();
 }
-function shouldBeSummarized(type, dataviz) {
+function shouldBeStackedAndPaginated(type, dataviz) {
   var supportedTypes= [
     'area', 'bar'
   ]
   return supportedTypes.indexOf(type) > -1 &&
     dataviz.data()[0].length > 15 &&
-    dataviz.summarize();
+    dataviz.paginate() &&
+    dataviz.stacked();
 }
 function defineMessage(){
   types['message'] = {

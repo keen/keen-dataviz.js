@@ -629,29 +629,4 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.summarize()', function() {
-
-    it('should return false by default', function(){
-      expect(this.dataviz.summarize())
-        .to.be.a('boolean')
-        .and.to.eql(false);
-    });
-
-    it('should set `summarize` to true by passing true', function(){
-      this.dataviz.summarize(true);
-      expect(this.dataviz.view.summarize)
-        .to.be.a('boolean')
-        .and.to.eql(true);
-    });
-
-    it('should set `summarize` to false by passing null', function(){
-      this.dataviz.summarize(true);
-      this.dataviz.summarize(null);
-      expect(this.dataviz.view.summarize)
-        .to.be.a('boolean')
-        .and.to.eql(false);
-    });
-
-  });
-
 });
