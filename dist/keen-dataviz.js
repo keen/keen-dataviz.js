@@ -1341,14 +1341,14 @@ legendNavigation.prototype._buildLegendNavigation = function() {
 }
 legendNavigation.prototype._buildNavigationItems = function() {
   var leftNav = this.navigation
-    .append('span').classed('left', true)
-    .text('<-');
+    .append('div')
+    .attr("class", "left arrow")
   var counter = this.navigation
     .append('span').classed('counter', true)
     .text('1 / ' + this.totalPages);
   var rightNav = this.navigation
-    .append('span').classed('right', true)
-    .text('->');
+    .append('div')
+    .attr("class", "right arrow")
   return { leftNav: leftNav, rightNav: rightNav, counter: counter };
 }
 module.exports = legendNavigation;

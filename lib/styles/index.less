@@ -145,5 +145,36 @@
 
   .legend-navigation {
     cursor: pointer;
+    width: 6em;
+    position: relative;
+    text-align: center;
+
+    .arrow {
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+
+      position: absolute;
+    }
+
+    div.left {
+      left: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid @gray-1;
+
+      &:hover {
+        border-right: 8px solid @gray-8;
+      }
+    }
+
+    div.right {
+      top: 0;
+      right: 0;
+      border-right: 8px solid transparent;
+      border-left: 8px solid @gray-1;
+
+      &:hover {
+        border-left: 8px solid @gray-8;
+      }
+    }
   }
 }
