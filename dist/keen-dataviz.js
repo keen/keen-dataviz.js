@@ -1432,9 +1432,8 @@ function summarizeChart(chart, dataset) {
   var countPerPage = 15;
   var totalPages = Math.ceil(allData.length / countPerPage);
   chart.load({
-    groups: [ chart.groups()[0].concat(['Other (Generated)']) ],
     unload: chart.data().map(function(d) { return d.id; }),
-    columns: _createCurrentColumns(allData, 0, countPerPage)
+    columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage))
   });
   var legendNavigation = new LegendNavigation(chart, totalPages);
   legendNavigation.leftNav.on('click', function() {
@@ -1588,7 +1587,7 @@ function defineC3(){
             options.data.columns[0][0] = 'x';
             options.data.x = 'x';
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+              options.data.groups = [ ['Other (Generated)'].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
           else {
