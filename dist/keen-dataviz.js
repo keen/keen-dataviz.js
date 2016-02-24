@@ -1536,7 +1536,13 @@ function defineC3(){
           data: {
             order: null
           },
+<<<<<<< e548609868a99787b481f2d0697a0709f0d85515
           legend: {}
+=======
+          legend: {
+            position: 'right'
+          }
+>>>>>>> set default legend position to 'right'
         };
         ENFORCED_OPTIONS = {
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
