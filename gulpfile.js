@@ -6,7 +6,6 @@ var aws = require('gulp-awspublish'),
     connect = require('gulp-connect'),
     compress = require('gulp-yuicompressor'),
     karma = require('karma').Server,
-    less = require('gulp-less'),
     minifyCss = require('gulp-minify-css'),
     mocha = require('gulp-mocha'),
     mochaPhantomJS = require('gulp-mocha-phantomjs'),
@@ -14,6 +13,12 @@ var aws = require('gulp-awspublish'),
     squash = require('gulp-remove-empty-lines'),
     strip = require('gulp-strip-comments'),
     through2 = require('through2');
+
+// Style
+var postcss = require('gulp-postcss'),
+    postcss_cssnext = require('postcss-cssnext'),
+    postcss_import = require('postcss-import'),
+    postcss_reporter = require('postcss-reporter');
 
 gulp.task('default', ['build', 'connect', 'watch']);
 
@@ -35,7 +40,7 @@ gulp.task('watch', ['build', 'test:browserify'], function() {
       'gulpfile.js'
     ], ['build:minify-script', 'test:browserify']);
   gulp.watch([
-      'lib/**/*.less',
+      'style/*.css',
       'gulpfile.js'
     ], ['build:minify-styles']);
 });
@@ -64,8 +69,12 @@ gulp.task('build:minify-script', ['build:script'], function(){
 });
 
 gulp.task('build:styles', function(){
-  gulp.src('./lib/styles/index.less')
-    .pipe(less())
+  gulp.src('./style/index.css')
+    .pipe(postcss([
+      postcss_import(),
+      postcss_cssnext(),
+      postcss_reporter()
+    ]))
     .pipe(rename(pkg.name + '.css'))
     .pipe(gulp.dest('./dist'));
 });
