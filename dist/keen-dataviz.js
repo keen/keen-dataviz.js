@@ -1206,11 +1206,6 @@ function parseExtraction(){
     }
     return;
   };
-  Dataviz.prototype.visibilityThreshold = function(num){
-    if (!arguments.length) return this.view['visibilityThreshold'];
-    this.view['visibilityThreshold'] = (!isNaN(parseFloat(num)) ? parseFloat(num) : null);
-    return this;
-  };
   Dataviz.prototype.width = function(num){
     if (!arguments.length) return this.view['width'];
     this.view['width'] = (!isNaN(parseInt(num)) ? parseInt(num) : null);
@@ -1409,18 +1404,27 @@ function renderPieChart(chart, visibilityThreshold, data) {
     var otherValue = underVisibilityThreshold.reduce(function(previous, current) {
       return previous + current[1];
     }, 0);
-    var otherCategoryName = 'Other (Generated)';
+    var otherCategoryName = getOtherGroupName(data);
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
       columns: overVisibilityThreshold.concat([[otherCategoryName, otherValue]])
     })
   }
 }
+function getOtherGroupName(data) {
+  var matchingGroupName = data.find(function(d) {
+    return d[0].toLowerCase() === 'other';
+  });
+  if (matchingGroupName) {
+    return 'Other (Generated)';
+  }
+  return 'Other';
+}
 module.exports = renderPieChart;
 },{}],18:[function(require,module,exports){
 var each = require('../../utils/each');
 var LegendNavigation = require('./legend-navigation');
-function summarizeChart(chart, dataset) {
+function summarizeChart(chart, dataset, otherColumnName) {
   var columns = chart.internal.config.data_columns;
   var allData = [];
   each(dataset.matrix[0], function(item, i) {
@@ -1433,7 +1437,9 @@ function summarizeChart(chart, dataset) {
   var totalPages = Math.ceil(allData.length / countPerPage);
   chart.load({
     unload: chart.data().map(function(d) { return d.id; }),
-    columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage))
+    columns: columns.concat(
+      _createCurrentColumns(allData, currentPage, countPerPage, otherColumnName)
+    )
   });
   var legendNavigation = new LegendNavigation(chart, totalPages);
   legendNavigation.leftNav.on('click', function() {
@@ -1444,7 +1450,9 @@ function summarizeChart(chart, dataset) {
     legendNavigation.updateCounter(currentPage, totalPages);
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
-      columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage))
+      columns: columns.concat(
+        _createCurrentColumns(allData, currentPage, countPerPage, otherColumnName)
+      )
     });
   });
   legendNavigation.rightNav.on('click', function() {
@@ -1459,16 +1467,16 @@ function summarizeChart(chart, dataset) {
     });
   });
 }
-function _createCurrentColumns(allData, currentPage, countPerPage) {
+function _createCurrentColumns(allData, currentPage, countPerPage, otherColumnName) {
   var startIndex = currentPage * countPerPage;
   var endIndex = startIndex + countPerPage;
-  return _createOtherColumn(allData, startIndex, endIndex).concat(
+  return _createOtherColumn(allData, startIndex, endIndex, otherColumnName).concat(
     allData.slice(startIndex, endIndex)
   );
 }
-function _createOtherColumn(allData, startIndex, endIndex) {
+function _createOtherColumn(allData, startIndex, endIndex, otherColumnName) {
   var otherDatasets = allData.slice(0, startIndex).concat(allData.slice(endIndex, allData.length));
-  var otherColumn = ['Other (Generated)'];
+  var otherColumn = [ otherColumnName ];
   for(var i=1; i<otherDatasets[0].length; i++) {
     var sumAtIndex = otherDatasets.reduce(function(previousValue, currentValue, currentIndex) {
       return previousValue + otherDatasets[currentIndex][i];
@@ -1536,13 +1544,9 @@ function defineC3(){
           data: {
             order: null
           },
-<<<<<<< e548609868a99787b481f2d0697a0709f0d85515
-          legend: {}
-=======
           legend: {
             position: 'right'
           }
->>>>>>> set default legend position to 'right'
         };
         ENFORCED_OPTIONS = {
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
@@ -1593,7 +1597,8 @@ function defineC3(){
             options.data.columns[0][0] = 'x';
             options.data.x = 'x';
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ ['Other (Generated)'].concat(this.dataset.selectRow(0).slice(1)) ];
+              var otherGroupName = getOtherGroupName(this.dataset);
+              options.data.groups = [ [otherGroupName].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
           else {
@@ -1601,27 +1606,30 @@ function defineC3(){
             options.axis.x.type = 'category';
             options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ ['Other (Generated)'].concat(this.dataset.selectRow(0).slice(1)) ];
+              var otherGroupName = getOtherGroupName(this.dataset);
+              options.data.groups = [ [otherGroupName].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
-<<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
           if (this.data()[0].length === 2) {
             options.legend.show = options.legend.show || false;
           }
-=======
         }
         this.view._artifacts['c3'] = c3.generate(options);
         if (shouldBePaginated(type, this)) {
           paginateChart(this.view._artifacts['c3'], this.dataset);
         }
         else if(shouldBeStackedAndPaginated(type, this)) {
-          paginateStackedChart(this.view._artifacts['c3'], this.dataset);
+          paginateStackedChart(
+            this.view._artifacts['c3'],
+            this.dataset,
+            getOtherGroupName(this.dataset)
+          );
         }
         else if (type === 'donut' || type === 'pie') {
-          renderPieChart(this.view._artifacts['c3'], this.view.visibilityThreshold, this.data().slice(1));
+          var visibilityThreshold = this.view.chartOptions.visibilityThreshold;
+          renderPieChart(this.view._artifacts['c3'], visibilityThreshold, this.data().slice(1));
         }
         else {
->>>>>>> Paginated line graphs
           each(this.data()[0], function(cell, i){
             if (i > 0) {
               options.data.columns.push(this.dataset.selectColumn(i));
@@ -1697,6 +1705,14 @@ function shouldBeStackedAndPaginated(type, dataviz) {
     dataviz.data()[0].length > 15 &&
     dataviz.paginate() &&
     dataviz.stacked();
+}
+function getOtherGroupName(dataset) {
+  var result = dataset.selectRow(0)
+    .find(function(d) { return d.toLowerCase() === 'other' });
+  if (result) {
+    return 'Other (Generated)';
+  }
+  return 'Other';
 }
 function defineMessage(){
   types['message'] = {
@@ -1887,11 +1903,7 @@ function defineTable(){
   };
 }
 module.exports = initialize;
-<<<<<<< 0a8c8fc64a82063537712f02f2c0a65c4f2bc930
-<<<<<<< 501bd70f800a9e2d2b6afae92c66c2bac9d8e4b3
-<<<<<<< e2e1a534965e90a0198549fdaf2ebe9a0537a872
-},{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
-<<<<<<< aafff5b4c177c7f9306c9ec269a73a11165a70ac
+},{"../utils/assert-date-string":20,"../utils/each":21,"../utils/extend":23,"../utils/extend-deep":22,"../utils/pretty-number":24,"./c3_extentions/paginate-chart":16,"./c3_extentions/render-pie-chart":17,"./c3_extentions/summarize-chart":18,"spin.js":25}],20:[function(require,module,exports){
 module.exports = function(input){
   if (typeof input === 'object'
     && typeof input.getTime === 'function'
@@ -1902,22 +1914,6 @@ module.exports = function(input){
     && !isNaN(input.split('-')[0])
       && !isNaN(new Date(input).getTime())) {
         return true;
-=======
-=======
-},{"../utils/assert-date-string":17,"../utils/each":18,"../utils/extend":19,"../utils/pretty-number":20,"./c3_extentions/paginate-line":15,"spin.js":21}],17:[function(require,module,exports){
->>>>>>> Paginated line graphs
-=======
-},{"../utils/assert-date-string":19,"../utils/each":20,"../utils/extend":22,"../utils/extend-deep":21,"../utils/pretty-number":23,"./c3_extentions/paginate-chart":16,"./c3_extentions/summarize-chart":17,"spin.js":24}],19:[function(require,module,exports){
->>>>>>> support pagination for other chart types
-=======
-},{"../utils/assert-date-string":20,"../utils/each":21,"../utils/extend":23,"../utils/extend-deep":22,"../utils/pretty-number":24,"./c3_extentions/paginate-chart":16,"./c3_extentions/render-pie-chart":17,"./c3_extentions/summarize-chart":18,"spin.js":25}],20:[function(require,module,exports){
->>>>>>> visibilityThreshold for pie/donut charts
-module.exports = function(str){
-  var split;
-  if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
-    split = str.split('-');
-    return !isNaN(split[0]) && split[0].length === 4;
->>>>>>> Paginated line graphs
   }
   return false;
 };

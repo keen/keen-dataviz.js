@@ -268,7 +268,7 @@ chart.type('line').paginate(true);
 ```
 
 If `paginate` and `stacked` are set to true, the graph will render an
-`Other (Generated)` column.
+`Other` column.
 
 ### .prepare()
 
@@ -343,9 +343,9 @@ chart.type();
 
 Set the minimum percentage (given as a float between 0 and 1) that a value has to be
 in order for a slice in a donut or pie chart to be visible. All values with a percentage
-less than the threshold will be placed in a slice called 'Other (Generated)'.
+less than the threshold will be placed in a slice called 'Other'.
 
-You can set the color of the 'Other (Generated)' category in the `colorMapping` method.
+You can set the color of the 'Other' category in the `colorMapping` method.
 
 Ex:
 
@@ -356,10 +356,10 @@ chart
 .type('pie') // or donut
 .data(res)
 .visibilityThreshold(0.2) // Visibility is 0.2 (20%)
-.colorMapping({ "Other (Generated)": "#888" }) // Setting slice color to gray.
+.colorMapping({ "Other": "#888" }) // Setting slice color to gray.
 ```
 
-`['A', 1]` and `['D', 0.5]` will be placed in the 'Other (Generated)' slice.
+`['A', 1]` and `['D', 0.5]` will be placed in the 'Other' slice.
 
 ### .width(number)
 

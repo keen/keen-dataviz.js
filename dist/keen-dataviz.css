@@ -138,37 +138,52 @@
 .keen-dataviz .c3-tooltip-container {
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.keen-dataviz .paginated-legend {
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+// C3 CUSTOMIZATIONS
+.c3 svg,
+.c3-tooltip-container {
+  font-family: @font-family-primary;
+}
+
+// PAGINATED GRAPH STYLES
+.paginated-legend {
+  font-family: @font-family-primary;
   display: block;
   float: right;
   width: 50%;
 }
+
 .keen-dataviz .legend-navigation {
   cursor: pointer;
   width: 6em;
   position: relative;
   text-align: center;
-}
-.keen-dataviz .legend-navigation .arrow {
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  position: absolute;
-}
-.keen-dataviz .legend-navigation div.left {
-  left: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid #16191d;
-}
-.keen-dataviz .legend-navigation div.left:hover {
-  border-right: 8px solid #768798;
-}
-.keen-dataviz .legend-navigation div.right {
-  top: 0;
-  right: 0;
-  border-right: 8px solid transparent;
-  border-left: 8px solid #16191d;
-}
-.keen-dataviz .legend-navigation div.right:hover {
-  border-left: 8px solid #768798;
+
+  .arrow {
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+
+    position: absolute;
+  }
+
+  div.left {
+    left: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid @gray-1
+  }
+
+  div.left:hover {
+    border-right: 8px solid @gray-8;
+  }
+
+  div.right {
+    top: 0;
+    right: 0;
+    border-right: 8px solid transparent;
+    border-left: 8px solid @gray-1
+  }
+
+  div.right:hover {
+    border-left: 8px solid @gray-8;
+  }
 }

@@ -348,28 +348,6 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.visibilityThreshold()', function(){
-
-    it('should return undefined by default', function(){
-      expect(this.dataviz.visibilityThreshold()).to.be.an('undefined');
-    });
-
-    it('should set and get a new visibilityThreshold', function(){
-      var visibilityThreshold = 0.2;
-      this.dataviz.visibilityThreshold(visibilityThreshold);
-      expect(this.dataviz.view.visibilityThreshold)
-        .to.be.a('number')
-        .and.to.eql(visibilityThreshold);
-    });
-
-    it('should unset the width by passing null', function(){
-      this.dataviz.visibilityThreshold(null);
-      expect(this.dataviz.view.visibilityThreshold)
-        .to.not.exist;
-    });
-
-  });
-
   describe('.width()', function(){
 
     it('should return undefined by default', function(){
