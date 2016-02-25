@@ -1605,11 +1605,16 @@ function defineTable(){
 }
 module.exports = initialize;
 },{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
-module.exports = function(str){
-  var split;
-  if (!isNaN(new Date(str).getTime()) && typeof str === 'string') {
-    split = str.split('-');
-    return !isNaN(split[0]) && split[0].length === 4;
+module.exports = function(input){
+  if (typeof input === 'object'
+    && typeof input.getTime === 'function'
+      && !isNaN(input.getTime())) {
+        return true;
+  }
+  else if (typeof input === 'string'
+    && !isNaN(input.split('-')[0])
+      && !isNaN(new Date(input).getTime())) {
+        return true;
   }
   return false;
 };
