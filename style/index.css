@@ -49,7 +49,7 @@
 
 /* MESSAGE */
 .keen-dataviz .keen-dataviz-message {
-  color: var(--dark-gray);
+  color: var(--gray);
   display: block;
   font-family: var(--font-family-primary);
   font-size: 21px;

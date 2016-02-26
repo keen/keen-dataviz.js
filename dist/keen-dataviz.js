@@ -930,12 +930,26 @@ function parseExtraction(){
     var library = this.library(),
         type = this.type(),
         element = this.el();
-    if (library && type && Dataviz.libraries[library][type].destroy) {
-      Dataviz.libraries[library][type].destroy.apply(this, arguments);
+    if (!element) {
+      this.message('A DOM element is required. Check out the .el() method.');
+      throw 'A DOM element is required. Check out the .el() method.';
+      return;
     }
-    if (element) {
-      element.innerHTML = '';
+    if (!type) {
+      this.message('A chart type is required. Check out the .type() method.');
+      throw 'A chart type is required. Check out the .type() method.';
+      return;
     }
+    if (Dataviz.libraries[library]){
+      if (typeof Dataviz.libraries[library][type] === 'undefined') {
+        type = convertChartTypes(type);
+      }
+      if (Dataviz.libraries[library][type]
+        && Dataviz.libraries[library][type].destroy) {
+          Dataviz.libraries[library][type].destroy.call(this);
+      }
+    }
+    element.innerHTML = '';
     this.view._prepared = false;
     this.view._rendered = false;
     this.view._artifacts = {};
@@ -1064,7 +1078,7 @@ function parseExtraction(){
         self.el().innerHTML = '';
         loader = Dataviz.libraries['default'].spinner;
         if (loader.render) {
-          loader.render.apply(self, arguments);
+          loader.render.call(self);
         }
         self.view._prepared = true;
       }
@@ -1078,7 +1092,13 @@ function parseExtraction(){
         type = this.type(),
         element = this.el();
     if (!this.el()) {
+      this.message('A DOM element is required. Check out the .el() method.');
       throw 'A DOM element is required. Check out the .el() method.';
+      return;
+    }
+    if (!this.type()) {
+      this.message('A chart type is required. Check out the .type() method.');
+      throw 'A chart type is required. Check out the .type() method.';
       return;
     }
     domReady(function(){
@@ -1086,31 +1106,34 @@ function parseExtraction(){
         loader.destroy.apply(self, arguments);
       }
       self.el().innerHTML = '';
-      if (library && type && element && Dataviz.libraries[library][type].render) {
-        buildDomWrapper(self.el(), {
-          notes: self.notes(),
-          theme: self.theme(),
-          title: self['title']()
-        });
-        Dataviz.libraries[library][type].render.apply(self, arguments);
-        self.view._rendered = true;
+      if (Dataviz.libraries[library]){
+        if (typeof Dataviz.libraries[library][type] === 'undefined') {
+          type = convertChartTypes(type);
+        }
+        if (Dataviz.libraries[library][type]
+          && Dataviz.libraries[library][type].render) {
+            buildDomWrapper(self.el(), {
+              notes: self.notes(),
+              theme: self.theme(),
+              title: self['title']()
+            });
+            Dataviz.libraries[library][type].render.call(self);
+            self.view._rendered = true;
+        }
+        else {
+          self.message('Incorrect chart type');
+          throw 'Incorrect chart type';
+          return;
+        }
+      }
+      else {
+        self.message('Incorrect library');
+        throw 'Incorrect library';
+        return;
       }
     });
     return this;
   };
-  function buildDomWrapper(el, options){
-    var html = '';
-    html += '<div class="' + options.theme + '">';
-    if (options['title']) {
-      html += '<div class="' + options.theme + '-title">' + options['title'] + '</div>';
-    }
-    html += '<div class="' + options.theme + '-stage"><div class="' + options.theme + '-rendering"></div></div>';
-    if (options.notes) {
-      html += '<div class="' + options.theme + '-notes">' + options.notes + '</div>';
-    }
-    html += '</div>';
-    el.innerHTML = html;
-  }
   Dataviz.prototype.sortGroups = function(str){
     if (!arguments.length) return this.view.sortGroups;
     this.view.sortGroups = (str ? String(str) : null);
@@ -1197,6 +1220,29 @@ function parseExtraction(){
     });
     return match;
   };
+  function buildDomWrapper(el, options){
+    var html = '';
+    html += '<div class="' + options.theme + '">';
+    if (options['title']) {
+      html += '<div class="' + options.theme + '-title">' + options['title'] + '</div>';
+    }
+    html += '<div class="' + options.theme + '-stage"><div class="' + options.theme + '-rendering"></div></div>';
+    if (options.notes) {
+      html += '<div class="' + options.theme + '-notes">' + options.notes + '</div>';
+    }
+    html += '</div>';
+    el.innerHTML = html;
+  }
+  function convertChartTypes(str){
+    var map = {
+      'linechart'   : 'line',
+      'barchart'    : 'horizontal-bar',
+      'columnchart' : 'bar',
+      'areachart'   : 'area',
+      'piechart'    : 'pie'
+    };
+    return map[str] || str
+  }
   function domReady(fn){
     if ('undefined' !== typeof document
       || 'undefined' === typeof window) {
