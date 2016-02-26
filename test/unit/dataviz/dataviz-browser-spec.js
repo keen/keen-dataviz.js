@@ -20,11 +20,12 @@ describe('Dataviz', function(){
     });
     this.dataviz = new Dataviz()
       .library('demo')
+      .el('#chart-test')
       .type('chart');
   });
 
   afterEach(function(){
-    this.dataviz.destroy();
+    this.dataviz.el('#chart-test').destroy();
     this.dataviz = null;
     Dataviz.visuals = [];
   });
@@ -38,7 +39,7 @@ describe('Dataviz', function(){
     });
 
     it('should return undefined by default', function(){
-      expect(this.dataviz.el()).to.be.an('undefined');
+      expect(new Dataviz().el()).to.be.an('undefined');
     });
     it('should set and get a new el', function(){
       this.dataviz.el(document.getElementById('chart-test'));

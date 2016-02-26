@@ -1,12 +1,35 @@
-/* WRAPPER */
+:root {
+  --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
+  --font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
+  --white:      #FFFFFF;
+  --black:      #1A1A1A;
+
+  --dark-gray:  #4D4D4D;
+  --gray:       #808080;
+  --light-gray: #A7A7A7;
+  --silver:     #E7E7E7;
+
+  --blue:       #5A9EED;
+  --teal:       #00BBDE;
+  --green:      #73D483;
+  --yellow:     #EEB058;
+  --orange:     #FF855C;
+  --red:        #FE6672;
+  --purple:     #8A8AD6;
+
+  --lavender:   hsl(310, 42%, 63%);
+  --mint:       #00CFBB;
+}
+
+/* WRAPPER */
 .keen-dataviz {
   box-sizing: border-box;
 }
 
 .keen-dataviz .keen-dataviz-title {
-  color: #4D4D4D;
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--dark-gray);
+  font-family: var(--font-family-primary);
   font-size: 14px;
   font-weight: 200;
   line-height: 32px;
@@ -17,19 +40,18 @@
 }
 
 .keen-dataviz .keen-dataviz-notes {
-  color: #808080;
+  color: var(--gray);
   display: block;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-secondary);
   font-size: 12px;
   line-height: 32px;
 }
 
 /* MESSAGE */
-
 .keen-dataviz .keen-dataviz-message {
-  color: #808080;
+  color: var(--gray);
   display: block;
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-primary);
   font-size: 21px;
   font-weight: 200;
   line-height: 24px;
@@ -37,22 +59,19 @@
 }
 
 /* METRIC */
-
 .keen-dataviz .keen-dataviz-metric {
-  background-color: #00BBDE;
+  background-color: var(--teal);
   border-radius: 4px;
-  color: #FFFFFF;
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--white);
+  font-family: var(--font-family-primary);
   text-align: center;
 }
-
 .keen-dataviz .keen-dataviz-metric-value {
   display: block;
   font-size: 72px;
   font-weight: 700;
   line-height: 72px;
 }
-
 .keen-dataviz .keen-dataviz-metric-title {
   display: block;
   font-size: 24px;
@@ -60,30 +79,26 @@
   line-height: 24px;
   padding-top: 8px;
 }
-
 .keen-dataviz .keen-dataviz-metric-prefix {}
-
 .keen-dataviz .keen-dataviz-metric-suffix {}
 
 /* MESSAGE */
-
 .keen-dataviz .keen-dataviz-message {
   box-sizing: border-box;
 }
 
-/* TABLE */
 
+/* TABLE */
 .keen-dataviz .keen-dataviz-table {
-  border-bottom: 1px solid #E7E7E7;
+  border-bottom: 1px solid var(--silver);
   box-sizing: border-box;
   overflow: scroll;
   position: relative;
 }
-
 .keen-dataviz .keen-dataviz-table table {
-  background: #FFFFFF;
+  background: var(--white);
   border-collapse: collapse;
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-primary);
   margin: 0;
   position: relative;
   width: 100%;
@@ -97,44 +112,35 @@
   text-align: left;
   white-space: nowrap;
 }
-
 .keen-dataviz .keen-dataviz-table th {
-  border-bottom: 1px solid #E7E7E7;
-  color: #4D4D4D;
+  border-bottom: 1px solid var(--silver);
+  color: var(--dark-gray);
 }
-
 .keen-dataviz .keen-dataviz-table td {
-  background-color: #FFFFFF;
-  color: #4D4D4D;
-  -webkit-transition: background-color 0.1s, color 0.05s;
+  background-color: var(--white);
+  color: var(--dark-gray);
   transition: background-color 0.1s, color 0.05s;
 }
-
 .keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
   background-color: #F3F5F6;
 }
-
 .keen-dataviz .keen-dataviz-table tr:hover td {
-  background-color: #E7E7E7;
-  color: #4D4D4D;
+  background-color: var(--silver);
+  color: var(--dark-gray);
 }
-
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
   visibility: hidden;
 }
-
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
-  background: #FFFFFF;
+  background: var(--white);
   border-bottom: 1px solid rgba(0,0,0,.15);
   position: absolute;
   top: 0;
-  -webkit-transition: top .1s;
   transition: top .1s;
 }
 
 /* C3 CUSTOMIZATIONS */
-
 .keen-dataviz .c3 svg,
 .keen-dataviz .c3-tooltip-container {
-  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-primary);
 }
