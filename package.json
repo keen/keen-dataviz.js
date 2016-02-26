@@ -2,7 +2,7 @@
   "name": "keen-dataviz",
   "description": "Data Visualization SDK for Keen IO",
   "license": "MIT",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "lib/index.js",
   "style": "style/index.css",
   "repository": {
