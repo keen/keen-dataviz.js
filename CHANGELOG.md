@@ -1,3 +1,11 @@
+<a name="0.0.7"></a>
+# 0.0.7 Saved funnel parsing and style update
+
+**FIXED:**
+* Correctly parse responses of saved funnel queries (#18)
+* Hide legend for single-series charts (#25)
+
+
 <a name="0.0.6"></a>
 # 0.0.6 Bug fixes and improvements
 

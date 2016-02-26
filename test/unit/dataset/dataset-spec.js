@@ -890,7 +890,7 @@ describe('Dataset', function(){
 
       expect(dataset.data())
         .to.be.an('array')
-        .and.to.be.of.length(6);
+        .and.to.be.of.length(7);
       expect(dataset.data()[0][0]).to.eql('Index');
       expect(dataset.data()[0][1]).to.eql('Step Value');
       expect(dataset.data()[1][0]).to.be.eql('pageview');
@@ -903,7 +903,7 @@ describe('Dataset', function(){
 
       expect(dataset.data())
         .to.be.an('array')
-        .and.to.be.of.length(6);
+        .and.to.be.of.length(7);
       expect(dataset.data()[0][0]).to.eql('Index');
       expect(dataset.data()[0][1]).to.eql('Step Value');
       expect(dataset.data()[1][0]).to.be.eql('pageview');

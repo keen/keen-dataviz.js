@@ -2,8 +2,10 @@ var funnel = require('./funnel');
 
 module.exports = {
   "query": {
-    "analysis_type": "funnel",
-    "steps": funnel.steps
+    "analysis_type": "funnel"
   },
-  "result": funnel.result
+  "result": {
+    "result": funnel.result,
+    "steps": funnel.steps
+  }
 };
