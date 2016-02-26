@@ -1357,7 +1357,8 @@ function defineC3(){
           color: {},
           data: {
             order: null
-          }
+          },
+          legend: {}
         };
         ENFORCED_OPTIONS = {
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
@@ -1418,6 +1419,9 @@ function defineC3(){
             if (this.stacked() && this.data()[0].length > 2) {
               options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
             }
+          }
+          if (this.data()[0].length === 2) {
+            options.legend.show = options.legend.show || false;
           }
           each(this.data()[0], function(cell, i){
             if (i > 0) {
