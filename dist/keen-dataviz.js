@@ -1463,7 +1463,7 @@ function summarizeChart(chart, dataset, otherColumnName) {
     legendNavigation.updateCounter(currentPage, totalPages);
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
-      columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage))
+      columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage, otherColumnName))
     });
   });
 }
