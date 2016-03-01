@@ -182,8 +182,10 @@
             .el('.chart-c3-pie')
             .title('Pie Chart')
             .type('pie')
-            .visibilityThreshold(0.1)
             .colorMapping({ 'Other (Generated)': '#aaa' })
+            .chartOptions({
+              visibilityThreshold: 0.10
+            })
             .call(function(){
               this.dataset.matrix = groupedPieData;
             })
@@ -194,8 +196,9 @@
             .el('.chart-c3-donut')
             .title('Donut Chart')
             .type('donut')
-            .chartOptions({})
-            .visibilityThreshold(0.05)
+            .chartOptions({
+              visibilityThreshold: 0.05
+            })
             .colorMapping({ 'Other (Generated)': '#aaa' })
             .call(function(){
               this.dataset.matrix = groupedDonutData;
