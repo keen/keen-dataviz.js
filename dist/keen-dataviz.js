@@ -1407,7 +1407,9 @@ function renderPieChart(chart, visibilityThreshold, data) {
     var otherCategoryName = getOtherGroupName(data);
     chart.load({
       unload: chart.data().map(function(d) { return d.id; }),
-      columns: overVisibilityThreshold.concat([[otherCategoryName, otherValue]])
+      columns: overVisibilityThreshold.concat([
+        [otherCategoryName, Math.round(otherValue * 100) / 100]
+      ])
     })
   }
 }
@@ -1481,7 +1483,7 @@ function _createOtherColumn(allData, startIndex, endIndex, otherColumnName) {
     var sumAtIndex = otherDatasets.reduce(function(previousValue, currentValue, currentIndex) {
       return previousValue + otherDatasets[currentIndex][i];
     }, 0);
-    otherColumn.push(sumAtIndex);
+    otherColumn.push(Math.round(sumAtIndex * 100) / 100);
   }
   return [otherColumn];
 }
