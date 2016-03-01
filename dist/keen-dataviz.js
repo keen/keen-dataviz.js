@@ -1690,18 +1690,19 @@ function getDateFormatDefault(a, b){
 function shouldBePaginated(type, dataviz) {
   var supportedTypes = [
     'area', 'bar',
-    'line', 'step', 'spline'
+    'line', 'step', 'spline',
+    'area-spline', 'area-step'
   ];
-  return supportedTypes.indexOf(type) > -1 &&
+  return supportedTypes.indexOf(type.replace('horizontal-', '')) > -1 &&
     dataviz.data()[0].length > 15 &&
     dataviz.paginate() &&
     !dataviz.stacked();
 }
 function shouldBeStackedAndPaginated(type, dataviz) {
   var supportedTypes= [
-    'area', 'bar'
+    'area', 'bar', 'area-spline', 'area-step'
   ]
-  return supportedTypes.indexOf(type) > -1 &&
+  return supportedTypes.indexOf(type.replace('horizontal-', '')) > -1 &&
     dataviz.data()[0].length > 15 &&
     dataviz.paginate() &&
     dataviz.stacked();
