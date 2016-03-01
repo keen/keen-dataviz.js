@@ -1346,6 +1346,7 @@ var each = require('../../utils/each');
 var LegendNavigation = require('./legend-navigation');
 function paginateChart(chart, dataset) {
   var columns = chart.internal.config.data_columns;
+  var height = chart.internal.height;
   var allData = [];
   each(dataset.matrix[0], function(item, i) {
     if(i > 0) {
@@ -1353,7 +1354,7 @@ function paginateChart(chart, dataset) {
     }
   });
   var currentPage = 0;
-  var countPerPage = 15;
+  var countPerPage = Math.ceil(height/20);
   var totalPages = Math.ceil(allData.length / countPerPage);
   var currentData = allData.slice(0, countPerPage);
   chart.load({ columns: columns.concat(currentData) });
@@ -1428,6 +1429,7 @@ var each = require('../../utils/each');
 var LegendNavigation = require('./legend-navigation');
 function summarizeChart(chart, dataset, otherColumnName) {
   var columns = chart.internal.config.data_columns;
+  var height = chart.internal.height;
   var allData = [];
   each(dataset.matrix[0], function(item, i) {
     if(i > 0) {
@@ -1435,7 +1437,7 @@ function summarizeChart(chart, dataset, otherColumnName) {
     }
   });
   var currentPage = 0;
-  var countPerPage = 15;
+  var countPerPage = Math.ceil(height/20);
   var totalPages = Math.ceil(allData.length / countPerPage);
   chart.load({
     unload: chart.data().map(function(d) { return d.id; }),
