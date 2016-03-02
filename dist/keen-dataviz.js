@@ -1704,7 +1704,7 @@ function shouldBePaginated(type, dataviz) {
   ];
   return supportedTypes.indexOf(type.replace('horizontal-', '')) > -1 &&
     dataviz.paginate() &&
-    !dataviz.stacked();
+    !shouldBeStackedAndPaginated(type, dataviz);
 }
 function shouldBeStackedAndPaginated(type, dataviz) {
   var supportedTypes= [
