@@ -301,6 +301,31 @@ describe('Dataviz', function(){
 
   });
 
+  describe('.paginate()', function() {
+
+    it('should return true by default', function(){
+      expect(this.dataviz.paginate())
+        .to.be.a('boolean')
+        .and.to.eql(true);
+    });
+
+    it('should set `paginate` to false by passing false', function(){
+      this.dataviz.paginate(false);
+      expect(this.dataviz.view.paginate)
+        .to.be.a('boolean')
+        .and.to.eql(false);
+    });
+
+    it('should set `paginate` to true by passing null', function(){
+      this.dataviz.paginate(false);
+      this.dataviz.paginate(null);
+      expect(this.dataviz.view.paginate)
+        .to.be.a('boolean')
+        .and.to.eql(true);
+    });
+
+  });
+
   describe('.title()', function(){
 
     it('should return undefined by default', function(){

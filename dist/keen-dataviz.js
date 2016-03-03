@@ -149,7 +149,7 @@ function getDefaultTitle(query){
   }
   return title;
 }
-},{"./dataset":2,"./utils/extend":19}],2:[function(require,module,exports){
+},{"./dataset":2,"./utils/extend":23}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -234,7 +234,7 @@ function getDefaultTitle(query){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":19,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+},{"../utils/extend":23,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -313,7 +313,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -336,7 +336,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":17}],5:[function(require,module,exports){
+},{"../../utils/each":21}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -370,7 +370,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":17}],6:[function(require,module,exports){
+},{"../../utils/each":21}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -449,7 +449,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -473,7 +473,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":17}],8:[function(require,module,exports){
+},{"../../utils/each":21}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -523,7 +523,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":17}],9:[function(require,module,exports){
+},{"../../utils/each":21}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -597,7 +597,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -659,7 +659,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":17,"../../utils/extend":19}],11:[function(require,module,exports){
+},{"../../utils/each":21,"../../utils/extend":23}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -849,7 +849,7 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":17,"../utils/flatten":12}],14:[function(require,module,exports){
+},{"../../utils/each":21,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
   var Dataset = require('./dataset'),
@@ -884,6 +884,7 @@ function parseExtraction(){
       labelMapping: {},
       library: 'default',
       notes: undefined,
+      paginate: true,
       sortGroups: undefined,
       sortIntervals: undefined,
       stacked: false,
@@ -1077,6 +1078,12 @@ function parseExtraction(){
   Dataviz.prototype.notes = function(str){
     if (!arguments.length) return this.view['notes'];
     this.view['notes'] = (str ? String(str) : null);
+    return this;
+  };
+  Dataviz.prototype.paginate = function(bool) {
+    if (!arguments.length) return this.view['paginate'];
+    if (bool === null) this.view['paginate'] = true;
+    else this.view['paginate'] = bool;
     return this;
   };
   Dataviz.prototype.prepare = function(){
@@ -1303,13 +1310,210 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":19}],15:[function(require,module,exports){
+},{"./data":1,"./dataset":2,"./libraries/default":19,"./utils/assert-date-string":20,"./utils/each":21,"./utils/extend":23}],15:[function(require,module,exports){
+function legendNavigation(chart, totalPages) {
+  this.chart = chart;
+  this.totalPages = totalPages;
+  this.navigation = this._buildLegendNavigation();
+  var navItems = this._buildNavigationItems();
+  this.leftNav = navItems.leftNav;
+  this.rightNav = navItems.rightNav;
+  this.counter = navItems.counter;
+}
+legendNavigation.prototype.updateCounter = function(currentPage, totalPages) {
+  this.counter.text((currentPage+1) + ' / ' + totalPages);
+}
+legendNavigation.prototype._buildLegendNavigation = function() {
+  return d3.select(this.chart.element).select('svg')
+    .append('g')
+    .classed('legend-navigation', true)
+    .attr('transform', 'translate(60)')
+}
+legendNavigation.prototype._buildNavigationItems = function() {
+  var height = this.chart.element.clientHeight;
+  var width = this.chart.internal.legend[0][0].getBBox().width;
+  var arrowPos = 23;
+  var leftNav = this.navigation
+    .append('text')
+    .attr({ x: width/2, y: height, 'text-anchor': 'middle', 'class': 'left arrow' })
+    .attr('transform', 'translate(-'+arrowPos+')')
+    .text('<<')
+  var counter = this.navigation
+    .append('text').classed('counter', true)
+    .attr({ x: width / 2, y: height, 'text-anchor': 'middle' })
+    .text('1 / ' + this.totalPages);
+  var rightNav = this.navigation
+    .append('text')
+    .attr({ x: width / 2, y: height, 'text-anchor': 'middle', 'class': 'right arrow'})
+    .attr('transform', 'translate('+arrowPos+')')
+    .text('>>')
+  return { leftNav: leftNav, rightNav: rightNav, counter: counter };
+}
+module.exports = legendNavigation;
+},{}],16:[function(require,module,exports){
+var each = require('../../utils/each');
+var LegendNavigation = require('./legend-navigation');
+function paginateChart(chart, dataset) {
+  var columns = chart.internal.config.data_columns;
+  var height = chart.internal.height;
+  var allData = [];
+  each(dataset.matrix[0], function(item, i) {
+    if(i > 0) {
+      allData.push(dataset.selectColumn(i));
+    }
+  });
+  var currentPage = 0;
+  var countPerPage = Math.ceil(height/20);
+  var totalPages = Math.ceil(allData.length / countPerPage);
+  var currentData = allData.slice(0, countPerPage);
+  chart.load({ columns: columns.concat(currentData) });
+  if (totalPages > 1) {
+    var legendNavigation = new LegendNavigation(chart, totalPages);
+    legendNavigation.leftNav.on('click', function() {
+      if (currentPage ===  0) {
+        return;
+      }
+      currentPage = currentPage - 1;
+      currentData = allData.slice(currentPage*countPerPage, (currentPage+1)*countPerPage);
+      legendNavigation.updateCounter(currentPage, totalPages);
+      chart.load({
+        unload: chart.data().map(function(d) { return d.id; }),
+        columns: columns.concat(currentData)
+      });
+    });
+    legendNavigation.rightNav.on('click', function() {
+      if (currentPage === totalPages-1) {
+        return;
+      }
+      currentPage = currentPage + 1;
+      currentData = allData.slice(currentPage*countPerPage, (currentPage+1)*countPerPage);
+      legendNavigation.updateCounter(currentPage, totalPages);
+      chart.load({
+        unload: chart.data().map(function(d) { return d.id; }),
+        columns: columns.concat(currentData)
+      });
+    });
+  }
+}
+module.exports = paginateChart;
+},{"../../utils/each":21,"./legend-navigation":15}],17:[function(require,module,exports){
+function renderPieChart(chart, visibilityThreshold, data) {
+  if (visibilityThreshold) {
+    var total = data.reduce(function(previous, current) {
+      return previous + current[1];
+    }, 0);
+    var overVisibilityThreshold = [];
+    var underVisibilityThreshold = [];
+    for (var i=0; i < data.length; i++) {
+      var value = data[i][1];
+      if (value/total > visibilityThreshold) {
+        overVisibilityThreshold.push(data[i]);
+      }
+      else {
+        underVisibilityThreshold.push(data[i]);
+      }
+    }
+    var otherValue = underVisibilityThreshold.reduce(function(previous, current) {
+      return previous + current[1];
+    }, 0);
+    var otherCategoryName = getOtherGroupName(data);
+    chart.load({
+      unload: chart.data().map(function(d) { return d.id; }),
+      columns: overVisibilityThreshold.concat([
+        [otherCategoryName, Math.round(otherValue * 100) / 100]
+      ])
+    })
+  }
+}
+function getOtherGroupName(data) {
+  var matchingGroupName = data.find(function(d) {
+    return d[0].toLowerCase() === 'other';
+  });
+  if (matchingGroupName) {
+    return 'Other (Generated)';
+  }
+  return 'Other';
+}
+module.exports = renderPieChart;
+},{}],18:[function(require,module,exports){
+var each = require('../../utils/each');
+var LegendNavigation = require('./legend-navigation');
+function summarizeChart(chart, dataset, otherColumnName) {
+  var columns = chart.internal.config.data_columns;
+  var height = chart.internal.height;
+  var allData = [];
+  each(dataset.matrix[0], function(item, i) {
+    if(i > 0) {
+      allData.push(dataset.selectColumn(i));
+    }
+  });
+  var currentPage = 0;
+  var countPerPage = Math.ceil(height/20);
+  var totalPages = Math.ceil(allData.length / countPerPage);
+  chart.load({
+    unload: chart.data().map(function(d) { return d.id; }),
+    columns: columns.concat(
+      _createCurrentColumns(allData, currentPage, countPerPage, otherColumnName)
+    )
+  });
+  if (totalPages > 1) {
+    var legendNavigation = new LegendNavigation(chart, totalPages);
+    legendNavigation.leftNav.on('click', function() {
+      if (currentPage ===  0) {
+        return;
+      }
+      currentPage = currentPage - 1;
+      legendNavigation.updateCounter(currentPage, totalPages);
+      chart.load({
+        unload: chart.data().map(function(d) { return d.id; }),
+        columns: columns.concat(
+            _createCurrentColumns(allData, currentPage, countPerPage, otherColumnName)
+            )
+      });
+    });
+    legendNavigation.rightNav.on('click', function() {
+      if (currentPage === totalPages-1) {
+        return;
+      }
+      currentPage = currentPage + 1;
+      legendNavigation.updateCounter(currentPage, totalPages);
+      chart.load({
+        unload: chart.data().map(function(d) { return d.id; }),
+        columns: columns.concat(_createCurrentColumns(allData, currentPage, countPerPage, otherColumnName))
+      });
+    });
+  }
+}
+function _createCurrentColumns(allData, currentPage, countPerPage, otherColumnName) {
+  var startIndex = currentPage * countPerPage;
+  var endIndex = startIndex + countPerPage;
+  return _createOtherColumn(allData, startIndex, endIndex, otherColumnName).concat(
+    allData.slice(startIndex, endIndex)
+  );
+}
+function _createOtherColumn(allData, startIndex, endIndex, otherColumnName) {
+  var otherDatasets = allData.slice(0, startIndex).concat(allData.slice(endIndex, allData.length));
+  var otherColumn = [ otherColumnName ];
+  if (otherDatasets.length === 0) { return [] }
+  for(var i=1; i<otherDatasets[0].length; i++) {
+    var sumAtIndex = otherDatasets.reduce(function(previousValue, currentValue, currentIndex) {
+      return previousValue + otherDatasets[currentIndex][i];
+    }, 0);
+    otherColumn.push(Math.round(sumAtIndex * 100) / 100);
+  }
+  return [otherColumn];
+}
+module.exports = summarizeChart;
+},{"../../utils/each":21,"./legend-navigation":15}],19:[function(require,module,exports){
 var Spinner = require('spin.js');
 var each = require('../utils/each'),
     extend = require('../utils/extend'),
     extendDeep = require('../utils/extend-deep'),
     isDateString = require('../utils/assert-date-string'),
     prettyNumber = require('../utils/pretty-number');
+var paginateChart = require('./c3_extentions/paginate-chart');
+var paginateStackedChart = require('./c3_extentions/summarize-chart');
+var renderPieChart = require('./c3_extentions/render-pie-chart');
 var types = {};
 function initialize(lib){
   var timer, delay;
@@ -1358,7 +1562,9 @@ function defineC3(){
           data: {
             order: null
           },
-          legend: {}
+          legend: {
+            position: 'right'
+          }
         };
         ENFORCED_OPTIONS = {
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
@@ -1409,7 +1615,8 @@ function defineC3(){
             options.data.columns[0][0] = 'x';
             options.data.x = 'x';
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+              var otherGroupName = getOtherGroupName(this.dataset);
+              options.data.groups = [ [otherGroupName].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
           else {
@@ -1417,19 +1624,29 @@ function defineC3(){
             options.axis.x.type = 'category';
             options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
             if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+              var otherGroupName = getOtherGroupName(this.dataset);
+              options.data.groups = [ [otherGroupName].concat(this.dataset.selectRow(0).slice(1)) ];
             }
           }
           if (this.data()[0].length === 2) {
             options.legend.show = options.legend.show || false;
           }
-          each(this.data()[0], function(cell, i){
-            if (i > 0) {
-              options.data.columns.push(this.dataset.selectColumn(i));
-            }
-          }.bind(this));
         }
         this.view._artifacts['c3'] = c3.generate(options);
+        if (shouldBePaginated(type, this)) {
+          paginateChart(this.view._artifacts['c3'], this.dataset);
+        }
+        else if(shouldBeStackedAndPaginated(type, this)) {
+          paginateStackedChart(
+            this.view._artifacts['c3'],
+            this.dataset,
+            getOtherGroupName(this.dataset)
+          );
+        }
+        else if (type === 'donut' || type === 'pie') {
+          var visibilityThreshold = this.view.chartOptions.visibilityThreshold;
+          renderPieChart(this.view._artifacts['c3'], visibilityThreshold, this.data().slice(1));
+        }
       },
       update: function(){
         this.render();
@@ -1479,6 +1696,32 @@ function getDateFormatDefault(a, b){
   else {
     return '%I:%M:%S %p';
   }
+}
+function shouldBePaginated(type, dataviz) {
+  var supportedTypes = [
+    'area', 'bar',
+    'line', 'step', 'spline',
+    'area-spline', 'area-step'
+  ];
+  return supportedTypes.indexOf(type.replace('horizontal-', '')) > -1 &&
+    dataviz.paginate() &&
+    !shouldBeStackedAndPaginated(type, dataviz);
+}
+function shouldBeStackedAndPaginated(type, dataviz) {
+  var supportedTypes= [
+    'area', 'bar', 'area-spline', 'area-step'
+  ]
+  return supportedTypes.indexOf(type.replace('horizontal-', '')) > -1 &&
+    dataviz.paginate() &&
+    dataviz.stacked();
+}
+function getOtherGroupName(dataset) {
+  var result = dataset.selectRow(0)
+    .find(function(d) { return d.toLowerCase() === 'other' });
+  if (result) {
+    return 'Other (Generated)';
+  }
+  return 'Other';
 }
 function defineMessage(){
   types['message'] = {
@@ -1669,7 +1912,7 @@ function defineTable(){
   };
 }
 module.exports = initialize;
-},{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
+},{"../utils/assert-date-string":20,"../utils/each":21,"../utils/extend":23,"../utils/extend-deep":22,"../utils/pretty-number":24,"./c3_extentions/paginate-chart":16,"./c3_extentions/render-pie-chart":17,"./c3_extentions/summarize-chart":18,"spin.js":25}],20:[function(require,module,exports){
 module.exports = function(input){
   if (typeof input === 'object'
     && typeof input.getTime === 'function'
@@ -1683,7 +1926,7 @@ module.exports = function(input){
   }
   return false;
 };
-},{}],17:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1708,7 +1951,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],18:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 var each = require('./each');
 module.exports = extendDeep;
 function extendDeep(target){
@@ -1726,7 +1969,7 @@ function extendDeep(target){
   }
   return target;
 }
-},{"./each":17}],19:[function(require,module,exports){
+},{"./each":21}],23:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1736,7 +1979,7 @@ function extend(target){
   }
   return target;
 }
-},{}],20:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1792,7 +2035,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],21:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license

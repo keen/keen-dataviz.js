@@ -256,6 +256,20 @@ chart.notes('String of text to include as chart notes');
 chart.notes();
 ```
 
+### .paginate(boolean)
+
+Allows line, bar, and area charts to be "paginated". 15 results will be displayed
+at a time.
+
+This value is set to `true` by default.
+
+```javascript
+chart.type('line').paginate(true);
+```
+
+If `paginate` and `stacked` are set to true, the graph will render an
+`Other` column.
+
 ### .prepare()
 
 Activate the spinner for a visualization.
@@ -324,6 +338,28 @@ chart.type('bar');
 // Return current type
 chart.type();
 ```
+
+### .visibilityThreshold(number)
+
+Set the minimum percentage (given as a float between 0 and 1) that a value has to be
+in order for a slice in a donut or pie chart to be visible. All values with a percentage
+less than the threshold will be placed in a slice called 'Other'.
+
+You can set the color of the 'Other' category in the `colorMapping` method.
+
+Ex:
+
+``` javascript
+var res = { result: [ ['A', 1], ['B', 10], ['C', 11], ['D', 0.5] ] };
+
+chart
+.type('pie') // or donut
+.data(res)
+.visibilityThreshold(0.2) // Visibility is 0.2 (20%)
+.colorMapping({ "Other": "#888" }) // Setting slice color to gray.
+```
+
+`['A', 1]` and `['D', 0.5]` will be placed in the 'Other' slice.
 
 ### .width(number)
 

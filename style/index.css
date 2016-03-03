@@ -144,3 +144,31 @@
 .keen-dataviz .c3-tooltip-container {
   font-family: var(--font-family-primary);
 }
+
+// C3 CUSTOMIZATIONS
+.c3 svg,
+.c3-tooltip-container {
+  font-family: @font-family-primary;
+}
+
+// PAGINATED GRAPH STYLES
+.paginated-legend {
+  font-family: @font-family-primary;
+  display: block;
+  float: right;
+  width: 50%;
+}
+
+.keen-dataviz .legend-navigation {
+  margin: 0 auto;
+  cursor: pointer;
+  width: 6em;
+  position: relative;
+  text-align: center;
+  font-family: var(--font-family-primary);
+  font-size: 1.1em;
+}
+
+.keen-dataviz .arrow {
+  stroke: #000;
+}
