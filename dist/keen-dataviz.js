@@ -1324,20 +1324,29 @@ legendNavigation.prototype.updateCounter = function(currentPage, totalPages) {
   this.counter.text((currentPage+1) + ' / ' + totalPages);
 }
 legendNavigation.prototype._buildLegendNavigation = function() {
-  return d3.select(this.chart.element)
-    .append('div').classed('paginated-legend', true)
-    .append('div').classed('legend-navigation', true);
+  return d3.select(this.chart.element).select('svg')
+    .append('g')
+    .classed('legend-navigation', true)
+    .attr('transform', 'translate(60)')
 }
 legendNavigation.prototype._buildNavigationItems = function() {
+  var height = this.chart.element.clientHeight;
+  var width = this.chart.internal.legend[0][0].getBBox().width;
+  var arrowPos = 23;
   var leftNav = this.navigation
-    .append('div')
-    .attr("class", "left arrow")
+    .append('text')
+    .attr({ x: width/2, y: height, 'text-anchor': 'middle', 'class': 'left arrow' })
+    .attr('transform', 'translate(-'+arrowPos+')')
+    .text('<<')
   var counter = this.navigation
-    .append('span').classed('counter', true)
+    .append('text').classed('counter', true)
+    .attr({ x: width / 2, y: height, 'text-anchor': 'middle' })
     .text('1 / ' + this.totalPages);
   var rightNav = this.navigation
-    .append('div')
-    .attr("class", "right arrow")
+    .append('text')
+    .attr({ x: width / 2, y: height, 'text-anchor': 'middle', 'class': 'right arrow'})
+    .attr('transform', 'translate('+arrowPos+')')
+    .text('>>')
   return { leftNav: leftNav, rightNav: rightNav, counter: counter };
 }
 module.exports = legendNavigation;
@@ -1637,14 +1646,6 @@ function defineC3(){
         else if (type === 'donut' || type === 'pie') {
           var visibilityThreshold = this.view.chartOptions.visibilityThreshold;
           renderPieChart(this.view._artifacts['c3'], visibilityThreshold, this.data().slice(1));
-        }
-        else {
-          each(this.data()[0], function(cell, i){
-            if (i > 0) {
-              options.data.columns.push(this.dataset.selectColumn(i));
-            }
-          }.bind(this));
-          this.view._artifacts['c3'].load(options.data);
         }
       },
       update: function(){

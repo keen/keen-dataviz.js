@@ -160,32 +160,9 @@
   position: relative;
   text-align: center;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.1em;
 }
 
-.keen-dataviz .legend-navigation .arrow {
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-
-  position: absolute;
-}
-
-.legend-navigation div.left {
-  left: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid #4D4D4D
-}
-
-.legend-navigation div.left:hover {
-  border-right: 8px solid #A7A7A7;
-}
-
-.keen-dataviz .legend-navigation div.right {
-  top: 0;
-  right: 0;
-  border-right: 8px solid transparent;
-  border-left: 8px solid #4D4D4D
-}
-
-.keen-dataviz .legend-navigation div.right:hover {
-  border-left: 8px solid #A7A7A7;
+.keen-dataviz .arrow {
+  stroke: #000;
 }
