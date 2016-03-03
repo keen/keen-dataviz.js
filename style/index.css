@@ -144,6 +144,11 @@
 .keen-dataviz .c3-tooltip-container {
   font-family: var(--font-family-primary);
 }
+.keen-dataviz .c3-tooltip-container th {
+  font-size: 12px;
+  max-width: 280px;
+  word-wrap: break-word;
+}
 .keen-dataviz .c3-tooltip-container td {
   font-size: 11px;
   max-width: 400px;

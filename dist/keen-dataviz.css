@@ -139,6 +139,12 @@
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.keen-dataviz .c3-tooltip-container th {
+  font-size: 12px;
+  max-width: 280px;
+  word-wrap: break-word;
+}
+
 .keen-dataviz .c3-tooltip-container td {
   font-size: 11px;
   max-width: 400px;

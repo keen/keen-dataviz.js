@@ -1459,7 +1459,7 @@ function defineC3(){
           && options.legend.position === 'right'
             && ['gauge'].indexOf(type.replace('horizontal-', ''))) {
                 options.legend.show = false;
-                var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 110;
+                var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 100;
                 options.size.width = options.size.width || paddedWidth;
                 this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
                 this.view._artifacts['c3'] = c3.generate(options);
