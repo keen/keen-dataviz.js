@@ -288,7 +288,7 @@
 
       var groupedData = [
         [ 'Index', 'First' ],
-        [ 'A', 189.98 ],
+        [ 'https://keen.io/project/527f4a6273f4bb06f3000003/explorer?query%5Btimezone%5D=UTC&query%5Btimeframe%5D=this_14_days', 189.98 ],
         [ 'B', 135.83 ],
         [ 'C', 124.56 ],
         [ 'D', 117.22 ],
@@ -520,7 +520,7 @@
       }, 1000);
 
       window.donut = new Dataviz()
-        // .height(200)
+        .height(300)
         .el('.chart-c3-donut')
         .title('Mmmm, donuts...')
         .type('donut')
@@ -531,7 +531,7 @@
         .render();
 
       window.pie = new Dataviz()
-        // .height(200)
+        .height(300)
         .el('.chart-c3-pie')
         .title('Mmmm, pie...')
         .type('pie')

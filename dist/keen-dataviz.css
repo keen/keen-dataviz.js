@@ -149,6 +149,13 @@
   border-radius: 50%;
 }
 
+.keen-c3-legend {
+  /*font-family: var(--font-family-primary);*/
+  position: absolute;
+  /*right: -120px;*/
+  top: 0;
+}
+
 .keen-c3-legend-label-overlay {
   background: #ffffff;
   background: rgba(255, 255, 255, 0.9);
@@ -157,7 +164,7 @@
   font-size: 11px;
   padding: 10px;
   position: absolute;
-  right: 0px;
+  /*right: -120px;*/
   word-wrap: break-word;
   z-index: 2;
 }

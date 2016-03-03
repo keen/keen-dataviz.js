@@ -152,6 +152,13 @@
 .keen-dataviz .c3-tooltip-container td.name span {
   border-radius: 50%;
 }
+.keen-c3-legend {
+  /*font-family: var(--font-family-primary);*/
+  position: absolute;
+  /*right: -120px;*/
+  top: 0;
+}
+
 .keen-c3-legend-label-overlay {
   background: color(var(--white) alpha(-10%));
   box-shadow: 0 1px 1px color(var(--black) alpha(-90%));
@@ -159,7 +166,7 @@
   font-size: 11px;
   padding: 10px;
   position: absolute;
-  right: 0px;
+  /*right: -120px;*/
   word-wrap: break-word;
   z-index: 2;
 }

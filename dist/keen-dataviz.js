@@ -1356,7 +1356,12 @@ function defineC3(){
           data: {
             order: null
           },
-          legend: {}
+          legend: {
+            position: 'right',
+            show: true
+          },
+          padding: {},
+          tooltip: {}
         };
         ENFORCED_OPTIONS = {
           bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
@@ -1379,6 +1384,7 @@ function defineC3(){
         options.data.colors = ENFORCED_OPTIONS.data.colors;
         options.data.columns = ENFORCED_OPTIONS.data.columns;
         if (type === 'gauge') {
+          options.legend.position = 'bottom';
           options.data.columns = [[
             this.title() || this.data()[1][0],
             this.data()[1][1]
@@ -1419,7 +1425,7 @@ function defineC3(){
             }
           }
           if (this.data()[0].length === 2) {
-            options.legend.show = options.legend.show || false;
+            options.legend.show = false;
           }
           each(this.data()[0], function(cell, i){
             if (i > 0) {
@@ -1427,10 +1433,6 @@ function defineC3(){
             }
           }.bind(this));
         }
-        options.legend.show = false;
-        options.padding = options.padding || {};
-        options.padding.right = 120;
-        options.tooltip = options.tooltip || {};
         options.tooltip.contents = function (d, defaultTitleFormat, defaultValueFormat, color) {
           var $$ = this, config = $$.config,
               titleFormat = config.tooltip_format_title || defaultTitleFormat,
@@ -1453,125 +1455,26 @@ function defineC3(){
           }
           return text + "</table>";
         }
-        this.view._artifacts['c3'] = c3.generate(options);
-        var self = this;
-        var domNode = this.el().querySelector('.' + this.theme() + '-rendering svg');
-        var data = [];
-        each(options.data.columns, function(column, i){
-          if (isDateString(self.data()[1][0]) && column[0] === 'x') {
-            return;
-          }
-          data.push(column[0]);
-        });
-        d3.select(domNode)
-          .append('g').attr('class', 'keen-c3-legend')
-          .selectAll('g')
-          .data(data)
-          .enter()
-            .append('g')
-            .attr('transform', function(id, i){
-              return 'translate(0, ' + (20 * i) + ')'
-            })
-          .attr('data-id', function (id) { return id; })
-          .each(function (id) {
-            d3.select(this)
-              .append('text')
-              .attr('font-size', 12)
-              .attr('pointer-events', 'none')
-              .attr('x', 15)
-              .attr('y', 9)
-              .text(id)
-              .text(function(id){
-                if (d3.select(this).node().getBBox().width > 105) {
-                  return id.length <= 15 ? id : id.substring(0, 12) + '...';
-                }
-                else {
-                  return id;
-                }
-              });
-            d3.select(this)
-              .append('rect')
-              .attr('height', 14)
-              .attr('width', 120)
-              .attr('x', 0)
-              .attr('y', 0)
-              .style('fill-opacity', 0)
-              .style('cursor', 'pointer');
-            d3.select(this)
-              .append('rect')
-              .attr('fill', self.view._artifacts['c3'].color(id))
-              .attr('pointer-events', 'none')
-              .attr('height', 10)
-              .attr('width', 10)
-              .attr('rx', 5)
-              .attr('ry', 5)
-              .attr('x', 0)
-              .attr('y', 0);
-          })
-          .on('mouseover', function (id, i) {
-              self.view._artifacts['c3'].focus(id);
-              if (id.length > 15) {
-                d3.select(self.el().querySelector('.' + self.theme() + '-rendering'))
-                  .append('div')
-                  .attr('class', 'keen-c3-legend-label-overlay')
-                  .style('right', '0px')
-                  .style('top', (5 + (i+1) * 20) + 'px')
-                  .style('max-width', '75%')
-                  .html(id)
-                  .append('div')
-                    .attr('class', 'keen-c3-legend-label-overlay-pointer');
-              }
-          })
-          .on('mouseout', function (id) {
-              self.view._artifacts['c3'].revert();
-              d3.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay'))
-                .remove();
-          })
-          .on('click', function (id) {
-              self.view._artifacts['c3'].toggle(id);
-          })
-        d3.select(this.el().querySelector('.' + this.theme() + '-rendering svg .keen-c3-legend'))
-          .append('g')
-            .attr('class', 'keen-c3-legend-pagination')
-            .attr('transform', function(){
-              return 'translate(2, ' + (20 * data.length) + ')'
-            })
-            .selectAll('g')
-            .data([
-              { direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' },
-              { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }
-            ])
-            .enter()
-            .append('g')
-            .attr('transform', function(id, i){
-              return 'translate(' + (i * 20) + ', 0)'
-            })
-            .each(function(id){
-              d3.select(this)
-                .append('path')
-                .attr('d', function(d){
-                  return d.path_d;
-                })
-                .style('cursor', 'pointer')
-                .style('fill', '#D7D7D7')
-                .style('stroke', 'none')
-                .on('mouseover', function (id) {
-                  d3.select(this).style('fill', '#4D4D4D');
-                })
-                .on('mouseout', function (id) {
-                  d3.select(this).style('fill', '#D7D7D7');
-                })
-                .on('click', function (d) {
-                  console.log('pagination clicked: ', d.direction);
-                });
-            });
-        this.update();
+        if (options.legend.show === true
+          && options.legend.position === 'right'
+            && ['gauge'].indexOf(type.replace('horizontal-', ''))) {
+                options.legend.show = false;
+                var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 110;
+                options.size.width = options.size.width || paddedWidth;
+                this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
+                this.view._artifacts['c3'] = c3.generate(options);
+                renderCustomLegend.call(this, options.data.columns);
+        }
+        else {
+          options.legend.show = false;
+          this.view._artifacts['c3'] = c3.generate(options);
+        }
       },
       update: function(){
         var self = this;
         if (this.view._artifacts.c3) {
           this.view._artifacts.c3.resize();
-          d3.select(this.el().querySelector('.' + this.theme() + '-rendering svg .keen-c3-legend'))
+          d3.select(this.el().querySelector('.' + this.theme() + '-rendering .keen-c3-legend'))
             .attr('transform', function(){
               return 'translate(' + (self.el().offsetWidth - 120) + ',0)'
             })
@@ -1585,6 +1488,125 @@ function defineC3(){
       }
     };
   });
+}
+function renderCustomLegend(columns){
+  var self = this;
+  var domNode = this.el().querySelector('.' + this.theme() + '-rendering');
+  var data = [];
+  each(columns, function(column, i){
+    if (isDateString(self.data()[1][0]) && column[0] === 'x') {
+      return;
+    }
+    data.push(column[0]);
+  });
+  d3.select(domNode)
+    .append('svg')
+    .attr('class', 'keen-c3-legend')
+    .attr('width', 120)
+    .attr('height', domNode.offsetHeight)
+    .style('right', '-120px')
+    .append('g')
+    .selectAll('g')
+    .data(data)
+    .enter()
+      .append('g')
+      .attr('transform', function(id, i){
+        return 'translate(0, ' + (20 * i) + ')'
+      })
+    .attr('data-id', function (id) { return id; })
+    .each(function (id) {
+      d3.select(this)
+        .append('text')
+        .attr('font-size', 12)
+        .attr('pointer-events', 'none')
+        .attr('x', 15)
+        .attr('y', 9)
+        .text(id)
+        .text(function(id){
+          if (d3.select(this).node().getBBox().width > 105) {
+            return id.length <= 15 ? id : id.substring(0, 12) + '...';
+          }
+          else {
+            return id;
+          }
+        });
+      d3.select(this)
+        .append('rect')
+        .attr('height', 14)
+        .attr('width', 120)
+        .attr('x', 0)
+        .attr('y', 0)
+        .style('fill-opacity', 0)
+        .style('cursor', 'pointer');
+      d3.select(this)
+        .append('rect')
+        .attr('fill', self.view._artifacts['c3'].color(id))
+        .attr('pointer-events', 'none')
+        .attr('height', 10)
+        .attr('width', 10)
+        .attr('rx', 5)
+        .attr('ry', 5)
+        .attr('x', 0)
+        .attr('y', 0);
+    })
+    .on('mouseover', function (id, i) {
+        self.view._artifacts['c3'].focus(id);
+        if (id.length > 15) {
+          d3.select(self.el().querySelector('.' + self.theme() + '-rendering'))
+            .append('div')
+            .attr('class', 'keen-c3-legend-label-overlay')
+            .style('right', '-120px')
+            .style('top', (5 + (i+1) * 20) + 'px')
+            .style('max-width', '75%')
+            .html(id)
+            .append('div')
+              .attr('class', 'keen-c3-legend-label-overlay-pointer');
+        }
+    })
+    .on('mouseout', function (id) {
+        self.view._artifacts['c3'].revert();
+        d3.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay'))
+          .remove();
+    })
+    .on('click', function (id) {
+        self.view._artifacts['c3'].toggle(id);
+    });
+  d3.select(this.el().querySelector('.' + this.theme() + '-rendering svg.keen-c3-legend'))
+    .append('g')
+      .attr('class', 'keen-c3-legend-pagination')
+      .attr('transform', function(){
+        return 'translate(2, ' + (20 * data.length) + ')'
+      })
+      .selectAll('g')
+      .data([
+        { direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' },
+        { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }
+      ])
+      .enter()
+      .append('g')
+      .attr('transform', function(id, i){
+        return 'translate(' + (i * 20) + ', 0)'
+      })
+      .each(function(id){
+        d3.select(this)
+          .append('path')
+          .attr('d', function(d){
+            return d.path_d;
+          })
+          .style('cursor', 'pointer')
+          .style('fill', '#D7D7D7')
+          .style('stroke', 'none')
+          .on('mouseover', function (id) {
+            d3.select(this).style('fill', '#4D4D4D');
+          })
+          .on('mouseout', function (id) {
+            d3.select(this).style('fill', '#D7D7D7');
+          })
+          .on('click', function (d) {
+            console.log('pagination clicked: ', d.direction);
+          });
+      });
+  this.update();
 }
 function bindResizeListener(fn){
   if ('undefined' === typeof window) return;
