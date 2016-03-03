@@ -1320,7 +1320,9 @@ function initialize(lib){
     delay = (lib.visuals.length > 12) ? 1000 : 250;
     timer = setTimeout(function(){
       each(lib.visuals, function(chart){
-        chart.update();
+        if (chart.view._artifacts.c3) {
+          chart.view._artifacts.c3.resize();
+        }
       });
     }, delay);
   });
@@ -1471,14 +1473,7 @@ function defineC3(){
         }
       },
       update: function(){
-        var self = this;
-        if (this.view._artifacts.c3) {
-          this.view._artifacts.c3.resize();
-          d3.select(this.el().querySelector('.' + this.theme() + '-rendering .keen-c3-legend'))
-            .attr('transform', function(){
-              return 'translate(' + (self.el().offsetWidth - 120) + ',0)'
-            })
-        }
+        this.render();
       },
       destroy: function(){
         if (this.view._artifacts['c3']) {
@@ -1606,7 +1601,6 @@ function renderCustomLegend(columns){
             console.log('pagination clicked: ', d.direction);
           });
       });
-  this.update();
 }
 function bindResizeListener(fn){
   if ('undefined' === typeof window) return;

@@ -151,7 +151,7 @@
 }
 .keen-dataviz .c3-tooltip-container td {
   font-size: 11px;
-  max-width: 400px;
+  max-width: 280px;
   word-wrap: break-word;
 }
 .keen-dataviz .c3-tooltip-container td.name span {
