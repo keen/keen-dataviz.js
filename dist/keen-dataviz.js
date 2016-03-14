@@ -89,7 +89,7 @@ function parseResponse(response){
       if (typeof response.result[0] === 'number'
         && typeof response.steps !== 'undefined'){
           parser = 'funnel';
-          query.steps = response.steps;          
+          query.steps = response.steps;
       }
       if ((typeof response.result[0] === 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined'){
         parser = 'list';
@@ -1385,6 +1385,10 @@ function defineC3(){
         options.color.pattern = ENFORCED_OPTIONS.color.pattern;
         options.data.colors = ENFORCED_OPTIONS.data.colors;
         options.data.columns = ENFORCED_OPTIONS.data.columns;
+        if (this.data()[0].length === 1 || this.data().length === 1) {
+          this.message('No data to display');
+          return;
+        }
         if (type === 'gauge') {
           options.legend.position = 'bottom';
           options.data.columns = [[
