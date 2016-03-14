@@ -9,6 +9,7 @@ var data_metric = require('../dataset/sample-data/metric'),
 
     data_interval = require('../dataset/sample-data/interval'),
     data_interval_groupBy_empties = require('../dataset/sample-data/interval-groupBy-empties'),
+    data_interval_groupBy_all_empty = require('../dataset/sample-data/interval-groupBy-all-empty'),
     data_interval_double_groupBy = require('../dataset/sample-data/interval-double-groupBy'),
 
     data_funnel = require('../dataset/sample-data/funnel'),
@@ -59,6 +60,17 @@ describe('Dataviz', function(){
           interval: 'daily'
         },
         result: data_interval_groupBy_empties.result
+      });
+      expect(this.dataviz.type()).to.eql('line');
+    });
+    it('should parse empty \'grouped-interval\' data and set the correct type', function(){
+      this.dataviz.data({
+        query: {
+          analysis_type: 'count',
+          group_by: ['key'],
+          interval: 'daily'
+        },
+        result: data_interval_groupBy_all_empty.result
       });
       expect(this.dataviz.type()).to.eql('line');
     });
