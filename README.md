@@ -89,23 +89,20 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
     <!-- Create and Render -->
     <script>
-    Keen.ready(function(){
+    var chart = new Dataviz()
+      .el('#my-chart-div')
+      .colors(['red', 'orange', 'green'])
+      .height(500)
+      .title('New Customers per Week')
+      .type('metric')
+      .prepare();
 
-      var chart = new Keen.Dataviz()
-        .el('#my-chart-div')
-        .colors(['red', 'orange', 'green'])
-        .height(500)
-        .title('New Customers per Week')
-        .type('metric')
-        .prepare();
-
-      // Make async request to Keen API, then:
-      chart
-        .data({
-          result: 2450
-        })
-        .render();
-    });
+   // Make async request to Keen API, then:
+   chart
+      .data({
+         result: 2450
+      })
+      .render();
     </script>
   </body>
 </html>
