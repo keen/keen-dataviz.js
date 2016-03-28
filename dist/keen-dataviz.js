@@ -149,7 +149,7 @@ function getDefaultTitle(query){
   }
   return title;
 }
-},{"./dataset":2,"./utils/extend":19}],2:[function(require,module,exports){
+},{"./dataset":2,"./utils/extend":26}],2:[function(require,module,exports){
 (function (global){
 /*
   Dataset SDK
@@ -234,7 +234,7 @@ function getDefaultTitle(query){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/extend":19,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
+},{"../utils/extend":26,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
     each = require('../../utils/each');
 module.exports = {
@@ -313,7 +313,7 @@ function appendRow(str, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11}],4:[function(require,module,exports){
+},{"../../utils/each":24,"../utils/create-null-list":11}],4:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'deleteColumn': deleteColumn,
@@ -336,7 +336,7 @@ function deleteRow(q){
   }
   return this;
 }
-},{"../../utils/each":17}],5:[function(require,module,exports){
+},{"../../utils/each":24}],5:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'filterColumns': filterColumns,
@@ -370,7 +370,7 @@ function filterRows(fn){
   self.data(clone);
   return self;
 }
-},{"../../utils/each":17}],6:[function(require,module,exports){
+},{"../../utils/each":24}],6:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -449,7 +449,7 @@ function insertRow(index, str, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
+},{"../../utils/each":24,"../utils/create-null-list":11,"./append":3}],7:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'selectColumn': selectColumn,
@@ -473,7 +473,7 @@ function selectRow(q){
   }
   return  result;
 }
-},{"../../utils/each":17}],8:[function(require,module,exports){
+},{"../../utils/each":24}],8:[function(require,module,exports){
 var each = require('../../utils/each');
 module.exports = {
   'sortColumns': sortColumns,
@@ -523,7 +523,7 @@ function sortRows(str, comp){
   self.data(head.concat(body));
   return self;
 }
-},{"../../utils/each":17}],9:[function(require,module,exports){
+},{"../../utils/each":24}],9:[function(require,module,exports){
 var each = require('../../utils/each');
 var createNullList = require('../utils/create-null-list');
 var append = require('./append');
@@ -597,7 +597,7 @@ function updateRow(q, input){
   }
   return self;
 }
-},{"../../utils/each":17,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
+},{"../../utils/each":24,"../utils/create-null-list":11,"./append":3}],10:[function(require,module,exports){
 var each = require('../../utils/each'),
     extend = require('../../utils/extend');
 var helpers = {};
@@ -659,7 +659,7 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function(arr){
 };
 extend(methods, helpers);
 module.exports = methods;
-},{"../../utils/each":17,"../../utils/extend":19}],11:[function(require,module,exports){
+},{"../../utils/each":24,"../../utils/extend":26}],11:[function(require,module,exports){
 module.exports = function(len){
   var list = new Array();
   for (i = 0; i < len; i++) {
@@ -849,13 +849,13 @@ function parseExtraction(){
     return dataset;
   }
 }
-},{"../../utils/each":17,"../utils/flatten":12}],14:[function(require,module,exports){
+},{"../../utils/each":24,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
 (function(root){
   var Dataset = require('./dataset'),
       data = require('./data');
   var libraries = {
-    'default': require('./libraries/default')(Dataviz)
+    'default': require('./libraries')(Dataviz)
   };
   var each = require('./utils/each'),
       extend = require('./utils/extend'),
@@ -1303,192 +1303,38 @@ function parseExtraction(){
   }
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./data":1,"./dataset":2,"./libraries/default":15,"./utils/assert-date-string":16,"./utils/each":17,"./utils/extend":19}],15:[function(require,module,exports){
-var Spinner = require('spin.js');
-var each = require('../utils/each'),
-    extend = require('../utils/extend'),
-    extendDeep = require('../utils/extend-deep'),
-    isDateString = require('../utils/assert-date-string'),
-    prettyNumber = require('../utils/pretty-number');
-var types = {};
-function initialize(lib){
-  var timer, delay;
-  bindResizeListener(function(){
-    if (timer) {
-      clearTimeout(timer);
-    }
-    delay = (lib.visuals.length > 12) ? 1000 : 250;
-    timer = setTimeout(function(){
-      each(lib.visuals, function(chart){
-        if (chart.view._artifacts.c3) {
-          chart.view._artifacts.c3.resize();
-        }
-      });
-    }, delay);
-  });
-  defineC3();
-  defineMessage();
-  defineMetric();
-  defineSpinner();
-  defineTable();
-  return types;
-}
-function defineC3(){
-  var c3Types = [
-    'area', 'area-spline', 'area-step',
-    'bar', 'donut', 'gauge', 'line',
-    'pie', 'step', 'spline',
-    'horizontal-area',
-    'horizontal-area-spline',
-    'horizontal-area-step',
-    'horizontal-bar',
-    'horizontal-line',
-    'horizontal-step',
-    'horizontal-spline'
+},{"./data":1,"./dataset":2,"./libraries":22,"./utils/assert-date-string":23,"./utils/each":24,"./utils/extend":26}],15:[function(require,module,exports){
+module.exports = function(a, b){
+  var d = Math.abs(new Date(a).getTime() - new Date(b).getTime());
+  var months = [
+    'Jan', 'Feb', 'Mar',
+    'Apr', 'May', 'June',
+    'July', 'Aug', 'Sept',
+    'Oct', 'Nov', 'Dec'
   ];
-  each(c3Types, function(type, index) {
-    types[type] = {
-      render: function(){
-        var DEFAULT_OPTIONS,
-            ENFORCED_OPTIONS,
-            options;
-        DEFAULT_OPTIONS = {
-          axis: {},
-          color: {},
-          data: {
-            order: null
-          },
-          legend: {
-            position: 'right',
-            show: true
-          },
-          padding: {},
-          tooltip: {}
-        };
-        ENFORCED_OPTIONS = {
-          bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
-          color: {
-            pattern: this.colors()
-          },
-          data: {
-            colors: extend({}, this.colorMapping()),
-            columns: [],
-            type: type.replace('horizontal-', '')
-          },
-          size: {
-            height: this.height() ? this.height() - this.el().offsetHeight : 400,
-            width: this.width()
-          }
-        };
-        options = extendDeep({}, DEFAULT_OPTIONS, this.chartOptions());
-        options = extendDeep(options, ENFORCED_OPTIONS);
-        options.color.pattern = ENFORCED_OPTIONS.color.pattern;
-        options.data.colors = ENFORCED_OPTIONS.data.colors;
-        options.data.columns = ENFORCED_OPTIONS.data.columns;
-        if (this.data()[0].length === 1 || this.data().length === 1) {
-          this.message('No data to display');
-          return;
-        }
-        if (type === 'gauge') {
-          options.legend.position = 'bottom';
-          options.data.columns = [[
-            this.title() || this.data()[1][0],
-            this.data()[1][1]
-          ]];
-        }
-        else if (type === 'pie' || type === 'donut') {
-          options.data.columns = this.data().slice(1);
-        }
-        else {
-          if (type.indexOf('horizontal-') > -1) {
-            options.axis.rotated = true;
-          }
-          if (isDateString(this.data()[1][0])) {
-            options.axis.x = options.axis.x || {};
-            options.axis.x.type = 'timeseries';
-            options.axis.x.tick = options.axis.x.tick || {
-              format: getDateFormatDefault(this.data()[1][0], this.data()[2][0])
-            };
-            options.data.columns[0] = [];
-            each(this.dataset.selectColumn(0), function(cell, i){
-              if (i > 0) {
-                cell = new Date(cell);
-              }
-              options.data.columns[0][i] = cell;
-            });
-            options.data.columns[0][0] = 'x';
-            options.data.x = 'x';
-            if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
-            }
-          }
-          else {
-            options.axis.x = options.axis.x || {};
-            options.axis.x.type = 'category';
-            options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
-            if (this.stacked() && this.data()[0].length > 2) {
-              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
-            }
-          }
-          if (this.data()[0].length === 2) {
-            options.legend.show = false;
-          }
-          each(this.data()[0], function(cell, i){
-            if (i > 0) {
-              options.data.columns.push(this.dataset.selectColumn(i));
-            }
-          }.bind(this));
-        }
-        options.tooltip.contents = function (d, defaultTitleFormat, defaultValueFormat, color) {
-          var $$ = this, config = $$.config,
-              titleFormat = config.tooltip_format_title || defaultTitleFormat,
-              nameFormat = config.tooltip_format_name || function (name) { return name; },
-              valueFormat = config.tooltip_format_value || defaultValueFormat,
-              text, i, title, value, name, bgcolor;
-          for (i = 0; i < d.length; i++) {
-              if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
-              if (! text) {
-                  title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-                  text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
-              }
-              name = nameFormat(d[i].name);
-              value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-              bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
-              text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-              text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
-              text += "<td class='value'>" + value + "</td>";
-              text += "</tr>";
-          }
-          return text + "</table>";
-        }
-        if (options.legend.show === true
-          && options.legend.position === 'right'
-            && ['gauge'].indexOf(type.replace('horizontal-', ''))) {
-                options.legend.show = false;
-                var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 100;
-                options.size.width = options.size.width || paddedWidth;
-                this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
-                this.view._artifacts['c3'] = c3.generate(options);
-                renderCustomLegend.call(this, options.data.columns);
-        }
-        else {
-          options.legend.show = false;
-          this.view._artifacts['c3'] = c3.generate(options);
-        }
-      },
-      update: function(){
-        this.render();
-      },
-      destroy: function(){
-        if (this.view._artifacts['c3']) {
-          this.view._artifacts['c3'].destroy();
-          this.view._artifacts['c3'] = null;
-        }
-      }
+  if (d >= 2419200000) {
+    return function(ms){
+      var date = new Date(ms);
+      return months[date.getMonth()] + ' ' + date.getFullYear();
     };
-  });
-}
-function renderCustomLegend(columns){
+  }
+  else if (d >= 86400000) {
+    return function(ms){
+      var date = new Date(ms);
+      return months[date.getMonth()] + ' ' + date.getDate();
+    };
+  }
+  else if (d >= 3600000) {
+    return '%I:%M %p';
+  }
+  else {
+    return '%I:%M:%S %p';
+  }
+};
+},{}],16:[function(require,module,exports){
+var each = require('../../../utils/each'),
+    isDateString = require('../../../utils/assert-date-string');
+module.exports = function(columns){
   var self = this;
   var domNode = this.el().querySelector('.' + this.theme() + '-rendering');
   var data = [];
@@ -1603,8 +1449,406 @@ function renderCustomLegend(columns){
           })
           .on('click', function (d) {
             console.log('pagination clicked: ', d.direction);
+            console.log(self.view._artifacts);
           });
       });
+};
+},{"../../../utils/assert-date-string":23,"../../../utils/each":24}],17:[function(require,module,exports){
+module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
+  var $$ = this, config = $$.config,
+      titleFormat = config.tooltip_format_title || defaultTitleFormat,
+      nameFormat = config.tooltip_format_name || function (name) { return name; },
+      valueFormat = config.tooltip_format_value || defaultValueFormat,
+      text, i, title, value, name, bgcolor;
+  for (i = 0; i < d.length; i++) {
+      if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
+      if (! text) {
+          title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+          text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
+      }
+      name = nameFormat(d[i].name);
+      value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+      bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
+      text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
+      text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
+      text += "<td class='value'>" + value + "</td>";
+      text += "</tr>";
+  }
+  return text + "</table>";
+};
+},{}],18:[function(require,module,exports){
+module.exports = {
+  render: function(text){
+    var outer = document.createElement('div'),
+        inner = document.createElement('div'),
+        msg = document.createElement('span'),
+        height = this.height() || 140;
+    outer.className = this.theme();
+    inner.className = this.theme() + '-message';
+    inner.style.height = String(height + 'px');
+    inner.style.paddingTop = (height / 2 - 12) + 'px';
+    inner.style.width = String(this.width() + 'px');
+    msg.innerHTML = text || '';
+    inner.appendChild(msg);
+    outer.appendChild(inner);
+    this.el().innerHTML = '';
+    this.el().appendChild(outer);
+  },
+  update: function(){
+    this.render();
+  },
+  destroy: function(){
+  }
+};
+},{}],19:[function(require,module,exports){
+var prettyNumber = require('../../utils/pretty-number');
+module.exports = {
+  render: function(){
+    var theme = this.theme(),
+        title = this.title(),
+        value = this.data()[1][1] || '-',
+        height = this.height() || 140,
+        width = this.width(),
+        opts = this.chartOptions(),
+        html = '',
+        prefix = '',
+        suffix = '',
+        formattedNum,
+        valueEl;
+    formattedNum = value;
+    if ( (typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true)
+      && !isNaN(parseInt(value)) ) {
+        formattedNum = prettyNumber(value);
+    }
+    if (opts['prefix']) {
+      prefix = '<span class="' + theme + '-metric-prefix">' + opts['prefix'] + '</span>';
+    }
+    if (opts['suffix']) {
+      suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
+    }
+    html += '<div class="' + theme + '">';
+    html +=   '<div class="' + theme + '-metric" style="width: ' + (width ? width + 'px' : 'auto') + ';" title="' + value + '">';
+    html +=     '<span class="' + theme + '-metric-value">' + prefix + formattedNum + suffix + '</span>';
+    if (title) {
+      html +=   '<span class="' + theme + '-metric-title">' + title + '</span>';
+    }
+    html +=   '</div>';
+    html += '</div>';
+    this.el().innerHTML = html;
+    valueEl = this.el().querySelector('.' + theme + '-metric-value');
+    valueEl.style.paddingTop = ((height - this.el().offsetHeight) / 2) + 'px';
+    this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
+  },
+  update: function(){
+    this.render();
+  },
+  destroy: function(){
+  }
+};
+},{"../../utils/pretty-number":27}],20:[function(require,module,exports){
+var Spinner = require('spin.js');
+var defaults = {
+  height: 140,         
+  lines: 10,           
+  length: 8,           
+  width: 3,            
+  radius: 10,          
+  corners: 1,          
+  rotate: 0,           
+  direction: 1,        
+  color: '#4D4D4D',    
+  speed: 1.67,         
+  trail: 60,           
+  shadow: false,       
+  hwaccel: false,      
+  className: 'spinner',
+  zIndex: 2e9,         
+  top: '50%',          
+  left: '50%'          
+};
+module.exports = {
+  render: function(){
+    var height = this.height() || defaults.height,
+        outer = document.createElement('div'),
+        spinner = document.createElement('div');
+    outer.className = this.theme();
+    spinner.className = this.theme() + '-spinner';
+    spinner.style.height = String(height + 'px');
+    spinner.style.position = 'relative';
+    spinner.style.width = String(this.width() + 'px');
+    outer.appendChild(spinner);
+    this.el().innerHTML = '';
+    this.el().appendChild(outer);
+    this.view._artifacts['spinner'] = new Spinner(defaults).spin(spinner);
+  },
+  update: function(){
+    this.render();
+  },
+  destroy: function(){
+    if (this.view._artifacts['spinner']) {
+      this.view._artifacts['spinner'].stop();
+      this.view._artifacts['spinner'] = null;
+    }
+  }
+};
+},{"spin.js":28}],21:[function(require,module,exports){
+var each = require('../../utils/each');
+var defaults = {
+  height: undefined,
+  width: undefined,
+  stickyHeader: true,
+  stickyFooter: false
+};
+module.exports = {
+  render: function(){
+    var dataset = this.data(),
+        el = this.el(),
+        height = (this.height() || defaults.height) - this.el().offsetHeight,
+        theme = this.theme(),
+        width = this.width() || defaults.width;
+    var html = '',
+        colAligns = new Array(dataset[0].length),
+        colWidths = new Array(dataset[0].length),
+        fixedHeader;
+    each(dataset, function(row){
+      each(row, function(cell, i){
+        if (!colWidths[i]) {
+          colWidths[i] = 0;
+        }
+        colAligns[i] = (typeof cell === 'number') ? 'right' : 'left';
+        colWidths[i] = (String(cell).length > colWidths[i]) ? String(cell).length : colWidths[i];
+      });
+    });
+    html += '<div class="' + theme + '-table" style="height: '+(height ? height+'px' : 'auto')+'; width: '+(width ? width+'px' : 'auto')+';">';
+    html +=   '<table class="' + theme + '-table-dataset">';
+    html +=     '<thead>';
+    html +=       '<tr>';
+    for (var i = 0; i < dataset[0].length; i++) {
+      html +=       '<th style="width: '+ (10 * colWidths[i]) +'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+    }
+    html +=       '</tr>';
+    html +=     '</thead>';
+    html +=     '<tbody>';
+    for (var i = 0; i < dataset.length; i++) {
+      if (i > 0) {
+        html +=   '<tr>';
+        for (var j = 0; j < dataset[i].length; j++) {
+          html +=   '<td style="min-width: '+ (10 * colWidths[j]) +'px; text-align: ' + colAligns[j] + ';">' + dataset[i][j] + '</td>';
+        }
+        html +=   '</tr>';
+      }
+    }
+    html +=     '</tbody>';
+    html +=   '</table>';
+    html +=   '<table class="' + theme + '-table-fixed-header">';
+    html +=     '<thead>';
+    html +=       '<tr>';
+    for (var i = 0; i < dataset[0].length; i++) {
+      html +=       '<th style="min-width: '+ (10 * colWidths[i]) +'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+    }
+    html +=       '</tr>';
+    html +=     '</thead>';
+    html +=   '</table>';
+    html += '</div>';
+    el.querySelector('.' + theme + '-rendering').innerHTML = html;
+    fixedHeader = el.querySelector('.' + theme + '-table-fixed-header');
+    el.querySelector('.' + theme + '-table').onscroll = function(e){
+      fixedHeader.style.top = e.target.scrollTop + 'px';
+    };
+  },
+  update: function(){
+    this.render();
+  },
+  destroy: function(){
+    this.el().querySelector('.' + theme + '-table').onscroll = undefined;
+  }
+};
+},{"../../utils/each":24}],22:[function(require,module,exports){
+var each = require('../utils/each'),
+    extend = require('../utils/extend'),
+    extendDeep = require('../utils/extend-deep'),
+    isDateString = require('../utils/assert-date-string');
+var c3DefaultDateFormat = require('./c3/extensions/default-date-format');
+var c3PaginatingLegend = require('./c3/extensions/paginating-legend');
+var c3TooltipContents = require('./c3/extensions/tooltip-contents');
+var types = {
+  'message' : require('./default/message'),
+  'metric'  : require('./default/metric'),
+  'table'   : require('./default/table'),
+  'spinner' : require('./default/spinner')
+};
+module.exports = function(lib) {
+  var timer, delay;
+  bindResizeListener(function(){
+    if (timer) {
+      clearTimeout(timer);
+    }
+    delay = (lib.visuals.length > 12) ? 1000 : 250;
+    timer = setTimeout(function(){
+      each(lib.visuals, function(chart){
+        if (chart.view._artifacts.c3) {
+          chart.view._artifacts.c3.resize();
+        }
+      });
+    }, delay);
+  });
+  defineC3();
+  return types;
+};
+function defineC3(){
+  var c3Types = [
+    'area',
+    'area-spline',
+    'area-step',
+    'bar',
+    'donut',
+    'gauge',
+    'line',
+    'pie',
+    'step',
+    'spline',
+    'horizontal-area',
+    'horizontal-area-spline',
+    'horizontal-area-step',
+    'horizontal-bar',
+    'horizontal-line',
+    'horizontal-step',
+    'horizontal-spline'
+  ];
+  function getDefaultOptions(){
+    var DEFAULT_OPTIONS,
+        ENFORCED_OPTIONS,
+        options;
+    DEFAULT_OPTIONS = {
+      axis: {},
+      color: {},
+      data: {
+        order: null
+      },
+      legend: {
+        position: 'right',
+        show: true
+      },
+      padding: {},
+      tooltip: {}
+    };
+    ENFORCED_OPTIONS = {
+      bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
+      color: {
+        pattern: this.colors()
+      },
+      data: {
+        colors: extend({}, this.colorMapping()),
+        columns: [],
+        type: this.type().replace('horizontal-', '')
+      },
+      size: {
+        height: this.height() ? this.height() - this.el().offsetHeight : 400,
+        width: this.width()
+      },
+      tooltip: {
+        contents: c3TooltipContents,
+        format: {
+          value: function(value, ratio, id){
+            return value;
+          }.bind(this)
+        }
+      },
+      transition: {
+        duration: 0
+      }
+    };
+    options = extendDeep({}, DEFAULT_OPTIONS, this.chartOptions());
+    options = extendDeep(options, ENFORCED_OPTIONS);
+    options.color.pattern = ENFORCED_OPTIONS.color.pattern;
+    options.data.colors = ENFORCED_OPTIONS.data.colors;
+    options.data.columns = ENFORCED_OPTIONS.data.columns;
+    return options;
+  }
+  each(c3Types, function(type, index) {
+    types[type] = {
+      render: function(){
+        var options = getDefaultOptions.call(this);
+        if (this.data()[0].length === 1 || this.data().length === 1) {
+          this.message('No data to display');
+          return;
+        }
+        if (type === 'gauge') {
+          options.legend.position = 'bottom';
+          options.data.columns = [[
+            this.title() || this.data()[1][0],
+            this.data()[1][1]
+          ]];
+        }
+        else if (type === 'pie' || type === 'donut') {
+          options.data.columns = this.data().slice(1);
+        }
+        else {
+          if (type.indexOf('horizontal-') > -1) {
+            options.axis.rotated = type.indexOf('horizontal-') > -1;
+          }
+          if (isDateString(this.data()[1][0])) {
+            options.axis.x = options.axis.x || {};
+            options.axis.x.type = 'timeseries';
+            options.axis.x.tick = options.axis.x.tick || {
+              format: c3DefaultDateFormat(this.data()[1][0], this.data()[2][0])
+            };
+            options.data.columns[0] = [];
+            each(this.dataset.selectColumn(0), function(cell, i){
+              if (i > 0) {
+                cell = new Date(cell);
+              }
+              options.data.columns[0][i] = cell;
+            });
+            options.data.columns[0][0] = 'x';
+            options.data.x = 'x';
+            if (this.stacked() && this.data()[0].length > 2) {
+              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+            }
+          }
+          else {
+            options.axis.x = options.axis.x || {};
+            options.axis.x.type = 'category';
+            options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
+            if (this.stacked() && this.data()[0].length > 2) {
+              options.data.groups = [ this.dataset.selectRow(0).slice(1) ];
+            }
+          }
+          if (this.data()[0].length === 2) {
+            options.legend.show = false;
+          }
+          each(this.data()[0], function(cell, i){
+            if (i > 0) {
+              options.data.columns.push(this.dataset.selectColumn(i));
+            }
+          }.bind(this));
+        }
+        if (options.legend.show === true
+          && options.legend.position === 'right'
+            && ['gauge'].indexOf(type.replace('horizontal-', ''))) {
+                options.legend.show = false;
+                var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 100;
+                options.size.width = options.size.width || paddedWidth;
+                this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
+                this.view._artifacts['c3'] = c3.generate(options);
+                c3PaginatingLegend.call(this, options.data.columns);
+        }
+        else {
+          options.legend.show = false;
+          this.view._artifacts['c3'] = c3.generate(options);
+        }
+      },
+      update: function(){
+        this.render();
+      },
+      destroy: function(){
+        if (this.view._artifacts['c3']) {
+          this.view._artifacts['c3'].destroy();
+          this.view._artifacts['c3'] = null;
+        }
+      }
+    };
+  });
 }
 function bindResizeListener(fn){
   if ('undefined' === typeof window) return;
@@ -1616,223 +1860,7 @@ function bindResizeListener(fn){
     window.attachEvent('onresize', fn);
   }
 }
-function getDateFormatDefault(a, b){
-  var d = Math.abs(new Date(a).getTime() - new Date(b).getTime());
-  var months = [
-    'Jan', 'Feb', 'Mar',
-    'Apr', 'May', 'June',
-    'July', 'Aug', 'Sept',
-    'Oct', 'Nov', 'Dec'
-  ];
-  if (d >= 2419200000) {
-    return function(ms){
-      var date = new Date(ms);
-      return months[date.getMonth()] + ' ' + date.getFullYear();
-    };
-  }
-  else if (d >= 86400000) {
-    return function(ms){
-      var date = new Date(ms);
-      return months[date.getMonth()] + ' ' + date.getDate();
-    };
-  }
-  else if (d >= 3600000) {
-    return '%I:%M %p';
-  }
-  else {
-    return '%I:%M:%S %p';
-  }
-}
-function defineMessage(){
-  types['message'] = {
-    render: function(text){
-      var outer = document.createElement('div'),
-          inner = document.createElement('div'),
-          msg = document.createElement('span'),
-          height = this.height() || 140;
-      outer.className = this.theme();
-      inner.className = this.theme() + '-message';
-      inner.style.height = String(height + 'px');
-      inner.style.paddingTop = (height / 2 - 12) + 'px';
-      inner.style.width = String(this.width() + 'px');
-      msg.innerHTML = text || '';
-      inner.appendChild(msg);
-      outer.appendChild(inner);
-      this.el().innerHTML = '';
-      this.el().appendChild(outer);
-    },
-    update: function(){
-      this.render();
-    },
-    destroy: function(){
-    }
-  };
-}
-function defineMetric(){
-  types['metric'] = {
-    render: function(){
-      var theme = this.theme(),
-          title = this.title(),
-          value = this.data()[1][1] || '-',
-          height = this.height() || 140,
-          width = this.width(),
-          opts = this.chartOptions(),
-          html = '',
-          prefix = '',
-          suffix = '',
-          formattedNum,
-          valueEl;
-      formattedNum = value;
-      if ( (typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true)
-        && !isNaN(parseInt(value)) ) {
-          formattedNum = prettyNumber(value);
-      }
-      if (opts['prefix']) {
-        prefix = '<span class="' + theme + '-metric-prefix">' + opts['prefix'] + '</span>';
-      }
-      if (opts['suffix']) {
-        suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
-      }
-      html += '<div class="' + theme + '">';
-      html +=   '<div class="' + theme + '-metric" style="width: ' + (width ? width + 'px' : 'auto') + ';" title="' + value + '">';
-      html +=     '<span class="' + theme + '-metric-value">' + prefix + formattedNum + suffix + '</span>';
-      if (title) {
-        html +=   '<span class="' + theme + '-metric-title">' + title + '</span>';
-      }
-      html +=   '</div>';
-      html += '</div>';
-      this.el().innerHTML = html;
-      valueEl = this.el().querySelector('.' + theme + '-metric-value');
-      valueEl.style.paddingTop = ((height - this.el().offsetHeight) / 2) + 'px';
-      this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
-    },
-    update: function(){
-      this.render();
-    },
-    destroy: function(){
-    }
-  };
-}
-function defineSpinner(){
-  var defaults = {
-    height: 140,         
-    lines: 10,           
-    length: 8,           
-    width: 3,            
-    radius: 10,          
-    corners: 1,          
-    rotate: 0,           
-    direction: 1,        
-    color: '#4D4D4D',    
-    speed: 1.67,         
-    trail: 60,           
-    shadow: false,       
-    hwaccel: false,      
-    className: 'spinner',
-    zIndex: 2e9,         
-    top: '50%',          
-    left: '50%'          
-  };
-  types['spinner'] = {
-    render: function(){
-      var height = this.height() || defaults.height,
-          outer = document.createElement('div'),
-          spinner = document.createElement('div');
-      outer.className = this.theme();
-      spinner.className = this.theme() + '-spinner';
-      spinner.style.height = String(height + 'px');
-      spinner.style.position = 'relative';
-      spinner.style.width = String(this.width() + 'px');
-      outer.appendChild(spinner);
-      this.el().innerHTML = '';
-      this.el().appendChild(outer);
-      this.view._artifacts['spinner'] = new Spinner(defaults).spin(spinner);
-    },
-    update: function(){
-      this.render();
-    },
-    destroy: function(){
-      if (this.view._artifacts['spinner']) {
-        this.view._artifacts['spinner'].stop();
-        this.view._artifacts['spinner'] = null;
-      }
-    }
-  };
-}
-function defineTable(){
-  var defaults = {
-    height: undefined,
-    width: undefined,
-    stickyHeader: true,
-    stickyFooter: false
-  };
-  types['table'] = {
-    render: function(){
-      var dataset = this.data(),
-          el = this.el(),
-          height = (this.height() || defaults.height) - this.el().offsetHeight,
-          theme = this.theme(),
-          width = this.width() || defaults.width;
-      var html = '',
-          colAligns = new Array(dataset[0].length),
-          colWidths = new Array(dataset[0].length),
-          fixedHeader;
-      each(dataset, function(row){
-        each(row, function(cell, i){
-          if (!colWidths[i]) {
-            colWidths[i] = 0;
-          }
-          colAligns[i] = (typeof cell === 'number') ? 'right' : 'left';
-          colWidths[i] = (String(cell).length > colWidths[i]) ? String(cell).length : colWidths[i];
-        });
-      });
-      html += '<div class="' + theme + '-table" style="height: '+(height ? height+'px' : 'auto')+'; width: '+(width ? width+'px' : 'auto')+';">';
-      html +=   '<table class="' + theme + '-table-dataset">';
-      html +=     '<thead>';
-      html +=       '<tr>';
-      for (var i = 0; i < dataset[0].length; i++) {
-        html +=       '<th style="width: '+ (10 * colWidths[i]) +'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
-      }
-      html +=       '</tr>';
-      html +=     '</thead>';
-      html +=     '<tbody>';
-      for (var i = 0; i < dataset.length; i++) {
-        if (i > 0) {
-          html +=   '<tr>';
-          for (var j = 0; j < dataset[i].length; j++) {
-            html +=   '<td style="min-width: '+ (10 * colWidths[j]) +'px; text-align: ' + colAligns[j] + ';">' + dataset[i][j] + '</td>';
-          }
-          html +=   '</tr>';
-        }
-      }
-      html +=     '</tbody>';
-      html +=   '</table>';
-      html +=   '<table class="' + theme + '-table-fixed-header">';
-      html +=     '<thead>';
-      html +=       '<tr>';
-      for (var i = 0; i < dataset[0].length; i++) {
-        html +=       '<th style="min-width: '+ (10 * colWidths[i]) +'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
-      }
-      html +=       '</tr>';
-      html +=     '</thead>';
-      html +=   '</table>';
-      html += '</div>';
-      el.querySelector('.' + theme + '-rendering').innerHTML = html;
-      fixedHeader = el.querySelector('.' + theme + '-table-fixed-header');
-      el.querySelector('.' + theme + '-table').onscroll = function(e){
-        fixedHeader.style.top = e.target.scrollTop + 'px';
-      };
-    },
-    update: function(){
-      this.render();
-    },
-    destroy: function(){
-      this.el().querySelector('.' + theme + '-table').onscroll = undefined;
-    }
-  };
-}
-module.exports = initialize;
-},{"../utils/assert-date-string":16,"../utils/each":17,"../utils/extend":19,"../utils/extend-deep":18,"../utils/pretty-number":20,"spin.js":21}],16:[function(require,module,exports){
+},{"../utils/assert-date-string":23,"../utils/each":24,"../utils/extend":26,"../utils/extend-deep":25,"./c3/extensions/default-date-format":15,"./c3/extensions/paginating-legend":16,"./c3/extensions/tooltip-contents":17,"./default/message":18,"./default/metric":19,"./default/spinner":20,"./default/table":21}],23:[function(require,module,exports){
 module.exports = function(input){
   if (typeof input === 'object'
     && typeof input.getTime === 'function'
@@ -1846,7 +1874,7 @@ module.exports = function(input){
   }
   return false;
 };
-},{}],17:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
   var n;
@@ -1871,7 +1899,7 @@ function each(o, cb, s){
   }
   return 1;
 }
-},{}],18:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 var each = require('./each');
 module.exports = extendDeep;
 function extendDeep(target){
@@ -1889,7 +1917,7 @@ function extendDeep(target){
   }
   return target;
 }
-},{"./each":17}],19:[function(require,module,exports){
+},{"./each":24}],26:[function(require,module,exports){
 module.exports = extend;
 function extend(target){
   for (var i = 1; i < arguments.length; i++) {
@@ -1899,7 +1927,7 @@ function extend(target){
   }
   return target;
 }
-},{}],20:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 module.exports = prettyNumber;
 function prettyNumber(input) {
   var input = Number(input),
@@ -1955,7 +1983,7 @@ function prettyNumber(input) {
     }
   }
 }
-},{}],21:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /**
  * Copyright (c) 2011-2014 Felix Gnass
  * Licensed under the MIT license
