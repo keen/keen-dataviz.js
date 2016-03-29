@@ -298,6 +298,26 @@
         [ 'E', 55.12  ]
       ];
 
+      function makeGroupedIntervalDataset(){
+        var ds = new Dataset();
+        ds.matrix = [
+          [ 'Index' ],
+          [ '2015-12-01T10:56:00.000Z' ],
+          [ '2015-12-01T10:57:00.000Z' ],
+          [ '2015-12-01T10:58:00.000Z' ],
+          [ '2015-12-01T10:59:00.000Z' ],
+          [ '2015-12-01T11:00:00.000Z' ]
+        ];
+
+        var len = ds.selectColumn(0).length;
+        for (var i = 0; i < 50; i++) {
+          var newCol = gen(len-1);
+          ds.appendColumn(newCol[0], newCol.slice(1));
+        }
+        // ds.sortColumns('desc', ds.getColumnSum);
+        return ds;
+      }
+
       var groupedMultiData = [
         [ 'Index', 'First label', 'https://keen.io/project/527f4a6273f4bb06f3000003/explorer?query%5Btimezone%5D=UTC&query%5Btimeframe%5D=this_14_days', 'Last label in the set'],
         [ 'A', 189.98, 322.43, 654.44 ],
@@ -682,9 +702,10 @@
         .el('.chart-c3-line-time-multi')
         .title('Line Chart')
         .type('line')
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataDaily;
-        })
+        // .call(function(){
+        //   this.dataset.matrix = intervalMultiDataDaily;
+        // })
+        .data(makeGroupedIntervalDataset())
         .render();
 
       window.lineTimeMultiStacked = new Dataviz()
@@ -693,9 +714,10 @@
         .title('Line Chart')
         .type('line')
         .stacked(true)
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataDaily;
-        })
+        // .call(function(){
+        //   this.dataset.matrix = intervalMultiDataDaily;
+        // })
+        .data(makeGroupedIntervalDataset())
         .render();
 
       // -------------------------
@@ -831,9 +853,10 @@
         .el('.chart-c3-area-time-multi')
         .title('Area Chart')
         .type('area')
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataMinutely;
-        })
+        // .call(function(){
+        //   this.dataset.matrix = intervalMultiDataMinutely;
+        // })
+        .data(makeGroupedIntervalDataset())
         .render();
 
       window.areaTimeMultiStacked = new Dataviz()
@@ -842,9 +865,10 @@
         .title('Area Chart')
         .type('area')
         .stacked(true)
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataMinutely;
-        })
+        // .call(function(){
+        //   this.dataset.matrix = intervalMultiDataMinutely;
+        // })
+        .data(makeGroupedIntervalDataset())
         .render();
 
       // -------------------------
@@ -1074,6 +1098,18 @@
       // -------------------------
       // END STEP
       // -------------------------
+
+
+      function rand(a, b){
+        return Math.floor((Math.random() * b) + a);
+      }
+      function gen(n){
+        var arr = [ '#' + rand(0, 1000) ];
+        for (var i = 0; i < n; i++) {
+          arr.push(rand(0, 1000));
+        }
+        return arr;
+      }
 
     }
     </script>
