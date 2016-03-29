@@ -884,7 +884,7 @@ function parseExtraction(){
       labelMapping: {},
       library: 'default',
       notes: undefined,
-      sortGroups: 'desc',
+      sortGroups: undefined,
       sortIntervals: undefined,
       stacked: false,
       theme: 'keen-dataviz',
@@ -892,8 +892,9 @@ function parseExtraction(){
       type: undefined,
       width: undefined
     };
+    this.sortGroups('desc');
     Dataviz.visuals.push(this);
-  };
+  }
   Dataviz.prototype.attributes = function(obj){
     if (!arguments.length) return this.view;
     var view = this.view;
@@ -1334,10 +1335,17 @@ module.exports = function(a, b){
 },{}],16:[function(require,module,exports){
 var each = require('../../../utils/each'),
     isDateString = require('../../../utils/assert-date-string');
-module.exports = function(columns){
+module.exports = function(cols){
   var self = this;
+  var columns = cols.reverse();
   var domNode = this.el().querySelector('.' + this.theme() + '-rendering');
   var pagination = self.view._artifacts.pagination;
+  /*  {
+        labels: [first N records],
+        position: 0,
+        range: Number(((domNode.offsetHeight - 100) / 16).toFixed(0)),
+        total: columns.length
+      } */
   function paginateData(){
     var labels = [];
     each(columns, function(column, i){
@@ -1348,7 +1356,10 @@ module.exports = function(columns){
     });
     labels = labels.splice(pagination.position, pagination.range);
     self.view._artifacts.pagination.labels = labels;
-    render.call(self, labels);
+    renderLegendComponent.call(self, labels);
+    if (pagination.total > pagination.range) {
+      renderPaginationComponent.call(self);
+    }
     self.view._artifacts.c3.resize();
   }
   var legendEl = d3.select(domNode)
@@ -1360,15 +1371,22 @@ module.exports = function(columns){
   var legendItems = legendEl
     .append('g')
     .attr('class', 'keen-c3-legend-items');
+  var paginateElOffset = 20 * (self.view._artifacts.pagination.labels.length + 1);
+  var paginateEl = legendEl
+    .append('g')
+    .attr('class', 'keen-c3-legend-pagination')
+    .attr('transform', function(){
+      return 'translate(2, ' + paginateElOffset + ')'
+    });
   paginateData();
-  function render(d){
+  function renderLegendComponent(d){
     legendItems
       .selectAll('g')
       .remove();
-    var paginateEl = legendItems
+    var legendItemList = legendItems
       .selectAll('g')
       .data(d);
-    paginateEl.enter()
+    legendItemList.enter()
         .append('g')
         .attr('transform', function(id, i){
           return 'translate(0, ' + (20 * i) + ')'
@@ -1431,57 +1449,57 @@ module.exports = function(columns){
       .on('click', function (id) {
           self.view._artifacts['c3'].toggle(id);
       });
-    paginateEl.exit().remove();
+    legendItemList.exit().remove();
   }
-  legendEl
-    .append('g')
-      .attr('class', 'keen-c3-legend-pagination')
-      .attr('transform', function(){
-        return 'translate(2, ' + (20 * self.view._artifacts.pagination.labels.length) + ')'
-      })
+  function renderPaginationComponent(){
+    paginateEl
       .selectAll('g')
-      .data([
-        { direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' },
-        { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }
-      ])
-      .enter()
-      .append('g')
-      .attr('transform', function(id, i){
-        return 'translate(' + (i * 20) + ', 0)'
-      })
-      .each(function(id){
-        d3.select(this)
-          .append('path')
-          .attr('d', function(d){
-            return d.path_d;
-          })
-          .style('cursor', 'pointer')
-          .style('fill', '#D7D7D7')
-          .style('stroke', 'none')
-          .on('mouseover', function (id) {
-            d3.select(this).style('fill', '#4D4D4D');
-          })
-          .on('mouseout', function (id) {
-            d3.select(this).style('fill', '#D7D7D7');
-          })
-          .on('click', function (d) {
-            console.log('pagination clicked: ', d.direction);
-            var pag = self.view._artifacts.pagination;
-            if (d.direction === 'forward') {
-              if (pag.position + pag.range < pag.total) {
-                self.view._artifacts.pagination.position = self.view._artifacts.pagination.position + self.view._artifacts.pagination.range;
-                paginateData();
+      .remove();
+    paginateEl
+        .selectAll('g')
+        .data([
+          { direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' },
+          { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }
+        ])
+        .enter()
+        .append('g')
+        .attr('transform', function(id, i){
+          return 'translate(' + (i * 20) + ', 0)'
+        })
+        .each(function(id){
+          d3.select(this)
+            .append('path')
+            .attr('d', function(d){
+              return d.path_d;
+            })
+            .style('cursor', 'pointer')
+            .style('fill', '#D7D7D7')
+            .style('stroke', 'none')
+            .on('mouseover', function (id) {
+              d3.select(this).style('fill', '#4D4D4D');
+            })
+            .on('mouseout', function (id) {
+              d3.select(this).style('fill', '#D7D7D7');
+            })
+            .on('click', function (d) {
+              console.log('pagination clicked: ', d.direction);
+              var pag = self.view._artifacts.pagination;
+              if (d.direction === 'forward') {
+                if (pag.position + pag.range < pag.total) {
+                  self.view._artifacts.pagination.position = self.view._artifacts.pagination.position + self.view._artifacts.pagination.range;
+                  paginateData();
+                }
               }
-            }
-            else {
-              if (pag.position - pag.range >= 0) {
-                self.view._artifacts.pagination.position = self.view._artifacts.pagination.position - self.view._artifacts.pagination.range;
-                paginateData();
+              else {
+                if (pag.position - pag.range >= 0) {
+                  self.view._artifacts.pagination.position = self.view._artifacts.pagination.position - self.view._artifacts.pagination.range;
+                  paginateData();
+                }
               }
-            }
-            console.log(self.view._artifacts.pagination);
-          });
-      });
+              console.log(self.view._artifacts.pagination);
+            });
+        });
+  }
 };
 },{"../../../utils/assert-date-string":23,"../../../utils/each":24}],17:[function(require,module,exports){
 module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
