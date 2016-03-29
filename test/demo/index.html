@@ -9,11 +9,13 @@
     <link rel="stylesheet" type="text/css" href="//cloud.typography.com/737368/747986/css/fonts.css" />
 
     <!-- Safe, minimal layout -->
-    <link rel="stylesheet" href="./keen-dashboards.css">
+    <link rel="stylesheet" href="./assets/keen-dashboards.css">
 
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
     <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-0.0.5.min.js"></script>
     <script src="../dist/keen-dataviz.js"></script>
+
+    <script src="./assets/faker.js"></script>
   </head>
   <body onload="init()">
     <div class="container">
@@ -298,6 +300,16 @@
         [ 'E', 55.12  ]
       ];
 
+      function makeGroupedDataset(){
+        var ds = new Dataset();
+        var len = rand(0, 50);
+        for (var i = 0; i < len; i++) {
+          ds.appendRow(faker.internet.email(), [faker.random.number()]);
+        }
+        return ds;
+      }
+      // console.log(makeGroupedDataset());
+
       function makeGroupedIntervalDataset(){
         var ds = new Dataset();
         ds.matrix = [
@@ -559,9 +571,7 @@
         .title('Mmmm, donuts...')
         .type('donut')
         .chartOptions({})
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.pie = new Dataviz()
@@ -569,9 +579,7 @@
         .el('.chart-c3-pie')
         .title('Mmmm, pie...')
         .type('pie')
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
 
@@ -583,13 +591,9 @@
         .height(300)
         .el('.chart-c3-bar')
         .title('Bar Chart')
-        .type('bar')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .type('horizontal-bar')
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
       window.barMulti = new Dataviz()
@@ -658,12 +662,8 @@
         .el('.chart-c3-line')
         .title('Line Chart')
         .type('line')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
       window.lineMulti = new Dataviz()
@@ -702,10 +702,8 @@
         .el('.chart-c3-line-time-multi')
         .title('Line Chart')
         .type('line')
-        // .call(function(){
-        //   this.dataset.matrix = intervalMultiDataDaily;
-        // })
         .data(makeGroupedIntervalDataset())
+        .sortGroups('desc')
         .render();
 
       window.lineTimeMultiStacked = new Dataviz()
@@ -714,10 +712,8 @@
         .title('Line Chart')
         .type('line')
         .stacked(true)
-        // .call(function(){
-        //   this.dataset.matrix = intervalMultiDataDaily;
-        // })
         .data(makeGroupedIntervalDataset())
+        .sortGroups('desc')
         .render();
 
       // -------------------------
@@ -734,12 +730,7 @@
         .el('.chart-c3-spline')
         .title('Spline Chart')
         .type('spline')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.splineMulti = new Dataviz()
@@ -809,12 +800,7 @@
         .el('.chart-c3-area')
         .title('Area Chart')
         .type('area')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.areaMulti = new Dataviz()
@@ -886,12 +872,7 @@
         .el('.chart-c3-area-spline')
         .title('Area-Spline Chart')
         .type('area-spline')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.areaSplineMulti = new Dataviz()
@@ -961,12 +942,7 @@
         .el('.chart-c3-area-step')
         .title('Area-Step Chart')
         .type('area-step')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.areaStepMulti = new Dataviz()
@@ -1035,12 +1011,7 @@
         .el('.chart-c3-step')
         .title('Step Chart')
         .type('step')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.stepMulti = new Dataviz()

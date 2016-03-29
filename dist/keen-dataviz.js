@@ -892,7 +892,6 @@ function parseExtraction(){
       type: undefined,
       width: undefined
     };
-    this.sortGroups('desc');
     Dataviz.visuals.push(this);
   }
   Dataviz.prototype.attributes = function(obj){
@@ -1392,6 +1391,10 @@ module.exports = function(cols){
           return 'translate(0, ' + (20 * i) + ')'
         })
       .attr('data-id', function (id) { return id; })
+      .style('opacity', function(id){
+        var isHidden = self.view._artifacts.pagination.hidden.indexOf(id);
+        return isHidden < 0 ? 1 : .35;
+      })
       .each(function (id) {
         d3.select(this)
           .append('text')
@@ -1442,12 +1445,23 @@ module.exports = function(cols){
           }
       })
       .on('mouseout', function (id) {
-          self.view._artifacts['c3'].revert();
-          d3.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay'))
-            .remove();
+        self.view._artifacts['c3'].revert();
+        d3.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay'))
+          .remove();
       })
       .on('click', function (id) {
-          self.view._artifacts['c3'].toggle(id);
+        d3.select(this).style('opacity', function(){
+          var isHidden = self.view._artifacts.pagination.hidden.indexOf(id);
+          if (isHidden < 0) {
+            self.view._artifacts.pagination.hidden.push(id);
+            return .35;
+          }
+          else {
+            self.view._artifacts.pagination.hidden.splice(isHidden, 1);
+            return 1;
+          }
+        });
+        self.view._artifacts['c3'].toggle(id);
       });
     legendItemList.exit().remove();
   }
@@ -1482,7 +1496,6 @@ module.exports = function(cols){
               d3.select(this).style('fill', '#D7D7D7');
             })
             .on('click', function (d) {
-              console.log('pagination clicked: ', d.direction);
               var pag = self.view._artifacts.pagination;
               if (d.direction === 'forward') {
                 if (pag.position + pag.range < pag.total) {
@@ -1496,7 +1509,6 @@ module.exports = function(cols){
                   paginateData();
                 }
               }
-              console.log(self.view._artifacts.pagination);
             });
         });
   }
@@ -1508,21 +1520,21 @@ module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
       nameFormat = config.tooltip_format_name || function (name) { return name; },
       valueFormat = config.tooltip_format_value || defaultValueFormat,
       text, i, title, value, name, bgcolor;
-  for (i = 0; i < d.length; i++) {
-      if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
-      if (! text) {
-          title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-          text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
-      }
-      name = nameFormat(d[i].name);
-      value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-      bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
-      if (value) {
-        text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
-        text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
-        text += "<td class='value'>" + value + "</td>";
-        text += "</tr>";
-      }
+  for (i = d.length - 1; i >= 0; i--) {
+    if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
+    if (! text) {
+      title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+      text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
+    }
+    name = nameFormat(d[i].name);
+    value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+    bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
+    if (value) {
+      text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
+      text +=   "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
+      text +=   "<td class='value'>" + value + "</td>";
+      text += "</tr>";
+    }
   }
   return text + "</table>";
 };
@@ -1793,15 +1805,17 @@ function defineC3(){
       data: {
         color: function(color, d){
           var scope;
-          if (this.view._artifacts.pagination) {
-            scope = this.view._artifacts.pagination.labels;
-            if ((d.id && scope.indexOf(d.id) > -1)
-              || (d && !d.id && scope.indexOf(d) > -1)) {
-                return color;
-            }
-            else {
-              return 'rgba(0,0,0,.05)';
-            }
+          if (this.view._artifacts.pagination
+            && this.type() !== 'pie'
+              && this.type() !== 'donut') {
+                scope = this.view._artifacts.pagination.labels;
+                if ((d.id && scope.indexOf(d.id) > -1)
+                  || (d && !d.id && scope.indexOf(d) > -1)) {
+                    return color;
+                }
+                else {
+                  return 'rgba(0,0,0,.05)';
+                }
           }
           else {
             return color;
@@ -1869,7 +1883,8 @@ function defineC3(){
             options.axis.x = options.axis.x || {};
             options.axis.x.type = 'timeseries';
             options.axis.x.tick = options.axis.x.tick || {
-              format: c3DefaultDateFormat(this.data()[1][0], this.data()[2][0])
+              format: c3DefaultDateFormat(this.data()[1][0], this.data()[2][0]),
+              culling: { max: 5 }
             };
             options.data.columns[0] = [];
             each(this.dataset.selectColumn(0), function(cell, i){
@@ -1910,6 +1925,7 @@ function defineC3(){
                 this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
                 this.view._artifacts['c3'] = c3.generate(options);
                 this.view._artifacts.pagination = {
+                  hidden: [],
                   labels: options.data.columns.slice(0,10),
                   position: 0,
                   range: Number(((this.el().querySelector('.' + this.theme() + '-rendering').offsetHeight - 100) / 16).toFixed(0)),
