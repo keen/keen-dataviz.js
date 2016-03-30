@@ -10,6 +10,65 @@
 
     <!-- Safe, minimal layout -->
     <link rel="stylesheet" href="./assets/keen-dashboards.css">
+    <style>
+    body {
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    h1 {
+      color: #282828;
+      font-weight: 200;
+      margin: 0;
+    }
+    h2 {
+      color: #4D4D4D;
+      font-size: 21px;
+      margin: 48px 0 24px;
+      text-transform: uppercase;
+    }
+    h3 {
+      color: #555;
+      font-size: 16px;
+      margin: 0 0 24px;
+    }
+
+    /*.container {
+      margin: 0 auto;
+      max-width: 980px;
+    }*/
+    .demo-chart {
+      background: #fff;
+      margin: 0 auto;
+      /*padding: 10px;*/
+      width: 600px;
+    }
+    </style>
+    <style>
+      .custom-theme {
+        background: #fff;
+        border: 1px solid #d7d7d7;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .custom-theme-title {
+        border-bottom: 1px solid #d7d7d7;
+        border-radius: 5px 5px 0 0;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+      .custom-theme-notes {
+        background: #fbfbfb;
+        border-radius: 0 0 5px 5px;
+        border-top: 1px solid #d7d7d7;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+    </style>
 
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
     <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-0.0.5.min.js"></script>
@@ -17,7 +76,7 @@
 
     <script src="./assets/faker.js"></script>
   </head>
-  <body onload="init()">
+  <body>
     <div class="container">
 
       <h1>Dataviz Examples</h1>
@@ -276,7 +335,11 @@
     </div>
 
     <script>
+    setTimeout(init, 500);
+
     function init(){
+
+      var RAND_DATA_MAX = 200;
 
       var metricData = [
         [ 'Index', 'Value' ],
@@ -302,7 +365,7 @@
 
       function makeGroupedDataset(){
         var ds = new Dataset();
-        var len = rand(0, 50);
+        var len = rand(0, RAND_DATA_MAX);
         for (var i = 0; i < len; i++) {
           ds.appendRow(faker.internet.email(), [faker.random.number()]);
         }
@@ -321,7 +384,7 @@
         ];
 
         var len = ds.selectColumn(0).length;
-        for (var i = 0; i < 50; i++) {
+        for (var i = 0; i < RAND_DATA_MAX; i++) {
           var newCol = gen(len-1);
           ds.appendColumn(newCol[0], newCol.slice(1));
         }
@@ -1077,64 +1140,5 @@
 
     }
     </script>
-    <style>
-    body {
-      background: #f2f2f2;
-      padding: 20px;
-    }
-    h1, h2, h3 {
-      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    h1 {
-      color: #282828;
-      font-weight: 200;
-      margin: 0;
-    }
-    h2 {
-      color: #4D4D4D;
-      font-size: 21px;
-      margin: 48px 0 24px;
-      text-transform: uppercase;
-    }
-    h3 {
-      color: #555;
-      font-size: 16px;
-      margin: 0 0 24px;
-    }
-
-    /*.container {
-      margin: 0 auto;
-      max-width: 980px;
-    }*/
-    .demo-chart {
-      background: #fff;
-      margin: 0 auto;
-      /*padding: 10px;*/
-      width: 600px;
-    }
-    </style>
-    <style>
-      .custom-theme {
-        background: #fff;
-        border: 1px solid #d7d7d7;
-        border-radius: 5px;
-        box-sizing: border-box;
-      }
-      .custom-theme-title {
-        border-bottom: 1px solid #d7d7d7;
-        border-radius: 5px 5px 0 0;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 16px;
-        padding: 5px 10px;
-      }
-      .custom-theme-notes {
-        background: #fbfbfb;
-        border-radius: 0 0 5px 5px;
-        border-top: 1px solid #d7d7d7;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 11px;
-        padding: 5px 10px;
-      }
-    </style>
   </body>
 </html>

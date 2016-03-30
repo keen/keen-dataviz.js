@@ -1498,17 +1498,28 @@ module.exports = function(cols){
               if (d.direction === 'forward') {
                 if (pagination.position + pagination.range < pagination.total) {
                   pagination.position = pagination.position + pagination.range;
-                  paginateData();
                 }
               }
               else {
                 if (pagination.position - pagination.range >= 0) {
                   pagination.position = pagination.position - pagination.range;
-                  paginateData();
                 }
               }
+              paginateData();
+              clearSelectedText();
             });
         });
+  }
+  function clearSelectedText() {
+    var selection;
+    if (document.selection && document.selection.empty) {
+      selection = document.selection;
+      selection.empty();
+    }
+    else if (window.getSelection) {
+      selection = window.getSelection();
+      selection.removeAllRanges();
+    }
   }
 };
 },{"../../../utils/assert-date-string":23}],17:[function(require,module,exports){
