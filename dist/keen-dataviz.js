@@ -1332,34 +1332,24 @@ module.exports = function(a, b){
   }
 };
 },{}],16:[function(require,module,exports){
-var each = require('../../../utils/each'),
-    isDateString = require('../../../utils/assert-date-string');
+var isDateString = require('../../../utils/assert-date-string');
 module.exports = function(cols){
-  var self = this;
-  var columns = cols.reverse();
-  var domNode = this.el().querySelector('.' + this.theme() + '-rendering');
-  var pagination = self.view._artifacts.pagination;
-  /*  {
-        labels: [first N records],
-        position: 0,
-        range: Number(((domNode.offsetHeight - 100) / 16).toFixed(0)),
-        total: columns.length
-      } */
-  function paginateData(){
-    var labels = [];
-    each(columns, function(column, i){
-      if (isDateString(self.data()[1][0]) && column[0] === 'x') {
-        return;
-      }
-      labels.push(column[0]);
-    });
-    labels = labels.splice(pagination.position, pagination.range);
-    self.view._artifacts.pagination.labels = labels;
-    renderLegendComponent.call(self, labels);
-    if (pagination.total > pagination.range) {
-      renderPaginationComponent.call(self);
+  var self = this, chart, columns, domNode, pagination, range;
+  chart = this.view._artifacts.c3;
+  columns = [];
+  domNode = this.el().querySelector('.' + this.theme() + '-rendering');
+  range = Math.round((domNode.offsetHeight - 68) / 20);
+  pagination = this.view._artifacts.pagination = {
+    hidden: [],
+    labels: [],
+    position: 0,
+    range: range,
+    total: 0
+  };
+  for (var i = 0; i < cols.length; i++) {
+    if (cols[i][0] !== 'x' && !isDateString(cols[i][1])) {
+      columns.push(cols[i][0]);
     }
-    self.view._artifacts.c3.resize();
   }
   var legendEl = d3.select(domNode)
     .append('svg')
@@ -1370,7 +1360,7 @@ module.exports = function(cols){
   var legendItems = legendEl
     .append('g')
     .attr('class', 'keen-c3-legend-items');
-  var paginateElOffset = 20 * (self.view._artifacts.pagination.labels.length + 1);
+  var paginateElOffset = 20 * pagination.range;
   var paginateEl = legendEl
     .append('g')
     .attr('class', 'keen-c3-legend-pagination')
@@ -1378,13 +1368,22 @@ module.exports = function(cols){
       return 'translate(2, ' + paginateElOffset + ')'
     });
   paginateData();
-  function renderLegendComponent(d){
+  function paginateData(){
+    pagination.labels = columns.slice(pagination.position, pagination.position + pagination.range);
+    pagination.total = columns.length;
+    renderLegendComponent.call(self, pagination.labels);
+    if (pagination.total > pagination.range) {
+      renderPaginationComponent.call(self);
+    }
+    chart.resize();
+  }
+  function renderLegendComponent(){
     legendItems
       .selectAll('g')
       .remove();
     var legendItemList = legendItems
       .selectAll('g')
-      .data(d);
+      .data(pagination.labels);
     legendItemList.enter()
         .append('g')
         .attr('transform', function(id, i){
@@ -1392,7 +1391,7 @@ module.exports = function(cols){
         })
       .attr('data-id', function (id) { return id; })
       .style('opacity', function(id){
-        var isHidden = self.view._artifacts.pagination.hidden.indexOf(id);
+        var isHidden = pagination.hidden.indexOf(id);
         return isHidden < 0 ? 1 : .35;
       })
       .each(function (id) {
@@ -1421,7 +1420,7 @@ module.exports = function(cols){
           .style('cursor', 'pointer');
         d3.select(this)
           .append('rect')
-          .attr('fill', self.view._artifacts['c3'].color(id))
+          .attr('fill', chart.color(id))
           .attr('pointer-events', 'none')
           .attr('height', 10)
           .attr('width', 10)
@@ -1431,12 +1430,12 @@ module.exports = function(cols){
           .attr('y', 0);
       })
       .on('mouseover', function (id, i) {
-          self.view._artifacts['c3'].focus(id);
+          chart.focus(id);
           if (id.length > 15) {
-            d3.select(self.el().querySelector('.' + self.theme() + '-rendering'))
+            d3.select(domNode)
               .append('div')
               .attr('class', 'keen-c3-legend-label-overlay')
-              .style('right', '-120px')
+              .style('right', '-130px')
               .style('top', (5 + (i+1) * 20) + 'px')
               .style('max-width', '75%')
               .html(id)
@@ -1445,23 +1444,23 @@ module.exports = function(cols){
           }
       })
       .on('mouseout', function (id) {
-        self.view._artifacts['c3'].revert();
+        chart.revert();
         d3.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay'))
           .remove();
       })
       .on('click', function (id) {
         d3.select(this).style('opacity', function(){
-          var isHidden = self.view._artifacts.pagination.hidden.indexOf(id);
+          var isHidden = pagination.hidden.indexOf(id);
           if (isHidden < 0) {
-            self.view._artifacts.pagination.hidden.push(id);
+            pagination.hidden.push(id);
             return .35;
           }
           else {
-            self.view._artifacts.pagination.hidden.splice(isHidden, 1);
+            pagination.hidden.splice(isHidden, 1);
             return 1;
           }
         });
-        self.view._artifacts['c3'].toggle(id);
+        chart.toggle(id);
       });
     legendItemList.exit().remove();
   }
@@ -1496,16 +1495,15 @@ module.exports = function(cols){
               d3.select(this).style('fill', '#D7D7D7');
             })
             .on('click', function (d) {
-              var pag = self.view._artifacts.pagination;
               if (d.direction === 'forward') {
-                if (pag.position + pag.range < pag.total) {
-                  self.view._artifacts.pagination.position = self.view._artifacts.pagination.position + self.view._artifacts.pagination.range;
+                if (pagination.position + pagination.range < pagination.total) {
+                  pagination.position = pagination.position + pagination.range;
                   paginateData();
                 }
               }
               else {
-                if (pag.position - pag.range >= 0) {
-                  self.view._artifacts.pagination.position = self.view._artifacts.pagination.position - self.view._artifacts.pagination.range;
+                if (pagination.position - pagination.range >= 0) {
+                  pagination.position = pagination.position - pagination.range;
                   paginateData();
                 }
               }
@@ -1513,14 +1511,14 @@ module.exports = function(cols){
         });
   }
 };
-},{"../../../utils/assert-date-string":23,"../../../utils/each":24}],17:[function(require,module,exports){
+},{"../../../utils/assert-date-string":23}],17:[function(require,module,exports){
 module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
   var $$ = this, config = $$.config,
       titleFormat = config.tooltip_format_title || defaultTitleFormat,
       nameFormat = config.tooltip_format_name || function (name) { return name; },
       valueFormat = config.tooltip_format_value || defaultValueFormat,
       text, i, title, value, name, bgcolor;
-  for (i = d.length - 1; i >= 0; i--) {
+  for (var i = 0; i < d.length; i++) {
     if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
     if (! text) {
       title = titleFormat ? titleFormat(d[i].x) : d[i].x;
@@ -1803,24 +1801,6 @@ function defineC3(){
         pattern: this.colors()
       },
       data: {
-        color: function(color, d){
-          var scope;
-          if (this.view._artifacts.pagination
-            && this.type() !== 'pie'
-              && this.type() !== 'donut') {
-                scope = this.view._artifacts.pagination.labels;
-                if ((d.id && scope.indexOf(d.id) > -1)
-                  || (d && !d.id && scope.indexOf(d) > -1)) {
-                    return color;
-                }
-                else {
-                  return 'rgba(0,0,0,.05)';
-                }
-          }
-          else {
-            return color;
-          }
-        }.bind(this),
         colors: extend({}, this.colorMapping()),
         columns: [],
         type: this.type().replace('horizontal-', '')
@@ -1829,23 +1809,7 @@ function defineC3(){
         height: this.height() ? this.height() - this.el().offsetHeight : 400,
         width: this.width()
       },
-      tooltip: {
-        contents: c3TooltipContents,
-        format: {
-          value: function(value, ratio, id, index){
-            var scope;
-            if (this.view._artifacts.pagination) {
-              scope = this.view._artifacts.pagination.labels;
-              if (scope.indexOf(id) > -1) {
-                return value;
-              }
-            }
-            else {
-              return value;
-            }
-          }.bind(this)
-        }
-      },
+      tooltip: {},
       transition: {
         duration: 0
       }
@@ -1919,18 +1883,18 @@ function defineC3(){
         if (options.legend.show === true
           && options.legend.position === 'right'
             && ['gauge'].indexOf(type.replace('horizontal-', ''))) {
+                options.data.color = c3CustomDataMapping.bind(this);
+                options.tooltip = {
+                  contents: c3TooltipContents,
+                  format: {
+                    value: c3CustomTooltipFiltering.bind(this)
+                  }
+                };
                 options.legend.show = false;
                 var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 100;
                 options.size.width = options.size.width || paddedWidth;
                 this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
                 this.view._artifacts['c3'] = c3.generate(options);
-                this.view._artifacts.pagination = {
-                  hidden: [],
-                  labels: options.data.columns.slice(0,10),
-                  position: 0,
-                  range: Number(((this.el().querySelector('.' + this.theme() + '-rendering').offsetHeight - 100) / 16).toFixed(0)),
-                  total: options.data.columns.length
-                }
                 c3PaginatingLegend.call(this, options.data.columns);
         }
         else {
@@ -1949,6 +1913,40 @@ function defineC3(){
       }
     };
   });
+}
+function c3CustomDataMapping(color, d) {
+  var scope;
+  if (this.view._artifacts.pagination
+    && this.type() !== 'gauge'
+      && this.type() !== 'pie'
+        && this.type() !== 'donut') {
+          scope = this.view._artifacts.pagination.labels;
+          if ((d.id && scope.indexOf(d.id) > -1)
+            || (d && !d.id && scope.indexOf(d) > -1)) {
+              return color;
+          }
+          else {
+            return 'rgba(0,0,0,.05)';
+          }
+  }
+  else {
+    return color;
+  }
+}
+function c3CustomTooltipFiltering(value, ratio, id, index) {
+  var scope;
+  if (this.view._artifacts.pagination
+    && this.type() !== 'gauge'
+      && this.type() !== 'pie'
+        && this.type() !== 'donut') {
+          scope = this.view._artifacts.pagination.labels;
+          if (scope.indexOf(id) > -1) {
+            return value;
+          }
+  }
+  else {
+    return value;
+  }
 }
 function bindResizeListener(fn){
   if ('undefined' === typeof window) return;

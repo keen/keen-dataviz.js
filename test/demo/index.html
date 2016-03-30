@@ -292,12 +292,12 @@
       // ];
 
       var groupedData = [
-        [ 'Index', 'First' ],
-        [ 'https://keen.io/project/527f4a6273f4bb06f3000003/explorer?query%5Btimezone%5D=UTC&query%5Btimeframe%5D=this_14_days', 189.98 ],
-        [ 'B', 135.83 ],
-        [ 'C', 124.56 ],
-        [ 'D', 117.22 ],
-        [ 'E', 55.12  ]
+        [ 'Index', 'Result' ],
+        [ faker.internet.url(), faker.internet.exampleEmail(), faker.internet.exampleEmail(), 189.98 ],
+        [ faker.internet.url(), 135.83 ],
+        [ faker.internet.url(), 124.56 ],
+        [ faker.internet.url(), 117.22 ],
+        [ faker.internet.url(), 55.12  ]
       ];
 
       function makeGroupedDataset(){
@@ -308,7 +308,6 @@
         }
         return ds;
       }
-      // console.log(makeGroupedDataset());
 
       function makeGroupedIntervalDataset(){
         var ds = new Dataset();
@@ -326,12 +325,11 @@
           var newCol = gen(len-1);
           ds.appendColumn(newCol[0], newCol.slice(1));
         }
-        // ds.sortColumns('desc', ds.getColumnSum);
         return ds;
       }
 
       var groupedMultiData = [
-        [ 'Index', 'First label', 'https://keen.io/project/527f4a6273f4bb06f3000003/explorer?query%5Btimezone%5D=UTC&query%5Btimeframe%5D=this_14_days', 'Last label in the set'],
+        [ 'Index', faker.internet.url(), faker.internet.url(), faker.internet.url()],
         [ 'A', 189.98, 322.43, 654.44 ],
         [ 'B', 135.83, 564.21, 622.12 ],
         [ 'C', 124.56, 611.23, 432.11 ],
@@ -340,7 +338,7 @@
       ];
 
       var intervalData = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2014-12-01T00:00:00.000Z', 189.98 ],
         [ '2015-01-01T00:00:00.000Z', 135.83 ],
         [ '2015-02-01T00:00:00.000Z', 124.56 ],
@@ -349,7 +347,7 @@
       ];
 
       var intervalMultiData = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2014-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-02-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -361,7 +359,7 @@
       // Yearly dataset
 
       var intervalDataYearly = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2011-01-01T00:00:00.000Z', 189.98 ],
         [ '2012-01-01T00:00:00.000Z', 135.83 ],
         [ '2013-01-01T00:00:00.000Z', 124.56 ],
@@ -370,7 +368,7 @@
       ];
 
       var intervalMultiDataYearly = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2012-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2013-01-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -381,7 +379,7 @@
       // Secondly dataset
 
       var intervalDataSecondly = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T10:59:56.000Z', 189.98 ],
         [ '2015-12-01T10:59:57.000Z', 135.83 ],
         [ '2015-12-01T10:59:58.000Z', 124.56 ],
@@ -390,7 +388,7 @@
       ];
 
       var intervalMultiDataSecondly = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:59:56.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T10:59:57.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-01T10:59:58.000Z', 124.56, 611.23, 432.11 ],
@@ -401,7 +399,7 @@
       // Minutely dataset
 
       var intervalDataMinutely = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T10:56:00.000Z', 189.98 ],
         [ '2015-12-01T10:57:00.000Z', 135.83 ],
         [ '2015-12-01T10:58:00.000Z', 124.56 ],
@@ -410,7 +408,7 @@
       ];
 
       var intervalMultiDataMinutely = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:56:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T10:57:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-01T10:58:00.000Z', 124.56, 611.23, 432.11 ],
@@ -422,7 +420,7 @@
       // Hourly dataset
 
       var intervalDataHourly = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T10:00:00.000Z', 189.98 ],
         [ '2015-12-01T11:00:00.000Z', 135.83 ],
         [ '2015-12-01T12:00:00.000Z', 124.56 ],
@@ -431,7 +429,7 @@
       ];
 
       var intervalMultiDataHourly = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T11:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-01T12:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -446,7 +444,7 @@
       //   [ 'Index' ]
       // ];
       var intervalDataDaily = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T00:00:00.000Z', 189.98 ],
         [ '2015-12-02T00:00:00.000Z', 135.83 ],
         [ '2015-12-03T00:00:00.000Z', 124.56 ],
@@ -463,7 +461,7 @@
       //   [ '2015-12-05T00:00:00.000Z' ]
       // ];
       var intervalMultiDataDaily = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -702,6 +700,7 @@
         .el('.chart-c3-line-time-multi')
         .title('Line Chart')
         .type('line')
+        .stacked(false)
         .data(makeGroupedIntervalDataset())
         .sortGroups('desc')
         .render();
@@ -839,9 +838,6 @@
         .el('.chart-c3-area-time-multi')
         .title('Area Chart')
         .type('area')
-        // .call(function(){
-        //   this.dataset.matrix = intervalMultiDataMinutely;
-        // })
         .data(makeGroupedIntervalDataset())
         .render();
 
@@ -851,9 +847,6 @@
         .title('Area Chart')
         .type('area')
         .stacked(true)
-        // .call(function(){
-        //   this.dataset.matrix = intervalMultiDataMinutely;
-        // })
         .data(makeGroupedIntervalDataset())
         .render();
 
@@ -1075,7 +1068,7 @@
         return Math.floor((Math.random() * b) + a);
       }
       function gen(n){
-        var arr = [ '#' + rand(0, 1000) ];
+        var arr = [ faker.internet.exampleEmail() ];
         for (var i = 0; i < n; i++) {
           arr.push(rand(0, 1000));
         }
