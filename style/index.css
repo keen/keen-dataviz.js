@@ -157,10 +157,13 @@
 .keen-dataviz .c3-tooltip-container td.name span {
   border-radius: 50%;
 }
+.keen-dataviz .c3-chart-arc text {
+  font-size: 11px;
+}
+
+/* CUSTOM LEGEND */
 .keen-c3-legend {
-  /*font-family: var(--font-family-primary);*/
   position: absolute;
-  /*right: -120px;*/
   top: 0;
 }
 
@@ -171,7 +174,6 @@
   font-size: 11px;
   padding: 10px;
   position: absolute;
-  /*right: -120px;*/
   word-wrap: break-word;
   z-index: 2;
 }
