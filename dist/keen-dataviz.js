@@ -1435,7 +1435,7 @@ module.exports = function(cols){
             d3.select(domNode)
               .append('div')
               .attr('class', 'keen-c3-legend-label-overlay')
-              .style('right', '-130px')
+              .style('right', '-120px')
               .style('top', (5 + (i+1) * 20) + 'px')
               .style('max-width', '75%')
               .html(id)
