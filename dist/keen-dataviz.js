@@ -1346,6 +1346,9 @@ module.exports = function(cols){
     range: range,
     total: 0
   };
+  if (this.type() === 'donut' || this.type() === 'pie') {
+    pagination.range = pagination.range >= 5 ? 5 : pagination.range;
+  }
   for (var i = 0; i < cols.length; i++) {
     if (cols[i][0] !== 'x' && !isDateString(cols[i][1])) {
       columns.push(cols[i][0]);
@@ -1929,15 +1932,20 @@ function c3CustomDataMapping(color, d) {
   var scope;
   if (this.view._artifacts.pagination
     && this.type() !== 'gauge'
-      && this.type() !== 'pie'
-        && this.type() !== 'donut') {
+      /*&& this.type() !== 'pie'
+        && this.type() !== 'donut'*/) {
           scope = this.view._artifacts.pagination.labels;
           if ((d.id && scope.indexOf(d.id) > -1)
             || (d && !d.id && scope.indexOf(d) > -1)) {
               return color;
           }
           else {
-            return 'rgba(0,0,0,.05)';
+            if (this.type() === 'donut' || this.type() === 'pie') {
+              return 'rgba(0,0,0,.1)';
+            }
+            else {
+              return 'rgba(0,0,0,.07)';
+            }
           }
   }
   else {
@@ -1948,8 +1956,8 @@ function c3CustomTooltipFiltering(value, ratio, id, index) {
   var scope;
   if (this.view._artifacts.pagination
     && this.type() !== 'gauge'
-      && this.type() !== 'pie'
-        && this.type() !== 'donut') {
+      /*&& this.type() !== 'pie'
+        && this.type() !== 'donut'*/) {
           scope = this.view._artifacts.pagination.labels;
           if (scope.indexOf(id) > -1) {
             return value;

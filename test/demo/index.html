@@ -633,6 +633,7 @@
         .type('donut')
         .chartOptions({})
         .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
       window.pie = new Dataviz()
@@ -641,6 +642,7 @@
         .title('Mmmm, pie...')
         .type('pie')
         .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
 
