@@ -76,7 +76,7 @@
 
     <script src="./assets/faker.js"></script>
   </head>
-  <body>
+  <body onload="init()">
     <div class="container">
 
       <h1>Dataviz Examples</h1>
@@ -335,11 +335,11 @@
     </div>
 
     <script>
-    setTimeout(init, 500);
+    // setTimeout(init, 500);
 
     function init(){
 
-      var RAND_DATA_MAX = 200;
+      var RAND_DATA_MAX = 50;
 
       var metricData = [
         [ 'Index', 'Value' ],
