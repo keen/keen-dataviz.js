@@ -1354,7 +1354,7 @@ module.exports = function(cols){
   var legendEl = d3.select(domNode)
     .append('svg')
     .attr('class', 'keen-c3-legend')
-    .attr('width', 110)
+    .attr('width', 120)
     .attr('height', domNode.offsetHeight)
     .style('right', '-120px');
   var legendItems = legendEl
