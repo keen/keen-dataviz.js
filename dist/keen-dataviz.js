@@ -1180,7 +1180,7 @@ function parseExtraction(){
     if (library && type && element && Dataviz.libraries[library][type].update) {
       Dataviz.libraries[library][type].update.apply(this, arguments);
     }
-    return;
+    return this;
   };
   Dataviz.prototype.width = function(num){
     if (!arguments.length) return this.view['width'];
