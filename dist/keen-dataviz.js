@@ -1233,10 +1233,10 @@ function parseExtraction(){
   }
   function convertChartTypes(str){
     var map = {
-      'linechart'   : 'line',
+      'areachart'   : 'area',
       'barchart'    : 'horizontal-bar',
       'columnchart' : 'bar',
-      'areachart'   : 'area',
+      'linechart'   : 'line',
       'piechart'    : 'pie'
     };
     return map[str] || str;
@@ -1651,7 +1651,10 @@ function defineTable(){
       this.render();
     },
     destroy: function(){
-      this.el().querySelector('.' + theme + '-table').onscroll = undefined;
+      var el = this.el().querySelector('.' + this.theme() + '-table')
+      if (el && el.onscroll) {
+        el.onscroll = undefined;
+      }
     }
   };
 }
