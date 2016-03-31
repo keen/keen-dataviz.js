@@ -945,26 +945,13 @@ function parseExtraction(){
     var library = this.library(),
         type = this.type(),
         element = this.el();
-    if (!element) {
-      this.message('A DOM element is required. Check out the .el() method.');
-      throw 'A DOM element is required. Check out the .el() method.';
-      return;
+    if (Dataviz.libraries[library]
+      && Dataviz.libraries[library][type]){
+        Dataviz.libraries[library][type].destroy.call(this);
     }
-    if (!type) {
-      this.message('A chart type is required. Check out the .type() method.');
-      throw 'A chart type is required. Check out the .type() method.';
-      return;
+    if (element) {
+      element.innerHTML = '';
     }
-    if (Dataviz.libraries[library]){
-      if (typeof Dataviz.libraries[library][type] === 'undefined') {
-        type = convertChartTypes(type);
-      }
-      if (Dataviz.libraries[library][type]
-        && Dataviz.libraries[library][type].destroy) {
-          Dataviz.libraries[library][type].destroy.call(this);
-      }
-    }
-    element.innerHTML = '';
     this.view._prepared = false;
     this.view._rendered = false;
     this.view._artifacts = {};
@@ -1121,30 +1108,26 @@ function parseExtraction(){
         loader.destroy.apply(self, arguments);
       }
       self.el().innerHTML = '';
-      if (Dataviz.libraries[library]){
-        if (typeof Dataviz.libraries[library][type] === 'undefined') {
-          type = convertChartTypes(type);
-        }
-        if (Dataviz.libraries[library][type]
-          && Dataviz.libraries[library][type].render) {
-            buildDomWrapper(self.el(), {
-              notes: self.notes(),
-              theme: self.theme(),
-              title: self['title']()
-            });
-            Dataviz.libraries[library][type].render.call(self);
-            self.view._rendered = true;
-        }
-        else {
-          self.message('Incorrect chart type');
-          throw 'Incorrect chart type';
-          return;
-        }
-      }
-      else {
+      if (Dataviz.libraries[library] === 'undefined'){
         self.message('Incorrect library');
         throw 'Incorrect library';
         return;
+      }
+      else {
+        if (typeof Dataviz.libraries[library][type] === 'undefined') {
+          this.message('Incorrect chart type');
+          throw 'Incorrect chart type';
+          return;
+        }
+        else {
+          buildDomWrapper(self.el(), {
+            notes: self.notes(),
+            theme: self.theme(),
+            title: self['title']()
+          });
+          Dataviz.libraries[library][type].render.call(self);
+          self.view._rendered = true;
+        }
       }
     });
     return this;
@@ -1187,7 +1170,7 @@ function parseExtraction(){
   };
   Dataviz.prototype.type = function(str){
     if (!arguments.length) return this.view['type'];
-    this.view['type'] = (str ? String(str) : null);
+    this.view['type'] = (str ? convertChartTypes(str) : null);
     return this;
   };
   Dataviz.prototype.update = function(){
@@ -1197,7 +1180,7 @@ function parseExtraction(){
     if (library && type && element && Dataviz.libraries[library][type].update) {
       Dataviz.libraries[library][type].update.apply(this, arguments);
     }
-    return;
+    return this;
   };
   Dataviz.prototype.width = function(num){
     if (!arguments.length) return this.view['width'];
@@ -1250,13 +1233,13 @@ function parseExtraction(){
   }
   function convertChartTypes(str){
     var map = {
-      'linechart'   : 'line',
+      'areachart'   : 'area',
       'barchart'    : 'horizontal-bar',
       'columnchart' : 'bar',
-      'areachart'   : 'area',
+      'linechart'   : 'line',
       'piechart'    : 'pie'
     };
-    return map[str] || str
+    return map[str] || str;
   }
   function domReady(fn){
     if ('undefined' !== typeof document
@@ -1668,7 +1651,10 @@ function defineTable(){
       this.render();
     },
     destroy: function(){
-      this.el().querySelector('.' + theme + '-table').onscroll = undefined;
+      var el = this.el().querySelector('.' + this.theme() + '-table')
+      if (el && el.onscroll) {
+        el.onscroll = undefined;
+      }
     }
   };
 }
