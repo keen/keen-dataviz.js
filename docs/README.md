@@ -12,6 +12,7 @@ var chart = new Keen.Dataviz()
   .sortGroups('desc')
   .prepare();
 
+// Use keen-analysis.js to run queries and handle responses
 var req = client.run(query, function(err, res){
   if (err) {
     chart.error(err.message);

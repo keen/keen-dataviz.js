@@ -640,9 +640,10 @@
         .height(300)
         .el('.chart-c3-pie')
         .title('Mmmm, pie...')
-        .type('pie')
-        .data(makeGroupedDataset())
-        .sortGroups('desc')
+        .type('piechart')
+        .call(function(){
+          this.dataset.matrix = groupedData;
+        })
         .render();
 
 
@@ -663,7 +664,7 @@
         .height(300)
         .el('.chart-c3-bar-multi')
         .title('Bar Chart')
-        .type('bar')
+        .type('barchart')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
@@ -684,7 +685,7 @@
         .height(300)
         .el('.chart-c3-bar-time')
         .title('Bar Chart')
-        .type('bar')
+        .type('barchart')
         .call(function(){
           this.dataset.matrix = intervalDataYearly;
         })
@@ -704,7 +705,7 @@
         .height(300)
         .el('.chart-c3-bar-time-stacked')
         .title('Bar Chart')
-        .type('bar')
+        .type('barchart')
         .stacked(true)
         .call(function(){
           this.dataset.matrix = intervalMultiDataYearly;
@@ -733,7 +734,7 @@
         .height(300)
         .el('.chart-c3-line-multi')
         .title('Line Chart')
-        .type('line')
+        .type('linechart')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
@@ -754,7 +755,7 @@
         .height(300)
         .el('.chart-c3-line-time')
         .title('Line Chart')
-        .type('line')
+        .type('linechart')
         .call(function(){
           this.dataset.matrix = intervalDataDaily;
         })
@@ -774,7 +775,7 @@
         .height(300)
         .el('.chart-c3-line-time-stacked')
         .title('Line Chart')
-        .type('line')
+        .type('linechart')
         .stacked(true)
         .data(makeGroupedIntervalDataset())
         .sortGroups('desc')
@@ -871,7 +872,7 @@
         .height(300)
         .el('.chart-c3-area-multi')
         .title('Area Chart')
-        .type('area')
+        .type('areachart')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
@@ -892,7 +893,7 @@
         .height(300)
         .el('.chart-c3-area-time')
         .title('Area Chart')
-        .type('area')
+        .type('areachart')
         .call(function(){
           this.dataset.matrix = intervalDataMinutely;
         })
@@ -910,7 +911,7 @@
         .height(300)
         .el('.chart-c3-area-time-stacked')
         .title('Area Chart')
-        .type('area')
+        .type('areachart')
         .stacked(true)
         .data(makeGroupedIntervalDataset())
         .render();
