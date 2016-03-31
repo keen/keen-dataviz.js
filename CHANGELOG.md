@@ -1,3 +1,12 @@
+<a name="0.0.8"></a>
+# 0.0.8 Bug fixes and improvements
+
+**FIXED:**
+* Allow `Dataviz` instances to be destroyed without a `type` being required (#33)
+* Properly destroy and dispose of `table` instances
+* Allow the `update()` method to return correctly
+
+
 <a name="0.0.7"></a>
 # 0.0.7 Saved funnel parsing and style update
 
