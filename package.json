@@ -22,6 +22,7 @@
     "node": "4.0.x"
   },
   "dependencies": {
+    "nightwatch": "^0.8.18",
     "spin.js": "^2.3.2"
   },
   "devDependencies": {
