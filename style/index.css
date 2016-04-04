@@ -141,6 +141,24 @@
   transition: top .1s;
 }
 
+.keen-dataviz .keen-spinner-container {
+  box-sizing: border-box;
+  display: block;
+  height: 50px;
+  margin: 0 auto;
+  position: relative;
+  width: 35px;
+}
+.keen-dataviz .keen-spinner-indicator {
+  border-radius: 100%;
+  border: 3px solid rgba(0, 0, 0, .1);
+  border-top-color: rgba(0, 0, 0, .45);
+  box-sizing: border-box;
+  height: 35px;
+  width: 35px;
+}
+
+
 /* C3 CUSTOMIZATIONS */
 .keen-dataviz .c3 svg,
 .keen-dataviz .c3-tooltip-container {
