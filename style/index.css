@@ -1,3 +1,5 @@
+@import "c3/c3.css";
+
 :root {
   --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
   --font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;

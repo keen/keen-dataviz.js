@@ -22,6 +22,8 @@
     "node": "4.0.x"
   },
   "dependencies": {
+    "c3": "^0.4.10",
+    "d3": "^3.5.0",
     "spin.js": "^2.3.2"
   },
   "devDependencies": {
