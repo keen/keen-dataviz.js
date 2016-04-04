@@ -190,11 +190,11 @@ function getDefaultTitle(query){
     var colResult = select.selectColumn.call(this, coords[0]),
         rowResult = select.selectRow.call(this, coords[1]);
     if (colResult.length < 1) {
-      append.appendColumn.call(this, coords[0]);
+      append.appendColumn.call(this, String(coords[0]));
       colIndex = this.matrix[0].length - 1;
     }
     if (rowResult.length < 1) {
-      append.appendRow.call(this, coords[1]);
+      append.appendRow.call(this, String(coords[1]));
       rowIndex = this.matrix.length - 1;
     }
     this.matrix[ rowIndex ][ colIndex ] = value;
@@ -727,7 +727,7 @@ function parseInterval(){
       .type('interval');
     each(res.result, function(record, i){
       var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      dataset.set(['Result', index], record.value);
+      dataset.set(['Result', String(index)], record.value);
     });
     return dataset;
   }
@@ -763,7 +763,7 @@ function parseGroupedInterval(){
               label = key;
             }
           });
-          dataset.set([ group[label] || '', index ], group.result);
+          dataset.set([ String(group[label]), String(index) ], group.result);
         });
       }
       else {
@@ -780,7 +780,7 @@ function parseDoubleGroupedMetric(){
     var dataset = new Dataset()
       .type('double-grouped-metric');
     each(res.result, function(record, i){
-      dataset.set([ 'Result', record[options[0][0]] + ' ' + record[options[0][1]] ], record.result);
+      dataset.set([ 'Result', String(record[options[0][0]] + ' ' + record[options[0][1]]) ], record.result);
     });
     return dataset;
   }
@@ -795,7 +795,7 @@ function parseDoubleGroupedInterval(){
       var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
       each(record['value'], function(value, j){
         var label = String(value[options[0][0]]) + ' ' + String(value[options[0][1]]);
-        dataset.set([ label, index ], value.result);
+        dataset.set([ String(label), String(index) ], value.result);
       });
     });
     return dataset;
@@ -820,7 +820,7 @@ function parseFunnel(){
     dataset.appendColumn('Step Value');
     each(result, function(value, i){
       if (typeof steps !== 'undefined' && steps[i]) {
-        dataset.appendRow(steps[i].event_collection, [value]);
+        dataset.appendRow(String(steps[i].event_collection), [value]);
       }
     });
     return dataset;
@@ -831,7 +831,7 @@ function parseList(){
     var dataset = new Dataset()
       .type('list');
     each(res.result, function(value, i){
-      dataset.set( [ 'Value', i+1 ], value );
+      dataset.set( [ 'Result', String(i+1) ], value );
     });
     return dataset;
   }
@@ -842,7 +842,7 @@ function parseExtraction(){
       .type('extraction');
     each(res.result, function(record, i){
       each(flatten(record), function(value, key){
-        dataset.set([key, i+1], value);
+        dataset.set([String(key), String(i+1)], value);
       });
     });
     dataset.deleteColumn(0);

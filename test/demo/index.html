@@ -369,6 +369,7 @@
         for (var i = 0; i < len; i++) {
           ds.appendRow(faker.internet.email(), [faker.random.number()]);
         }
+        ds.appendRow('', [faker.random.number()]);
         return ds;
       }
 
@@ -386,7 +387,13 @@
         var len = ds.selectColumn(0).length;
         for (var i = 0; i < RAND_DATA_MAX; i++) {
           var newCol = gen(len-1);
-          ds.appendColumn(newCol[0], newCol.slice(1));
+          if (i > 0) {
+            ds.appendColumn(newCol[0], newCol.slice(1));
+          }
+          else {
+            // Inject a null value
+            ds.appendColumn('', newCol.slice(1));
+          }
         }
         return ds;
       }
