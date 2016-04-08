@@ -1611,12 +1611,8 @@ module.exports = {
         artifacts = this.view._artifacts.spinner = {},
         height = this.height() || 35,
         offsetPadding = (height - 35) / 2,
-        styles = [
-          'transform',
-          'MozTransform',
-          'msTransform',
-          'webkitTransform'
-        ],
+        prefixes = ['webkit', 'Moz', 'ms', 'O'],
+        radius = this.view._artifacts.radius = 0,
         spinner;
     html += '<div class="' + this.theme() + '">';
     html +=   '<div class="keen-spinner-container" style="height: ' + height + 'px; padding-top: ' + offsetPadding + 'px;">';
@@ -1625,20 +1621,24 @@ module.exports = {
     html += '</div>';
     this.el().innerHTML = html;
     spinner = this.el().querySelector('.keen-spinner-indicator');
-    artifacts.radius = 0;
-    artifacts.interval = setInterval(function(){
-      artifacts.radius = (artifacts.radius === 350) ? 0 : artifacts.radius + 10;
-      for (var i = 0; i < styles.length; i++) {
-        spinner.style[styles[i]] = 'rotate(' + artifacts.radius + 'deg)';
-      }
-    }, 15);
+    if (spinner.style.animationName === undefined) {
+      radius = 0;
+      artifacts.interval = setInterval(function(){
+        radius = (radius === 350) ? 0 : radius + 10;
+        for (var i = 0; i < prefixes.length; i++) {
+          spinner.style[prefixes[i]] = 'rotate(' + artifacts.radius + 'deg)';
+        }
+      }, 15);
+    }
   },
   update: function(){
     this.render();
   },
   destroy: function(){
     if (this.view._artifacts.spinner) {
-      clearInterval(this.view._artifacts.spinner.interval);
+      if (this.view._artifacts.spinner.interval) {
+        clearInterval(this.view._artifacts.spinner.interval);
+      }
       this.view._artifacts.spinner.radius = 0;
       try {
         delete this.view._artifacts.spinner;

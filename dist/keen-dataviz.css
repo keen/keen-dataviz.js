@@ -244,7 +244,11 @@
   box-sizing: border-box;
   height: 35px;
   width: 35px;
+  -webkit-animation:spin .7s linear infinite;
+  animation:spin .7s linear infinite;
 }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 /* C3 CUSTOMIZATIONS */
 .keen-dataviz .c3 svg,
 .keen-dataviz .c3-tooltip-container {
