@@ -1287,27 +1287,27 @@ function parseExtraction(){
 }(this));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./data":1,"./dataset":2,"./libraries":22,"./utils/assert-date-string":23,"./utils/each":24,"./utils/extend":26}],15:[function(require,module,exports){
-module.exports = function(a, b){
-  var d = Math.abs(new Date(a).getTime() - new Date(b).getTime());
+module.exports = function(startDate, endDate){
+  var timeDiff = Math.abs(new Date(startDate).getTime() - new Date(endDate).getTime());
   var months = [
     'Jan', 'Feb', 'Mar',
     'Apr', 'May', 'June',
     'July', 'Aug', 'Sept',
     'Oct', 'Nov', 'Dec'
   ];
-  if (d >= 2419200000) {
+  if (timeDiff >= 2419200000) {
     return function(ms){
       var date = new Date(ms);
       return months[date.getMonth()] + ' ' + date.getFullYear();
     };
   }
-  else if (d >= 86400000) {
+  else if (timeDiff >= 86400000) {
     return function(ms){
       var date = new Date(ms);
       return months[date.getMonth()] + ' ' + date.getDate();
     };
   }
-  else if (d >= 3600000) {
+  else if (timeDiff >= 3600000) {
     return '%I:%M %p';
   }
   else {
@@ -1318,16 +1318,16 @@ module.exports = function(a, b){
 var d3 = require('d3');
 var isDateString = require('../../../utils/assert-date-string');
 module.exports = function(cols){
-  var self = this, chart, columns, domNode, pagination, range;
-  chart = this.view._artifacts.c3;
-  columns = [];
-  domNode = this.el().querySelector('.' + this.theme() + '-rendering');
-  range = Math.round((domNode.offsetHeight - 78) / 20);
-  pagination = this.view._artifacts.pagination = {
+  var self = this,
+      chart = this.view._artifacts.c3,
+      columns = [],
+      domNode = this.el().querySelector('.' + this.theme() + '-rendering'),
+      legendWidth = 120;
+  var pagination = this.view._artifacts.pagination = {
     hidden: [],
     labels: [],
     position: 0,
-    range: range,
+    range: Math.round((domNode.offsetHeight - 78) / 20),
     total: 0
   };
   if (this.type() === 'donut' || this.type() === 'pie') {
@@ -1341,9 +1341,9 @@ module.exports = function(cols){
   var legendEl = d3.select(domNode)
     .append('svg')
     .attr('class', 'keen-c3-legend')
-    .attr('width', 120)
+    .attr('width', legendWidth)
     .attr('height', domNode.offsetHeight - 10)
-    .style('right', '-120px')
+    .style('right', -legendWidth + 'px')
     .style('top', '10px');
   var legendItems = legendEl
     .append('g')
@@ -1423,7 +1423,7 @@ module.exports = function(cols){
             d3.select(domNode)
               .append('div')
               .attr('class', 'keen-c3-legend-label-overlay')
-              .style('right', '-120px')
+              .style('right', -legendWidth + 'px')
               .style('top', (5 + (i+1) * 20) + 'px')
               .style('max-width', '75%')
               .html(id)
