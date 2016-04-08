@@ -727,7 +727,7 @@ function parseInterval(){
       .type('interval');
     each(res.result, function(record, i){
       var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      dataset.set(['Result', String(index)], record.value);
+      dataset.set(['Result', index], record.value);
     });
     return dataset;
   }
@@ -763,7 +763,7 @@ function parseGroupedInterval(){
               label = key;
             }
           });
-          dataset.set([ String(group[label]), String(index) ], group.result);
+          dataset.set([ String(group[label]), index ], group.result);
         });
       }
       else {
@@ -780,7 +780,8 @@ function parseDoubleGroupedMetric(){
     var dataset = new Dataset()
       .type('double-grouped-metric');
     each(res.result, function(record, i){
-      dataset.set([ 'Result', String(record[options[0][0]] + ' ' + record[options[0][1]]) ], record.result);
+      var rowLabel = record[options[0][0]] + ' ' + record[options[0][1]];
+      dataset.set([ 'Result', rowLabel ], record.result);
     });
     return dataset;
   }
@@ -794,8 +795,8 @@ function parseDoubleGroupedInterval(){
     each(res.result, function(record, i){
       var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
       each(record['value'], function(value, j){
-        var label = String(value[options[0][0]]) + ' ' + String(value[options[0][1]]);
-        dataset.set([ String(label), String(index) ], value.result);
+        var label = value[options[0][0]] + ' ' + value[options[0][1]];
+        dataset.set([ label, index ], value.result);
       });
     });
     return dataset;
@@ -842,7 +843,7 @@ function parseExtraction(){
       .type('extraction');
     each(res.result, function(record, i){
       each(flatten(record), function(value, key){
-        dataset.set([String(key), String(i+1)], value);
+        dataset.set([ key, String(i+1) ], value);
       });
     });
     dataset.deleteColumn(0);
@@ -854,9 +855,6 @@ function parseExtraction(){
 (function(root){
   var Dataset = require('./dataset'),
       data = require('./data');
-  var libraries = {
-    'default': require('./libraries')(Dataviz)
-  };
   var each = require('./utils/each'),
       extend = require('./utils/extend'),
       isDateString = require('./utils/assert-date-string');
@@ -894,6 +892,29 @@ function parseExtraction(){
     };
     Dataviz.visuals.push(this);
   }
+  Dataviz.libraries = { 'default': {} };
+  if ('undefined' !== typeof window) {
+    Dataviz.libraries['default'] = require('./libraries')(Dataviz);
+  }
+  Dataviz.visuals = [];
+  Dataviz.register = function(name, actions){
+    Dataviz.libraries[name] = Dataviz.libraries[name] || {};
+    each(actions, function(method, key){
+      Dataviz.libraries[name][key] = method;
+    });
+  };
+  Dataviz.find = function(target){
+    if (!arguments.length) return Dataviz.visuals;
+    var el = target.nodeName ? target : document.querySelector(target),
+        match = null;
+    each(Dataviz.visuals, function(visual){
+      if (el == visual.el()){
+        match = visual;
+        return false;
+      }
+    });
+    return match;
+  };
   Dataviz.prototype.attributes = function(obj){
     if (!arguments.length) return this.view;
     var view = this.view;
@@ -1195,28 +1216,6 @@ function parseExtraction(){
   };
   Dataviz.prototype.initialize = function(){
     return this;
-  };
-  extend(Dataviz, {
-    libraries: libraries,
-    visuals: []
-  });
-  Dataviz.register = function(name, actions){
-    Dataviz.libraries[name] = Dataviz.libraries[name] || {};
-    each(actions, function(method, key){
-      Dataviz.libraries[name][key] = method;
-    });
-  };
-  Dataviz.find = function(target){
-    if (!arguments.length) return Dataviz.visuals;
-    var el = target.nodeName ? target : document.querySelector(target),
-        match = null;
-    each(Dataviz.visuals, function(visual){
-      if (el == visual.el()){
-        match = visual;
-        return false;
-      }
-    });
-    return match;
   };
   function buildDomWrapper(el, options){
     var html = '';
