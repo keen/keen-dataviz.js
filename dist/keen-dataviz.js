@@ -1289,10 +1289,18 @@ function parseExtraction(){
 module.exports = function(startDate, endDate){
   var timeDiff = Math.abs(new Date(startDate).getTime() - new Date(endDate).getTime());
   var months = [
-    'Jan', 'Feb', 'Mar',
-    'Apr', 'May', 'June',
-    'July', 'Aug', 'Sept',
-    'Oct', 'Nov', 'Dec'
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sept',
+    'Oct',
+    'Nov',
+    'Dec'
   ];
   if (timeDiff >= 2419200000) {
     return function(ms){
@@ -1529,22 +1537,28 @@ module.exports = function(cols){
 };
 },{"../../../utils/assert-date-string":23,"d3":30}],17:[function(require,module,exports){
 module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
-  var $$ = this, config = $$.config,
-      titleFormat = config.tooltip_format_title || defaultTitleFormat,
-      nameFormat = config.tooltip_format_name || function (name) { return name; },
-      valueFormat = config.tooltip_format_value || defaultValueFormat,
-      text, i, title, value, name, bgcolor;
+  var bgcolor,
+      name,
+      nameFormat,
+      text,
+      title,
+      titleFormat,
+      value,
+      valueFormat;
+  nameFormat = this.config.tooltip_format_name || function (name) { return name; };
+  titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
+  valueFormat = this.config.tooltip_format_value || defaultValueFormat;
   for (var i = 0; i < d.length; i++) {
     if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
     if (! text) {
       title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-      text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
+      text = "<table class='" + this.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
     }
     name = nameFormat(d[i].name);
     value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-    bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
+    bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
     if (value) {
-      text += "<tr class='" + $$.CLASS.tooltipName + "-" + d[i].id + "'>";
+      text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
       text +=   "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
       text +=   "<td class='value'>" + value + "</td>";
       text += "</tr>";
@@ -1561,9 +1575,9 @@ module.exports = {
         height = this.height() || 140;
     outer.className = this.theme();
     inner.className = this.theme() + '-message';
-    inner.style.height = String(height + 'px');
+    inner.style.height = height + 'px';
     inner.style.paddingTop = (height / 2 - 12) + 'px';
-    inner.style.width = String(this.width() + 'px');
+    inner.style.width = this.width() + 'px';
     msg.innerHTML = text || '';
     inner.appendChild(msg);
     outer.appendChild(inner);
