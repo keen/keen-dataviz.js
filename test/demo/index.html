@@ -2,18 +2,73 @@
 <html>
   <head>
     <title>Keen Dataviz Demo | Keen IO</title>
-    <link href='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' />
-    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
-
     <link rel="stylesheet" type="text/css" href="//cloud.typography.com/737368/747986/css/fonts.css" />
+    <link rel="stylesheet" href="./assets/keen-dashboards.css">
+    <style>
+    body {
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    h1 {
+      color: #282828;
+      font-weight: 200;
+      margin: 0;
+    }
+    h2 {
+      color: #4D4D4D;
+      font-size: 21px;
+      margin: 48px 0 24px;
+      text-transform: uppercase;
+    }
+    h3 {
+      color: #555;
+      font-size: 16px;
+      margin: 0 0 24px;
+    }
 
-    <!-- Safe, minimal layout -->
-    <link rel="stylesheet" href="./keen-dashboards.css">
+    /*.container {
+      margin: 0 auto;
+      max-width: 980px;
+    }*/
+    .demo-chart {
+      background: #fff;
+      margin: 0 auto;
+      /*padding: 10px;*/
+      width: 600px;
+    }
+    </style>
+    <style>
+      .custom-theme {
+        background: #fff;
+        border: 1px solid #d7d7d7;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .custom-theme-title {
+        border-bottom: 1px solid #d7d7d7;
+        border-radius: 5px 5px 0 0;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+      .custom-theme-notes {
+        background: #fbfbfb;
+        border-radius: 0 0 5px 5px;
+        border-top: 1px solid #d7d7d7;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+    </style>
 
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
     <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-0.0.5.min.js"></script>
     <script src="../dist/keen-dataviz.js"></script>
+
+    <script src="./assets/faker.js"></script>
   </head>
   <body onload="init()">
     <div class="container">
@@ -21,39 +76,39 @@
       <h1>Dataviz Examples</h1>
 
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4" id="nested">
+        <div class="keen-ui-col-4" id="nested">
           <h2>Metric</h2>
           <div class="chart-demo-metric"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <h2>Message</h2>
           <div class="chart-demo-message"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <h2>Spinner</h2>
           <div id="chart-demo-spinner"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-12">
+        <div class="keen-ui-col-12">
           <h2>Table</h2>
           <div class="chart-demo-table"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <h2>Gauge</h2>
           <div class="chart-c3-gauge"></div>
           <hr>
           <div class="chart-c3-gauge2"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <h2>Donut</h2>
           <div class="chart-c3-donut"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <h2>Pie</h2>
           <div class="chart-c3-pie"></div>
         </div>
@@ -65,26 +120,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-bar"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-bar-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-bar-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (yearly)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-bar-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-bar-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-bar-time-stacked"></div>
         </div>
       </div>
@@ -94,26 +149,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-line"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-line-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-line-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (daily)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-line-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-line-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-line-time-stacked"></div>
         </div>
       </div>
@@ -124,26 +179,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-spline"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-spline-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-spline-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (hourly)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-spline-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-spline-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-spline-time-stacked"></div>
         </div>
       </div>
@@ -155,26 +210,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (minutely)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-time-stacked"></div>
         </div>
       </div>
@@ -184,26 +239,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-spline"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-spline-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-spline-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries (secondly)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-spline-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-spline-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-spline-time-stacked"></div>
         </div>
       </div>
@@ -213,26 +268,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-step"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-step-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-step-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-step-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-step-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-area-step-time-stacked"></div>
         </div>
       </div>
@@ -242,26 +297,26 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-step"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-step-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-step-stacked"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-step-time"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-step-time-multi"></div>
         </div>
-        <div class="keen-ui-col keen-ui-col-4">
+        <div class="keen-ui-col-4">
           <div class="chart-c3-step-time-stacked"></div>
         </div>
       </div>
@@ -274,7 +329,11 @@
     </div>
 
     <script>
+    // setTimeout(init, 500);
+
     function init(){
+
+      var RAND_DATA_MAX = 50;
 
       var metricData = [
         [ 'Index', 'Value' ],
@@ -290,16 +349,51 @@
       // ];
 
       var groupedData = [
-        [ 'Index', 'First' ],
-        [ 'A', 189.98 ],
-        [ 'B', 135.83 ],
-        [ 'C', 124.56 ],
-        [ 'D', 117.22 ],
-        [ 'E', 55.12  ]
+        [ 'Index', 'Result' ],
+        [ faker.internet.url(), faker.internet.exampleEmail(), faker.internet.exampleEmail(), 189.98 ],
+        [ faker.internet.url(), 135.83 ],
+        [ faker.internet.url(), 124.56 ],
+        [ faker.internet.url(), 117.22 ],
+        [ faker.internet.url(), 55.12  ]
       ];
 
+      function makeGroupedDataset(){
+        var ds = new Dataset();
+        var len = rand(0, RAND_DATA_MAX);
+        for (var i = 0; i < len; i++) {
+          ds.appendRow(faker.internet.email(), [faker.random.number()]);
+        }
+        ds.appendRow('null', [faker.random.number()]);
+        return ds;
+      }
+
+      function makeGroupedIntervalDataset(){
+        var ds = new Dataset();
+        ds.matrix = [
+          [ 'Index' ],
+          [ '2015-12-01T10:56:00.000Z' ],
+          [ '2015-12-01T10:57:00.000Z' ],
+          [ '2015-12-01T10:58:00.000Z' ],
+          [ '2015-12-01T10:59:00.000Z' ],
+          [ '2015-12-01T11:00:00.000Z' ]
+        ];
+
+        var len = ds.selectColumn(0).length;
+        for (var i = 0; i < RAND_DATA_MAX; i++) {
+          var newCol = gen(len-1);
+          if (i > 0) {
+            ds.appendColumn(newCol[0], newCol.slice(1));
+          }
+          else {
+            // Inject a null value
+            ds.appendColumn('null', newCol.slice(1));
+          }
+        }
+        return ds;
+      }
+
       var groupedMultiData = [
-        [ 'Index', 'First', 'Second', 'Last'],
+        [ 'Index', faker.internet.url(), faker.internet.url(), faker.internet.url()],
         [ 'A', 189.98, 322.43, 654.44 ],
         [ 'B', 135.83, 564.21, 622.12 ],
         [ 'C', 124.56, 611.23, 432.11 ],
@@ -308,7 +402,7 @@
       ];
 
       var intervalData = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2014-12-01T00:00:00.000Z', 189.98 ],
         [ '2015-01-01T00:00:00.000Z', 135.83 ],
         [ '2015-02-01T00:00:00.000Z', 124.56 ],
@@ -317,7 +411,7 @@
       ];
 
       var intervalMultiData = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2014-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-02-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -329,7 +423,7 @@
       // Yearly dataset
 
       var intervalDataYearly = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2011-01-01T00:00:00.000Z', 189.98 ],
         [ '2012-01-01T00:00:00.000Z', 135.83 ],
         [ '2013-01-01T00:00:00.000Z', 124.56 ],
@@ -338,7 +432,7 @@
       ];
 
       var intervalMultiDataYearly = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2012-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2013-01-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -349,7 +443,7 @@
       // Secondly dataset
 
       var intervalDataSecondly = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T10:59:56.000Z', 189.98 ],
         [ '2015-12-01T10:59:57.000Z', 135.83 ],
         [ '2015-12-01T10:59:58.000Z', 124.56 ],
@@ -358,7 +452,7 @@
       ];
 
       var intervalMultiDataSecondly = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:59:56.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T10:59:57.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-01T10:59:58.000Z', 124.56, 611.23, 432.11 ],
@@ -369,7 +463,7 @@
       // Minutely dataset
 
       var intervalDataMinutely = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T10:56:00.000Z', 189.98 ],
         [ '2015-12-01T10:57:00.000Z', 135.83 ],
         [ '2015-12-01T10:58:00.000Z', 124.56 ],
@@ -378,7 +472,7 @@
       ];
 
       var intervalMultiDataMinutely = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:56:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T10:57:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-01T10:58:00.000Z', 124.56, 611.23, 432.11 ],
@@ -390,7 +484,7 @@
       // Hourly dataset
 
       var intervalDataHourly = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T10:00:00.000Z', 189.98 ],
         [ '2015-12-01T11:00:00.000Z', 135.83 ],
         [ '2015-12-01T12:00:00.000Z', 124.56 ],
@@ -399,7 +493,7 @@
       ];
 
       var intervalMultiDataHourly = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T11:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-01T12:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -414,7 +508,7 @@
       //   [ 'Index' ]
       // ];
       var intervalDataDaily = [
-        [ 'Index', 'First' ],
+        [ 'Index', 'Result' ],
         [ '2015-12-01T00:00:00.000Z', 189.98 ],
         [ '2015-12-02T00:00:00.000Z', 135.83 ],
         [ '2015-12-03T00:00:00.000Z', 124.56 ],
@@ -431,7 +525,7 @@
       //   [ '2015-12-05T00:00:00.000Z' ]
       // ];
       var intervalMultiDataDaily = [
-        [ 'Index', 'First', 'Second', 'Last' ],
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12 ],
         [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11 ],
@@ -534,18 +628,17 @@
       }, 1000);
 
       window.donut = new Dataviz()
-        // .height(200)
+        .height(300)
         .el('.chart-c3-donut')
         .title('Mmmm, donuts...')
         .type('donut')
         .chartOptions({})
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
       window.pie = new Dataviz()
-        // .height(200)
+        .height(300)
         .el('.chart-c3-pie')
         .title('Mmmm, pie...')
         .type('piechart')
@@ -563,13 +656,9 @@
         .height(300)
         .el('.chart-c3-bar')
         .title('Bar Chart')
-        .type('bar')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .type('horizontal-bar')
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
       window.barMulti = new Dataviz()
@@ -638,12 +727,8 @@
         .el('.chart-c3-line')
         .title('Line Chart')
         .type('line')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
         .render();
 
       window.lineMulti = new Dataviz()
@@ -682,9 +767,9 @@
         .el('.chart-c3-line-time-multi')
         .title('Line Chart')
         .type('line')
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataDaily;
-        })
+        .stacked(false)
+        .data(makeGroupedIntervalDataset())
+        .sortGroups('desc')
         .render();
 
       window.lineTimeMultiStacked = new Dataviz()
@@ -693,9 +778,8 @@
         .title('Line Chart')
         .type('linechart')
         .stacked(true)
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataDaily;
-        })
+        .data(makeGroupedIntervalDataset())
+        .sortGroups('desc')
         .render();
 
       // -------------------------
@@ -712,12 +796,7 @@
         .el('.chart-c3-spline')
         .title('Spline Chart')
         .type('spline')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.splineMulti = new Dataviz()
@@ -787,12 +866,7 @@
         .el('.chart-c3-area')
         .title('Area Chart')
         .type('area')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.areaMulti = new Dataviz()
@@ -831,9 +905,7 @@
         .el('.chart-c3-area-time-multi')
         .title('Area Chart')
         .type('area')
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataMinutely;
-        })
+        .data(makeGroupedIntervalDataset())
         .render();
 
       window.areaTimeMultiStacked = new Dataviz()
@@ -842,9 +914,7 @@
         .title('Area Chart')
         .type('areachart')
         .stacked(true)
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataMinutely;
-        })
+        .data(makeGroupedIntervalDataset())
         .render();
 
       // -------------------------
@@ -862,12 +932,7 @@
         .el('.chart-c3-area-spline')
         .title('Area-Spline Chart')
         .type('area-spline')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.areaSplineMulti = new Dataviz()
@@ -937,12 +1002,7 @@
         .el('.chart-c3-area-step')
         .title('Area-Step Chart')
         .type('area-step')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.areaStepMulti = new Dataviz()
@@ -1011,12 +1071,7 @@
         .el('.chart-c3-step')
         .title('Step Chart')
         .type('step')
-        // .chartOptions({
-        //   axis: { rotated: true }
-        // })
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
+        .data(makeGroupedDataset())
         .render();
 
       window.stepMulti = new Dataviz()
@@ -1075,66 +1130,19 @@
       // END STEP
       // -------------------------
 
+
+      function rand(a, b){
+        return Math.floor((Math.random() * b) + a);
+      }
+      function gen(n){
+        var arr = [ faker.internet.exampleEmail() ];
+        for (var i = 0; i < n; i++) {
+          arr.push(rand(0, 1000));
+        }
+        return arr;
+      }
+
     }
     </script>
-    <style>
-    body {
-      background: #f2f2f2;
-      padding: 20px;
-    }
-    h1, h2, h3 {
-      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    h1 {
-      color: #282828;
-      font-weight: 200;
-      margin: 0;
-    }
-    h2 {
-      color: #4D4D4D;
-      font-size: 21px;
-      margin: 48px 0 24px;
-      text-transform: uppercase;
-    }
-    h3 {
-      color: #555;
-      font-size: 16px;
-      margin: 0 0 24px;
-    }
-
-    /*.container {
-      margin: 0 auto;
-      max-width: 980px;
-    }*/
-    .demo-chart {
-      background: #fff;
-      margin: 0 auto;
-      /*padding: 10px;*/
-      width: 600px;
-    }
-    </style>
-    <style>
-      .custom-theme {
-        background: #fff;
-        border: 1px solid #d7d7d7;
-        border-radius: 5px;
-        box-sizing: border-box;
-      }
-      .custom-theme-title {
-        border-bottom: 1px solid #d7d7d7;
-        border-radius: 5px 5px 0 0;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 16px;
-        padding: 5px 10px;
-      }
-      .custom-theme-notes {
-        background: #fbfbfb;
-        border-radius: 0 0 5px 5px;
-        border-top: 1px solid #d7d7d7;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 11px;
-        padding: 5px 10px;
-      }
-    </style>
   </body>
 </html>

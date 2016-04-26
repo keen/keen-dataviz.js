@@ -24,7 +24,7 @@ gulp.task('default', ['build', 'connect', 'watch']);
 
 gulp.task('connect', ['build',], function () {
   return connect.server({
-      root: [ __dirname, 'test', 'test/unit', 'test/demo' ],
+      root: [ __dirname, 'test', 'test/unit', 'test/demo', 'test/nightwatch' ],
       port: 9002
     });
 });
@@ -145,7 +145,9 @@ gulp.task('test:sauce', ['build', 'test:browserify'], function(done){
 
 // ---------------------
 
-gulp.task('deploy', ['build', 'test:mocha', 'test:karma'], function() {
+gulp.task('deploy', ['build', 'test:mocha', 'test:karma', 'aws']);
+
+gulp.task('aws', ['build'], function() {
   var cacheLife, publisher, headers;
   if (!process.env.AWS_KEY || !process.env.AWS_SECRET) {
     throw 'AWS credentials are required!';

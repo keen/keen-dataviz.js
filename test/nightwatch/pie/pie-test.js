@@ -1,42 +1,21 @@
 module.exports = {
-  /*
-      var groupedData = [
-        [ 'Index', 'First' ],
-        [ 'A', 189.98 ],
-        [ 'B', 135.83 ],
-        [ 'C', 124.56 ],
-        [ 'D', 117.22 ],
-        [ 'E', 55.12  ]
-      ];
-
-      window.pie = new Dataviz()
-        // .height(200)
-        .el('.chart-c3-pie')
-        .title('Mmmm, pie...')
-        .type('piechart')
-        .call(function(){
-          this.dataset.matrix = groupedData;
-        })
-        .render();
-  */
-
   '@tags': ['c3', 'pie'],
-  'Donut test': function(browser) {
-    browser.url('http://localhost:9002/demo')
-      .waitForElementVisible('.chart-c3-pie', 1000);
+  'Pie test': function(browser) {
+    browser.url('http://localhost:9002/nightwatch/pie/pie_test.html')
+      .waitForElementVisible('.pie-chart', 1000);
 
     // Title test
-    browser.expect.element('.chart-c3-pie .keen-dataviz-title')
+    browser.expect.element('.pie-chart .keen-dataviz-title')
       .text.to.equal('Mmmm, pie...');
 
     // SVG Element presence test
-    browser.expect.element('.chart-c3-pie .c3 svg')
+    browser.expect.element('.pie-chart .c3 svg')
       .to.be.present.before(1000);
 
     // Number of arcs test
     browser
-      .elements('css selector', '.chart-c3-pie .c3-chart-arc', function(elem) {
-        this.assert.equal(elem.value.length, 5);
+      .elements('css selector', '.pie-chart .c3-chart-arc', function(elem) {
+        this.assert.equal(elem.value.length, 4);
     })
 
     // Arcs text test
@@ -44,6 +23,22 @@ module.exports = {
 
     // Arcs tooltip test
     // TODO
+
+    browser.end();
+  },
+
+  '@tags': ['c3', 'pie'],
+  'Pie test visibility threshold test': function(browser) {
+    browser.url('http://localhost:9002/nightwatch/pie/pie_test.html')
+      .waitForElementVisible('.pie-chart', 1000);
+
+    browser.expect.element('.pie-chart .c3 svg')
+      .to.be.present.before(1000);
+
+    browser
+      .elements('css selector', '.pie-chart-visibility-threshold .c3-chart-arc', function(elem) {
+        this.assert.equal(elem.value.length, 5);
+      })
 
     browser.end();
   }

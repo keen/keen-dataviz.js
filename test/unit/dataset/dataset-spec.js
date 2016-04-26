@@ -55,7 +55,7 @@ describe('Dataset', function(){
       this.ds.data([['Index']]);
       this.ds.set([1,1], 10);
       expect(this.ds.selectRow(1)).to.be.an('array')
-        .and.to.deep.equal([1, 10]);
+        .and.to.deep.equal(['1', 10]);
     });
 
     it('should create a column and row when they don\'t already exist (string)', function(){
@@ -71,13 +71,13 @@ describe('Dataset', function(){
       this.ds.set([2,2], 10);
       this.ds.set([1,3], 10);
       expect(this.ds.selectRow(1)).to.be.an('array')
-        .and.to.deep.equal([1, 10, null]);
+        .and.to.deep.equal(['1', 10, null]);
       expect(this.ds.selectRow(2)).to.be.an('array')
-        .and.to.deep.equal([2, null, 10]);
+        .and.to.deep.equal(['2', null, 10]);
       expect(this.ds.selectRow(3)).to.be.an('array')
-        .and.to.deep.equal([3, 10, null]);
+        .and.to.deep.equal(['3', 10, null]);
       expect(this.ds.selectColumn(2)).to.be.an('array')
-        .and.to.deep.equal([2, null, 10, null]);
+        .and.to.deep.equal(['2', null, 10, null]);
     });
 
     it('should create multiple columns and rows in the proper order (strings)', function(){
@@ -858,7 +858,7 @@ describe('Dataset', function(){
         .and.to.be.of.length(7);
       expect(dataset.data()[0]).to.be.of.length(3);
       expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('');
+      expect(dataset.data()[0][1]).to.eql('null');
       expect(dataset.data()[0][2]).to.eql('Windows Vista');
       expect(dataset.type()).to.eql('grouped-interval');
     });
