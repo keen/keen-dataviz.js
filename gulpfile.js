@@ -24,7 +24,7 @@ gulp.task('default', ['build', 'connect', 'watch']);
 
 gulp.task('connect', ['build',], function () {
   return connect.server({
-      root: [ __dirname, 'test', 'test/unit', 'test/demo' ],
+      root: [ __dirname, 'test', 'test/unit', 'test/demo', 'test/nightwatch' ],
       port: 9002
     });
 });
