@@ -1,3 +1,17 @@
+<a name="1.0.0"></a>
+# 1.0.0 Paginating legend + performance improvements
+
+**CHANGED:**
+* Legends are right-aligned by default (#22)
+
+**NEW:**
+* C3.js and D3.js are now bundled with the library (#34)
+* Legends now paginate through large datasets
+* Legend items are truncated and display a small popup on hover
+* Tooltips only show data displayed in the legend
+* Color is only applied to data displayed in the legend
+
+
 <a name="0.0.8"></a>
 # 0.0.8 Bug fixes and improvements
 
