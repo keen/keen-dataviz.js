@@ -62,7 +62,6 @@
 
 /* METRIC */
 .keen-dataviz .keen-dataviz-metric {
-  background-color: var(--teal);
   border-radius: 4px;
   color: var(--white);
   font-family: var(--font-family-primary);
