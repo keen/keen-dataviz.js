@@ -894,6 +894,7 @@ function parseExtraction(){
         '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'
       ],
       colorMapping: {},
+      dateFormat: undefined,
       el: undefined,
       height: undefined,
       indexBy: 'timeframe.start',
@@ -981,6 +982,16 @@ function parseExtraction(){
     return this;
   };
   Dataviz.prototype.data = data;
+  Dataviz.prototype.dateFormat = function(val){
+    if (!arguments.length) return this.view.dateFormat;
+    if (typeof val === 'string' || typeof val === 'function') {
+      this.view.dateFormat = val;
+    }
+    else {
+      this.view.dateFormat = undefined;
+    }
+    return this;
+  };
   Dataviz.prototype.destroy = function(){
     var library = this.library(),
         type = this.type(),
@@ -1902,7 +1913,7 @@ function defineC3(){
             options.axis.x = options.axis.x || {};
             options.axis.x.type = 'timeseries';
             options.axis.x.tick = options.axis.x.tick || {
-              format: c3DefaultDateFormat(this.data()[1][0], this.data()[2][0]),
+              format: this.dateFormat() || c3DefaultDateFormat(this.data()[1][0], this.data()[2][0]),
               culling: { max: 5 }
             };
             options.data.columns[0] = [];
