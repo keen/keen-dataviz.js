@@ -29,6 +29,33 @@ describe('Dataviz', function(){
 
   describe('.data()', function(){
 
+    it('should set title and type from saved query body', function(){
+      this.dataviz
+        .data({
+          result: 123,
+          metadata: {
+            display_name: 'test',
+            visualization: { chart_type: 'metric' }
+          }
+        });
+      expect(this.dataviz.title()).to.eql('test');
+      expect(this.dataviz.type()).to.eql('metric');
+    });
+    it('should not set title and type from saved query body when already set', function(){
+      this.dataviz
+        .title('Already set')
+        .type('table')
+        .data({
+          result: 123,
+          metadata: {
+            display_name: 'test',
+            visualization: { chart_type: 'metric' }
+          }
+        });
+      expect(this.dataviz.title()).to.eql('Already set');
+      expect(this.dataviz.type()).to.eql('table');
+    });
+
     it('should parse \'metric\' data and set the correct type', function(){
       this.dataviz.data(data_metric);
       expect(this.dataviz.type()).to.eql('metric');

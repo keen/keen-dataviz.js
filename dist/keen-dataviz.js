@@ -14,12 +14,15 @@ module.exports = function(data){
 function parseResponse(response){
   var dataset,
       indexBy,
+      meta,
       parser,
       parserArgs = [],
       query,
       selectedParser,
+      title,
       type;
   indexBy = this.indexBy() ? this.indexBy() : 'timestamp.start';
+  meta = response.metadata || {};
   query = (typeof response.query !== 'undefined') ? response.query : {};
   query = extend({
     analysis_type: null,
@@ -100,31 +103,20 @@ function parseResponse(response){
     }
   }
   if (!this.title()) {
-    this.title(getDefaultTitle(query));
+    if (meta.display_name) {
+      title = meta.display_name;
+    }
+    else {
+      title = getDefaultTitle(query);
+    }
+    this.title(title);
   }
   if (!this.type()) {
-    switch (parser) {
-      case 'metric':
-        type = 'metric';
-        break;
-      case 'interval':
-        type = 'area';
-        break;
-      case 'grouped-metric':
-      case 'double-grouped-metric':
-        type = 'bar';
-        break;
-      case 'grouped-interval':
-      case 'double-grouped-interval':
-        type = 'line';
-        break;
-      case 'funnel':
-        type = 'horizontal-bar';
-        break;
-      case 'list':
-      case 'extraction':
-      default:
-        type = 'table';
+    if (meta.visualization && meta.visualization.chart_type) {
+      type = meta.visualization.chart_type;
+    }
+    else {
+      type = getDefaultType(parser);
     }
     this.type(type);
   }
@@ -148,6 +140,33 @@ function getDefaultTitle(query){
     title += ' - ' + query.event_collection;
   }
   return title;
+}
+function getDefaultType(parser){
+  var type;
+  switch (parser) {
+    case 'metric':
+      type = 'metric';
+      break;
+    case 'interval':
+      type = 'area';
+      break;
+    case 'grouped-metric':
+    case 'double-grouped-metric':
+      type = 'bar';
+      break;
+    case 'grouped-interval':
+    case 'double-grouped-interval':
+      type = 'line';
+      break;
+    case 'funnel':
+      type = 'horizontal-bar';
+      break;
+    case 'list':
+    case 'extraction':
+    default:
+      type = 'table';
+  }
+  return type;
 }
 },{"./dataset":2,"./utils/extend":26}],2:[function(require,module,exports){
 (function (global){
