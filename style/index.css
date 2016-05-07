@@ -1,3 +1,5 @@
+@import "c3/c3.css";
+
 :root {
   --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
   --font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -60,7 +62,6 @@
 
 /* METRIC */
 .keen-dataviz .keen-dataviz-metric {
-  background-color: var(--teal);
   border-radius: 4px;
   color: var(--white);
   font-family: var(--font-family-primary);
@@ -139,8 +140,75 @@
   transition: top .1s;
 }
 
+.keen-dataviz .keen-spinner-container {
+  box-sizing: border-box;
+  display: block;
+  height: 50px;
+  margin: 0 auto;
+  position: relative;
+  width: 35px;
+}
+.keen-dataviz .keen-spinner-indicator {
+  border-radius: 100%;
+  border: 3px solid rgba(0, 0, 0, .1);
+  border-top-color: rgba(0, 0, 0, .45);
+  box-sizing: border-box;
+  height: 35px;
+  width: 35px;
+  -webkit-animation:spin .7s linear infinite;
+  -moz-animation:spin .7s linear infinite;
+  animation:spin .7s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
 /* C3 CUSTOMIZATIONS */
 .keen-dataviz .c3 svg,
 .keen-dataviz .c3-tooltip-container {
   font-family: var(--font-family-primary);
+}
+.keen-dataviz .c3-tooltip-container th {
+  font-size: 12px;
+  max-width: 280px;
+  word-wrap: break-word;
+}
+.keen-dataviz .c3-tooltip-container td {
+  font-size: 11px;
+  max-width: 280px;
+  word-wrap: break-word;
+}
+.keen-dataviz .c3-tooltip-container td.name span {
+  border-radius: 50%;
+}
+.keen-dataviz .c3-chart-arc text {
+  font-size: 11px;
+}
+
+/* CUSTOM LEGEND */
+.keen-c3-legend {
+  position: absolute;
+  top: 0;
+}
+
+.keen-c3-legend-label-overlay {
+  background: color(var(--white) alpha(-10%));
+  box-shadow: 0 1px 1px color(var(--black) alpha(-90%));
+  font-family: var(--font-family-primary);
+  font-size: 11px;
+  padding: 10px;
+  position: absolute;
+  word-wrap: break-word;
+  z-index: 2;
+}
+.keen-c3-legend-label-overlay-pointer {
+  border-color: transparent transparent var(--white) transparent;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  height: 0;
+  position: absolute;
+  right: 90px;
+  top: -10px;
+  width: 0;
 }

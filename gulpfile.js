@@ -145,7 +145,9 @@ gulp.task('test:sauce', ['build', 'test:browserify'], function(done){
 
 // ---------------------
 
-gulp.task('deploy', ['build', 'test:mocha', 'test:karma'], function() {
+gulp.task('deploy', ['build', 'test:mocha', 'test:karma', 'aws']);
+
+gulp.task('aws', ['build'], function() {
   var cacheLife, publisher, headers;
   if (!process.env.AWS_KEY || !process.env.AWS_SECRET) {
     throw 'AWS credentials are required!';

@@ -2,7 +2,7 @@
   "name": "keen-dataviz",
   "description": "Data Visualization SDK for Keen IO",
   "license": "MIT",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "style": "style/index.css",
   "repository": {
@@ -22,13 +22,14 @@
     "node": "4.0.x"
   },
   "dependencies": {
-    "spin.js": "^2.3.2"
+    "c3": "^0.4.10",
+    "d3": "^3.5.0"
   },
   "devDependencies": {
     "browserify": "^12.0.1",
     "chai": "^3.4.0",
     "chai-dom": "^1.4.0",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.1",
     "gulp-awspublish": "^3.0.1",
     "gulp-connect": "^2.2.0",
     "gulp-less": "^3.0.3",
