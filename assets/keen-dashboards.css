@@ -1,0 +1,370 @@
+/*
+  Important: all definitions must begin with a '.' class,
+  and will be auto-prefixed with '.keen-dashboard'
+*/
+
+/* WRAPPER */
+
+.keen-dataviz {
+  box-sizing: border-box;
+}
+
+.keen-dataviz .keen-dataviz-title {
+  color: #4D4D4D;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 32px;
+}
+
+.keen-dataviz .keen-dataviz-stage {
+  display: block;
+}
+
+.keen-dataviz .keen-dataviz-notes {
+  color: #808080;
+  display: block;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 32px;
+}
+
+/* MESSAGE */
+
+.keen-dataviz .keen-dataviz-message {
+  color: #808080;
+  display: block;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 24px;
+  text-align: center;
+}
+
+/* METRIC */
+
+.keen-dataviz .keen-dataviz-metric {
+  background-color: #00BBDE;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.keen-dataviz .keen-dataviz-metric-value {
+  display: block;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 72px;
+}
+
+.keen-dataviz .keen-dataviz-metric-title {
+  display: block;
+  font-size: 24px;
+  font-weight: 200;
+  line-height: 24px;
+  padding-top: 8px;
+}
+
+.keen-dataviz .keen-dataviz-metric-prefix {}
+
+.keen-dataviz .keen-dataviz-metric-suffix {}
+
+/* MESSAGE */
+
+.keen-dataviz .keen-dataviz-message {
+  box-sizing: border-box;
+}
+
+/* TABLE */
+
+.keen-dataviz .keen-dataviz-table {
+  border-bottom: 1px solid #E7E7E7;
+  box-sizing: border-box;
+  overflow: scroll;
+  position: relative;
+}
+
+.keen-dataviz .keen-dataviz-table table {
+  background: #FFFFFF;
+  border-collapse: collapse;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  position: relative;
+  width: 100%;
+}
+
+.keen-dataviz .keen-dataviz-table th,
+.keen-dataviz .keen-dataviz-table td {
+  border-collapse: collapse;
+  font-size: 13px;
+  padding: 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.keen-dataviz .keen-dataviz-table th {
+  border-bottom: 1px solid #E7E7E7;
+  color: #4D4D4D;
+}
+
+.keen-dataviz .keen-dataviz-table td {
+  background-color: #FFFFFF;
+  color: #4D4D4D;
+  -webkit-transition: background-color 0.1s, color 0.05s;
+  transition: background-color 0.1s, color 0.05s;
+}
+
+.keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
+  background-color: #F3F5F6;
+}
+
+.keen-dataviz .keen-dataviz-table tr:hover td {
+  background-color: #E7E7E7;
+  color: #4D4D4D;
+}
+
+.keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
+  visibility: hidden;
+}
+
+.keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid rgba(0,0,0,.15);
+  position: absolute;
+  top: 0;
+  -webkit-transition: top .1s;
+  transition: top .1s;
+}
+
+/* C3 CUSTOMIZATIONS */
+
+.keen-dataviz .c3 svg,
+.keen-dataviz .c3-tooltip-container {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.keen-dataviz .c3-tooltip-container th {
+  font-size: 12px;
+  max-width: 280px;
+  word-wrap: break-word;
+}
+
+.keen-dataviz .c3-tooltip-container td {
+  font-size: 11px;
+  max-width: 280px;
+  word-wrap: break-word;
+}
+
+.keen-dataviz .c3-tooltip-container td.name span {
+  border-radius: 50%;
+}
+
+.keen-dataviz .c3-chart-arc text {
+  font-size: 11px;
+}
+
+/* CUSTOM LEGEND */
+
+.keen-c3-legend {
+  position: absolute;
+  top: 0;
+}
+
+.keen-c3-legend-label-overlay {
+  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 1px rgba(26, 26, 26, 0.09999999999999998);
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  padding: 10px;
+  position: absolute;
+  word-wrap: break-word;
+  z-index: 2;
+}
+
+.keen-c3-legend-label-overlay-pointer {
+  border-color: transparent transparent #FFFFFF transparent;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  height: 0;
+  position: absolute;
+  right: 90px;
+  top: -10px;
+  width: 0;
+}
+
+/* Dark brand-blue #536779 */
+
+/*! Tile Container */
+
+.keen-dashboard-rows {}
+
+/*! Tile Rows */
+
+.keen-dashboard-row {
+}
+
+.keen-dashboard-row-tiles {
+}
+
+.keen-dashboard-row-title {
+  color: #4D4D4D;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 40px;
+  padding: 10px 0 0;
+}
+
+/*! Keen UI */
+
+.keen-ui-row {
+  margin: 0 -10px;
+}
+
+.keen-ui-row:after,
+.keen-ui-row:before {
+  content: " ";
+  display: table;
+}
+
+.keen-ui-row:after {
+  clear: both;
+}
+
+/*! Tiles */
+
+.keen-ui-col-1, .keen-ui-col-2,
+.keen-ui-col-3, .keen-ui-col-4,
+.keen-ui-col-5, .keen-ui-col-6,
+.keen-ui-col-7, .keen-ui-col-8,
+.keen-ui-col-9, .keen-ui-col-10,
+.keen-ui-col-11, .keen-ui-col-12 {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+@media (min-width: 52em) {
+  .keen-ui-col-1, .keen-ui-col-2,
+  .keen-ui-col-3, .keen-ui-col-4,
+  .keen-ui-col-5, .keen-ui-col-6,
+  .keen-ui-col-7, .keen-ui-col-8,
+  .keen-ui-col-9, .keen-ui-col-10,
+  .keen-ui-col-11, .keen-ui-col-12 {
+    float: left;
+  }
+
+  /*! Grid units */
+  .keen-ui-col-1 {
+    width: 8.33333%;
+  }
+  .keen-ui-col-2 {
+    width: 16.66667%;
+  }
+  .keen-ui-col-3 {
+    width: 25%;
+  }
+  .keen-ui-col-4 {
+    width: 33.33333%;
+  }
+  .keen-ui-col-5 {
+    width: 41.66667%;
+  }
+  .keen-ui-col-6 {
+    width: 50%;
+  }
+  .keen-ui-col-7 {
+    width: 58.33333%;
+  }
+  .keen-ui-col-8 {
+    width: 66.66667%;
+  }
+  .keen-ui-col-9 {
+    width: 75%;
+  }
+  .keen-ui-col-10 {
+    width: 83.33333%;
+  }
+  .keen-ui-col-11 {
+    width: 91.66667%;
+  }
+  .keen-ui-col-12 {
+    width: 100%;
+  }
+
+  /*! Grid offset units */
+  .keen-ui-col-offset-1 {
+    margin-left: 8.33333%;
+  }
+  .keen-ui-col-offset-2 {
+    margin-left: 16.66667%;
+  }
+  .keen-ui-col-offset-3 {
+    margin-left: 25%;
+  }
+  .keen-ui-col-offset-4 {
+    margin-left: 33.33333%;
+  }
+
+  /*! No offsets > 4 grid units */
+}
+
+.keen-dashboard .keen-dataviz {
+  background: #FFFFFF;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-sizing: border-box;
+}
+
+.keen-dashboard .keen-dataviz-title {
+  border-bottom: 1px solid #E7E7E7;
+  border-radius: 2px 2px 0 0;
+  font-size: 12px;
+  padding: 0 10px;
+}
+
+.keen-dashboard .keen-dataviz-stage {
+  padding: 10px;
+}
+
+.keen-dashboard .keen-dataviz-notes {
+  background: #FBFBFB;
+  border-radius: 0 0 2px 2px;
+  border-top: 1px solid #E7E7E7;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  padding: 5px 10px;
+}
+
+.keen-dashboard .keen-dataviz .keen-dataviz-metric {
+  border-radius: 2px;
+}
+
+/*! Viewer app styles */
+
+.keen-dashboard {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0 0 10px;
+}
+
+.keen-dashboard *,
+.keen-dashboard *:after,
+.keen-dashboard *:before {
+  box-sizing: border-box;
+}
+
+.keen-dashboard-title {
+  color: #1A1A1A;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 40px;
+  margin: 0;
+}
+
+.keen-dashboard-notes {
+  color: #808080;
+  font-size: 12px;
+  font-weight: 200;
+  line-height: 20px;
+  padding: 20px 0 0;
+}
