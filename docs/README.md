@@ -4,33 +4,58 @@
 
 Create a new Dataviz instance. This `chart` variable will be used throughout this guide as a reference to a `Dataviz` instance.
 
-```javascript
-var chart = new Keen.Dataviz()
-  .el('#my-chart')
-  .height(500)
-  .colors(['red', 'orange', 'green'])
-  .sortGroups('desc')
-  .prepare();
+```html
+<html>
+  <head>
+    <!-- Use keen-analysis.js to fetch query results -->
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.1.0.js"></script>
 
-// Use keen-analysis.js to run queries and handle responses
-var req = client.run(query, function(err, res){
-  if (err) {
-    chart.error(err.message);
-  }
-  else {
-    chart
-      .data(res)
-      .title('New Customers per Week')
-      .render();
-  }
-});
+    <!-- Dataviz dependencies -->
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.0.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.0.js"></script>
+  </head>
+  <body>
+    <!-- DOM Element -->
+    <div id='my-chart-div'></div>
 
-// lets update this chart every 10 seconds
-setInterval(function(){
-  chart.prepare(); // restart the spinner
-  req.refresh();
-}, 10*1000);
+    <!-- Create and Render -->
+    <script>
+      var chart = new Dataviz()
+        .el('#my-chart-div')
+        .colors(['red', 'orange', 'green'])
+        .height(500)
+        .title('New Customers per Week')
+        .type('metric')
+        .prepare();
 
+
+      // Use keen-analysis.js to run a query
+      // and pass the result into your chart:
+      var client = new Keen({
+        projectId: 'YOUR_PROJECT_ID',
+        readKey: 'YOUR_READ_KEY'
+      });
+
+      client
+        .query('count', {
+          event_collection: 'pageviews',
+          timeframe: 'this_14_days',
+          interval: 'daily'
+        })
+        .then(function(res){
+          // Handle the result
+          chart
+            .data(res)
+            .render();
+        })
+        .catch(function(err){
+          // Handle the error
+          chart
+            .message(err.message);
+        });
+    </script>
+  </body>
+</html>
 ```
 
 ## Chart types
@@ -165,6 +190,24 @@ chart.data();
 
 // Check out what 'type' we have set:
 chart.type(); // 'metric' for this example
+```
+
+### .dateFormat()
+
+Date formatting is possible by passing either a string or function to `dateFormat`. In either case, this value will be set as the `axis.x.tick.format` configuration property. As a built-in feature of C3.js, functions are used as an iterator, receiving the date for each interval in milliseconds.
+
+```javascript
+// Use a string template
+chart.dateFormat('%Y-%m');
+
+// .. or a function
+chart.dateFormat(function(ms){
+  var date = new Date(ms);
+  return date.getFullYear();
+});
+
+// Return current setting
+chart.dateFormat();
 ```
 
 ### .destroy()

@@ -32,7 +32,7 @@ If you haven't done so already, login to Keen IO to create a project. The Projec
 
 There are several breaking changes and deprecations from [keen-js](https://github.com/keen/keen-js).
 
-* **Dependencies:** [keen-js](https://github.com/keen/keen-js) automatically loads visualization dependencies into the page. This was great for some users, but caused headaches for others. This SDK does no such thing. Default visualizations are powered by C3.js and D3.js. These dependencies must be manually included prior to rendering a visualization.
+* **client.draw() is not part of this SDK – check out [keen-analysis.js](https://github.com/keen/keen-analysis.js) for fetching query results**
 * **Method removal:** the following methods are no longer necessary, and so they have been removed entirely:
     * `.parseRequest()`: this is now handled by `.data()` (learn more)
     * `.dataType()`
@@ -74,14 +74,12 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 ```html
 <html>
   <head>
-    <!-- Dependencies -->
-    <link href='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css' rel='stylesheet' />
-    <script src='//cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js'></script>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js'></script>
+    <!-- Use keen-analysis.js to fetch query results -->
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.1.0.js"></script>
 
-    <!-- Keen.Dataviz -->
-    <link href='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.0.css' rel='stylesheet' />
-    <script src='//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.0.js'></script>
+    <!-- Dataviz dependencies -->
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.0.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.0.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -89,20 +87,39 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
     <!-- Create and Render -->
     <script>
-    var chart = new Dataviz()
-      .el('#my-chart-div')
-      .colors(['red', 'orange', 'green'])
-      .height(500)
-      .title('New Customers per Week')
-      .type('metric')
-      .prepare();
+      var chart = new Dataviz()
+        .el('#my-chart-div')
+        .colors(['red', 'orange', 'green'])
+        .height(500)
+        .title('New Customers per Week')
+        .type('metric')
+        .prepare();
 
-   // Make async request to Keen API, then:
-   chart
-      .data({
-         result: 2450
-      })
-      .render();
+
+      // Use keen-analysis.js to run a query
+      // and pass the result into your chart:
+      var client = new Keen({
+        projectId: 'YOUR_PROJECT_ID',
+        readKey: 'YOUR_READ_KEY'
+      });
+
+      client
+        .query('count', {
+          event_collection: 'pageviews',
+          timeframe: 'this_14_days',
+          interval: 'daily'
+        })
+        .then(function(res){
+          // Handle the result
+          chart
+            .data(res)
+            .render();
+        })
+        .catch(function(err){
+          // Handle the error
+          chart
+            .message(err.message);
+        });
     </script>
   </body>
 </html>
