@@ -218,12 +218,19 @@ Destroy a visualization and remove all rendered DOM elements.
 chart.destroy();
 ```
 
-### .el(DOMElement)
+### .el(DOMSelector)
 
 Put this awesome chart somewhere!
 
 ```javascript
-chart.el(document.getElementById('myChart'));
+// Pass in a selector
+chart.el('#my-chart');
+
+// ..or a DOM node
+chart.el(document.getElementById('my-chart'));
+
+// Return current element
+chart.el();
 ```
 
 ### .height(number)
