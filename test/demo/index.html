@@ -3,76 +3,36 @@
   <head>
     <title>Keen Dataviz Demo | Keen IO</title>
     <link rel="stylesheet" type="text/css" href="//cloud.typography.com/737368/747986/css/fonts.css" />
-    <link rel="stylesheet" href="./assets/keen-dashboards.css">
-    <style>
-    body {
-      background: #f2f2f2;
-      padding: 20px;
-    }
-    h1, h2, h3 {
-      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    h1 {
-      color: #282828;
-      font-weight: 200;
-      margin: 0;
-    }
-    h2 {
-      color: #4D4D4D;
-      font-size: 21px;
-      margin: 48px 0 24px;
-      text-transform: uppercase;
-    }
-    h3 {
-      color: #555;
-      font-size: 16px;
-      margin: 0 0 24px;
-    }
-
-    /*.container {
-      margin: 0 auto;
-      max-width: 980px;
-    }*/
-    .demo-chart {
-      background: #fff;
-      margin: 0 auto;
-      /*padding: 10px;*/
-      width: 600px;
-    }
-    </style>
-    <style>
-      .custom-theme {
-        background: #fff;
-        border: 1px solid #d7d7d7;
-        border-radius: 5px;
-        box-sizing: border-box;
-      }
-      .custom-theme-title {
-        border-bottom: 1px solid #d7d7d7;
-        border-radius: 5px 5px 0 0;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 16px;
-        padding: 5px 10px;
-      }
-      .custom-theme-notes {
-        background: #fbfbfb;
-        border-radius: 0 0 5px 5px;
-        border-top: 1px solid #d7d7d7;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 11px;
-        padding: 5px 10px;
-      }
-    </style>
+    <link rel="stylesheet" href="./assets/keen-dashboards.css" />
+    <link rel="stylesheet" href="./assets/demo-styles.css" />
 
     <link rel="stylesheet" href="../dist/keen-dataviz.css">
     <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-0.0.5.min.js"></script>
     <script src="../dist/keen-dataviz.js"></script>
 
     <script src="./assets/faker.js"></script>
-  </head>
-  <body onload="init()">
-    <div class="container">
 
+    <!-- THEMES -->
+    <link rel="stylesheet" href="./themes/default.css" />
+    <link rel="stylesheet" href="./themes/dashboard.css" />
+    <link rel="stylesheet" href="./themes/blackout.css" />
+  </head>
+  <body class="demo-theme-default" onload="init()">
+
+    <div id="theme-selector">
+      <label class="keen-ui-label" for="dataviz-theme-selector">
+        Select a theme
+      </label>
+      <div class="keen-ui-select">
+        <select id="dataviz-theme-selector">
+          <option value="default">Default</option>
+          <option value="dashboard">Dashboard</option>
+          <option value="blackout">Blackout</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="container">
       <h1>Dataviz Examples</h1>
 
       <div class="keen-ui-row">
@@ -101,8 +61,6 @@
         <div class="keen-ui-col-4">
           <h2>Gauge</h2>
           <div class="chart-c3-gauge"></div>
-          <hr>
-          <div class="chart-c3-gauge2"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Donut</h2>
@@ -329,9 +287,12 @@
     </div>
 
     <script>
-    // setTimeout(init, 500);
-
     function init(){
+
+      var themeSelector = document.getElementById('dataviz-theme-selector');
+      themeSelector.onchange = function(e){
+        document.body.className = 'demo-theme-' + e.target.value;
+      };
 
       var RAND_DATA_MAX = 50;
 
@@ -590,10 +551,10 @@
       }, 1 * 1000);
 
       window.gauge = new Dataviz()
-        .height(160)
+        .height(300)
         .el('.chart-c3-gauge')
         .title('Percentage of awesome')
-        .theme('custom-theme')
+        // .theme('custom-theme')
         .notes('Sample notes go down here')
         .type('gauge')
         // .chartOptions({})
@@ -602,30 +563,29 @@
         })
         .render();
 
-      window.gauge2 = new Dataviz()
-        .height(160)
-        .el('.chart-c3-gauge2')
-        .title('Percentage of awesome')
-        .notes('Sample notes go down here')
-        .type('gauge')
-        .chartOptions({
-          color: {
-            pattern: ['#fe6672', '#ff855c', '#73d483'],
-            threshold: {
-              values: [25, 50, 75]
-            }
-          }
-        })
-        .call(function(){
-          this.dataset.matrix = gaugeData;
-        })
-        .render();
-
-      setInterval(function(){
-        window.gauge2.call(function(){
-          this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
-        }).render();
-      }, 1000);
+      // window.gauge2 = new Dataviz()
+      //   .height(160)
+      //   .el('.chart-c3-gauge2')
+      //   .title('Percentage of awesome')
+      //   .notes('Sample notes go down here')
+      //   .type('gauge')
+      //   .chartOptions({
+      //     color: {
+      //       pattern: ['#fe6672', '#ff855c', '#73d483'],
+      //       threshold: {
+      //         values: [25, 50, 75]
+      //       }
+      //     }
+      //   })
+      //   .call(function(){
+      //     this.dataset.matrix = gaugeData;
+      //   })
+      //   .render();
+      // setInterval(function(){
+      //   window.gauge2.call(function(){
+      //     this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
+      //   }).render();
+      // }, 1000);
 
       window.donut = new Dataviz()
         .height(300)

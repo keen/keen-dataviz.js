@@ -3,6 +3,189 @@
   and will be auto-prefixed with '.keen-dashboard'
 */
 
+/*-- Chart --*/
+
+.c3 svg {
+  font: 10px sans-serif;
+  -webkit-tap-highlight-color: transparent; }
+
+.c3 path, .c3 line {
+  fill: none;
+  stroke: #000; }
+
+.c3 text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none; }
+
+.c3-legend-item-tile,
+.c3-xgrid-focus,
+.c3-ygrid,
+.c3-event-rect,
+.c3-bars path {
+  shape-rendering: crispEdges; }
+
+.c3-chart-arc path {
+  stroke: #fff; }
+
+.c3-chart-arc text {
+  fill: #fff;
+  font-size: 13px; }
+
+/*-- Axis --*/
+
+/*-- Grid --*/
+
+.c3-grid line {
+  stroke: #aaa; }
+
+.c3-grid text {
+  fill: #aaa; }
+
+.c3-xgrid, .c3-ygrid {
+  stroke-dasharray: 3 3; }
+
+/*-- Text on Chart --*/
+
+.c3-text.c3-empty {
+  fill: #808080;
+  font-size: 2em; }
+
+/*-- Line --*/
+
+.c3-line {
+  stroke-width: 1px; }
+
+/*-- Point --*/
+
+.c3-circle._expanded_ {
+  stroke-width: 1px;
+  stroke: white; }
+
+.c3-selected-circle {
+  fill: white;
+  stroke-width: 2px; }
+
+/*-- Bar --*/
+
+.c3-bar {
+  stroke-width: 0; }
+
+.c3-bar._expanded_ {
+  fill-opacity: 0.75; }
+
+/*-- Focus --*/
+
+.c3-target.c3-focused {
+  opacity: 1; }
+
+.c3-target.c3-focused path.c3-line, .c3-target.c3-focused path.c3-step {
+  stroke-width: 2px; }
+
+.c3-target.c3-defocused {
+  opacity: 0.3 !important; }
+
+/*-- Region --*/
+
+.c3-region {
+  fill: steelblue;
+  fill-opacity: .1; }
+
+/*-- Brush --*/
+
+.c3-brush .extent {
+  fill-opacity: .1; }
+
+/*-- Select - Drag --*/
+
+/*-- Legend --*/
+
+.c3-legend-item {
+  font-size: 12px; }
+
+.c3-legend-item-hidden {
+  opacity: 0.15; }
+
+.c3-legend-background {
+  opacity: 0.75;
+  fill: white;
+  stroke: lightgray;
+  stroke-width: 1; }
+
+/*-- Title --*/
+
+.c3-title {
+  font: 14px sans-serif; }
+
+/*-- Tooltip --*/
+
+.c3-tooltip-container {
+  z-index: 10; }
+
+.c3-tooltip {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  empty-cells: show;
+  box-shadow: 7px 7px 12px -9px #777777;
+  opacity: 0.9; }
+
+.c3-tooltip tr {
+  border: 1px solid #CCC; }
+
+.c3-tooltip th {
+  background-color: #aaa;
+  font-size: 14px;
+  padding: 2px 5px;
+  text-align: left;
+  color: #FFF; }
+
+.c3-tooltip td {
+  font-size: 13px;
+  padding: 3px 6px;
+  background-color: #fff;
+  border-left: 1px dotted #999; }
+
+.c3-tooltip td > span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px; }
+
+.c3-tooltip td.value {
+  text-align: right; }
+
+/*-- Area --*/
+
+.c3-area {
+  stroke-width: 0;
+  opacity: 0.2; }
+
+/*-- Arc --*/
+
+.c3-chart-arcs-title {
+  dominant-baseline: middle;
+  font-size: 1.3em; }
+
+.c3-chart-arcs .c3-chart-arcs-background {
+  fill: #e0e0e0;
+  stroke: none; }
+
+.c3-chart-arcs .c3-chart-arcs-gauge-unit {
+  fill: #000;
+  font-size: 16px; }
+
+.c3-chart-arcs .c3-chart-arcs-gauge-max {
+  fill: #777; }
+
+.c3-chart-arcs .c3-chart-arcs-gauge-min {
+  fill: #777; }
+
+.c3-chart-arc .c3-gauge-value {
+  fill: #000;
+  /*  font-size: 28px !important;*/ }
+
 /* WRAPPER */
 
 .keen-dataviz {
@@ -44,7 +227,6 @@
 /* METRIC */
 
 .keen-dataviz .keen-dataviz-metric {
-  background-color: #00BBDE;
   border-radius: 4px;
   color: #FFFFFF;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -137,6 +319,30 @@
   transition: top .1s;
 }
 
+.keen-dataviz .keen-spinner-container {
+  box-sizing: border-box;
+  display: block;
+  height: 50px;
+  margin: 0 auto;
+  position: relative;
+  width: 35px;
+}
+
+.keen-dataviz .keen-spinner-indicator {
+  border-radius: 100%;
+  border: 3px solid rgba(0, 0, 0, .1);
+  border-top-color: rgba(0, 0, 0, .45);
+  box-sizing: border-box;
+  height: 35px;
+  width: 35px;
+  -webkit-animation:spin .7s linear infinite;
+  animation:spin .7s linear infinite;
+}
+
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
 /* C3 CUSTOMIZATIONS */
 
 .keen-dataviz .c3 svg,
@@ -172,7 +378,6 @@
 }
 
 .keen-c3-legend-label-overlay {
-  background: #ffffff;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 1px rgba(26, 26, 26, 0.09999999999999998);
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -196,7 +401,452 @@
 
 /* Dark brand-blue #536779 */
 
-/*! Tile Container */
+/*
+  Button sets
+*/
+
+.keen-ui-btns,
+.keen-ui-btns-right {
+  text-align: left;
+}
+
+.keen-ui-btns:after,
+.keen-ui-btns:before,
+.keen-ui-btns-right:after
+.keen-ui-btns-right:before {
+  content: " ";
+  display: table;
+}
+
+.keen-ui-btns:after,
+.keen-ui-btns-right:after {
+  clear: both;
+}
+
+.keen-ui-btns-right {
+  text-align: right;
+}
+
+.keen-ui-btns [class^="keen-ui-btn"] {
+  margin-right: 10px;
+}
+
+.keen-ui-btns-right [class^="keen-ui-btn"] {
+  margin-left: 10px;
+}
+
+@media (max-width: 52em) {
+  [class^="keen-ui-btns"] {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  [class^="keen-ui-btns"] [class^="keen-ui-btn"] {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 0%;
+        -ms-flex: 1 1 0%;
+            flex: 1 1 0%;
+    margin: 0;
+  }
+  [class^="keen-ui-btns"] [class^="keen-ui-btn"]:first-child {
+    margin-right: 5px;
+  }
+  [class^="keen-ui-btns"] [class^="keen-ui-btn"]:last-child {
+    margin-left: 5px;
+  }
+}
+
+/*
+  Buttons
+*/
+
+.keen-ui-btn,
+[class^="keen-ui-btn-"] {
+  background: rgba(0,0,0,.2);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+  line-height: 18px;
+  outline: none;
+  padding: 10px 25px;
+}
+
+.keen-ui-btn::-moz-focus-inner,
+[class^="keen-ui-btn-"]::-moz-focus-inner {
+  /* FFfun */
+  border: 0; padding: 0; margin: 0;
+}
+
+/*
+  1. :hover highlighting
+*/
+
+.keen-ui-btn:hover,
+[class^="keen-ui-btn-"]:hover {
+  background: rgba(0,0,0,.3);
+}
+
+.keen-ui-btn-text:hover {
+  border-bottom: 1px solid rgba(0, 187, 222, .4);
+}
+
+/*
+  2. :focus highlighting
+*/
+
+.keen-ui-btn:focus,
+[class^="keen-ui-btn-"]:focus {
+  background: rgba(0,0,0,.3);
+  border: 1px solid rgba(0, 187, 222, .67);
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,.07),
+                    0px 0px 8px rgba(0, 187, 222, .5);
+  outline: none;
+  z-index: 1;
+}
+
+.keen-ui-btn-text:focus {
+  border: 1px solid transparent;
+  border-bottom: 1px solid rgba(0, 187, 222, .67);
+  box-shadow: none;
+}
+
+/*
+  3. :active highlighting
+*/
+
+.keen-ui-btn:active,
+[class^="keen-ui-btn-"]:active {
+  border: 1px solid rgba(0, 187, 222, .67);
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,.25),
+                    0px 0px 8px rgba(0, 187, 222, .5);
+  outline: none;
+  z-index: 1;
+}
+
+.keen-ui-btn-text:active {
+  border: 1px solid transparent;
+  border-bottom: 1px solid rgba(0, 187, 222, .67);
+  box-shadow: none;
+}
+
+.keen-ui-btn-primary {
+  background: #00BBDE;
+  color: #fff;
+  font-weight: 500;
+}
+
+.keen-ui-btn-primary:focus,
+.keen-ui-btn-primary:hover {
+  background-color: rgb(0, 156, 184);
+}
+
+.keen-ui-btn-text,
+.keen-ui-btn-text:focus,
+.keen-ui-btn-text:hover {
+  background: transparent none;
+  padding: 0 5px;
+  text-decoration: none;
+}
+
+.keen-ui-btn-block {
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
+
+/*
+  All disabled buttons
+*/
+
+.keen-ui-btn-disabled,
+.keen-ui-btn[disabled],
+[class^='keen-ui-btn-'][disabled] {
+  border: 1px solid transparent;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.keen-ui-btn-disabled:focus,
+.keen-ui-btn-disabled:active,
+.keen-ui-btn[disabled]:focus,
+.keen-ui-btn[disabled]:active,
+[class^='keen-ui-btn-'][disabled]:focus,
+[class^='keen-ui-btn-'][disabled]:active {
+  border: 1px solid rgba(255, 133, 92, 0.65);
+  box-shadow: 0px 0px 8px rgba(255, 133, 92, 0.5);
+  outline: none;
+  z-index: 1;
+}
+
+/*
+  Generic disabled buttons
+*/
+
+.keen-ui-btn.keen-ui-btn-disabled,
+.keen-ui-btn[disabled] {
+  background: rgba(0,0,0,.1);
+  border-color: rgba(0,0,0,.05);
+  color: rgba(128, 128, 128, 0.75);
+}
+
+/*
+  Primary disabled buttons
+*/
+
+.keen-ui-btn-primary.keen-ui-btn-disabled,
+.keen-ui-btn-primary[disabled] {
+  /*background-color: color(var(--teal) alpha(-50%));*/
+  background-color: rgb(0, 156, 184);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.keen-ui-label {
+  color: #4D4D4D;
+  display: block;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 200;
+  line-height: 24px;
+  margin: 0 0 4px 0;
+}
+
+.keen-ui-input,
+.keen-ui-select,
+.keen-ui-textarea {
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  box-shadow: inset 0 0 1px #808080;
+  color: #4D4D4D;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 22px;
+  margin: 0 0 10px 0;
+  min-height: 0;
+  position: relative;
+  -webkit-transition: box-shadow ease-in-out .25s;
+  transition: box-shadow ease-in-out .25s;
+}
+
+.keen-ui-input:before,
+.keen-ui-input:after,
+.keen-ui-select:before,
+.keen-ui-select:after,
+.keen-ui-textarea:before,
+.keen-ui-textarea:after {
+  content: " ";
+  display: table;
+}
+
+.keen-ui-input:after,
+.keen-ui-select:after,
+.keen-ui-textarea:after {
+  clear: both;
+}
+
+.keen-ui-input input,
+.keen-ui-select select,
+.keen-ui-textarea textarea {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+  color: #4D4D4D;
+  cursor: pointer;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 24px;
+  margin: 0;
+  outline: none;
+  width: 100%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.keen-ui-input input:focus,
+.keen-ui-select select:focus,
+.keen-ui-textarea textarea:focus {
+  border: 1px solid rgba(0, 187, 222, .67);
+  border-radius: 2px;
+  box-shadow: inset 0px 1px 1px rgba(0, 0, 0, .07),
+                    0px 0px 8px rgba(0, 187, 222, .35);
+  outline: none;
+  z-index: 1;
+}
+
+.keen-ui-input input:focus,
+.keen-ui-textarea textarea:focus {
+  cursor: text;
+}
+
+.keen-ui-select select:focus {
+  cursor: default;
+}
+
+.keen-ui-input input[readonly],
+.keen-ui-input input[readonly]:focus {
+  cursor: default;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.keen-ui-input .keen-ui-input-error {
+  font-size: 13px;
+  color: #FFF;
+  background: rgba(255,0,0,0.3);
+  padding: 2px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
+.keen-ui-input .error .icon {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/*!
+  Input Element
+*/
+
+.keen-ui-input {}
+
+.keen-ui-input input {
+  line-height: 24px;
+  padding: 3px 10px;
+  vertical-align: middle;
+}
+
+.keen-ui-input-large input {
+  line-height: 32px;
+  font-size: 16px;
+}
+
+.keen-ui-input input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.keen-ui-input input:focus::-moz-placeholder {
+  color: transparent;
+}
+
+.keen-ui-input input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+.keen-ui-input input:focus::placeholder {
+  color: transparent;
+}
+
+/*!
+  Select Element
+*/
+
+.keen-ui-select {}
+
+.keen-ui-select select {
+  cursor: pointer;
+  display: block;
+  padding: 3px 24px 3px 10px;
+  vertical-align: middle;
+}
+
+.keen-ui-select:after,
+.keen-ui-select:before {
+  border-color: #4D4D4D transparent;
+  border-style: solid;
+  content: '';
+  height: 0;
+  opacity: .5;
+  position: absolute;
+  right: 8px;
+  -webkit-transition: opacity ease-in-out .5s;
+  transition: opacity ease-in-out .5s;
+  width: 0;
+}
+
+.keen-ui-select:active:after,
+.keen-ui-select:active:before,
+.keen-ui-select:hover:after,
+.keen-ui-select:hover:before {
+  opacity: 1;
+}
+
+.keen-ui-select:after {
+  border-width: 5px 4px 0;
+  bottom: 8px;
+}
+
+.keen-ui-select:before {
+  border-width: 0 4px 5px;
+  top: 8px;
+}
+
+/*!
+  Labelled Input Element
+*/
+
+.keen-ui-field-prefix,
+.keen-ui-field-suffix {
+  color: rgba(255,255,255,.5);
+  font-size: 12px;
+  margin: 0;
+  padding: 5px 0 3px 10px;
+}
+
+.keen-ui-field-prefix {
+  float: left;
+  text-align: left;
+  width: 60px;
+}
+
+.keen-ui-field-suffix {
+  border-left: 1px solid rgba(0,0,0,.2);
+  float: right;
+  margin: 5px 0 3px;
+  padding: 0;
+  text-align: center;
+  width: 35px;
+}
+
+.keen-ui-input input.keen-ui-input-prefixed,
+.keen-ui-input input.keen-ui-input-suffixed {
+  left: 0;
+  padding: 3px 0;
+  position: absolute;
+  right: 0;
+}
+
+.keen-ui-input input.keen-ui-input-prefixed {
+  padding-left: 55px;
+}
+
+.keen-ui-input input.keen-ui-input-suffixed {
+  padding-right: 42px;
+  text-align: right;
+}
+
+.keen-ui-select .keen-ui-btn {
+  background: transparent;
+  height: 32px;
+  line-height: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+.keen-ui-select .keen-ui-btn .keen-ui-field-prefix {
+  padding: 2px 0 0 9px;
+}
 
 .keen-dashboard-rows {}
 
@@ -214,6 +864,12 @@
   font-weight: 200;
   line-height: 40px;
   padding: 10px 0 0;
+}
+
+.keen-ui-divider {
+  margin: 5px -5px;
+  border: medium none;
+  border-bottom: 1px solid rgba(0,0,0, .2);
 }
 
 /*! Keen UI */
@@ -305,8 +961,300 @@
   .keen-ui-col-offset-4 {
     margin-left: 33.33333%;
   }
+  .keen-ui-col-offset-5 {
+    margin-left: 41.66667%;
+  }
+  .keen-ui-col-offset-6 {
+    margin-left: 50%;
+  }
+  .keen-ui-col-offset-7 {
+    margin-left: 58.33333%;
+  }
+  .keen-ui-col-offset-8 {
+    margin-left: 66.66667%;
+  }
+  .keen-ui-col-offset-9 {
+    margin-left: 75%;
+  }
+  .keen-ui-col-offset-10 {
+    margin-left: 83.33333%;
+  }
+  .keen-ui-col-offset-11 {
+    margin-left: 91.66667%;
+  }
 
   /*! No offsets > 4 grid units */
+}
+
+.keen-ui-col-transition {
+  -webkit-transition: width 0.25s ease-in-out;
+  transition: width 0.25s ease-in-out;
+}
+
+@font-face {
+    font-family: 'keen-icomoon';
+    src:    url('./keen-dashboard-fonts/keen-icomoon.eot?7yfjqj');
+    src:    url('./keen-dashboard-fonts/keen-icomoon.eot?7yfjqj#iefix') format('embedded-opentype'),
+        url('./keen-dashboard-fonts/keen-icomoon.ttf?7yfjqj') format('truetype'),
+        url('./keen-dashboard-fonts/keen-icomoon.woff?7yfjqj') format('woff'),
+        url('./keen-dashboard-fonts/keen-icomoon.svg?7yfjqj#keen-icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="keen-ui-icon-"],
+[class*=" keen-ui-icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'keen-icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    -webkit-font-feature-settings: normal;
+            font-feature-settings: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Custom */
+    color: #CCC;
+    display: inline-block;
+    font-size: 130%;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+}
+
+.keen-ui-icon-cancel-circle:before {
+  content: "\2613";
+}
+
+.keen-ui-icon-list:before {
+  content: "\2630";
+}
+
+.keen-ui-modal {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+.keen-ui-modal-overlay {
+  background-color: rgba(0,0,0,.65);
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.keen-ui-modal-content {
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  margin: 0 0 0 -10px;
+  width: 320px;
+  position: absolute;
+  z-index: 2;
+}
+
+/*
+  Transitions
+*/
+
+.keen-ui-transition-appear .keen-ui-modal-content,
+.keen-ui-transition-enter .keen-ui-modal-content {
+  margin: 4px 0 0 -6px;
+}
+
+.keen-ui-transition-appear.keen-ui-transition-appear-active .keen-ui-modal-content,
+.keen-ui-transition-enter.keen-ui-transition-enter-active .keen-ui-modal-content {
+  margin: 0 0 0 -10px;
+  -webkit-transition: margin 100ms ease-out;
+  transition: margin 100ms ease-out;
+}
+
+.keen-ui-transition-leave .keen-ui-modal-content {
+  margin: 0 0 0 -10px;
+}
+
+.keen-ui-transition-leave.keen-ui-transition-leave-active .keen-ui-modal-content {
+  margin: 4px 0 0 -6px;
+  -webkit-transition: margin 100ms ease-out;
+  transition: margin 100ms ease-out;
+}
+
+@media (max-width: 52em) {
+  .keen-ui-modal-content {
+    left: 10px;
+    margin: 0;
+    right: 10px;
+    top: 10px;
+    width: auto;
+  }
+}
+
+.keen-ui-modal-header {
+  font-size: 12px;
+  padding: 20px 10px;
+  text-transform: uppercase;
+}
+
+.keen-ui-modal-header .keen-ui-btn-text {
+  color: #808080;
+  font-size: 12px;
+  float: right;
+  line-height: inherit;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.keen-ui-modal-body {
+  background-color: #F2F2F2;
+  max-height: 355px;
+  overflow-y: scroll;
+}
+
+.keen-ui-modal-list-items {
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.keen-ui-modal-list-item {
+}
+
+.keen-ui-modal-list-item > a {
+  border: 1px solid transparent;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  display: block;
+  padding: 20px
+           50px
+           20px
+           20px;
+  text-decoration: none;
+}
+
+.keen-ui-modal-list-item > a:focus {
+  border: 1px solid rgba(0, 187, 222, .67);
+  box-shadow: inset 0px 1px 1px rgba(0,0,0,.07),
+                    0px 0px 8px rgba(0, 187, 222, .5);
+  outline: none;
+  z-index: 1;
+}
+
+.keen-ui-modal-list-item:focus,
+.keen-ui-modal-list-item:hover {
+  background-color: rgba(0,0,0,.05);
+}
+
+.keen-ui-modal-list-item-title {
+  color: #4D4D4D;
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.keen-ui-modal-list-item-meta {
+  color: #808080;
+  display: block;
+  font-size: 11px;
+  font-weight: 200;
+}
+
+.keen-ui-modal-footer {
+  padding: 10px;
+}
+
+[class^="keen-ui-notice"] {
+  background: #FFFFFF;
+  border: 1px solid rgba(26, 26, 26, 0.06999999999999995);
+  border-radius: 2px;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 0 0 10px;
+  min-height: 24px;
+  padding: 10px;
+  position: relative;
+}
+
+[class^="keen-ui-notice"]:after,
+[class^="keen-ui-notice"]:before {
+  content: " ";
+  display: table;
+}
+
+[class^="keen-ui-notice"]:after {
+  clear: both;
+}
+
+.keen-ui-notice-alert {
+  background-color: rgb(217, 102, 112);
+  color: #FFFFFF;
+}
+
+.keen-ui-notice-info {
+  background-color: rgb(0, 156, 184);
+  color: #FFFFFF;
+}
+
+.keen-ui-notice-success {
+  background-color: rgb(115, 173, 125);
+  color: #FFFFFF;
+}
+
+[class^="keen-ui-notice"] .keen-ui-notice-dismiss {
+  background: transparent none;
+  border: medium none;
+  bottom: 5px;
+  color: #808080;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0;
+  min-height: 34px;
+  padding: 0;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  top: 5px;
+  width: 30px;
+}
+
+[class^="keen-ui-notice-"] .keen-ui-notice-dismiss {
+  color: #FFFFFF;
+}
+
+.keen-ui-transition-appear,
+.keen-ui-transition-enter {
+  opacity: 0.01;
+}
+
+.keen-ui-transition-appear.keen-ui-transition-appear-active,
+.keen-ui-transition-enter.keen-ui-transition-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 100ms ease-out;
+  transition: opacity 100ms ease-out;
+}
+
+.keen-ui-transition-leave {
+  opacity: 1;
+}
+
+.keen-ui-transition-leave.keen-ui-transition-leave-active {
+  opacity: 0.01;
+  -webkit-transition: opacity 100ms ease-out;
+  transition: opacity 100ms ease-out;
+}
+
+.keen-ui-text-meta {
+  color: #B7B7B7;
+  font-size: 11px;
+  font-weight: 200;
 }
 
 .keen-dashboard .keen-dataviz {
