@@ -1,0 +1,109 @@
+.demo-theme-dark {
+  background: #181818;
+}
+.demo-theme-dark h1 {
+  color: #fff;
+}
+.demo-theme-dark h2 {
+  color: rgba(255,255,255,.8);
+  font-size: 16px;
+  font-weight: 200;
+}
+.demo-theme-dark h3 {
+  color: rgba(255,255,255,.75);
+  font-size: 14px;
+  font-weight: 200;
+  margin: 20px 0 5px;
+  text-transform: uppercase;
+}
+
+.demo-theme-dark .keen-dataviz {
+  box-sizing: border-box;
+}
+.demo-theme-dark .keen-dataviz-title {
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  color: #FFF;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.demo-theme-dark .keen-dataviz-stage {
+  padding: 20px 0;
+}
+.demo-theme-dark .keen-dataviz-notes {
+  border-top: 1px solid rgba(255,255,255,.2);
+  font-size: 11px;
+}
+
+.demo-theme-dark .keen-dataviz .keen-dataviz-metric {
+  border-radius: 2px;
+}
+
+.demo-theme-dark .keen-dataviz .keen-dataviz-table {
+  border-bottom: medium none;
+}
+.demo-theme-dark .keen-dataviz .keen-dataviz-table table {
+  background: transparent;
+}
+.demo-theme-dark .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
+  background: #4d4d4d;
+}
+.demo-theme-dark .keen-dataviz .keen-dataviz-table th {
+  border-bottom: medium none;
+  color: #fff;
+  font-weight: 200;
+}
+.demo-theme-dark .keen-dataviz .keen-dataviz-table td {
+  background-color: #282828;
+  color: #d7d7d7;
+}
+.demo-theme-dark .keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
+  background-color: #181818;
+  color: #d7d7d7;
+}
+.demo-theme-dark .keen-dataviz .keen-dataviz-table tr:hover td {
+  background-color: #4d4d4d;
+  color: #fff;
+}
+
+.demo-theme-dark .keen-dataviz .keen-spinner-indicator {
+  border: 3px solid rgba(255, 255, 255, .15);
+  border-top-color: rgba(255, 255, 255, .65);
+}
+
+.demo-theme-dark .c3 text {
+  fill: rgba(255,255,255,.4);
+}
+.demo-theme-dark .c3-chart-arc text {
+  fill: #fff;
+}
+.demo-theme-dark .c3 path,
+.demo-theme-dark .c3 line {
+  stroke: rgba(255,255,255,.4);
+}
+
+.demo-theme-dark .c3-chart-arc path {
+  stroke: rgba(255,255,255,.1);
+}
+
+.demo-theme-dark .c3-chart-arcs .c3-chart-arcs-background {
+  fill: rgba(255,255,255,.1);
+  stroke: none !important;
+}
+
+.demo-theme-dark .c3-tooltip-container {
+  border: 1px solid rgba(255,255,255,.1);
+}
+.demo-theme-dark .c3-tooltip {
+  box-shadow: none;
+}
+.demo-theme-dark .c3-tooltip th {
+  background-color: #181818;
+}
+.demo-theme-dark .c3-tooltip tr {
+  border: 1px solid #181818;
+}
+.demo-theme-dark .c3-tooltip td {
+  background-color: #282828;
+  border-left: 1px dotted #808080;
+  color: #fff;
+}
