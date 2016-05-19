@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  padding: 20px;
+}
+h1, h2, h3, label, select {
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+h1 {
+  font-weight: 200;
+  margin: 0;
+}
+h2 {
+  font-size: 21px;
+  margin: 48px 0 24px;
+  text-transform: uppercase;
+}
+h3 {
+  font-size: 16px;
+  margin: 0 0 24px;
+}
+
+#theme-selector {
+  background: #FFF;
+  border-radius: 0 0 2px 2px;
+  padding: 5px 10px 0;
+  position: absolute;
+  right: 20px;
+  top: 0px;
+  width: 200px;
+}
+#theme-selector label {
+  display: block;
+}
+#theme-selector select {
+  display: block;
+  width: 100%;
+}
