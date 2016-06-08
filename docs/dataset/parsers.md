@@ -22,7 +22,7 @@ var chart = new Keen.Dataviz() // selector OR node, same for .el(...)
   .type('metric')
   .prepare();
 
-var metricParser = Keen.Dataviz.parser('metric');
+var metricParser = Keen.Dataset.parser('metric');
 
 chart
   .data(metricParser({ result: 1337 }))
