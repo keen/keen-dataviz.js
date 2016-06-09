@@ -1,3 +1,11 @@
+<a name="1.0.1"></a>
+# 1.0.1 Bug fixes
+
+**FIXED:**
+* Metrics now display `0` values correctly, rather than `-` (#45)
+* Resolved error `Cannot read property 'getTime' of null` (#47)
+* Sorting and formatting now works correctly with numeric label values (#48)
+
 <a name="1.0.0"></a>
 # 1.0.0 Paginating legend + performance improvements
 
