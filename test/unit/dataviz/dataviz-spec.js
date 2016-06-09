@@ -189,9 +189,9 @@ describe('Dataviz', function(){
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'First', 'Next'],
-        ['2012', 1, 3],
-        ['2013', 2, 2],
-        ['2014', 3, 1]
+        ['2012-01-01T12:00:00', 1, 3],
+        ['2013-01-01T12:00:00', 2, 2],
+        ['2014-01-01T12:00:00', 3, 1]
       ];
       this.dataviz.data(ds).labels(array);
       expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
@@ -269,9 +269,9 @@ describe('Dataviz', function(){
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'First', 'Next'],
-        ['2012', 1, 3],
-        ['2013', 2, 2],
-        ['2014', 3, 1]
+        ['2012-01-01T12:00:00', 1, 3],
+        ['2013-01-01T12:00:00', 2, 2],
+        ['2014-01-01T12:00:00', 3, 1]
       ];
       this.dataviz.data(ds).labelMapping(labels);
       expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
@@ -528,9 +528,9 @@ describe('Dataviz', function(){
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'First', 'Next'],
-        ['2012', 3, 3],
-        ['2013', 3, 2],
-        ['2014', 3, 1]
+        ['2012-01-01T12:00:00', 3, 3],
+        ['2013-01-01T12:00:00', 3, 2],
+        ['2014-01-01T12:00:00', 3, 1]
       ];
       this.dataviz.data(ds).sortGroups('asc');
       expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
@@ -565,14 +565,14 @@ describe('Dataviz', function(){
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'First', 'Next'],
-        ['2012', 3, 3],
-        ['2013', 3, 2],
-        ['2014', 3, 1]
+        ['2012-01-01T12:00:00', 3, 3],
+        ['2013-01-01T12:00:00', 3, 2],
+        ['2014-01-01T12:00:00', 3, 1]
       ];
       this.dataviz.data(ds).sortIntervals('desc');
       expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
         .and.to.have.length(4)
-        .and.to.eql(['Index', '2014', '2013', '2012']);
+        .and.to.eql(['Index', '2014-01-01T12:00:00', '2013-01-01T12:00:00', '2012-01-01T12:00:00']);
     });
 
   });

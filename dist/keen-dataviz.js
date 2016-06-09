@@ -1627,7 +1627,7 @@ module.exports = {
     var color = this.colors()[0],
         theme = this.theme(),
         title = this.title(),
-        value = this.data()[1][1] || '-',
+        value = '-',
         height = this.height() || 140,
         width = this.width(),
         opts = this.chartOptions(),
@@ -1636,6 +1636,9 @@ module.exports = {
         suffix = '',
         formattedNum,
         valueEl;
+    if (typeof this.data()[1][1] === 'number') {
+      value = this.data()[1][1];
+    }
     formattedNum = value;
     if ( (typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true)
       && !isNaN(parseInt(value)) ) {
@@ -2031,18 +2034,24 @@ function bindResizeListener(fn){
 }
 },{"../utils/assert-date-string":23,"../utils/each":24,"../utils/extend":26,"../utils/extend-deep":25,"./c3/extensions/default-date-format":15,"./c3/extensions/paginating-legend":16,"./c3/extensions/tooltip-contents":17,"./default/message":18,"./default/metric":19,"./default/spinner":20,"./default/table":21,"c3":28,"d3":30}],23:[function(require,module,exports){
 module.exports = function(input){
-  if (typeof input === 'object'
-    && typeof input.getTime === 'function'
-      && !isNaN(input.getTime())) {
-        return true;
+  if (typeof input === 'object') {
+    return testObject(input);
   }
-  else if (typeof input === 'string'
-    && !isNaN(input.split('-')[0])
-      && !isNaN(new Date(input).getTime())) {
-        return true;
+  else if (typeof input === 'string') {
+    return testString(input);
   }
   return false;
 };
+function testObject(input) {
+  if (input !== null && typeof input.getTime === 'function' && !isNaN(input.getTime())) {
+    return true;
+  }
+  return false;
+}
+function testString(input) {
+  var ISO_8601 = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/i;
+  return ISO_8601.test(input);
+}
 },{}],24:[function(require,module,exports){
 module.exports = each;
 function each(o, cb, s){
