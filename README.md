@@ -69,7 +69,7 @@ Need a hand with something? Shoot us an email at [team@keen.io](mailto:team@keen
 
 ## Install the library
 
-Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included. 
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included.
 
 ```html
 <html>
@@ -79,8 +79,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.1.0.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.1.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.1.js"></script>
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.2.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.2.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
