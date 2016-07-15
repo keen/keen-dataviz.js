@@ -378,6 +378,12 @@
           [ '2015-12-01T11:00:00.000Z' ]
         ];
 
+        // Add more rows
+        for (var i = 0; i < 25; i++) {
+          var val = i < 10 ? '0'+i : i;
+          ds.matrix.push([ '2015-12-01T11:' + val + ':00.000Z' ]);
+        }
+
         var len = ds.selectColumn(0).length;
         for (var i = 0; i < RAND_DATA_MAX; i++) {
           var newCol = gen(len-1);

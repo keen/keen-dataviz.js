@@ -1860,7 +1860,13 @@ function defineC3(){
       },
       padding: {},
       point: {
-        show: false
+        focus: {
+          expand: {
+            enabled: false
+          }
+        },
+        r: 2,
+        show: true
       },
       tooltip: {}
     };

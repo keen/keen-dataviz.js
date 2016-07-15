@@ -1,3 +1,10 @@
+<a name="1.0.2"></a>
+# 1.0.2 Data points
+
+**NEW:**
+* Data points are now visible, with disabled active-state animations
+
+
 <a name="1.0.1"></a>
 # 1.0.1 Bug fixes
 
