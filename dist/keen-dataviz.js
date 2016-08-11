@@ -1354,7 +1354,6 @@ module.exports = function(startDate, endDate){
 };
 },{}],16:[function(require,module,exports){
 var d3 = require('d3');
-var escapeHtml = require('../../../utils/escape-html');
 var isDateString = require('../../../utils/assert-date-string');
 module.exports = function(cols){
   var self = this,
@@ -1374,7 +1373,7 @@ module.exports = function(cols){
   }
   for (var i = 0; i < cols.length; i++) {
     if (cols[i][0] !== 'x' && !isDateString(cols[i][1])) {
-      columns.push(escapeHtml(cols[i][0]));
+      columns.push(cols[i][0]);
     }
   }
   var legendEl = d3.select(domNode)
@@ -1567,7 +1566,7 @@ module.exports = function(cols){
     }
   }
 };
-},{"../../../utils/assert-date-string":23,"../../../utils/escape-html":25,"d3":30}],17:[function(require,module,exports){
+},{"../../../utils/assert-date-string":23,"d3":30}],17:[function(require,module,exports){
 var escapeHtml = require('../../../utils/escape-html');
 module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
   var bgcolor,
