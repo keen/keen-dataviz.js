@@ -1,3 +1,15 @@
+<a name="1.0.4"></a>
+# 1.0.4 Bugfixes
+
+**FIXED:**
+* HTML and JS characters are escaped in strings before being presented in charts. This protects against XSS attacks.
+
+<a name="1.0.3"></a>
+# 1.0.3 Bugfixes
+
+**FIXED:**
+* Queries with an interval but a timeframe where only one interval will be present in the query results no longer break with certain chart types.
+
 <a name="1.0.2"></a>
 # 1.0.2 Data points
 
