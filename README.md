@@ -23,7 +23,7 @@ If you haven't done so already, login to Keen IO to create a project. The Projec
 
 **Advanced usage:**
 
-* [Create custom cohort vizsualizations](https://github.com/keen/cohorts)
+* [Create custom cohort visualizations](https://github.com/keen/cohorts)
 * [Create and visualize custom Dataset instances](./docs/dataset/parsers.md#data-parsers)
 * [Create custom themes](./docs/themes.md#custom-themes)
 * [Create custom visualizations](./docs/types-and-libraries.md#custom-types-and-libraries)
