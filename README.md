@@ -7,6 +7,7 @@ This project contains the most advanced data visualization functionality availab
 * Visualizations are powered by [C3.js](http://c3js.org/); a [D3.js](http://d3js.org/)-based reusable chart library: [check out what's available!](./docs/README.md#chart-types)
 * Breaking changes from [keen-js](https://github.com/keen/keen-js): [learn more about upgrading](#upgrading-from-keen-js)
 * Lightweight and blazing fast, with dramatic performance improvements
+* [Create custom cohort analysis and visualizations](https://github.com/keen/cohorts)
 
 **Upgrading from keen-js?** [Read this](#upgrading-from-keen-js).
 
