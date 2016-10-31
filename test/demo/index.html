@@ -98,6 +98,13 @@
       </div>
 
       <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <h2>Empty Table</h2>
+          <div class="chart-demo-empty-table"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
         <div class="keen-ui-col-4">
           <h2>Gauge</h2>
           <div class="chart-c3-gauge"></div>
@@ -588,6 +595,19 @@
           this.dataset.matrix = tableData;
         })
         .render();
+
+      var emptyTable = new Dataviz()
+        .el('.chart-demo-empty-table')
+        // .theme('custom-theme')
+        .height(300)
+        .type('table')
+        .title('Basic table view')
+        .notes('Footnotes for this table')
+        .call(function(){
+          this.dataset.matrix = [[]];
+        })
+        .render();
+
 
       setTimeout(function(){
         window.metric.call(function(){
