@@ -19,7 +19,7 @@
     "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)"
   ],
   "engines": {
-    "node": "4.0.x"
+    "node": ">=4.0.x"
   },
   "dependencies": {
     "c3": "^0.4.10",
