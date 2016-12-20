@@ -1607,17 +1607,21 @@ module.exports = {
     var msg = document.createElement('span');
     var height = this.height() || 140;
     var titleContainer = document.createElement('div');
+    var notesContainer = document.createElement('div');
     outer.className = this.theme();
     inner.className = this.theme() + '-message';
     inner.style.height = height + 'px';
     inner.style.paddingTop = (height / 2 - 12) + 'px';
     inner.style.width = this.width() + 'px';
-    titleContainer.className = 'keen-dataviz-title';
+    titleContainer.className = this.theme() + '-title';
     titleContainer.innerHTML = escapeHtml(this.title() || '');
+    notesContainer.className = this.theme() + '-notes';
+    notesContainer.innerHTML = escapeHtml(this.notes() || '');
     msg.innerHTML = escapeHtml(text) || '';
     inner.appendChild(msg);
     outer.appendChild(titleContainer);
     outer.appendChild(inner);
+    outer.appendChild(notesContainer);
     this.el().innerHTML = '';
     this.el().appendChild(outer);
   },
