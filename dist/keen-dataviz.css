@@ -229,7 +229,7 @@
 }
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
   background: #FFFFFF;
-  border-bottom: 1px solid rgba(0,0,0,.15);
+  border-bottom: 1px solid rgba(0, 0, 0, .15);
   position: absolute;
   top: 0;
   -webkit-transition: top .1s;

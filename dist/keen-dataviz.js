@@ -1602,20 +1602,29 @@ module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
 var escapeHtml = require('../../utils/escape-html');
 module.exports = {
   render: function(text){
-    var outer = document.createElement('div'),
-        inner = document.createElement('div'),
-        msg = document.createElement('span'),
-        height = this.height() || 140;
+    var outer = document.createElement('div');
+    var inner = document.createElement('div');
+    var msg = document.createElement('span');
+    var height = this.height() || 140;
+    var titleContainer = document.createElement('div');
+    var notesContainer = document.createElement('div');
     outer.className = this.theme();
     inner.className = this.theme() + '-message';
-    inner.style.height = height + 'px';
-    inner.style.paddingTop = (height / 2 - 12) + 'px';
     inner.style.width = this.width() + 'px';
+    titleContainer.className = this.theme() + '-title';
+    titleContainer.innerHTML = escapeHtml(this.title() || '');
+    notesContainer.className = this.theme() + '-notes';
+    notesContainer.innerHTML = escapeHtml(this.notes() || '');
     msg.innerHTML = escapeHtml(text) || '';
     inner.appendChild(msg);
+    outer.appendChild(titleContainer);
     outer.appendChild(inner);
+    outer.appendChild(notesContainer);
     this.el().innerHTML = '';
     this.el().appendChild(outer);
+    var actualInnerHeight = height - titleContainer.offsetHeight - notesContainer.offsetHeight;
+    inner.style.height = actualInnerHeight + 'px';
+    inner.style.paddingTop = (actualInnerHeight / 2 - 12) + 'px';
   },
   update: function(){
     this.render();
@@ -1728,6 +1737,19 @@ var defaults = {
   stickyHeader: true,
   stickyFooter: false
 };
+function _generateTableRows(dataset, colWidths, colAligns) {
+  var html = '';
+  for (var i = 0; i < dataset.length; i++) {
+    if (i > 0) {
+      html +=   '<tr>';
+      for (var j = 0; j < dataset[i].length; j++) {
+        html +=   '<td style="min-width: '+ (10 * colWidths[j]) +'px; text-align: ' + colAligns[j] + ';">' + escapeHtml(dataset[i][j]) + '</td>';
+      }
+      html +=   '</tr>';
+    }
+  }
+  return html;
+}
 module.exports = {
   render: function(){
     var dataset = this.data(),
@@ -1739,6 +1761,11 @@ module.exports = {
         colAligns = new Array(dataset[0].length),
         colWidths = new Array(dataset[0].length),
         fixedHeader;
+    var isEmpty = dataset.length === 1 && dataset[0].length === 0;
+    if (isEmpty) {
+      this.message('No data to display');
+      return;
+    }
     each(dataset, function(row){
       each(row, function(cell, i){
         if (!colWidths[i]) {
@@ -1758,15 +1785,7 @@ module.exports = {
     html +=       '</tr>';
     html +=     '</thead>';
     html +=     '<tbody>';
-    for (var i = 0; i < dataset.length; i++) {
-      if (i > 0) {
-        html +=   '<tr>';
-        for (var j = 0; j < dataset[i].length; j++) {
-          html +=   '<td style="min-width: '+ (10 * colWidths[j]) +'px; text-align: ' + colAligns[j] + ';">' + escapeHtml(dataset[i][j]) + '</td>';
-        }
-        html +=   '</tr>';
-      }
-    }
+    html +=     _generateTableRows.bind(this, dataset, colWidths, colAligns)();
     html +=     '</tbody>';
     html +=   '</table>';
     html +=   '<table class="' + theme + '-table-fixed-header">';
