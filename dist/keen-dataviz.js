@@ -1610,8 +1610,6 @@ module.exports = {
     var notesContainer = document.createElement('div');
     outer.className = this.theme();
     inner.className = this.theme() + '-message';
-    inner.style.height = height + 'px';
-    inner.style.paddingTop = (height / 2 - 12) + 'px';
     inner.style.width = this.width() + 'px';
     titleContainer.className = this.theme() + '-title';
     titleContainer.innerHTML = escapeHtml(this.title() || '');
@@ -1624,6 +1622,9 @@ module.exports = {
     outer.appendChild(notesContainer);
     this.el().innerHTML = '';
     this.el().appendChild(outer);
+    var actualInnerHeight = height - titleContainer.offsetHeight - notesContainer.offsetHeight;
+    inner.style.height = actualInnerHeight + 'px';
+    inner.style.paddingTop = (actualInnerHeight / 2 - 12) + 'px';
   },
   update: function(){
     this.render();
