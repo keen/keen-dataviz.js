@@ -1,6 +1,5 @@
 node_modules
 test/unit/build/*
-reports
 
 .awspublish-keen-js
 .DS_Store
