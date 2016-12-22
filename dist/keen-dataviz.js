@@ -170,9 +170,6 @@ function getDefaultType(parser){
 }
 },{"./dataset":2,"./utils/extend":27}],2:[function(require,module,exports){
 (function (global){
-/*
-  Dataset SDK
-*/
 (function(env){
   var append = require('./modifiers/append'),
       del = require('./modifiers/delete'),
