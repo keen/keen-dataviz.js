@@ -7,12 +7,13 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
 ```html
 <html>
   <head>
+    <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.1.0.js"></script>
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.0.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.4.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.4.js"></script>
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.0.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.0.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -20,7 +21,7 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
 
     <!-- Create and Render -->
     <script>
-      var chart = new Dataviz()
+      var chart = new Keen.Dataviz()
         .el('#my-chart-div')
         .colors(['red', 'orange', 'green'])
         .height(500)
@@ -240,17 +241,6 @@ chart.height(450);
 
 // Return current height
 chart.height();
-```
-
-### .indexBy(string)
-
-Determine which part of timeframes are visualized (`timeframe.start` (default) or `timeframe.end`).
-
-```javascript
-chart.indexBy('timeframe.end');
-
-// Return current value
-chart.indexBy();
 ```
 
 ### .labels(array)

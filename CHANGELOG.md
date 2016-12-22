@@ -1,3 +1,11 @@
+<a name="1.1.0"></a>
+# 1.1.0 Global Namespace Fix
+
+**FIXED:**
+* This library will now coalesce into a shared global `Keen` namespace, rather than colliding and overwriting other modular SDKs. Check out [keen-core.js@0.1.0](https://github.com/keen/keen-core.js/blob/master/CHANGELOG.md#010-manage-modular-namespace) for details about this fix that impact our other modular SDKs.
+* Charts now include their title and footnotes when displaying messages, such as errors.
+* Node Engine is no longer fixed at v4.0 in `package.json`.
+
 <a name="1.0.4"></a>
 # 1.0.4 Bugfixes
 
