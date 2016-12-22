@@ -173,7 +173,7 @@ function getDefaultType(parser){
 /*
   Dataset SDK
 */
-(function(root){
+(function(env){
   var append = require('./modifiers/append'),
       del = require('./modifiers/delete'),
       filter = require('./modifiers/filter'),
@@ -241,17 +241,10 @@ function getDefaultType(parser){
       return Dataset;
     });
   }
-  if (root.Keen) {
-    root.Keen.Dataset = Dataset;
-  }
-  root.Dataset = Dataset;
-  if (typeof global !== 'undefined') {
-    if (global.Keen) {
-      global.Keen.Dataset = Dataset;
-    }
-    global.Dataset = Dataset;
-  }
-}(this));
+  env.Keen = env.Keen || {};
+  env.Keen.Dataset = Dataset;
+  env.Dataset = Dataset;
+}).call(this, typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {});
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../utils/extend":27,"./modifiers/append":3,"./modifiers/delete":4,"./modifiers/filter":5,"./modifiers/insert":6,"./modifiers/select":7,"./modifiers/sort":8,"./modifiers/update":9,"./utils/analyses":10,"./utils/parsers":13}],3:[function(require,module,exports){
 var createNullList = require('../utils/create-null-list'),
@@ -871,7 +864,7 @@ function parseExtraction(){
 }
 },{"../../utils/each":24,"../utils/flatten":12}],14:[function(require,module,exports){
 (function (global){
-(function(root){
+(function(env){
   var Dataset = require('./dataset'),
       data = require('./data');
   var each = require('./utils/each'),
@@ -1304,17 +1297,10 @@ function parseExtraction(){
       return Dataviz;
     });
   }
-  if (root.Keen) {
-    root.Keen.Dataviz = Dataviz;
-  }
-  root.Dataviz = Dataviz;
-  if (typeof global !== 'undefined') {
-    if (global.Keen) {
-      global.Keen.Dataviz = Dataviz;
-    }
-    global.Dataviz = Dataviz;
-  }
-}(this));
+  env.Keen = env.Keen || {};
+  env.Keen.Dataviz = Dataviz;
+  env.Dataviz = Dataviz;
+}).call(this, typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {});
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./data":1,"./dataset":2,"./libraries":22,"./utils/assert-date-string":23,"./utils/each":24,"./utils/escape-html":25,"./utils/extend":27}],15:[function(require,module,exports){
 module.exports = function(startDate, endDate){
@@ -1566,7 +1552,7 @@ module.exports = function(cols){
     }
   }
 };
-},{"../../../utils/assert-date-string":23,"d3":30}],17:[function(require,module,exports){
+},{"../../../utils/assert-date-string":23,"d3":31}],17:[function(require,module,exports){
 var escapeHtml = require('../../../utils/escape-html');
 module.exports = function (d, defaultTitleFormat, defaultValueFormat, color) {
   var bgcolor,
@@ -2062,7 +2048,7 @@ function bindResizeListener(fn){
     window.attachEvent('onresize', fn);
   }
 }
-},{"../utils/assert-date-string":23,"../utils/each":24,"../utils/extend":27,"../utils/extend-deep":26,"./c3/extensions/default-date-format":15,"./c3/extensions/paginating-legend":16,"./c3/extensions/tooltip-contents":17,"./default/message":18,"./default/metric":19,"./default/spinner":20,"./default/table":21,"c3":29,"d3":30}],23:[function(require,module,exports){
+},{"../utils/assert-date-string":23,"../utils/each":24,"../utils/extend":27,"../utils/extend-deep":26,"./c3/extensions/default-date-format":15,"./c3/extensions/paginating-legend":16,"./c3/extensions/tooltip-contents":17,"./default/message":18,"./default/metric":19,"./default/spinner":20,"./default/table":21,"c3":29,"d3":31}],23:[function(require,module,exports){
 module.exports = function(input){
   if (typeof input === 'object') {
     return testObject(input);
@@ -2246,7 +2232,7 @@ function prettyNumber(input) {
 (function (window) {
     'use strict';
     /*global define, module, exports, require */
-    var c3 = { version: "0.4.11" };
+    var c3 = { version: "0.4.10" };
     var c3_chart_fn,
         c3_chart_internal_fn,
         c3_chart_internal_axis_fn;
@@ -2267,9 +2253,7 @@ function prettyNumber(input) {
     function Chart(config) {
         var $$ = this.internal = new ChartInternal(this);
         $$.loadConfig(config);
-        $$.beforeInit(config);
         $$.init();
-        $$.afterInit(config);
         (function bindThis(fn, target, argThis) {
             Object.keys(fn).forEach(function (key) {
                 target[key] = fn[key].bind(argThis);
@@ -2303,15 +2287,11 @@ function prettyNumber(input) {
     c3_chart_fn = c3.chart.fn;
     c3_chart_internal_fn = c3.chart.internal.fn;
     c3_chart_internal_axis_fn = c3.chart.internal.axis.fn;
-    c3_chart_internal_fn.beforeInit = function () {
-    };
-    c3_chart_internal_fn.afterInit = function () {
-    };
     c3_chart_internal_fn.init = function () {
         var $$ = this, config = $$.config;
         $$.initParams();
         if (config.data_url) {
-            $$.convertUrlToData(config.data_url, config.data_mimeType, config.data_headers, config.data_keys, $$.initWithData);
+            $$.convertUrlToData(config.data_url, config.data_mimeType, config.data_keys, $$.initWithData);
         }
         else if (config.data_json) {
             $$.initWithData($$.convertJsonToData(config.data_json, config.data_keys));
@@ -2444,9 +2424,6 @@ function prettyNumber(input) {
             .style("overflow", "hidden")
             .on('mouseenter', function () { return config.onmouseover.call($$); })
             .on('mouseleave', function () { return config.onmouseout.call($$); });
-        if ($$.config.svg_classname) {
-            $$.svg.attr('class', $$.config.svg_classname);
-        }
         defs = $$.svg.append("defs");
         $$.clipChart = $$.appendClip(defs, $$.clipId);
         $$.clipXAxis = $$.appendClip(defs, $$.clipIdForXAxis);
@@ -2458,7 +2435,6 @@ function prettyNumber(input) {
         if ($$.initSubchart) { $$.initSubchart(); }
         if ($$.initTooltip) { $$.initTooltip(); }
         if ($$.initLegend) { $$.initLegend(); }
-        if ($$.initTitle) { $$.initTitle(); }
         /*-- Main Region --*/
         main.append("text")
             .attr("class", CLASS.text + ' ' + CLASS.empty)
@@ -2492,7 +2468,20 @@ function prettyNumber(input) {
                 withTransitionForAxis: false
             });
         }
-        $$.bindResize();
+        if (window.onresize == null) {
+            window.onresize = $$.generateResize();
+        }
+        if (window.onresize.add) {
+            window.onresize.add(function () {
+                config.onresize.call($$);
+            });
+            window.onresize.add(function () {
+                $$.api.flush();
+            });
+            window.onresize.add(function () {
+                config.onresized.call($$);
+            });
+        }
         $$.api.element = $$.selectChart.node();
     };
     c3_chart_internal_fn.smoothLines = function (el, type) {
@@ -2562,7 +2551,7 @@ function prettyNumber(input) {
         if ($$.height2 < 0) { $$.height2 = 0; }
         $$.arcWidth = $$.width - ($$.isLegendRight ? legendWidth + 10 : 0);
         $$.arcHeight = $$.height - ($$.isLegendRight ? 0 : 10);
-        if ($$.hasType('gauge') && !config.gauge_fullCircle) {
+        if ($$.hasType('gauge')) {
             $$.arcHeight += $$.height - $$.getGaugeLabelHeight();
         }
         if ($$.updateRadius) { $$.updateRadius(); }
@@ -2674,6 +2663,7 @@ function prettyNumber(input) {
             $$.subY.domain($$.getYDomain(targetsToShow, 'y'));
             $$.subY2.domain($$.getYDomain(targetsToShow, 'y2'));
         }
+        $$.tooltip.style("display", "none");
         $$.updateXgridFocus();
         main.select("text." + CLASS.text + '.' + CLASS.empty)
             .attr("x", $$.width / 2)
@@ -2690,7 +2680,6 @@ function prettyNumber(input) {
         if ($$.hasDataLabel()) {
             $$.updateText(durationForExit);
         }
-        if ($$.redrawTitle) { $$.redrawTitle(); }
         if ($$.redrawArc) { $$.redrawArc(duration, durationForExit, withTransform); }
         if ($$.redrawSubchart) {
             $$.redrawSubchart(withSubchart, transitions, duration, durationForExit, areaIndices, barIndices, lineIndices);
@@ -2958,7 +2947,6 @@ function prettyNumber(input) {
                         if (selection.node().parentNode) {
                             window.clearInterval($$.intervalForObserveInserted);
                             $$.updateDimension();
-                            if ($$.brush) { $$.brush.update(); }
                             $$.config.oninit.call($$);
                             $$.redraw({
                                 withTransform: true,
@@ -2976,42 +2964,6 @@ function prettyNumber(input) {
         });
         observer.observe(selection.node(), {attributes: true, childList: true, characterData: true});
     };
-    c3_chart_internal_fn.bindResize = function () {
-        var $$ = this, config = $$.config;
-        $$.resizeFunction = $$.generateResize();
-        $$.resizeFunction.add(function () {
-            config.onresize.call($$);
-        });
-        if (config.resize_auto) {
-            $$.resizeFunction.add(function () {
-                if ($$.resizeTimeout !== undefined) {
-                    window.clearTimeout($$.resizeTimeout);
-                }
-                $$.resizeTimeout = window.setTimeout(function () {
-                    delete $$.resizeTimeout;
-                    $$.api.flush();
-                }, 100);
-            });
-        }
-        $$.resizeFunction.add(function () {
-            config.onresized.call($$);
-        });
-        if (window.attachEvent) {
-            window.attachEvent('onresize', $$.resizeFunction);
-        } else if (window.addEventListener) {
-            window.addEventListener('resize', $$.resizeFunction, false);
-        } else {
-            var wrapper = window.onresize;
-            if (!wrapper) {
-                wrapper = $$.generateResize();
-            } else if (!wrapper.add || !wrapper.remove) {
-                wrapper = $$.generateResize();
-                wrapper.add(window.onresize);
-            }
-            wrapper.add($$.resizeFunction);
-            window.onresize = wrapper;
-        }
-    };
     c3_chart_internal_fn.generateResize = function () {
         var resizeFunctions = [];
         function callResizeFunctions() {
@@ -3021,14 +2973,6 @@ function prettyNumber(input) {
         }
         callResizeFunctions.add = function (f) {
             resizeFunctions.push(f);
-        };
-        callResizeFunctions.remove = function (f) {
-            for (var i = 0; i < resizeFunctions.length; i++) {
-                if (resizeFunctions[i] === f) {
-                    resizeFunctions.splice(i, 1);
-                    break;
-                }
-            }
         };
         return callResizeFunctions;
     };
@@ -3073,7 +3017,7 @@ function prettyNumber(input) {
             parsedDate = date;
         } else if (typeof date === 'string') {
             parsedDate = $$.dataTimeFormat($$.config.data_xFormat).parse(date);
-        } else if (typeof date === 'number' && !isNaN(date)) {
+        } else if (typeof date === 'number' || !isNaN(date)) {
             parsedDate = new Date(+date);
         }
         if (!parsedDate || isNaN(+parsedDate)) {
@@ -3097,14 +3041,12 @@ function prettyNumber(input) {
     c3_chart_internal_fn.getDefaultConfig = function () {
         var config = {
             bindto: '#chart',
-            svg_classname: undefined,
             size_width: undefined,
             size_height: undefined,
             padding_left: undefined,
             padding_right: undefined,
             padding_top: undefined,
             padding_bottom: undefined,
-            resize_auto: true,
             zoom_enabled: false,
             zoom_extent: undefined,
             zoom_privileged: false,
@@ -3112,9 +3054,6 @@ function prettyNumber(input) {
             zoom_onzoom: function () {},
             zoom_onzoomstart: function () {},
             zoom_onzoomend: function () {},
-            zoom_x_min: undefined,
-            zoom_x_max: undefined,
-            interaction_brighten: true,
             interaction_enabled: true,
             onmouseover: function () {},
             onmouseout: function () {},
@@ -3153,7 +3092,6 @@ function prettyNumber(input) {
             data_onselected: function () {},
             data_onunselected: function () {},
             data_url: undefined,
-            data_headers: undefined,
             data_json: undefined,
             data_rows: undefined,
             data_columns: undefined,
@@ -3162,7 +3100,6 @@ function prettyNumber(input) {
             data_empty_label_text: "",
             subchart_show: false,
             subchart_size_height: 60,
-            subchart_axis_x_show: true,
             subchart_onbrush: function () {},
             color_pattern: [],
             color_threshold: {},
@@ -3177,9 +3114,6 @@ function prettyNumber(input) {
             legend_item_onmouseover: undefined,
             legend_item_onmouseout: undefined,
             legend_equally: false,
-            legend_padding: 0,
-            legend_item_tile_width: 10,
-            legend_item_tile_height: 10,
             axis_rotated: false,
             axis_x_show: true,
             axis_x_type: 'indexed',
@@ -3212,8 +3146,7 @@ function prettyNumber(input) {
             axis_y_label: {},
             axis_y_tick_format: undefined,
             axis_y_tick_outer: true,
-            axis_y_tick_values: null,        
-            axis_y_tick_rotate: 0,
+            axis_y_tick_values: null,
             axis_y_tick_count: undefined,
             axis_y_tick_time_value: undefined,
             axis_y_tick_time_interval: undefined,
@@ -3242,7 +3175,6 @@ function prettyNumber(input) {
             grid_lines_front: true,
             point_show: true,
             point_r: 2.5,
-            point_sensitivity: 10,
             point_focus_expand_enabled: true,
             point_focus_expand_r: undefined,
             point_select_r: undefined,
@@ -3253,32 +3185,23 @@ function prettyNumber(input) {
             bar_width_max: undefined,
             bar_zerobased: true,
             area_zerobased: true,
-            area_above: false,
             pie_label_show: true,
             pie_label_format: undefined,
             pie_label_threshold: 0.05,
-            pie_label_ratio: undefined,
-            pie_expand: {},
-            pie_expand_duration: 50,
-            gauge_fullCircle: false,
+            pie_expand: true,
             gauge_label_show: true,
             gauge_label_format: undefined,
+            gauge_expand: true,
             gauge_min: 0,
             gauge_max: 100,
-            gauge_startingAngle: -1 * Math.PI/2,
             gauge_units: undefined,
             gauge_width: undefined,
-            gauge_expand: {},
-            gauge_expand_duration: 50,
             donut_label_show: true,
             donut_label_format: undefined,
             donut_label_threshold: 0.05,
-            donut_label_ratio: undefined,
             donut_width: undefined,
+            donut_expand: true,
             donut_title: "",
-            donut_expand: {},
-            donut_expand_duration: 50,
-            spline_interpolation_type: 'cardinal',
             regions: [],
             tooltip_show: true,
             tooltip_grouped: true,
@@ -3291,17 +3214,7 @@ function prettyNumber(input) {
             },
             tooltip_init_show: false,
             tooltip_init_x: 0,
-            tooltip_init_position: {top: '0px', left: '50px'},
-            tooltip_onshow: function () {},
-            tooltip_onhide: function () {},
-            title_text: undefined,
-            title_padding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0
-            },
-            title_position: 'top-center',
+            tooltip_init_position: {top: '0px', left: '50px'}
         };
         Object.keys(this.additionalConfig).forEach(function (key) {
             config[key] = this.additionalConfig[key];
@@ -3613,15 +3526,14 @@ function prettyNumber(input) {
         return $$.x.domain();
     };
     c3_chart_internal_fn.trimXDomain = function (domain) {
-        var zoomDomain = this.getZoomDomain(),
-            min = zoomDomain[0], max = zoomDomain[1];
-        if (domain[0] <= min) {
-            domain[1] = +domain[1] + (min - domain[0]);
-            domain[0] = min;
+        var $$ = this;
+        if (domain[0] <= $$.orgXDomain[0]) {
+            domain[1] = +domain[1] + ($$.orgXDomain[0] - domain[0]);
+            domain[0] = $$.orgXDomain[0];
         }
-        if (max <= domain[1]) {
-            domain[0] = +domain[0] - (domain[1] - max);
-            domain[1] = max;
+        if ($$.orgXDomain[1] <= domain[1]) {
+            domain[0] = +domain[0] - (domain[1] - $$.orgXDomain[1]);
+            domain[1] = $$.orgXDomain[1];
         }
         return domain;
     };
@@ -3680,7 +3592,7 @@ function prettyNumber(input) {
         var $$ = this, name;
         if (data) {
             name = $$.config.data_names[data.id];
-            data.name = name !== undefined ? name : data.id;
+            data.name = name ? name : data.id;
         }
         return data;
     };
@@ -3774,7 +3686,7 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.mapToTargetIds = function (ids) {
         var $$ = this;
-        return ids ? [].concat(ids) : $$.mapToIds($$.data.targets);
+        return ids ? (isString(ids) ? [ids] : ids) : $$.mapToIds($$.data.targets);
     };
     c3_chart_internal_fn.hasTarget = function (targets, id) {
         var ids = this.mapToIds(targets), i;
@@ -3798,8 +3710,7 @@ function prettyNumber(input) {
     c3_chart_internal_fn.mapTargetsToUniqueXs = function (targets) {
         var $$ = this;
         var xs = $$.d3.set($$.d3.merge(targets.map(function (t) { return t.values.map(function (v) { return +v.x; }); }))).values();
-        xs = $$.isTimeSeries() ? xs.map(function (x) { return new Date(+x); }) : xs.map(function (x) { return +x; });
-        return xs.sort(function (a, b) { return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN; });
+        return $$.isTimeSeries() ? xs.map(function (x) { return new Date(+x); }) : xs.map(function (x) { return +x; });
     };
     c3_chart_internal_fn.addHiddenTargetIds = function (targetIds) {
         this.hiddenTargetIds = this.hiddenTargetIds.concat(targetIds);
@@ -3928,7 +3839,7 @@ function prettyNumber(input) {
         return $$.findClosest(candidates, pos);
     };
     c3_chart_internal_fn.findClosest = function (values, pos) {
-        var $$ = this, minDist = $$.config.point_sensitivity, closest;
+        var $$ = this, minDist = 100, closest;
         values.filter(function (v) { return v && $$.isBarType(v.id); }).forEach(function (v) {
             var shape = $$.main.select('.' + CLASS.bars + $$.getTargetSelectorSuffix(v.id) + ' .' + CLASS.bar + '-' + v.index).node();
             if (!closest && $$.isWithinBar(shape)) {
@@ -3950,7 +3861,7 @@ function prettyNumber(input) {
             yIndex = config.axis_rotated ? 0 : 1,
             y = $$.circleY(data, data.index),
             x = $$.x(data.x);
-        return Math.sqrt(Math.pow(x - pos[xIndex], 2) + Math.pow(y - pos[yIndex], 2));
+        return Math.pow(x - pos[xIndex], 2) + Math.pow(y - pos[yIndex], 2);
     };
     c3_chart_internal_fn.convertValuesToStep = function (values) {
         var converted = [].concat(values), i;
@@ -3981,15 +3892,9 @@ function prettyNumber(input) {
         $$.redraw({withLegend: true});
         return current;
     };
-    c3_chart_internal_fn.convertUrlToData = function (url, mimeType, headers, keys, done) {
+    c3_chart_internal_fn.convertUrlToData = function (url, mimeType, keys, done) {
         var $$ = this, type = mimeType ? mimeType : 'csv';
-        var req = $$.d3.xhr(url);
-        if (headers) {
-            Object.keys(headers).forEach(function (header) {
-                req.header(header, headers[header]);
-            });
-        }
-        req.get(function (error, data) {
+        $$.d3.xhr(url, function (error, data) {
             var d;
             if (!data) {
                 throw new Error(error.responseURL + ' ' + error.status + ' (' + error.statusText + ')');
@@ -4036,10 +3941,7 @@ function prettyNumber(input) {
             json.forEach(function (o) {
                 var new_row = [];
                 targetKeys.forEach(function (key) {
-                    var v = $$.findValueInJson(o, key);
-                    if (isUndefined(v)) {
-                        v = null;
-                    }
+                    var v = isUndefined(o[key]) ? null : o[key];
                     new_row.push(v);
                 });
                 new_rows.push(new_row);
@@ -4052,20 +3954,6 @@ function prettyNumber(input) {
             data = $$.convertColumnsToData(new_rows);
         }
         return data;
-    };
-    c3_chart_internal_fn.findValueInJson = function (object, path) {
-        path = path.replace(/\[(\w+)\]/g, '.$1');
-        path = path.replace(/^\./, '');          
-        var pathArray = path.split('.');
-        for (var i = 0; i < pathArray.length; ++i) {
-            var k = pathArray[i];
-            if (k in object) {
-                object = object[k];
-            } else {
-                return;
-            }
-        }
-        return object;
     };
     c3_chart_internal_fn.convertRowsToData = function (rows) {
         var keys = rows[0], new_row = {}, new_rows = [], i, j;
@@ -4133,24 +4021,15 @@ function prettyNumber(input) {
                 id: convertedId,
                 id_org: id,
                 values: data.map(function (d, i) {
-                    var xKey = $$.getXKey(id), rawX = d[xKey],
-                        value = d[id] !== null && !isNaN(d[id]) ? +d[id] : null, x;
-                    if ($$.isCustomX() && $$.isCategorized() && index === 0 && !isUndefined(rawX)) {
-                        if (index === 0 && i === 0) {
-                            config.axis_x_categories = [];
-                        }
-                        x = config.axis_x_categories.indexOf(rawX);
-                        if (x === -1) {
-                            x = config.axis_x_categories.length;
-                            config.axis_x_categories.push(rawX);
-                        }
-                    } else {
-                        x  = $$.generateTargetX(rawX, id, i);
+                    var xKey = $$.getXKey(id), rawX = d[xKey], x = $$.generateTargetX(rawX, id, i);
+                    if ($$.isCustomX() && $$.isCategorized() && index === 0 && rawX) {
+                        if (i === 0) { config.axis_x_categories = []; }
+                        config.axis_x_categories.push(rawX);
                     }
                     if (isUndefined(d[id]) || $$.data.xs[id].length <= i) {
                         x = undefined;
                     }
-                    return {x: x, value: value, id: convertedId};
+                    return {x: x, value: d[id] !== null && !isNaN(d[id]) ? +d[id] : null, id: convertedId};
                 }).filter(function (v) { return isDefined(v.x); })
             };
         });
@@ -4171,8 +4050,6 @@ function prettyNumber(input) {
                 return v1 - v2;
             });
         });
-        $$.hasNegativeValue = $$.hasNegativeValueInTargets(targets);
-        $$.hasPositiveValue = $$.hasPositiveValueInTargets(targets);
         if (config.data_type) {
             $$.setTargetType($$.mapToIds(targets).filter(function (id) { return ! (id in config.data_types); }), config.data_type);
         }
@@ -4214,7 +4091,7 @@ function prettyNumber(input) {
             $$.load($$.convertDataToTargets(args.data), args);
         }
         else if (args.url) {
-            $$.convertUrlToData(args.url, args.mimeType, args.headers, args.keys, function (data) {
+            $$.convertUrlToData(args.url, args.mimeType, args.keys, function (data) {
                 $$.load($$.convertDataToTargets(data), args);
             });
         }
@@ -4490,7 +4367,7 @@ function prettyNumber(input) {
                 }
                 $$.expandBars(closest.index, closest.id, true);
                 $$.showXGridFocus(selectedData);
-                if ($$.isBarType(closest.id) || $$.dist(closest, mouse) < config.point_sensitivity) {
+                if ($$.isBarType(closest.id) || $$.dist(closest, mouse) < 100) {
                     $$.svg.select('.' + CLASS.eventRect).style('cursor', 'pointer');
                     if (!$$.mouseover) {
                         config.data_onmouseover.call($$.api, closest);
@@ -4505,7 +4382,7 @@ function prettyNumber(input) {
                 mouse = d3.mouse(this);
                 closest = $$.findClosestFromTargets(targetsToShow, mouse);
                 if (! closest) { return; }
-                if ($$.isBarType(closest.id) || $$.dist(closest, mouse) < config.point_sensitivity) {
+                if ($$.isBarType(closest.id) || $$.dist(closest, mouse) < 100) {
                     $$.main.selectAll('.' + CLASS.shapes + $$.getTargetSelectorSuffix(closest.id)).selectAll('.' + CLASS.shape + '-' + closest.index).each(function () {
                         if (config.data_selection_grouped || $$.isWithinShape(this, closest)) {
                             $$.toggleShape(this, closest, closest.index);
@@ -4542,16 +4419,11 @@ function prettyNumber(input) {
     c3_chart_internal_fn.getCurrentHeight = function () {
         var $$ = this, config = $$.config,
             h = config.size_height ? config.size_height : $$.getParentHeight();
-        return h > 0 ? h : 320 / ($$.hasType('gauge') && !config.gauge_fullCircle ? 2 : 1); 
+        return h > 0 ? h : 320 / ($$.hasType('gauge') ? 2 : 1);
     };
     c3_chart_internal_fn.getCurrentPaddingTop = function () {
-        var $$ = this,
-            config = $$.config,
-            padding = isValue(config.padding_top) ? config.padding_top : 0;
-        if ($$.title && $$.title.node()) {
-            padding += $$.getTitlePadding();
-        }
-        return padding;
+        var config = this.config;
+        return isValue(config.padding_top) ? config.padding_top : 0;
     };
     c3_chart_internal_fn.getCurrentPaddingBottom = function () {
         var config = this.config;
@@ -4625,15 +4497,10 @@ function prettyNumber(input) {
         var $$ = this, config = $$.config, h = 30;
         if (axisId === 'x' && !config.axis_x_show) { return 8; }
         if (axisId === 'x' && config.axis_x_height) { return config.axis_x_height; }
-        if (axisId === 'y' && !config.axis_y_show) { 
-            return config.legend_show && !$$.isLegendRight && !$$.isLegendInset ? 10 : 1; 
-        }
+        if (axisId === 'y' && !config.axis_y_show) { return config.legend_show && !$$.isLegendRight && !$$.isLegendInset ? 10 : 1; }
         if (axisId === 'y2' && !config.axis_y2_show) { return $$.rotated_padding_top; }
         if (axisId === 'x' && !config.axis_rotated && config.axis_x_tick_rotate) {
             h = 30 + $$.axis.getMaxTickWidth(axisId) * Math.cos(Math.PI * (90 - config.axis_x_tick_rotate) / 180);
-        }
-        if (axisId === 'y' && config.axis_rotated && config.axis_y_tick_rotate) {
-            h = 30 + $$.axis.getMaxTickWidth(axisId) * Math.cos(Math.PI * (90 - config.axis_y_tick_rotate) / 180);
         }
         return h + ($$.axis.getLabelPositionById(axisId).isInner ? 0 : 10) + (axisId === 'y2' ? -10 : 0);
     };
@@ -4683,15 +4550,7 @@ function prettyNumber(input) {
                 var values = $$.isStepType(d) ? $$.convertValuesToStep(t.values) : t.values;
                 if (t.id === d.id || indices[t.id] !== indices[d.id]) { return; }
                 if (targetIds.indexOf(t.id) < targetIds.indexOf(d.id)) {
-                    if (typeof values[i] === 'undefined' || +values[i].x !== +d.x) { 
-                        i = -1;
-                        values.forEach(function (v, j) {
-                            if (v.x === d.x) {
-                                i = j;
-                            }
-                        });
-                    }
-                    if (i in values && values[i].value * d.value >= 0) {
+                    if (values[i].value * d.value >= 0) {
                         offset += scale(values[i].value) - y0;
                     }
                 }
@@ -4714,9 +4573,8 @@ function prettyNumber(input) {
         return isWithin;
     };
     c3_chart_internal_fn.getInterpolate = function (d) {
-        var $$ = this,
-            interpolation = $$.isInterpolationType($$.config.spline_interpolation_type) ? $$.config.spline_interpolation_type : 'cardinal';
-        return $$.isSplineType(d) ? interpolation : $$.isStepType(d) ? $$.config.line_step_type : "linear";
+        var $$ = this;
+        return $$.isSplineType(d) ? "cardinal" : $$.isStepType(d) ? $$.config.line_step_type : "linear";
     };
     c3_chart_internal_fn.initLine = function () {
         var $$ = this;
@@ -4770,7 +4628,7 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.redrawLine = function (drawLine, withTransition) {
         return [
-            (withTransition ? this.mainLine.transition(Math.random().toString()) : this.mainLine)
+            (withTransition ? this.mainLine.transition() : this.mainLine)
                 .attr("d", drawLine)
                 .style("stroke", this.color)
                 .style("opacity", 1)
@@ -4924,7 +4782,7 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.redrawArea = function (drawArea, withTransition) {
         return [
-            (withTransition ? this.mainArea.transition(Math.random().toString()) : this.mainArea)
+            (withTransition ? this.mainArea.transition() : this.mainArea)
                 .attr("d", drawArea)
                 .style("fill", this.color)
                 .style("opacity", this.orgAreaOpacity)
@@ -4941,7 +4799,7 @@ function prettyNumber(input) {
             value1 = function (d, i) {
                 return config.data_groups.length > 0 ? getPoints(d, i)[1][1] : yScaleGetter.call($$, d.id)(d.value);
             };
-        area = config.axis_rotated ? area.x0(value0).x1(value1).y(xValue) : area.x(xValue).y0(config.area_above ? 0 : value0).y1(value1);
+        area = config.axis_rotated ? area.x0(value0).x1(value1).y(xValue) : area.x(xValue).y0(value0).y1(value1);
         if (!config.line_connectNull) {
             area = area.defined(function (d) { return d.value !== null; });
         }
@@ -5001,12 +4859,12 @@ function prettyNumber(input) {
     c3_chart_internal_fn.redrawCircle = function (cx, cy, withTransition) {
         var selectedCircles = this.main.selectAll('.' + CLASS.selectedCircle);
         return [
-            (withTransition ? this.mainCircle.transition(Math.random().toString()) : this.mainCircle)
+            (withTransition ? this.mainCircle.transition() : this.mainCircle)
                 .style('opacity', this.opacityForCircle.bind(this))
                 .style("fill", this.color)
                 .attr("cx", cx)
                 .attr("cy", cy),
-            (withTransition ? selectedCircles.transition(Math.random().toString()) : selectedCircles)
+            (withTransition ? selectedCircles.transition() : selectedCircles)
                 .attr("cx", cx)
                 .attr("cy", cy)
         ];
@@ -5058,7 +4916,7 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.pointSelectR = function (d) {
         var $$ = this, config = $$.config;
-        return isFunction(config.point_select_r) ? config.point_select_r(d) : ((config.point_select_r) ? config.point_select_r : $$.pointR(d) * 4);
+        return config.point_select_r ? config.point_select_r : $$.pointR(d) * 4;
     };
     c3_chart_internal_fn.isWithinCircle = function (that, r) {
         var d3 = this.d3,
@@ -5111,7 +4969,7 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.redrawBar = function (drawBar, withTransition) {
         return [
-            (withTransition ? this.mainBar.transition(Math.random().toString()) : this.mainBar)
+            (withTransition ? this.mainBar.transition() : this.mainBar)
                 .attr('d', drawBar)
                 .style("fill", this.color)
                 .style("opacity", 1)
@@ -5231,16 +5089,14 @@ function prettyNumber(input) {
                 .style("fill-opacity", forFlow ? 0 : this.opacityForText.bind(this))
         ];
     };
-    c3_chart_internal_fn.getTextRect = function (text, cls, element) {
+    c3_chart_internal_fn.getTextRect = function (text, cls) {
         var dummy = this.d3.select('body').append('div').classed('c3', true),
             svg = dummy.append("svg").style('visibility', 'hidden').style('position', 'fixed').style('top', 0).style('left', 0),
-            font = this.d3.select(element).style('font'),
             rect;
         svg.selectAll('.dummy')
             .data([text])
           .enter().append('text')
             .classed(cls ? cls : "", true)
-            .style('font', font)
             .text(text)
           .each(function () { rect = this.getBoundingClientRect(); });
         dummy.remove();
@@ -5283,7 +5139,7 @@ function prettyNumber(input) {
             yPos = (points[0][0] + points[2][0] + box.height * 0.6) / 2;
         } else {
             yPos = points[2][1];
-            if (d.value < 0  || (d.value === 0 && !$$.hasPositiveValue)) {
+            if (d.value < 0) {
                 yPos += box.height;
                 if ($$.isBarType(d) && $$.isSafari()) {
                     yPos -= 3;
@@ -5394,9 +5250,6 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.barOrLineData = function (d) {
         return this.isBarType(d) || this.isLineType(d) ? d.values : [];
-    };
-    c3_chart_internal_fn.isInterpolationType = function (type) {
-        return ['linear', 'linear-closed', 'basis', 'basis-open', 'basis-closed', 'bundle', 'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'].indexOf(type) >= 0;
     };
     c3_chart_internal_fn.initGrid = function () {
         var $$ = this, config = $$.config, d3 = $$.d3;
@@ -5651,38 +5504,18 @@ function prettyNumber(input) {
             titleFormat = config.tooltip_format_title || defaultTitleFormat,
             nameFormat = config.tooltip_format_name || function (name) { return name; },
             valueFormat = config.tooltip_format_value || defaultValueFormat,
-            text, i, title, value, name, bgcolor,
-            orderAsc = $$.isOrderAsc();
-        if (config.data_groups.length === 0) {
-            d.sort(function(a, b){
-                var v1 = a ? a.value : null, v2 = b ? b.value : null;
-                return orderAsc ? v1 - v2 : v2 - v1;
-            });
-        } else {
-            var ids = $$.orderTargets($$.data.targets).map(function (i) {
-                return i.id;
-            });
-            d.sort(function(a, b) {
-                var v1 = a ? a.value : null, v2 = b ? b.value : null;
-                if (v1 > 0 && v2 > 0) {
-                    v1 = a ? ids.indexOf(a.id) : null;
-                    v2 = b ? ids.indexOf(b.id) : null;
-                }
-                return orderAsc ? v1 - v2 : v2 - v1;
-            });
-        }
+            text, i, title, value, name, bgcolor;
         for (i = 0; i < d.length; i++) {
             if (! (d[i] && (d[i].value || d[i].value === 0))) { continue; }
             if (! text) {
-                title = sanitise(titleFormat ? titleFormat(d[i].x) : d[i].x);
-                text = "<table class='" + $$.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
+                title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+                text = "<table class='" + CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + title + "</th></tr>" : "");
             }
-            value = sanitise(valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index, d));
+            value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
             if (value !== undefined) {
-                if (d[i].name === null) { continue; }
-                name = sanitise(nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index));
+                name = nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index);
                 bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id);
-                text += "<tr class='" + $$.CLASS.tooltipName + "-" + $$.getTargetSelectorSuffix(d[i].id) + "'>";
+                text += "<tr class='" + CLASS.tooltipName + "-" + d[i].id + "'>";
                 text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + name + "</td>";
                 text += "<td class='value'>" + value + "</td>";
                 text += "</tr>";
@@ -5855,27 +5688,24 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.updateLegend = function (targetIds, options, transitions) {
         var $$ = this, config = $$.config;
-        var xForLegend, xForLegendText, xForLegendRect, yForLegend, yForLegendText, yForLegendRect, x1ForLegendTile, x2ForLegendTile, yForLegendTile;
-        var paddingTop = 4, paddingRight = 10, maxWidth = 0, maxHeight = 0, posMin = 10, tileWidth = config.legend_item_tile_width + 5;
+        var xForLegend, xForLegendText, xForLegendRect, yForLegend, yForLegendText, yForLegendRect;
+        var paddingTop = 4, paddingRight = 10, maxWidth = 0, maxHeight = 0, posMin = 10, tileWidth = 15;
         var l, totalLength = 0, offsets = {}, widths = {}, heights = {}, margins = [0], steps = {}, step = 0;
         var withTransition, withTransitionForTransform;
         var texts, rects, tiles, background;
-        targetIds = targetIds.filter(function(id) {
-            return !isDefined(config.data_names[id]) || config.data_names[id] !== null;
-        });
         options = options || {};
         withTransition = getOption(options, "withTransition", true);
         withTransitionForTransform = getOption(options, "withTransitionForTransform", true);
         function getTextBox(textElement, id) {
             if (!$$.legendItemTextBox[id]) {
-                $$.legendItemTextBox[id] = $$.getTextRect(textElement.textContent, CLASS.legendItem, textElement);
+                $$.legendItemTextBox[id] = $$.getTextRect(textElement.textContent, CLASS.legendItem);
             }
             return $$.legendItemTextBox[id];
         }
         function updatePositions(textElement, id, index) {
             var reset = index === 0, isLast = index === targetIds.length - 1,
                 box = getTextBox(textElement, id),
-                itemWidth = box.width + tileWidth + (isLast && !($$.isLegendRight || $$.isLegendInset) ? 0 : paddingRight) + config.legend_padding,
+                itemWidth = box.width + tileWidth + (isLast && !($$.isLegendRight || $$.isLegendInset) ? 0 : paddingRight),
                 itemHeight = box.height + paddingTop,
                 itemLength = $$.isLegendRight || $$.isLegendInset ? itemHeight : itemWidth,
                 areaLength = $$.isLegendRight || $$.isLegendInset ? $$.getLegendHeight() : $$.getLegendWidth(),
@@ -5939,13 +5769,10 @@ function prettyNumber(input) {
             xForLegend = function (id) { return margins[steps[id]] + offsets[id]; };
             yForLegend = function (id) { return maxHeight * steps[id]; };
         }
-        xForLegendText = function (id, i) { return xForLegend(id, i) + 4 + config.legend_item_tile_width; };
+        xForLegendText = function (id, i) { return xForLegend(id, i) + 14; };
         yForLegendText = function (id, i) { return yForLegend(id, i) + 9; };
         xForLegendRect = function (id, i) { return xForLegend(id, i); };
         yForLegendRect = function (id, i) { return yForLegend(id, i) - 5; };
-        x1ForLegendTile = function (id, i) { return xForLegend(id, i) - 2; };
-        x2ForLegendTile = function (id, i) { return xForLegend(id, i) - 2 + config.legend_item_tile_width; };
-        yForLegendTile = function (id, i) { return yForLegend(id, i) + 4; };
         l = $$.legend.selectAll('.' + CLASS.legendItem)
             .data(targetIds)
             .enter().append('g')
@@ -5966,23 +5793,19 @@ function prettyNumber(input) {
                 }
             })
             .on('mouseover', function (id) {
+                $$.d3.select(this).classed(CLASS.legendItemFocused, true);
+                if (!$$.transiting && $$.isTargetToShow(id)) {
+                    $$.api.focus(id);
+                }
                 if (config.legend_item_onmouseover) {
                     config.legend_item_onmouseover.call($$, id);
                 }
-                else {
-                    $$.d3.select(this).classed(CLASS.legendItemFocused, true);
-                    if (!$$.transiting && $$.isTargetToShow(id)) {
-                        $$.api.focus(id);
-                    }
-                }
             })
             .on('mouseout', function (id) {
+                $$.d3.select(this).classed(CLASS.legendItemFocused, false);
+                $$.api.revert();
                 if (config.legend_item_onmouseout) {
                     config.legend_item_onmouseout.call($$, id);
-                }
-                else {
-                    $$.d3.select(this).classed(CLASS.legendItemFocused, false);
-                    $$.api.revert();
                 }
             });
         l.append('text')
@@ -5996,15 +5819,14 @@ function prettyNumber(input) {
             .style('fill-opacity', 0)
             .attr('x', $$.isLegendRight || $$.isLegendInset ? xForLegendRect : -200)
             .attr('y', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendRect);
-        l.append('line')
-            .attr('class', CLASS.legendItemTile)
-            .style('stroke', $$.color)
+        l.append('rect')
+            .attr("class", CLASS.legendItemTile)
             .style("pointer-events", "none")
-            .attr('x1', $$.isLegendRight || $$.isLegendInset ? x1ForLegendTile : -200)
-            .attr('y1', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile)
-            .attr('x2', $$.isLegendRight || $$.isLegendInset ? x2ForLegendTile : -200)
-            .attr('y2', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegendTile)
-            .attr('stroke-width', config.legend_item_tile_height);
+            .style('fill', $$.color)
+            .attr('x', $$.isLegendRight || $$.isLegendInset ? xForLegendText : -200)
+            .attr('y', $$.isLegendRight || $$.isLegendInset ? -200 : yForLegend)
+            .attr('width', 10)
+            .attr('height', 10);
         background = $$.legend.select('.' + CLASS.legendBackground + ' rect');
         if ($$.isLegendInset && maxWidth > 0 && background.size() === 0) {
             background = $$.legend.insert('g', '.' + CLASS.legendItem)
@@ -6025,14 +5847,12 @@ function prettyNumber(input) {
             .attr('height', function (id) { return heights[id]; })
             .attr('x', xForLegendRect)
             .attr('y', yForLegendRect);
-        tiles = $$.legend.selectAll('line.' + CLASS.legendItemTile)
-                .data(targetIds);
-            (withTransition ? tiles.transition() : tiles)
-                .style('stroke', $$.color)
-                .attr('x1', x1ForLegendTile)
-                .attr('y1', yForLegendTile)
-                .attr('x2', x2ForLegendTile)
-                .attr('y2', yForLegendTile);
+        tiles = $$.legend.selectAll('rect.' + CLASS.legendItemTile)
+            .data(targetIds);
+        (withTransition ? tiles.transition() : tiles)
+            .style('fill', $$.color)
+            .attr('x', xForLegend)
+            .attr('y', yForLegend);
         if (background) {
             (withTransition ? background.transition() : background)
                 .attr('height', $$.getLegendHeight() - 12)
@@ -6048,37 +5868,6 @@ function prettyNumber(input) {
         $$.updateSvgSize();
         $$.transformAll(withTransitionForTransform, transitions);
         $$.legendHasRendered = true;
-    };
-    c3_chart_internal_fn.initTitle = function () {
-        var $$ = this;
-        $$.title = $$.svg.append("text")
-              .text($$.config.title_text)
-              .attr("class", $$.CLASS.title);
-    };
-    c3_chart_internal_fn.redrawTitle = function () {
-        var $$ = this;
-        $$.title
-              .attr("x", $$.xForTitle.bind($$))
-              .attr("y", $$.yForTitle.bind($$));
-    };
-    c3_chart_internal_fn.xForTitle = function () {
-        var $$ = this, config = $$.config, position = config.title_position || 'left', x;
-        if (position.indexOf('right') >= 0) {
-            x = $$.currentWidth - $$.getTextRect($$.title.node().textContent, $$.CLASS.title, $$.title.node()).width - config.title_padding.right;
-        } else if (position.indexOf('center') >= 0) {
-            x = ($$.currentWidth - $$.getTextRect($$.title.node().textContent, $$.CLASS.title, $$.title.node()).width) / 2;
-        } else {
-            x = config.title_padding.left;
-        }
-        return x;
-    };
-    c3_chart_internal_fn.yForTitle = function () {
-        var $$ = this;
-        return $$.config.title_padding.top + $$.getTextRect($$.title.node().textContent, $$.CLASS.title, $$.title.node()).height;
-    };
-    c3_chart_internal_fn.getTitlePadding = function() {
-        var $$ = this;
-        return $$.yForTitle() + $$.config.title_padding.bottom;
     };
     function Axis(owner) {
         API.call(this, owner);
@@ -6124,7 +5913,7 @@ function prettyNumber(input) {
                 withoutTransition: withoutTransition,
             },
             axis = c3_axis($$.d3, axisParams).scale(scale).orient(orient);
-        if ($$.isTimeSeries() && tickValues && typeof tickValues !== "function") {
+        if ($$.isTimeSeries() && tickValues) {
             tickValues = tickValues.map(function (v) { return $$.parseDate(v); });
         }
         axis.tickFormat(tickFormat).tickValues(tickValues);
@@ -6149,16 +5938,17 @@ function prettyNumber(input) {
         }
         return tickValues;
     };
-    Axis.prototype.getYAxis = function getYAxis(scale, orient, tickFormat, tickValues, withOuterTick, withoutTransition, withoutRotateTickText) {
-        var $$ = this.owner, config = $$.config,
-            axisParams = {
-                withOuterTick: withOuterTick,
-                withoutTransition: withoutTransition,
-                tickTextRotate: withoutRotateTickText ? 0 : config.axis_y_tick_rotate
-            },
-            axis = c3_axis($$.d3, axisParams).scale(scale).orient(orient).tickFormat(tickFormat);
+    Axis.prototype.getYAxis = function getYAxis(scale, orient, tickFormat, tickValues, withOuterTick, withoutTransition) {
+        var axisParams = {
+            withOuterTick: withOuterTick,
+            withoutTransition: withoutTransition,
+        },
+            $$ = this.owner,
+            d3 = $$.d3,
+            config = $$.config,
+            axis = c3_axis(d3, axisParams).scale(scale).orient(orient).tickFormat(tickFormat);
         if ($$.isTimeSeriesY()) {
-            axis.ticks($$.d3.time[config.axis_y_tick_time_value], config.axis_y_tick_time_interval);
+            axis.ticks(d3.time[config.axis_y_tick_time_value], config.axis_y_tick_time_interval);
         } else {
             axis.tickValues(tickValues);
         }
@@ -6348,10 +6138,10 @@ function prettyNumber(input) {
             targetsToShow = $$.filterTargetsToShow($$.data.targets);
             if (id === 'y') {
                 scale = $$.y.copy().domain($$.getYDomain(targetsToShow, 'y'));
-                axis = this.getYAxis(scale, $$.yOrient, config.axis_y_tick_format, $$.yAxisTickValues, false, true, true);
+                axis = this.getYAxis(scale, $$.yOrient, config.axis_y_tick_format, $$.yAxisTickValues, false, true);
             } else if (id === 'y2') {
                 scale = $$.y2.copy().domain($$.getYDomain(targetsToShow, 'y2'));
-                axis = this.getYAxis(scale, $$.y2Orient, config.axis_y2_tick_format, $$.y2AxisTickValues, false, true, true);
+                axis = this.getYAxis(scale, $$.y2Orient, config.axis_y2_tick_format, $$.y2AxisTickValues, false, true);
             } else {
                 scale = $$.x.copy().domain($$.getXDomain(targetsToShow));
                 axis = this.getXAxis(scale, $$.xOrient, $$.xAxisTickFormat, $$.xAxisTickValues, false, true, true);
@@ -6392,14 +6182,13 @@ function prettyNumber(input) {
             .text(this.textForY2AxisLabel.bind(this));
     };
     Axis.prototype.getPadding = function getPadding(padding, key, defaultValue, domainLength) {
-        var p = typeof padding === 'number' ? padding : padding[key];
-        if (!isValue(p)) {
+        if (!isValue(padding[key])) {
             return defaultValue;
         }
         if (padding.unit === 'ratio') {
             return padding[key] * domainLength;
         }
-        return this.convertPixelsToAxisPadding(p, domainLength);
+        return this.convertPixelsToAxisPadding(padding[key], domainLength);
     };
     Axis.prototype.convertPixelsToAxisPadding = function convertPixelsToAxisPadding(pixels, domainLength) {
         var $$ = this.owner,
@@ -6531,10 +6320,7 @@ function prettyNumber(input) {
     c3_chart_internal_fn.updateAngle = function (d) {
         var $$ = this, config = $$.config,
             found = false, index = 0,
-            gMin, gMax, gTic, gValue;
-        if (!config) {
-            return null;
-        }
+            gMin = config.gauge_min, gMax = config.gauge_max, gTic, gValue;
         $$.pie($$.filterTargetsToShow($$.data.targets)).forEach(function (t) {
             if (! found && t.data.id === d.data.id) {
                 found = true;
@@ -6550,11 +6336,9 @@ function prettyNumber(input) {
             d.endAngle = d.startAngle;
         }
         if ($$.isGaugeType(d.data)) {
-            gMin = config.gauge_min;
-            gMax = config.gauge_max;
-            gTic = (Math.PI * (config.gauge_fullCircle ? 2 : 1)) / (gMax - gMin);
+            gTic = (Math.PI) / (gMax - gMin);
             gValue = d.value < gMin ? 0 : d.value < gMax ? d.value - gMin : (gMax - gMin);
-            d.startAngle = config.gauge_startingAngle;
+            d.startAngle = -1 * (Math.PI / 2);
             d.endAngle = d.startAngle + gTic * gValue;
         }
         return found ? d : null;
@@ -6583,28 +6367,21 @@ function prettyNumber(input) {
         return force || this.isArcType(d.data) ? this.svgArc(d, withoutUpdate) : "M 0 0";
     };
     c3_chart_internal_fn.transformForArcLabel = function (d) {
-        var $$ = this, config = $$.config,
+        var $$ = this,
             updated = $$.updateAngle(d), c, x, y, h, ratio, translate = "";
         if (updated && !$$.hasType('gauge')) {
             c = this.svgArc.centroid(updated);
             x = isNaN(c[0]) ? 0 : c[0];
             y = isNaN(c[1]) ? 0 : c[1];
             h = Math.sqrt(x * x + y * y);
-            if ($$.hasType('donut') && config.donut_label_ratio) {
-                ratio = isFunction(config.donut_label_ratio) ? config.donut_label_ratio(d, $$.radius, h) : config.donut_label_ratio;
-            } else if ($$.hasType('pie') && config.pie_label_ratio) {
-                ratio = isFunction(config.pie_label_ratio) ? config.pie_label_ratio(d, $$.radius, h) : config.pie_label_ratio;
-            } else {
-                ratio = $$.radius && h ? (36 / $$.radius > 0.375 ? 1.175 - 36 / $$.radius : 0.8) * $$.radius / h : 0;
-            }
+            ratio = $$.radius && h ? (36 / $$.radius > 0.375 ? 1.175 - 36 / $$.radius : 0.8) * $$.radius / h : 0;
             translate = "translate(" + (x * ratio) +  ',' + (y * ratio) +  ")";
         }
         return translate;
     };
     c3_chart_internal_fn.getArcRatio = function (d) {
         var $$ = this,
-            config = $$.config,
-            whole = Math.PI * ($$.hasType('gauge') && !config.gauge_fullCircle ? 1 : 2);
+            whole = $$.hasType('gauge') ? Math.PI : (Math.PI * 2);
         return d ? (d.endAngle - d.startAngle) / whole : null;
     };
     c3_chart_internal_fn.convertToArcData = function (d) {
@@ -6644,9 +6421,9 @@ function prettyNumber(input) {
         $$.svg.selectAll($$.selectorTargets(targetIds, '.' + CLASS.chartArc)).each(function (d) {
             if (! $$.shouldExpand(d.data.id)) { return; }
             $$.d3.select(this).selectAll('path')
-                .transition().duration($$.expandDuration(d.data.id))
+                .transition().duration(50)
                 .attr("d", $$.svgArcExpanded)
-                .transition().duration($$.expandDuration(d.data.id) * 2)
+                .transition().duration(100)
                 .attr("d", $$.svgArcExpandedSub)
                 .each(function (d) {
                     if ($$.isDonutType(d.data)) {
@@ -6659,30 +6436,14 @@ function prettyNumber(input) {
         if ($$.transiting) { return; }
         targetIds = $$.mapToTargetIds(targetIds);
         $$.svg.selectAll($$.selectorTargets(targetIds, '.' + CLASS.chartArc)).selectAll('path')
-            .transition().duration(function(d) {
-                return $$.expandDuration(d.data.id);
-            })
+            .transition().duration(50)
             .attr("d", $$.svgArc);
         $$.svg.selectAll('.' + CLASS.arc)
             .style("opacity", 1);
     };
-    c3_chart_internal_fn.expandDuration = function (id) {
-        var $$ = this, config = $$.config;
-        if ($$.isDonutType(id)) {
-            return config.donut_expand_duration;
-        } else if ($$.isGaugeType(id)) {
-            return config.gauge_expand_duration;
-        } else if ($$.isPieType(id)) {
-            return config.pie_expand_duration;
-        } else {
-            return 50;
-        }
-    };
     c3_chart_internal_fn.shouldExpand = function (id) {
         var $$ = this, config = $$.config;
-        return ($$.isDonutType(id) && config.donut_expand) ||
-               ($$.isGaugeType(id) && config.gauge_expand) ||
-               ($$.isPieType(id) && config.pie_expand);
+        return ($$.isDonutType(id) && config.donut_expand) || ($$.isGaugeType(id) && config.gauge_expand) || ($$.isPieType(id) && config.pie_expand);
     };
     c3_chart_internal_fn.shouldShowArcLabel = function () {
         var $$ = this, config = $$.config, shouldShow = true;
@@ -6753,7 +6514,7 @@ function prettyNumber(input) {
             .style("opacity", 0)
             .each(function (d) {
                 if ($$.isGaugeType(d.data)) {
-                    d.startAngle = d.endAngle = config.gauge_startingAngle;
+                    d.startAngle = d.endAngle = -1 * (Math.PI / 2);
                 }
                 this._current = d;
             });
@@ -6766,21 +6527,17 @@ function prettyNumber(input) {
                     return;
                 }
                 updated = $$.updateAngle(d);
-                if (updated) {
-                    arcData = $$.convertToArcData(updated);
-                    $$.expandArc(updated.data.id);
-                    $$.api.focus(updated.data.id);
-                    $$.toggleFocusLegend(updated.data.id, true);
-                    $$.config.data_onmouseover(arcData, this);
-                }
+                arcData = $$.convertToArcData(updated);
+                $$.expandArc(updated.data.id);
+                $$.api.focus(updated.data.id);
+                $$.toggleFocusLegend(updated.data.id, true);
+                $$.config.data_onmouseover(arcData, this);
             } : null)
             .on('mousemove', config.interaction_enabled ? function (d) {
-                var updated = $$.updateAngle(d), arcData, selectedData;
-                if (updated) {
+                var updated = $$.updateAngle(d),
                     arcData = $$.convertToArcData(updated),
                     selectedData = [arcData];
-                    $$.showTooltip(selectedData, this);
-                }
+                $$.showTooltip(selectedData, this);
             } : null)
             .on('mouseout', config.interaction_enabled ? function (d) {
                 var updated, arcData;
@@ -6788,24 +6545,18 @@ function prettyNumber(input) {
                     return;
                 }
                 updated = $$.updateAngle(d);
-                if (updated) {
-                    arcData = $$.convertToArcData(updated);
-                    $$.unexpandArc(updated.data.id);
-                    $$.api.revert();
-                    $$.revertLegend();
-                    $$.hideTooltip();
-                    $$.config.data_onmouseout(arcData, this);
-                }
+                arcData = $$.convertToArcData(updated);
+                $$.unexpandArc(updated.data.id);
+                $$.api.revert();
+                $$.revertLegend();
+                $$.hideTooltip();
+                $$.config.data_onmouseout(arcData, this);
             } : null)
             .on('click', config.interaction_enabled ? function (d, i) {
-                var updated = $$.updateAngle(d), arcData;
-                if (updated) {
+                var updated = $$.updateAngle(d),
                     arcData = $$.convertToArcData(updated);
-                    if ($$.toggleShape) {
-                        $$.toggleShape(this, arcData, i);
-                    }
-                    $$.config.data_onclick.call($$.api, arcData, this);
-                }
+                if ($$.toggleShape) { $$.toggleShape(this, arcData, i); }
+                $$.config.data_onclick.call($$.api, arcData, this);
             } : null)
             .each(function () { $$.transiting = true; })
             .transition().duration(duration)
@@ -6854,8 +6605,8 @@ function prettyNumber(input) {
                 .attr("d", function () {
                     var d = {
                         data: [{value: config.gauge_max}],
-                        startAngle: config.gauge_startingAngle,
-                        endAngle: -1 * config.gauge_startingAngle
+                        startAngle: -1 * (Math.PI / 2),
+                        endAngle: Math.PI / 2
                     };
                     return $$.getArc(d, true, true);
                 });
@@ -6863,11 +6614,11 @@ function prettyNumber(input) {
                 .attr("dy", ".75em")
                 .text(config.gauge_label_show ? config.gauge_units : '');
             $$.arcs.select('.' + CLASS.chartArcsGaugeMin)
-                .attr("dx", -1 * ($$.innerRadius + (($$.radius - $$.innerRadius) / (config.gauge_fullCircle ? 1 : 2))) + "px")
+                .attr("dx", -1 * ($$.innerRadius + (($$.radius - $$.innerRadius) / 2)) + "px")
                 .attr("dy", "1.2em")
                 .text(config.gauge_label_show ? config.gauge_min : '');
             $$.arcs.select('.' + CLASS.chartArcsGaugeMax)
-                .attr("dx", $$.innerRadius + (($$.radius - $$.innerRadius) / (config.gauge_fullCircle ? 1 : 2)) + "px")
+                .attr("dx", $$.innerRadius + (($$.radius - $$.innerRadius) / 2) + "px")
                 .attr("dy", "1.2em")
                 .text(config.gauge_label_show ? config.gauge_max : '');
         }
@@ -6906,20 +6657,16 @@ function prettyNumber(input) {
         $$.mainRegion = $$.main.select('.' + CLASS.regions).selectAll('.' + CLASS.region)
             .data(config.regions);
         $$.mainRegion.enter().append('g')
+            .attr('class', $$.classRegion.bind($$))
           .append('rect')
             .style("fill-opacity", 0);
-        $$.mainRegion
-            .attr('class', $$.classRegion.bind($$));
         $$.mainRegion.exit().transition().duration(duration)
             .style("opacity", 0)
             .remove();
     };
     c3_chart_internal_fn.redrawRegion = function (withTransition) {
         var $$ = this,
-            regions = $$.mainRegion.selectAll('rect').each(function () {
-                var parentData = $$.d3.select(this.parentNode).datum();
-                $$.d3.select(this).datum(parentData);
-            }),
+            regions = $$.mainRegion.selectAll('rect'),
             x = $$.regionX.bind($$),
             y = $$.regionY.bind($$),
             w = $$.regionWidth.bind($$),
@@ -7068,7 +6815,7 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.unselectPoint = function (target, d, i) {
         var $$ = this;
-        $$.config.data_onunselected.call($$.api, d, target.node());
+        $$.config.data_onunselected(d, target.node());
         $$.main.select('.' + CLASS.selectedCircles + $$.getTargetSelectorSuffix(d.id)).selectAll('.' + CLASS.selectedCircle + '-' + i)
             .transition().duration(100).attr('r', 0)
             .remove();
@@ -7079,18 +6826,14 @@ function prettyNumber(input) {
     c3_chart_internal_fn.selectPath = function (target, d) {
         var $$ = this;
         $$.config.data_onselected.call($$, d, target.node());
-        if ($$.config.interaction_brighten) {
-            target.transition().duration(100)
-                .style("fill", function () { return $$.d3.rgb($$.color(d)).brighter(0.75); });
-        }
+        target.transition().duration(100)
+            .style("fill", function () { return $$.d3.rgb($$.color(d)).brighter(0.75); });
     };
     c3_chart_internal_fn.unselectPath = function (target, d) {
         var $$ = this;
         $$.config.data_onunselected.call($$, d, target.node());
-        if ($$.config.interaction_brighten) {
-            target.transition().duration(100)
-                .style("fill", function () { return $$.color(d); });
-        }
+        target.transition().duration(100)
+            .style("fill", function () { return $$.color(d); });
     };
     c3_chart_internal_fn.togglePath = function (selected, target, d, i) {
         selected ? this.selectPath(target, d, i) : this.unselectPath(target, d, i);
@@ -7137,9 +6880,8 @@ function prettyNumber(input) {
     };
     c3_chart_internal_fn.initSubchart = function () {
         var $$ = this, config = $$.config,
-            context = $$.context = $$.svg.append("g").attr("transform", $$.getTranslate('context')),
-            visibility = config.subchart_show ? 'visible' : 'hidden';
-        context.style('visibility', visibility);
+            context = $$.context = $$.svg.append("g").attr("transform", $$.getTranslate('context'));
+        context.style('visibility', config.subchart_show ? 'visible' : 'hidden');
         context.append('g')
             .attr("clip-path", $$.clipPathForSubchart)
             .attr('class', CLASS.chart);
@@ -7154,8 +6896,7 @@ function prettyNumber(input) {
         $$.axes.subx = context.append("g")
             .attr("class", CLASS.axisX)
             .attr("transform", $$.getTranslate('subx'))
-            .attr("clip-path", config.axis_rotated ? "" : $$.clipPathForXAxis)
-            .style("visibility", config.subchart_axis_x_show ? visibility : 'hidden');
+            .attr("clip-path", config.axis_rotated ? "" : $$.clipPathForXAxis);
     };
     c3_chart_internal_fn.updateTargetsForSubchart = function (targets) {
         var $$ = this, context = $$.context, config = $$.config,
@@ -7203,7 +6944,7 @@ function prettyNumber(input) {
             .remove();
     };
     c3_chart_internal_fn.redrawBarForSubchart = function (drawBarOnSub, withTransition, duration) {
-        (withTransition ? this.contextBar.transition(Math.random().toString()).duration(duration) : this.contextBar)
+        (withTransition ? this.contextBar.transition().duration(duration) : this.contextBar)
             .attr('d', drawBarOnSub)
             .style('opacity', 1);
     };
@@ -7221,7 +6962,7 @@ function prettyNumber(input) {
             .remove();
     };
     c3_chart_internal_fn.redrawLineForSubchart = function (drawLineOnSub, withTransition, duration) {
-        (withTransition ? this.contextLine.transition(Math.random().toString()).duration(duration) : this.contextLine)
+        (withTransition ? this.contextLine.transition().duration(duration) : this.contextLine)
             .attr("d", drawLineOnSub)
             .style('opacity', 1);
     };
@@ -7240,7 +6981,7 @@ function prettyNumber(input) {
             .remove();
     };
     c3_chart_internal_fn.redrawAreaForSubchart = function (drawAreaOnSub, withTransition, duration) {
-        (withTransition ? this.contextArea.transition(Math.random().toString()).duration(duration) : this.contextArea)
+        (withTransition ? this.contextArea.transition().duration(duration) : this.contextArea)
             .attr("d", drawAreaOnSub)
             .style("fill", this.color)
             .style("opacity", this.orgAreaOpacity);
@@ -7327,17 +7068,11 @@ function prettyNumber(input) {
             return [extent[0], Math.max($$.getMaxDataCount() / extent[1], extent[1])];
         };
         $$.zoom.updateScaleExtent = function () {
-            var ratio = diffDomain($$.x.orgDomain()) / diffDomain($$.getZoomDomain()),
+            var ratio = diffDomain($$.x.orgDomain()) / diffDomain($$.orgXDomain),
                 extent = this.orgScaleExtent();
             this.scaleExtent([extent[0] * ratio, extent[1] * ratio]);
             return this;
         };
-    };
-    c3_chart_internal_fn.getZoomDomain = function () {
-        var $$ = this, config = $$.config, d3 = $$.d3,
-            min = d3.min([$$.orgXDomain[0], config.zoom_x_min]),
-            max = d3.max([$$.orgXDomain[1], config.zoom_x_max]);
-        return [min, max];
     };
     c3_chart_internal_fn.updateZoom = function () {
         var $$ = this, z = $$.config.zoom_enabled ? $$.zoom : function () {};
@@ -7498,7 +7233,6 @@ function prettyNumber(input) {
         defocused: 'c3-defocused',
         region: 'c3-region',
         regions: 'c3-regions',
-        title: 'c3-title',
         tooltipContainer: 'c3-tooltip-container',
         tooltip: 'c3-tooltip',
         tooltipName: 'c3-tooltip-name',
@@ -7670,10 +7404,10 @@ function prettyNumber(input) {
             return d[1] - d[0];
         },
         isEmpty = c3_chart_internal_fn.isEmpty = function (o) {
-            return typeof o === 'undefined' || o === null || (isString(o) && o.length === 0) || (typeof o === 'object' && Object.keys(o).length === 0);
+            return !o || (isString(o) && o.length === 0) || (typeof o === 'object' && Object.keys(o).length === 0);
         },
         notEmpty = c3_chart_internal_fn.notEmpty = function (o) {
-            return !c3_chart_internal_fn.isEmpty(o);
+            return Object.keys(o).length > 0;
         },
         getOption = c3_chart_internal_fn.getOption = function (options, key, defaultValue) {
             return isDefined(options[key]) ? options[key] : defaultValue;
@@ -7684,9 +7418,6 @@ function prettyNumber(input) {
                 if (dict[key] === value) { found = true; }
             });
             return found;
-        },
-        sanitise = c3_chart_internal_fn.sanitise = function (str) {
-            return typeof str === 'string' ? str.replace(/</g, '&lt;').replace(/>/g, '&gt;') : str;
         },
         getPathBox = c3_chart_internal_fn.getPathBox = function (path) {
             var box = path.getBoundingClientRect(),
@@ -7803,42 +7534,10 @@ function prettyNumber(input) {
         $$.brush.clear().update();
         $$.redraw({withUpdateXDomain: true});
     };
-    c3_chart_fn.zoom.max = function (max) {
-        var $$ = this.internal, config = $$.config, d3 = $$.d3;
-        if (max === 0 || max) {
-            config.zoom_x_max = d3.max([$$.orgXDomain[1], max]);
-        }
-        else {
-            return config.zoom_x_max;
-        }
-    };
-    c3_chart_fn.zoom.min = function (min) {
-        var $$ = this.internal, config = $$.config, d3 = $$.d3;
-        if (min === 0 || min) {
-            config.zoom_x_min = d3.min([$$.orgXDomain[0], min]);
-        }
-        else {
-            return config.zoom_x_min;
-        }
-    };
-    c3_chart_fn.zoom.range = function (range) {
-        if (arguments.length) {
-            if (isDefined(range.max)) { this.domain.max(range.max); }
-            if (isDefined(range.min)) { this.domain.min(range.min); }
-        } else {
-            return {
-                max: this.domain.max(),
-                min: this.domain.min()
-            };
-        }
-    };
     c3_chart_fn.load = function (args) {
         var $$ = this.internal, config = $$.config;
         if (args.xs) {
             $$.addXs(args.xs);
-        }
-        if ('names' in args) {
-            c3_chart_fn.data.names.bind(this)(args.names);
         }
         if ('classes' in args) {
             Object.keys(args.classes).forEach(function (id) {
@@ -8054,7 +7753,7 @@ function prettyNumber(input) {
                         translateX = diffDomain(domain) / 2;
                     }
                 }
-            } else if (flow.orgDataCount === 1 || (flowStart && flowStart.x) === (flowEnd && flowEnd.x)) {
+            } else if (flow.orgDataCount === 1 || flowStart.x === flowEnd.x) {
                 translateX = $$.x(orgDomain[0]) - $$.x(domain[0]);
             } else {
                 if ($$.isTimeSeries()) {
@@ -8066,6 +7765,7 @@ function prettyNumber(input) {
             scaleX = (diffDomain(orgDomain) / diffDomain(domain));
             transform = 'translate(' + translateX + ',0) scale(' + scaleX + ',1)';
             $$.hideXGridFocus();
+            $$.hideTooltip();
             d3.transition().ease('linear').duration(durationForFlow).each(function () {
                 wait.add($$.axes.x.transition().call($$.xAxis));
                 wait.add(mainBar.transition().attr('transform', transform));
@@ -8417,19 +8117,7 @@ function prettyNumber(input) {
     c3_chart_fn.destroy = function () {
         var $$ = this.internal;
         window.clearInterval($$.intervalForObserveInserted);
-        if ($$.resizeTimeout !== undefined) {
-            window.clearTimeout($$.resizeTimeout);
-        }
-        if (window.detachEvent) {
-            window.detachEvent('onresize', $$.resizeFunction);
-        } else if (window.removeEventListener) {
-            window.removeEventListener('resize', $$.resizeFunction);
-        } else {
-            var wrapper = window.onresize;
-            if (wrapper && wrapper.add && wrapper.remove) {
-                wrapper.remove($$.resizeFunction);
-            }
-        }
+        window.onresize = null;
         $$.selectChart.classed('c3', false).html("");
         Object.keys($$).forEach(function (key) {
             $$[key] = null;
@@ -8458,11 +8146,9 @@ function prettyNumber(input) {
         }
         $$.dispatchEvent('mouseover', index, mouse);
         $$.dispatchEvent('mousemove', index, mouse);
-        $$.config.tooltip_onshow.call($$, args.data);
     };
     c3_chart_fn.tooltip.hide = function () {
         this.internal.dispatchEvent('mouseout', 0);
-        this.internal.config.tooltip_onhide.call(this);
     };
     var tickTextCharSize;
     function c3_axis(d3, params) {
@@ -8774,7 +8460,6 @@ function prettyNumber(input) {
         var ua = window.navigator.userAgent;
         return ua.indexOf('Chrome') >= 0;
     };
-    /* jshint ignore:start */
     if (!Function.prototype.bind) {
       Function.prototype.bind = function(oThis) {
         if (typeof this !== 'function') {
@@ -8791,693 +8476,8 @@ function prettyNumber(input) {
         return fBound;
       };
     }
-    (function() { "use strict";
-     if (!("SVGPathSeg" in window)) {
-         window.SVGPathSeg = function(type, typeAsLetter, owningPathSegList) {
-             this.pathSegType = type;
-             this.pathSegTypeAsLetter = typeAsLetter;
-             this._owningPathSegList = owningPathSegList;
-         }
-         SVGPathSeg.PATHSEG_UNKNOWN = 0;
-         SVGPathSeg.PATHSEG_CLOSEPATH = 1;
-         SVGPathSeg.PATHSEG_MOVETO_ABS = 2;
-         SVGPathSeg.PATHSEG_MOVETO_REL = 3;
-         SVGPathSeg.PATHSEG_LINETO_ABS = 4;
-         SVGPathSeg.PATHSEG_LINETO_REL = 5;
-         SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS = 6;
-         SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL = 7;
-         SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS = 8;
-         SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL = 9;
-         SVGPathSeg.PATHSEG_ARC_ABS = 10;
-         SVGPathSeg.PATHSEG_ARC_REL = 11;
-         SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS = 12;
-         SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL = 13;
-         SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS = 14;
-         SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL = 15;
-         SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS = 16;
-         SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL = 17;
-         SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS = 18;
-         SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL = 19;
-         SVGPathSeg.prototype._segmentChanged = function() {
-             if (this._owningPathSegList)
-                 this._owningPathSegList.segmentChanged(this);
-         }
-         window.SVGPathSegClosePath = function(owningPathSegList) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CLOSEPATH, "z", owningPathSegList);
-         }
-         SVGPathSegClosePath.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegClosePath.prototype.toString = function() { return "[object SVGPathSegClosePath]"; }
-         SVGPathSegClosePath.prototype._asPathString = function() { return this.pathSegTypeAsLetter; }
-         SVGPathSegClosePath.prototype.clone = function() { return new SVGPathSegClosePath(undefined); }
-         window.SVGPathSegMovetoAbs = function(owningPathSegList, x, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_MOVETO_ABS, "M", owningPathSegList);
-             this._x = x;
-             this._y = y;
-         }
-         SVGPathSegMovetoAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegMovetoAbs.prototype.toString = function() { return "[object SVGPathSegMovetoAbs]"; }
-         SVGPathSegMovetoAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-         SVGPathSegMovetoAbs.prototype.clone = function() { return new SVGPathSegMovetoAbs(undefined, this._x, this._y); }
-         Object.defineProperty(SVGPathSegMovetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegMovetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegMovetoRel = function(owningPathSegList, x, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_MOVETO_REL, "m", owningPathSegList);
-             this._x = x;
-             this._y = y;
-         }
-         SVGPathSegMovetoRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegMovetoRel.prototype.toString = function() { return "[object SVGPathSegMovetoRel]"; }
-         SVGPathSegMovetoRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-         SVGPathSegMovetoRel.prototype.clone = function() { return new SVGPathSegMovetoRel(undefined, this._x, this._y); }
-         Object.defineProperty(SVGPathSegMovetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegMovetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegLinetoAbs = function(owningPathSegList, x, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_ABS, "L", owningPathSegList);
-             this._x = x;
-             this._y = y;
-         }
-         SVGPathSegLinetoAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegLinetoAbs.prototype.toString = function() { return "[object SVGPathSegLinetoAbs]"; }
-         SVGPathSegLinetoAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-         SVGPathSegLinetoAbs.prototype.clone = function() { return new SVGPathSegLinetoAbs(undefined, this._x, this._y); }
-         Object.defineProperty(SVGPathSegLinetoAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegLinetoAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegLinetoRel = function(owningPathSegList, x, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_REL, "l", owningPathSegList);
-             this._x = x;
-             this._y = y;
-         }
-         SVGPathSegLinetoRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegLinetoRel.prototype.toString = function() { return "[object SVGPathSegLinetoRel]"; }
-         SVGPathSegLinetoRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-         SVGPathSegLinetoRel.prototype.clone = function() { return new SVGPathSegLinetoRel(undefined, this._x, this._y); }
-         Object.defineProperty(SVGPathSegLinetoRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegLinetoRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoCubicAbs = function(owningPathSegList, x, y, x1, y1, x2, y2) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS, "C", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._x1 = x1;
-             this._y1 = y1;
-             this._x2 = x2;
-             this._y2 = y2;
-         }
-         SVGPathSegCurvetoCubicAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoCubicAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicAbs]"; }
-         SVGPathSegCurvetoCubicAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoCubicAbs.prototype.clone = function() { return new SVGPathSegCurvetoCubicAbs(undefined, this._x, this._y, this._x1, this._y1, this._x2, this._y2); }
-         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoCubicRel = function(owningPathSegList, x, y, x1, y1, x2, y2) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL, "c", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._x1 = x1;
-             this._y1 = y1;
-             this._x2 = x2;
-             this._y2 = y2;
-         }
-         SVGPathSegCurvetoCubicRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoCubicRel.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicRel]"; }
-         SVGPathSegCurvetoCubicRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoCubicRel.prototype.clone = function() { return new SVGPathSegCurvetoCubicRel(undefined, this._x, this._y, this._x1, this._y1, this._x2, this._y2); }
-         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoQuadraticAbs = function(owningPathSegList, x, y, x1, y1) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS, "Q", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._x1 = x1;
-             this._y1 = y1;
-         }
-         SVGPathSegCurvetoQuadraticAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoQuadraticAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticAbs]"; }
-         SVGPathSegCurvetoQuadraticAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoQuadraticAbs.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticAbs(undefined, this._x, this._y, this._x1, this._y1); }
-         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticAbs.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoQuadraticRel = function(owningPathSegList, x, y, x1, y1) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL, "q", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._x1 = x1;
-             this._y1 = y1;
-         }
-         SVGPathSegCurvetoQuadraticRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoQuadraticRel.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticRel]"; }
-         SVGPathSegCurvetoQuadraticRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x1 + " " + this._y1 + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoQuadraticRel.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticRel(undefined, this._x, this._y, this._x1, this._y1); }
-         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "x1", { get: function() { return this._x1; }, set: function(x1) { this._x1 = x1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticRel.prototype, "y1", { get: function() { return this._y1; }, set: function(y1) { this._y1 = y1; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegArcAbs = function(owningPathSegList, x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_ARC_ABS, "A", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._r1 = r1;
-             this._r2 = r2;
-             this._angle = angle;
-             this._largeArcFlag = largeArcFlag;
-             this._sweepFlag = sweepFlag;
-         }
-         SVGPathSegArcAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegArcAbs.prototype.toString = function() { return "[object SVGPathSegArcAbs]"; }
-         SVGPathSegArcAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._r1 + " " + this._r2 + " " + this._angle + " " + (this._largeArcFlag ? "1" : "0") + " " + (this._sweepFlag ? "1" : "0") + " " + this._x + " " + this._y; }
-         SVGPathSegArcAbs.prototype.clone = function() { return new SVGPathSegArcAbs(undefined, this._x, this._y, this._r1, this._r2, this._angle, this._largeArcFlag, this._sweepFlag); }
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "r1", { get: function() { return this._r1; }, set: function(r1) { this._r1 = r1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "r2", { get: function() { return this._r2; }, set: function(r2) { this._r2 = r2; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcAbs.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegArcRel = function(owningPathSegList, x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_ARC_REL, "a", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._r1 = r1;
-             this._r2 = r2;
-             this._angle = angle;
-             this._largeArcFlag = largeArcFlag;
-             this._sweepFlag = sweepFlag;
-         }
-         SVGPathSegArcRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegArcRel.prototype.toString = function() { return "[object SVGPathSegArcRel]"; }
-         SVGPathSegArcRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._r1 + " " + this._r2 + " " + this._angle + " " + (this._largeArcFlag ? "1" : "0") + " " + (this._sweepFlag ? "1" : "0") + " " + this._x + " " + this._y; }
-         SVGPathSegArcRel.prototype.clone = function() { return new SVGPathSegArcRel(undefined, this._x, this._y, this._r1, this._r2, this._angle, this._largeArcFlag, this._sweepFlag); }
-         Object.defineProperty(SVGPathSegArcRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcRel.prototype, "r1", { get: function() { return this._r1; }, set: function(r1) { this._r1 = r1; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcRel.prototype, "r2", { get: function() { return this._r2; }, set: function(r2) { this._r2 = r2; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcRel.prototype, "angle", { get: function() { return this._angle; }, set: function(angle) { this._angle = angle; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcRel.prototype, "largeArcFlag", { get: function() { return this._largeArcFlag; }, set: function(largeArcFlag) { this._largeArcFlag = largeArcFlag; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegArcRel.prototype, "sweepFlag", { get: function() { return this._sweepFlag; }, set: function(sweepFlag) { this._sweepFlag = sweepFlag; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegLinetoHorizontalAbs = function(owningPathSegList, x) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS, "H", owningPathSegList);
-             this._x = x;
-         }
-         SVGPathSegLinetoHorizontalAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegLinetoHorizontalAbs.prototype.toString = function() { return "[object SVGPathSegLinetoHorizontalAbs]"; }
-         SVGPathSegLinetoHorizontalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
-         SVGPathSegLinetoHorizontalAbs.prototype.clone = function() { return new SVGPathSegLinetoHorizontalAbs(undefined, this._x); }
-         Object.defineProperty(SVGPathSegLinetoHorizontalAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegLinetoHorizontalRel = function(owningPathSegList, x) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL, "h", owningPathSegList);
-             this._x = x;
-         }
-         SVGPathSegLinetoHorizontalRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegLinetoHorizontalRel.prototype.toString = function() { return "[object SVGPathSegLinetoHorizontalRel]"; }
-         SVGPathSegLinetoHorizontalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x; }
-         SVGPathSegLinetoHorizontalRel.prototype.clone = function() { return new SVGPathSegLinetoHorizontalRel(undefined, this._x); }
-         Object.defineProperty(SVGPathSegLinetoHorizontalRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegLinetoVerticalAbs = function(owningPathSegList, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS, "V", owningPathSegList);
-             this._y = y;
-         }
-         SVGPathSegLinetoVerticalAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegLinetoVerticalAbs.prototype.toString = function() { return "[object SVGPathSegLinetoVerticalAbs]"; }
-         SVGPathSegLinetoVerticalAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
-         SVGPathSegLinetoVerticalAbs.prototype.clone = function() { return new SVGPathSegLinetoVerticalAbs(undefined, this._y); }
-         Object.defineProperty(SVGPathSegLinetoVerticalAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegLinetoVerticalRel = function(owningPathSegList, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL, "v", owningPathSegList);
-             this._y = y;
-         }
-         SVGPathSegLinetoVerticalRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegLinetoVerticalRel.prototype.toString = function() { return "[object SVGPathSegLinetoVerticalRel]"; }
-         SVGPathSegLinetoVerticalRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._y; }
-         SVGPathSegLinetoVerticalRel.prototype.clone = function() { return new SVGPathSegLinetoVerticalRel(undefined, this._y); }
-         Object.defineProperty(SVGPathSegLinetoVerticalRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoCubicSmoothAbs = function(owningPathSegList, x, y, x2, y2) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS, "S", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._x2 = x2;
-             this._y2 = y2;
-         }
-         SVGPathSegCurvetoCubicSmoothAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoCubicSmoothAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicSmoothAbs]"; }
-         SVGPathSegCurvetoCubicSmoothAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoCubicSmoothAbs.prototype.clone = function() { return new SVGPathSegCurvetoCubicSmoothAbs(undefined, this._x, this._y, this._x2, this._y2); }
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothAbs.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoCubicSmoothRel = function(owningPathSegList, x, y, x2, y2) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL, "s", owningPathSegList);
-             this._x = x;
-             this._y = y;
-             this._x2 = x2;
-             this._y2 = y2;
-         }
-         SVGPathSegCurvetoCubicSmoothRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoCubicSmoothRel.prototype.toString = function() { return "[object SVGPathSegCurvetoCubicSmoothRel]"; }
-         SVGPathSegCurvetoCubicSmoothRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x2 + " " + this._y2 + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoCubicSmoothRel.prototype.clone = function() { return new SVGPathSegCurvetoCubicSmoothRel(undefined, this._x, this._y, this._x2, this._y2); }
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "x2", { get: function() { return this._x2; }, set: function(x2) { this._x2 = x2; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoCubicSmoothRel.prototype, "y2", { get: function() { return this._y2; }, set: function(y2) { this._y2 = y2; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoQuadraticSmoothAbs = function(owningPathSegList, x, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS, "T", owningPathSegList);
-             this._x = x;
-             this._y = y;
-         }
-         SVGPathSegCurvetoQuadraticSmoothAbs.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoQuadraticSmoothAbs.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticSmoothAbs]"; }
-         SVGPathSegCurvetoQuadraticSmoothAbs.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoQuadraticSmoothAbs.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticSmoothAbs(undefined, this._x, this._y); }
-         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothAbs.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         window.SVGPathSegCurvetoQuadraticSmoothRel = function(owningPathSegList, x, y) {
-             SVGPathSeg.call(this, SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL, "t", owningPathSegList);
-             this._x = x;
-             this._y = y;
-         }
-         SVGPathSegCurvetoQuadraticSmoothRel.prototype = Object.create(SVGPathSeg.prototype);
-         SVGPathSegCurvetoQuadraticSmoothRel.prototype.toString = function() { return "[object SVGPathSegCurvetoQuadraticSmoothRel]"; }
-         SVGPathSegCurvetoQuadraticSmoothRel.prototype._asPathString = function() { return this.pathSegTypeAsLetter + " " + this._x + " " + this._y; }
-         SVGPathSegCurvetoQuadraticSmoothRel.prototype.clone = function() { return new SVGPathSegCurvetoQuadraticSmoothRel(undefined, this._x, this._y); }
-         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothRel.prototype, "x", { get: function() { return this._x; }, set: function(x) { this._x = x; this._segmentChanged(); }, enumerable: true });
-         Object.defineProperty(SVGPathSegCurvetoQuadraticSmoothRel.prototype, "y", { get: function() { return this._y; }, set: function(y) { this._y = y; this._segmentChanged(); }, enumerable: true });
-         SVGPathElement.prototype.createSVGPathSegClosePath = function() { return new SVGPathSegClosePath(undefined); }
-         SVGPathElement.prototype.createSVGPathSegMovetoAbs = function(x, y) { return new SVGPathSegMovetoAbs(undefined, x, y); }
-         SVGPathElement.prototype.createSVGPathSegMovetoRel = function(x, y) { return new SVGPathSegMovetoRel(undefined, x, y); }
-         SVGPathElement.prototype.createSVGPathSegLinetoAbs = function(x, y) { return new SVGPathSegLinetoAbs(undefined, x, y); }
-         SVGPathElement.prototype.createSVGPathSegLinetoRel = function(x, y) { return new SVGPathSegLinetoRel(undefined, x, y); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoCubicAbs = function(x, y, x1, y1, x2, y2) { return new SVGPathSegCurvetoCubicAbs(undefined, x, y, x1, y1, x2, y2); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoCubicRel = function(x, y, x1, y1, x2, y2) { return new SVGPathSegCurvetoCubicRel(undefined, x, y, x1, y1, x2, y2); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticAbs = function(x, y, x1, y1) { return new SVGPathSegCurvetoQuadraticAbs(undefined, x, y, x1, y1); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticRel = function(x, y, x1, y1) { return new SVGPathSegCurvetoQuadraticRel(undefined, x, y, x1, y1); }
-         SVGPathElement.prototype.createSVGPathSegArcAbs = function(x, y, r1, r2, angle, largeArcFlag, sweepFlag) { return new SVGPathSegArcAbs(undefined, x, y, r1, r2, angle, largeArcFlag, sweepFlag); }
-         SVGPathElement.prototype.createSVGPathSegArcRel = function(x, y, r1, r2, angle, largeArcFlag, sweepFlag) { return new SVGPathSegArcRel(undefined, x, y, r1, r2, angle, largeArcFlag, sweepFlag); }
-         SVGPathElement.prototype.createSVGPathSegLinetoHorizontalAbs = function(x) { return new SVGPathSegLinetoHorizontalAbs(undefined, x); }
-         SVGPathElement.prototype.createSVGPathSegLinetoHorizontalRel = function(x) { return new SVGPathSegLinetoHorizontalRel(undefined, x); }
-         SVGPathElement.prototype.createSVGPathSegLinetoVerticalAbs = function(y) { return new SVGPathSegLinetoVerticalAbs(undefined, y); }
-         SVGPathElement.prototype.createSVGPathSegLinetoVerticalRel = function(y) { return new SVGPathSegLinetoVerticalRel(undefined, y); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoCubicSmoothAbs = function(x, y, x2, y2) { return new SVGPathSegCurvetoCubicSmoothAbs(undefined, x, y, x2, y2); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoCubicSmoothRel = function(x, y, x2, y2) { return new SVGPathSegCurvetoCubicSmoothRel(undefined, x, y, x2, y2); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothAbs = function(x, y) { return new SVGPathSegCurvetoQuadraticSmoothAbs(undefined, x, y); }
-         SVGPathElement.prototype.createSVGPathSegCurvetoQuadraticSmoothRel = function(x, y) { return new SVGPathSegCurvetoQuadraticSmoothRel(undefined, x, y); }
-     }
-     if (!("SVGPathSegList" in window)) {
-         window.SVGPathSegList = function(pathElement) {
-             this._pathElement = pathElement;
-             this._list = this._parsePath(this._pathElement.getAttribute("d"));
-             this._mutationObserverConfig = { "attributes": true, "attributeFilter": ["d"] };
-             this._pathElementMutationObserver = new MutationObserver(this._updateListFromPathMutations.bind(this));
-             this._pathElementMutationObserver.observe(this._pathElement, this._mutationObserverConfig);
-         }
-         Object.defineProperty(SVGPathSegList.prototype, "numberOfItems", {
-             get: function() {
-                 this._checkPathSynchronizedToList();
-                 return this._list.length;
-             },
-             enumerable: true
-         });
-         Object.defineProperty(SVGPathElement.prototype, "pathSegList", {
-             get: function() {
-                 if (!this._pathSegList)
-                     this._pathSegList = new SVGPathSegList(this);
-                 return this._pathSegList;
-             },
-             enumerable: true
-         });
-         Object.defineProperty(SVGPathElement.prototype, "normalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
-         Object.defineProperty(SVGPathElement.prototype, "animatedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
-         Object.defineProperty(SVGPathElement.prototype, "animatedNormalizedPathSegList", { get: function() { return this.pathSegList; }, enumerable: true });
-         SVGPathSegList.prototype._checkPathSynchronizedToList = function() {
-             this._updateListFromPathMutations(this._pathElementMutationObserver.takeRecords());
-         }
-         SVGPathSegList.prototype._updateListFromPathMutations = function(mutationRecords) {
-             if (!this._pathElement)
-                 return;
-             var hasPathMutations = false;
-             mutationRecords.forEach(function(record) {
-                 if (record.attributeName == "d")
-                     hasPathMutations = true;
-             });
-             if (hasPathMutations)
-                 this._list = this._parsePath(this._pathElement.getAttribute("d"));
-         }
-         SVGPathSegList.prototype._writeListToPath = function() {
-             this._pathElementMutationObserver.disconnect();
-             this._pathElement.setAttribute("d", SVGPathSegList._pathSegArrayAsString(this._list));
-             this._pathElementMutationObserver.observe(this._pathElement, this._mutationObserverConfig);
-         }
-         SVGPathSegList.prototype.segmentChanged = function(pathSeg) {
-             this._writeListToPath();
-         }
-         SVGPathSegList.prototype.clear = function() {
-             this._checkPathSynchronizedToList();
-             this._list.forEach(function(pathSeg) {
-                 pathSeg._owningPathSegList = null;
-             });
-             this._list = [];
-             this._writeListToPath();
-         }
-         SVGPathSegList.prototype.initialize = function(newItem) {
-             this._checkPathSynchronizedToList();
-             this._list = [newItem];
-             newItem._owningPathSegList = this;
-             this._writeListToPath();
-             return newItem;
-         }
-         SVGPathSegList.prototype._checkValidIndex = function(index) {
-             if (isNaN(index) || index < 0 || index >= this.numberOfItems)
-                 throw "INDEX_SIZE_ERR";
-         }
-         SVGPathSegList.prototype.getItem = function(index) {
-             this._checkPathSynchronizedToList();
-             this._checkValidIndex(index);
-             return this._list[index];
-         }
-         SVGPathSegList.prototype.insertItemBefore = function(newItem, index) {
-             this._checkPathSynchronizedToList();
-             if (index > this.numberOfItems)
-                 index = this.numberOfItems;
-             if (newItem._owningPathSegList) {
-                 newItem = newItem.clone();
-             }
-             this._list.splice(index, 0, newItem);
-             newItem._owningPathSegList = this;
-             this._writeListToPath();
-             return newItem;
-         }
-         SVGPathSegList.prototype.replaceItem = function(newItem, index) {
-             this._checkPathSynchronizedToList();
-             if (newItem._owningPathSegList) {
-                 newItem = newItem.clone();
-             }
-             this._checkValidIndex(index);
-             this._list[index] = newItem;
-             newItem._owningPathSegList = this;
-             this._writeListToPath();
-             return newItem;
-         }
-         SVGPathSegList.prototype.removeItem = function(index) {
-             this._checkPathSynchronizedToList();
-             this._checkValidIndex(index);
-             var item = this._list[index];
-             this._list.splice(index, 1);
-             this._writeListToPath();
-             return item;
-         }
-         SVGPathSegList.prototype.appendItem = function(newItem) {
-             this._checkPathSynchronizedToList();
-             if (newItem._owningPathSegList) {
-                 newItem = newItem.clone();
-             }
-             this._list.push(newItem);
-             newItem._owningPathSegList = this;
-             this._writeListToPath();
-             return newItem;
-         }
-         SVGPathSegList._pathSegArrayAsString = function(pathSegArray) {
-             var string = "";
-             var first = true;
-             pathSegArray.forEach(function(pathSeg) {
-                 if (first) {
-                     first = false;
-                     string += pathSeg._asPathString();
-                 } else {
-                     string += " " + pathSeg._asPathString();
-                 }
-             });
-             return string;
-         }
-         SVGPathSegList.prototype._parsePath = function(string) {
-             if (!string || string.length == 0)
-                 return [];
-             var owningPathSegList = this;
-             var Builder = function() {
-                 this.pathSegList = [];
-             }
-             Builder.prototype.appendSegment = function(pathSeg) {
-                 this.pathSegList.push(pathSeg);
-             }
-             var Source = function(string) {
-                 this._string = string;
-                 this._currentIndex = 0;
-                 this._endIndex = this._string.length;
-                 this._previousCommand = SVGPathSeg.PATHSEG_UNKNOWN;
-                 this._skipOptionalSpaces();
-             }
-             Source.prototype._isCurrentSpace = function() {
-                 var character = this._string[this._currentIndex];
-                 return character <= " " && (character == " " || character == "\n" || character == "\t" || character == "\r" || character == "\f");
-             }
-             Source.prototype._skipOptionalSpaces = function() {
-                 while (this._currentIndex < this._endIndex && this._isCurrentSpace())
-                     this._currentIndex++;
-                 return this._currentIndex < this._endIndex;
-             }
-             Source.prototype._skipOptionalSpacesOrDelimiter = function() {
-                 if (this._currentIndex < this._endIndex && !this._isCurrentSpace() && this._string.charAt(this._currentIndex) != ",")
-                     return false;
-                 if (this._skipOptionalSpaces()) {
-                     if (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) == ",") {
-                         this._currentIndex++;
-                         this._skipOptionalSpaces();
-                     }
-                 }
-                 return this._currentIndex < this._endIndex;
-             }
-             Source.prototype.hasMoreData = function() {
-                 return this._currentIndex < this._endIndex;
-             }
-             Source.prototype.peekSegmentType = function() {
-                 var lookahead = this._string[this._currentIndex];
-                 return this._pathSegTypeFromChar(lookahead);
-             }
-             Source.prototype._pathSegTypeFromChar = function(lookahead) {
-                 switch (lookahead) {
-                 case "Z":
-                 case "z":
-                     return SVGPathSeg.PATHSEG_CLOSEPATH;
-                 case "M":
-                     return SVGPathSeg.PATHSEG_MOVETO_ABS;
-                 case "m":
-                     return SVGPathSeg.PATHSEG_MOVETO_REL;
-                 case "L":
-                     return SVGPathSeg.PATHSEG_LINETO_ABS;
-                 case "l":
-                     return SVGPathSeg.PATHSEG_LINETO_REL;
-                 case "C":
-                     return SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS;
-                 case "c":
-                     return SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL;
-                 case "Q":
-                     return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS;
-                 case "q":
-                     return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL;
-                 case "A":
-                     return SVGPathSeg.PATHSEG_ARC_ABS;
-                 case "a":
-                     return SVGPathSeg.PATHSEG_ARC_REL;
-                 case "H":
-                     return SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS;
-                 case "h":
-                     return SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL;
-                 case "V":
-                     return SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS;
-                 case "v":
-                     return SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL;
-                 case "S":
-                     return SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS;
-                 case "s":
-                     return SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL;
-                 case "T":
-                     return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS;
-                 case "t":
-                     return SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL;
-                 default:
-                     return SVGPathSeg.PATHSEG_UNKNOWN;
-                 }
-             }
-             Source.prototype._nextCommandHelper = function(lookahead, previousCommand) {
-                 if ((lookahead == "+" || lookahead == "-" || lookahead == "." || (lookahead >= "0" && lookahead <= "9")) && previousCommand != SVGPathSeg.PATHSEG_CLOSEPATH) {
-                     if (previousCommand == SVGPathSeg.PATHSEG_MOVETO_ABS)
-                         return SVGPathSeg.PATHSEG_LINETO_ABS;
-                     if (previousCommand == SVGPathSeg.PATHSEG_MOVETO_REL)
-                         return SVGPathSeg.PATHSEG_LINETO_REL;
-                     return previousCommand;
-                 }
-                 return SVGPathSeg.PATHSEG_UNKNOWN;
-             }
-             Source.prototype.initialCommandIsMoveTo = function() {
-                 if (!this.hasMoreData())
-                     return true;
-                 var command = this.peekSegmentType();
-                 return command == SVGPathSeg.PATHSEG_MOVETO_ABS || command == SVGPathSeg.PATHSEG_MOVETO_REL;
-             }
-             Source.prototype._parseNumber = function() {
-                 var exponent = 0;
-                 var integer = 0;
-                 var frac = 1;
-                 var decimal = 0;
-                 var sign = 1;
-                 var expsign = 1;
-                 var startIndex = this._currentIndex;
-                 this._skipOptionalSpaces();
-                 if (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) == "+")
-                     this._currentIndex++;
-                 else if (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) == "-") {
-                     this._currentIndex++;
-                     sign = -1;
-                 }
-                 if (this._currentIndex == this._endIndex || ((this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9") && this._string.charAt(this._currentIndex) != "."))
-                     return undefined;
-                 var startIntPartIndex = this._currentIndex;
-                 while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9")
-                     this._currentIndex++;
-                 if (this._currentIndex != startIntPartIndex) {
-                     var scanIntPartIndex = this._currentIndex - 1;
-                     var multiplier = 1;
-                     while (scanIntPartIndex >= startIntPartIndex) {
-                         integer += multiplier * (this._string.charAt(scanIntPartIndex--) - "0");
-                         multiplier *= 10;
-                     }
-                 }
-                 if (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) == ".") {
-                     this._currentIndex++;
-                     if (this._currentIndex >= this._endIndex || this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9")
-                         return undefined;
-                     while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9")
-                         decimal += (this._string.charAt(this._currentIndex++) - "0") * (frac *= 0.1);
-                 }
-                 if (this._currentIndex != startIndex && this._currentIndex + 1 < this._endIndex && (this._string.charAt(this._currentIndex) == "e" || this._string.charAt(this._currentIndex) == "E") && (this._string.charAt(this._currentIndex + 1) != "x" && this._string.charAt(this._currentIndex + 1) != "m")) {
-                     this._currentIndex++;
-                     if (this._string.charAt(this._currentIndex) == "+") {
-                         this._currentIndex++;
-                     } else if (this._string.charAt(this._currentIndex) == "-") {
-                         this._currentIndex++;
-                         expsign = -1;
-                     }
-                     if (this._currentIndex >= this._endIndex || this._string.charAt(this._currentIndex) < "0" || this._string.charAt(this._currentIndex) > "9")
-                         return undefined;
-                     while (this._currentIndex < this._endIndex && this._string.charAt(this._currentIndex) >= "0" && this._string.charAt(this._currentIndex) <= "9") {
-                         exponent *= 10;
-                         exponent += (this._string.charAt(this._currentIndex) - "0");
-                         this._currentIndex++;
-                     }
-                 }
-                 var number = integer + decimal;
-                 number *= sign;
-                 if (exponent)
-                     number *= Math.pow(10, expsign * exponent);
-                 if (startIndex == this._currentIndex)
-                     return undefined;
-                 this._skipOptionalSpacesOrDelimiter();
-                 return number;
-             }
-             Source.prototype._parseArcFlag = function() {
-                 if (this._currentIndex >= this._endIndex)
-                     return undefined;
-                 var flag = false;
-                 var flagChar = this._string.charAt(this._currentIndex++);
-                 if (flagChar == "0")
-                     flag = false;
-                 else if (flagChar == "1")
-                     flag = true;
-                 else
-                     return undefined;
-                 this._skipOptionalSpacesOrDelimiter();
-                 return flag;
-             }
-             Source.prototype.parseSegment = function() {
-                 var lookahead = this._string[this._currentIndex];
-                 var command = this._pathSegTypeFromChar(lookahead);
-                 if (command == SVGPathSeg.PATHSEG_UNKNOWN) {
-                     if (this._previousCommand == SVGPathSeg.PATHSEG_UNKNOWN)
-                         return null;
-                     command = this._nextCommandHelper(lookahead, this._previousCommand);
-                     if (command == SVGPathSeg.PATHSEG_UNKNOWN)
-                         return null;
-                 } else {
-                     this._currentIndex++;
-                 }
-                 this._previousCommand = command;
-                 switch (command) {
-                 case SVGPathSeg.PATHSEG_MOVETO_REL:
-                     return new SVGPathSegMovetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
-                 case SVGPathSeg.PATHSEG_MOVETO_ABS:
-                     return new SVGPathSegMovetoAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
-                 case SVGPathSeg.PATHSEG_LINETO_REL:
-                     return new SVGPathSegLinetoRel(owningPathSegList, this._parseNumber(), this._parseNumber());
-                 case SVGPathSeg.PATHSEG_LINETO_ABS:
-                     return new SVGPathSegLinetoAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
-                 case SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_REL:
-                     return new SVGPathSegLinetoHorizontalRel(owningPathSegList, this._parseNumber());
-                 case SVGPathSeg.PATHSEG_LINETO_HORIZONTAL_ABS:
-                     return new SVGPathSegLinetoHorizontalAbs(owningPathSegList, this._parseNumber());
-                 case SVGPathSeg.PATHSEG_LINETO_VERTICAL_REL:
-                     return new SVGPathSegLinetoVerticalRel(owningPathSegList, this._parseNumber());
-                 case SVGPathSeg.PATHSEG_LINETO_VERTICAL_ABS:
-                     return new SVGPathSegLinetoVerticalAbs(owningPathSegList, this._parseNumber());
-                 case SVGPathSeg.PATHSEG_CLOSEPATH:
-                     this._skipOptionalSpaces();
-                     return new SVGPathSegClosePath(owningPathSegList);
-                 case SVGPathSeg.PATHSEG_CURVETO_CUBIC_REL:
-                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegCurvetoCubicRel(owningPathSegList, points.x, points.y, points.x1, points.y1, points.x2, points.y2);
-                 case SVGPathSeg.PATHSEG_CURVETO_CUBIC_ABS:
-                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegCurvetoCubicAbs(owningPathSegList, points.x, points.y, points.x1, points.y1, points.x2, points.y2);
-                 case SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_REL:
-                     var points = {x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegCurvetoCubicSmoothRel(owningPathSegList, points.x, points.y, points.x2, points.y2);
-                 case SVGPathSeg.PATHSEG_CURVETO_CUBIC_SMOOTH_ABS:
-                     var points = {x2: this._parseNumber(), y2: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegCurvetoCubicSmoothAbs(owningPathSegList, points.x, points.y, points.x2, points.y2);
-                 case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_REL:
-                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegCurvetoQuadraticRel(owningPathSegList, points.x, points.y, points.x1, points.y1);
-                 case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_ABS:
-                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegCurvetoQuadraticAbs(owningPathSegList, points.x, points.y, points.x1, points.y1);
-                 case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_REL:
-                     return new SVGPathSegCurvetoQuadraticSmoothRel(owningPathSegList, this._parseNumber(), this._parseNumber());
-                 case SVGPathSeg.PATHSEG_CURVETO_QUADRATIC_SMOOTH_ABS:
-                     return new SVGPathSegCurvetoQuadraticSmoothAbs(owningPathSegList, this._parseNumber(), this._parseNumber());
-                 case SVGPathSeg.PATHSEG_ARC_REL:
-                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), arcAngle: this._parseNumber(), arcLarge: this._parseArcFlag(), arcSweep: this._parseArcFlag(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegArcRel(owningPathSegList, points.x, points.y, points.x1, points.y1, points.arcAngle, points.arcLarge, points.arcSweep);
-                 case SVGPathSeg.PATHSEG_ARC_ABS:
-                     var points = {x1: this._parseNumber(), y1: this._parseNumber(), arcAngle: this._parseNumber(), arcLarge: this._parseArcFlag(), arcSweep: this._parseArcFlag(), x: this._parseNumber(), y: this._parseNumber()};
-                     return new SVGPathSegArcAbs(owningPathSegList, points.x, points.y, points.x1, points.y1, points.arcAngle, points.arcLarge, points.arcSweep);
-                 default:
-                     throw "Unknown path seg type."
-                 }
-             }
-             var builder = new Builder();
-             var source = new Source(string);
-             if (!source.initialCommandIsMoveTo())
-                 return [];
-             while (source.hasMoreData()) {
-                 var pathSeg = source.parseSegment();
-                 if (!pathSeg)
-                     return [];
-                 builder.appendSegment(pathSeg);
-             }
-             return builder.pathSegList;
-         }
-     }
-    }());
-    /* jshint ignore:end */
     if (typeof define === 'function' && define.amd) {
-        define("c3", ["d3"], function () { return c3; });
+        define("c3", ["d3"], c3);
     } else if ('undefined' !== typeof exports && 'undefined' !== typeof module) {
         module.exports = c3;
     } else {
@@ -9487,47 +8487,37 @@ function prettyNumber(input) {
 },{"d3":30}],30:[function(require,module,exports){
 !function() {
   var d3 = {
-    version: "3.5.17"
+    version: "3.5.0"
+  };
+  if (!Date.now) Date.now = function() {
+    return +new Date();
   };
   var d3_arraySlice = [].slice, d3_array = function(list) {
     return d3_arraySlice.call(list);
   };
-  var d3_document = this.document;
-  function d3_documentElement(node) {
-    return node && (node.ownerDocument || node.document || node).documentElement;
+  var d3_document = document, d3_documentElement = d3_document.documentElement, d3_window = window;
+  try {
+    d3_array(d3_documentElement.childNodes)[0].nodeType;
+  } catch (e) {
+    d3_array = function(list) {
+      var i = list.length, array = new Array(i);
+      while (i--) array[i] = list[i];
+      return array;
+    };
   }
-  function d3_window(node) {
-    return node && (node.ownerDocument && node.ownerDocument.defaultView || node.document && node || node.defaultView);
-  }
-  if (d3_document) {
-    try {
-      d3_array(d3_document.documentElement.childNodes)[0].nodeType;
-    } catch (e) {
-      d3_array = function(list) {
-        var i = list.length, array = new Array(i);
-        while (i--) array[i] = list[i];
-        return array;
-      };
-    }
-  }
-  if (!Date.now) Date.now = function() {
-    return +new Date();
-  };
-  if (d3_document) {
-    try {
-      d3_document.createElement("DIV").style.setProperty("opacity", 0, "");
-    } catch (error) {
-      var d3_element_prototype = this.Element.prototype, d3_element_setAttribute = d3_element_prototype.setAttribute, d3_element_setAttributeNS = d3_element_prototype.setAttributeNS, d3_style_prototype = this.CSSStyleDeclaration.prototype, d3_style_setProperty = d3_style_prototype.setProperty;
-      d3_element_prototype.setAttribute = function(name, value) {
-        d3_element_setAttribute.call(this, name, value + "");
-      };
-      d3_element_prototype.setAttributeNS = function(space, local, value) {
-        d3_element_setAttributeNS.call(this, space, local, value + "");
-      };
-      d3_style_prototype.setProperty = function(name, value, priority) {
-        d3_style_setProperty.call(this, name, value + "", priority);
-      };
-    }
+  try {
+    d3_document.createElement("div").style.setProperty("opacity", 0, "");
+  } catch (error) {
+    var d3_element_prototype = d3_window.Element.prototype, d3_element_setAttribute = d3_element_prototype.setAttribute, d3_element_setAttributeNS = d3_element_prototype.setAttributeNS, d3_style_prototype = d3_window.CSSStyleDeclaration.prototype, d3_style_setProperty = d3_style_prototype.setProperty;
+    d3_element_prototype.setAttribute = function(name, value) {
+      d3_element_setAttribute.call(this, name, value + "");
+    };
+    d3_element_prototype.setAttributeNS = function(space, local, value) {
+      d3_element_setAttributeNS.call(this, space, local, value + "");
+    };
+    d3_style_prototype.setProperty = function(name, value, priority) {
+      d3_style_setProperty.call(this, name, value + "", priority);
+    };
   }
   d3.ascending = d3_ascending;
   function d3_ascending(a, b) {
@@ -9630,31 +8620,6 @@ function prettyNumber(input) {
     }
     if (numbers.length) return d3.quantile(numbers.sort(d3_ascending), .5);
   };
-  d3.variance = function(array, f) {
-    var n = array.length, m = 0, a, d, s = 0, i = -1, j = 0;
-    if (arguments.length === 1) {
-      while (++i < n) {
-        if (d3_numeric(a = d3_number(array[i]))) {
-          d = a - m;
-          m += d / ++j;
-          s += d * (a - m);
-        }
-      }
-    } else {
-      while (++i < n) {
-        if (d3_numeric(a = d3_number(f.call(array, array[i], i)))) {
-          d = a - m;
-          m += d / ++j;
-          s += d * (a - m);
-        }
-      }
-    }
-    if (j > 1) return s / (j - 1);
-  };
-  d3.deviation = function() {
-    var v = d3.variance.apply(this, arguments);
-    return v ? Math.sqrt(v) : v;
-  };
   function d3_bisector(compare) {
     return {
       left: function(a, x, lo, hi) {
@@ -9707,20 +8672,20 @@ function prettyNumber(input) {
     while (i < n) pairs[i] = [ p0 = p1, p1 = array[++i] ];
     return pairs;
   };
-  d3.transpose = function(matrix) {
-    if (!(n = matrix.length)) return [];
-    for (var i = -1, m = d3.min(matrix, d3_transposeLength), transpose = new Array(m); ++i < m; ) {
-      for (var j = -1, n, row = transpose[i] = new Array(n); ++j < n; ) {
-        row[j] = matrix[j][i];
+  d3.zip = function() {
+    if (!(n = arguments.length)) return [];
+    for (var i = -1, m = d3.min(arguments, d3_zipLength), zips = new Array(m); ++i < m; ) {
+      for (var j = -1, n, zip = zips[i] = new Array(n); ++j < n; ) {
+        zip[j] = arguments[j][i];
       }
     }
-    return transpose;
+    return zips;
   };
-  function d3_transposeLength(d) {
+  function d3_zipLength(d) {
     return d.length;
   }
-  d3.zip = function() {
-    return d3.transpose(arguments);
+  d3.transpose = function(matrix) {
+    return d3.zip.apply(d3, matrix);
   };
   d3.keys = function(map) {
     var keys = [];
@@ -9940,9 +8905,6 @@ function prettyNumber(input) {
     }
   });
   d3.behavior = {};
-  function d3_identity(d) {
-    return d;
-  }
   d3.rebind = function(target, source) {
     var i = 1, n = arguments.length, method;
     while (++i < n) target[method = arguments[i]] = d3_rebind(target, source, source[method]);
@@ -10049,12 +9011,8 @@ function prettyNumber(input) {
     return n.querySelector(s);
   }, d3_selectAll = function(s, n) {
     return n.querySelectorAll(s);
-  }, d3_selectMatches = function(n, s) {
-    var d3_selectMatcher = n.matches || n[d3_vendorSymbol(n, "matchesSelector")];
-    d3_selectMatches = function(n, s) {
-      return d3_selectMatcher.call(n, s);
-    };
-    return d3_selectMatches(n, s);
+  }, d3_selectMatcher = d3_documentElement.matches || d3_documentElement[d3_vendorSymbol(d3_documentElement, "matchesSelector")], d3_selectMatches = function(n, s) {
+    return d3_selectMatcher.call(n, s);
   };
   if (typeof Sizzle === "function") {
     d3_select = function(s, n) {
@@ -10064,7 +9022,7 @@ function prettyNumber(input) {
     d3_selectMatches = Sizzle.matchesSelector;
   }
   d3.selection = function() {
-    return d3.select(d3_document.documentElement);
+    return d3_selectionRoot;
   };
   var d3_selectionPrototype = d3.selection.prototype = [];
   d3_selectionPrototype.select = function(selector) {
@@ -10107,10 +9065,9 @@ function prettyNumber(input) {
       return d3_selectAll(selector, this);
     };
   }
-  var d3_nsXhtml = "http://www.w3.org/1999/xhtml";
   var d3_nsPrefix = {
     svg: "http://www.w3.org/2000/svg",
-    xhtml: d3_nsXhtml,
+    xhtml: "http://www.w3.org/1999/xhtml",
     xlink: "http://www.w3.org/1999/xlink",
     xml: "http://www.w3.org/XML/1998/namespace",
     xmlns: "http://www.w3.org/2000/xmlns/"
@@ -10119,7 +9076,10 @@ function prettyNumber(input) {
     prefix: d3_nsPrefix,
     qualify: function(name) {
       var i = name.indexOf(":"), prefix = name;
-      if (i >= 0 && (prefix = name.slice(0, i)) !== "xmlns") name = name.slice(i + 1);
+      if (i >= 0) {
+        prefix = name.slice(0, i);
+        name = name.slice(i + 1);
+      }
       return d3_nsPrefix.hasOwnProperty(prefix) ? {
         space: d3_nsPrefix[prefix],
         local: name
@@ -10222,10 +9182,7 @@ function prettyNumber(input) {
         for (priority in name) this.each(d3_selection_style(priority, name[priority], value));
         return this;
       }
-      if (n < 2) {
-        var node = this.node();
-        return d3_window(node).getComputedStyle(node, null).getPropertyValue(name);
-      }
+      if (n < 2) return d3_window.getComputedStyle(this.node(), null).getPropertyValue(name);
       priority = "";
     }
     return this.each(d3_selection_style(name, value, priority));
@@ -10291,14 +9248,11 @@ function prettyNumber(input) {
     });
   };
   function d3_selection_creator(name) {
-    function create() {
-      var document = this.ownerDocument, namespace = this.namespaceURI;
-      return namespace === d3_nsXhtml && document.documentElement.namespaceURI === d3_nsXhtml ? document.createElement(name) : document.createElementNS(namespace, name);
-    }
-    function createNS() {
+    return typeof name === "function" ? name : (name = d3.ns.qualify(name)).local ? function() {
       return this.ownerDocument.createElementNS(name.space, name.local);
-    }
-    return typeof name === "function" ? name : (name = d3.ns.qualify(name)).local ? createNS : create;
+    } : function() {
+      return this.ownerDocument.createElementNS(this.namespaceURI, name);
+    };
   }
   d3_selectionPrototype.insert = function(name, before) {
     name = d3_selection_creator(name);
@@ -10330,14 +9284,12 @@ function prettyNumber(input) {
       if (key) {
         var nodeByKeyValue = new d3_Map(), keyValues = new Array(n), keyValue;
         for (i = -1; ++i < n; ) {
-          if (node = group[i]) {
-            if (nodeByKeyValue.has(keyValue = key.call(node, node.__data__, i))) {
-              exitNodes[i] = node;
-            } else {
-              nodeByKeyValue.set(keyValue, node);
-            }
-            keyValues[i] = keyValue;
+          if (nodeByKeyValue.has(keyValue = key.call(node = group[i], node.__data__, i))) {
+            exitNodes[i] = node;
+          } else {
+            nodeByKeyValue.set(keyValue, node);
           }
+          keyValues[i] = keyValue;
         }
         for (i = -1; ++i < m; ) {
           if (!(node = nodeByKeyValue.get(keyValue = key.call(groupData, nodeData = groupData[i], i)))) {
@@ -10349,7 +9301,7 @@ function prettyNumber(input) {
           nodeByKeyValue.set(keyValue, true);
         }
         for (i = -1; ++i < n; ) {
-          if (i in keyValues && nodeByKeyValue.get(keyValues[i]) !== true) {
+          if (nodeByKeyValue.get(keyValues[i]) !== true) {
             exitNodes[i] = group[i];
           }
         }
@@ -10524,28 +9476,44 @@ function prettyNumber(input) {
       return node;
     };
   }
-  d3.select = function(node) {
-    var group;
-    if (typeof node === "string") {
-      group = [ d3_select(node, d3_document) ];
-      group.parentNode = d3_document.documentElement;
-    } else {
-      group = [ node ];
-      group.parentNode = d3_documentElement(node);
+  d3_selectionPrototype.transition = function(name) {
+    var id = d3_transitionInheritId || ++d3_transitionId, ns = d3_transitionNamespace(name), subgroups = [], subgroup, node, transition = d3_transitionInherit || {
+      time: Date.now(),
+      ease: d3_ease_cubicInOut,
+      delay: 0,
+      duration: 250
+    };
+    for (var j = -1, m = this.length; ++j < m; ) {
+      subgroups.push(subgroup = []);
+      for (var group = this[j], i = -1, n = group.length; ++i < n; ) {
+        if (node = group[i]) d3_transitionNode(node, i, ns, id, transition);
+        subgroup.push(node);
+      }
     }
+    return d3_transition(subgroups, ns, id);
+  };
+  d3_selectionPrototype.interrupt = function(name) {
+    var ns = d3_transitionNamespace(name);
+    return this.each(function() {
+      var lock = this[ns];
+      if (lock) ++lock.active;
+    });
+  };
+  function d3_selection_interrupt(that) {
+    var lock = that.__transition__;
+    if (lock) ++lock.active;
+  }
+  d3.select = function(node) {
+    var group = [ typeof node === "string" ? d3_select(node, d3_document) : node ];
+    group.parentNode = d3_documentElement;
     return d3_selection([ group ]);
   };
   d3.selectAll = function(nodes) {
-    var group;
-    if (typeof nodes === "string") {
-      group = d3_array(d3_selectAll(nodes, d3_document));
-      group.parentNode = d3_document.documentElement;
-    } else {
-      group = d3_array(nodes);
-      group.parentNode = null;
-    }
+    var group = d3_array(typeof nodes === "string" ? d3_selectAll(nodes, d3_document) : nodes);
+    group.parentNode = d3_documentElement;
     return d3_selection([ group ]);
   };
+  var d3_selectionRoot = d3.select(d3_documentElement);
   d3_selectionPrototype.on = function(type, listener, capture) {
     var n = arguments.length;
     if (n < 3) {
@@ -10593,11 +9561,9 @@ function prettyNumber(input) {
     mouseenter: "mouseover",
     mouseleave: "mouseout"
   });
-  if (d3_document) {
-    d3_selection_onFilters.forEach(function(k) {
-      if ("on" + k in d3_document) d3_selection_onFilters.remove(k);
-    });
-  }
+  d3_selection_onFilters.forEach(function(k) {
+    if ("on" + k in d3_document) d3_selection_onFilters.remove(k);
+  });
   function d3_selection_onListener(listener, argumentz) {
     return function(e) {
       var o = d3.event;
@@ -10619,14 +9585,11 @@ function prettyNumber(input) {
       }
     };
   }
-  var d3_event_dragSelect, d3_event_dragId = 0;
-  function d3_event_dragSuppress(node) {
-    var name = ".dragsuppress-" + ++d3_event_dragId, click = "click" + name, w = d3.select(d3_window(node)).on("touchmove" + name, d3_eventPreventDefault).on("dragstart" + name, d3_eventPreventDefault).on("selectstart" + name, d3_eventPreventDefault);
-    if (d3_event_dragSelect == null) {
-      d3_event_dragSelect = "onselectstart" in node ? false : d3_vendorSymbol(node.style, "userSelect");
-    }
+  var d3_event_dragSelect = "onselectstart" in d3_document ? null : d3_vendorSymbol(d3_documentElement.style, "userSelect"), d3_event_dragId = 0;
+  function d3_event_dragSuppress() {
+    var name = ".dragsuppress-" + ++d3_event_dragId, click = "click" + name, w = d3.select(d3_window).on("touchmove" + name, d3_eventPreventDefault).on("dragstart" + name, d3_eventPreventDefault).on("selectstart" + name, d3_eventPreventDefault);
     if (d3_event_dragSelect) {
-      var style = d3_documentElement(node).style, select = style[d3_event_dragSelect];
+      var style = d3_documentElement.style, select = style[d3_event_dragSelect];
       style[d3_event_dragSelect] = "none";
     }
     return function(suppressClick) {
@@ -10647,27 +9610,24 @@ function prettyNumber(input) {
   d3.mouse = function(container) {
     return d3_mousePoint(container, d3_eventSource());
   };
-  var d3_mouse_bug44083 = this.navigator && /WebKit/.test(this.navigator.userAgent) ? -1 : 0;
+  var d3_mouse_bug44083 = /WebKit/.test(d3_window.navigator.userAgent) ? -1 : 0;
   function d3_mousePoint(container, e) {
     if (e.changedTouches) e = e.changedTouches[0];
     var svg = container.ownerSVGElement || container;
     if (svg.createSVGPoint) {
       var point = svg.createSVGPoint();
-      if (d3_mouse_bug44083 < 0) {
-        var window = d3_window(container);
-        if (window.scrollX || window.scrollY) {
-          svg = d3.select("body").append("svg").style({
-            position: "absolute",
-            top: 0,
-            left: 0,
-            margin: 0,
-            padding: 0,
-            border: "none"
-          }, "important");
-          var ctm = svg[0][0].getScreenCTM();
-          d3_mouse_bug44083 = !(ctm.f || ctm.e);
-          svg.remove();
-        }
+      if (d3_mouse_bug44083 < 0 && (d3_window.scrollX || d3_window.scrollY)) {
+        svg = d3.select("body").append("svg").style({
+          position: "absolute",
+          top: 0,
+          left: 0,
+          margin: 0,
+          padding: 0,
+          border: "none"
+        }, "important");
+        var ctm = svg[0][0].getScreenCTM();
+        d3_mouse_bug44083 = !(ctm.f || ctm.e);
+        svg.remove();
       }
       if (d3_mouse_bug44083) point.x = e.pageX, point.y = e.pageY; else point.x = e.clientX, 
       point.y = e.clientY;
@@ -10686,13 +9646,13 @@ function prettyNumber(input) {
     }
   };
   d3.behavior.drag = function() {
-    var event = d3_eventDispatch(drag, "drag", "dragstart", "dragend"), origin = null, mousedown = dragstart(d3_noop, d3.mouse, d3_window, "mousemove", "mouseup"), touchstart = dragstart(d3_behavior_dragTouchId, d3.touch, d3_identity, "touchmove", "touchend");
+    var event = d3_eventDispatch(drag, "drag", "dragstart", "dragend"), origin = null, mousedown = dragstart(d3_noop, d3.mouse, d3_behavior_dragMouseSubject, "mousemove", "mouseup"), touchstart = dragstart(d3_behavior_dragTouchId, d3.touch, d3_behavior_dragTouchSubject, "touchmove", "touchend");
     function drag() {
       this.on("mousedown.drag", mousedown).on("touchstart.drag", touchstart);
     }
     function dragstart(id, position, subject, move, end) {
       return function() {
-        var that = this, target = d3.event.target.correspondingElement || d3.event.target, parent = that.parentNode, dispatch = event.of(that, arguments), dragged = 0, dragId = id(), dragName = ".drag" + (dragId == null ? "" : "-" + dragId), dragOffset, dragSubject = d3.select(subject(target)).on(move + dragName, moved).on(end + dragName, ended), dragRestore = d3_event_dragSuppress(target), position0 = position(parent, dragId);
+        var that = this, target = d3.event.target, parent = that.parentNode, dispatch = event.of(that, arguments), dragged = 0, dragId = id(), dragName = ".drag" + (dragId == null ? "" : "-" + dragId), dragOffset, dragSubject = d3.select(subject()).on(move + dragName, moved).on(end + dragName, ended), dragRestore = d3_event_dragSuppress(), position0 = position(parent, dragId);
         if (origin) {
           dragOffset = origin.apply(that, arguments);
           dragOffset = [ dragOffset.x - position0[0], dragOffset.y - position0[1] ];
@@ -10720,7 +9680,7 @@ function prettyNumber(input) {
         function ended() {
           if (!position(parent, dragId)) return;
           dragSubject.on(move + dragName, null).on(end + dragName, null);
-          dragRestore(dragged);
+          dragRestore(dragged && d3.event.target === target);
           dispatch({
             type: "dragend"
           });
@@ -10736,6 +9696,12 @@ function prettyNumber(input) {
   };
   function d3_behavior_dragTouchId() {
     return d3.event.changedTouches[0].identifier;
+  }
+  function d3_behavior_dragTouchSubject() {
+    return d3.event.target;
+  }
+  function d3_behavior_dragMouseSubject() {
+    return d3_window;
   }
   d3.touches = function(container, touches) {
     if (arguments.length < 2) touches = d3_eventSource().touches;
@@ -10772,22 +9738,18 @@ function prettyNumber(input) {
   }
   var ρ = Math.SQRT2, ρ2 = 2, ρ4 = 4;
   d3.interpolateZoom = function(p0, p1) {
-    var ux0 = p0[0], uy0 = p0[1], w0 = p0[2], ux1 = p1[0], uy1 = p1[1], w1 = p1[2], dx = ux1 - ux0, dy = uy1 - uy0, d2 = dx * dx + dy * dy, i, S;
-    if (d2 < ε2) {
-      S = Math.log(w1 / w0) / ρ;
-      i = function(t) {
-        return [ ux0 + t * dx, uy0 + t * dy, w0 * Math.exp(ρ * t * S) ];
-      };
-    } else {
-      var d1 = Math.sqrt(d2), b0 = (w1 * w1 - w0 * w0 + ρ4 * d2) / (2 * w0 * ρ2 * d1), b1 = (w1 * w1 - w0 * w0 - ρ4 * d2) / (2 * w1 * ρ2 * d1), r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0), r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1);
-      S = (r1 - r0) / ρ;
-      i = function(t) {
-        var s = t * S, coshr0 = d3_cosh(r0), u = w0 / (ρ2 * d1) * (coshr0 * d3_tanh(ρ * s + r0) - d3_sinh(r0));
+    var ux0 = p0[0], uy0 = p0[1], w0 = p0[2], ux1 = p1[0], uy1 = p1[1], w1 = p1[2];
+    var dx = ux1 - ux0, dy = uy1 - uy0, d2 = dx * dx + dy * dy, d1 = Math.sqrt(d2), b0 = (w1 * w1 - w0 * w0 + ρ4 * d2) / (2 * w0 * ρ2 * d1), b1 = (w1 * w1 - w0 * w0 - ρ4 * d2) / (2 * w1 * ρ2 * d1), r0 = Math.log(Math.sqrt(b0 * b0 + 1) - b0), r1 = Math.log(Math.sqrt(b1 * b1 + 1) - b1), dr = r1 - r0, S = (dr || Math.log(w1 / w0)) / ρ;
+    function interpolate(t) {
+      var s = t * S;
+      if (dr) {
+        var coshr0 = d3_cosh(r0), u = w0 / (ρ2 * d1) * (coshr0 * d3_tanh(ρ * s + r0) - d3_sinh(r0));
         return [ ux0 + u * dx, uy0 + u * dy, w0 * coshr0 / d3_cosh(ρ * s + r0) ];
-      };
+      }
+      return [ ux0 + t * dx, uy0 + t * dy, w0 * Math.exp(ρ * s) ];
     }
-    i.duration = S * 1e3;
-    return i;
+    interpolate.duration = S * 1e3;
+    return interpolate;
   };
   d3.behavior.zoom = function() {
     var view = {
@@ -10795,15 +9757,6 @@ function prettyNumber(input) {
       y: 0,
       k: 1
     }, translate0, center0, center, size = [ 960, 500 ], scaleExtent = d3_behavior_zoomInfinity, duration = 250, zooming = 0, mousedown = "mousedown.zoom", mousemove = "mousemove.zoom", mouseup = "mouseup.zoom", mousewheelTimer, touchstart = "touchstart.zoom", touchtime, event = d3_eventDispatch(zoom, "zoomstart", "zoom", "zoomend"), x0, x1, y0, y1;
-    if (!d3_behavior_zoomWheel) {
-      d3_behavior_zoomWheel = "onwheel" in d3_document ? (d3_behavior_zoomDelta = function() {
-        return -d3.event.deltaY * (d3.event.deltaMode ? 120 : 1);
-      }, "wheel") : "onmousewheel" in d3_document ? (d3_behavior_zoomDelta = function() {
-        return d3.event.wheelDelta;
-      }, "mousewheel") : (d3_behavior_zoomDelta = function() {
-        return -d3.event.detail;
-      }, "MozMousePixelScroll");
-    }
     function zoom(g) {
       g.on(mousedown, mousedowned).on(d3_behavior_zoomWheel + ".zoom", mousewheeled).on("dblclick.zoom", dblclicked).on(touchstart, touchstarted);
     }
@@ -10857,9 +9810,8 @@ function prettyNumber(input) {
       view = {
         x: view.x,
         y: view.y,
-        k: null
+        k: +_
       };
-      scaleTo(+_);
       rescale();
       return zoom;
     };
@@ -10955,11 +9907,12 @@ function prettyNumber(input) {
     function zoomended(dispatch) {
       if (!--zooming) dispatch({
         type: "zoomend"
-      }), center0 = null;
+      });
+      center0 = null;
     }
     function mousedowned() {
-      var that = this, dispatch = event.of(that, arguments), dragged = 0, subject = d3.select(d3_window(that)).on(mousemove, moved).on(mouseup, ended), location0 = location(d3.mouse(that)), dragRestore = d3_event_dragSuppress(that);
-      d3_selection_interrupt.call(that);
+      var that = this, target = d3.event.target, dispatch = event.of(that, arguments), dragged = 0, subject = d3.select(d3_window).on(mousemove, moved).on(mouseup, ended), location0 = location(d3.mouse(that)), dragRestore = d3_event_dragSuppress();
+      d3_selection_interrupt(that);
       zoomstarted(dispatch);
       function moved() {
         dragged = 1;
@@ -10968,12 +9921,12 @@ function prettyNumber(input) {
       }
       function ended() {
         subject.on(mousemove, null).on(mouseup, null);
-        dragRestore(dragged);
+        dragRestore(dragged && d3.event.target === target);
         zoomended(dispatch);
       }
     }
     function touchstarted() {
-      var that = this, dispatch = event.of(that, arguments), locations0 = {}, distance0 = 0, scale0, zoomName = ".zoom-" + d3.event.changedTouches[0].identifier, touchmove = "touchmove" + zoomName, touchend = "touchend" + zoomName, targets = [], subject = d3.select(that), dragRestore = d3_event_dragSuppress(that);
+      var that = this, dispatch = event.of(that, arguments), locations0 = {}, distance0 = 0, scale0, zoomName = ".zoom-" + d3.event.changedTouches[0].identifier, touchmove = "touchmove" + zoomName, touchend = "touchend" + zoomName, targets = [], subject = d3.select(that), dragRestore = d3_event_dragSuppress();
       started();
       zoomstarted(dispatch);
       subject.on(mousedown, null).on(touchstart, started);
@@ -11008,7 +9961,7 @@ function prettyNumber(input) {
       }
       function moved() {
         var touches = d3.touches(that), p0, l0, p1, l1;
-        d3_selection_interrupt.call(that);
+        d3_selection_interrupt(that);
         for (var i = 0, n = touches.length; i < n; ++i, l1 = null) {
           p1 = touches[i];
           if (l1 = locations0[p1.identifier]) {
@@ -11044,8 +9997,8 @@ function prettyNumber(input) {
     }
     function mousewheeled() {
       var dispatch = event.of(this, arguments);
-      if (mousewheelTimer) clearTimeout(mousewheelTimer); else d3_selection_interrupt.call(this), 
-      translate0 = location(center0 = center || d3.mouse(this)), zoomstarted(dispatch);
+      if (mousewheelTimer) clearTimeout(mousewheelTimer); else translate0 = location(center0 = center || d3.mouse(this)), 
+      d3_selection_interrupt(this), zoomstarted(dispatch);
       mousewheelTimer = setTimeout(function() {
         mousewheelTimer = null;
         zoomended(dispatch);
@@ -11061,7 +10014,14 @@ function prettyNumber(input) {
     }
     return d3.rebind(zoom, event, "on");
   };
-  var d3_behavior_zoomInfinity = [ 0, Infinity ], d3_behavior_zoomDelta, d3_behavior_zoomWheel;
+  var d3_behavior_zoomInfinity = [ 0, Infinity ];
+  var d3_behavior_zoomDelta, d3_behavior_zoomWheel = "onwheel" in d3_document ? (d3_behavior_zoomDelta = function() {
+    return -d3.event.deltaY * (d3.event.deltaMode ? 120 : 1);
+  }, "wheel") : "onmousewheel" in d3_document ? (d3_behavior_zoomDelta = function() {
+    return d3.event.wheelDelta;
+  }, "mousewheel") : (d3_behavior_zoomDelta = function() {
+    return -d3.event.detail;
+  }, "MozMousePixelScroll");
   d3.color = d3_color;
   function d3_color() {}
   d3_color.prototype.toString = function() {
@@ -11191,7 +10151,7 @@ function prettyNumber(input) {
   }
   function d3_rgb_parse(format, rgb, hsl) {
     var r = 0, g = 0, b = 0, m1, m2, color;
-    m1 = /([a-z]+)\((.*)\)/.exec(format = format.toLowerCase());
+    m1 = /([a-z]+)\((.*)\)/i.exec(format);
     if (m1) {
       m2 = m1[2].split(",");
       switch (m1[1]) {
@@ -11205,9 +10165,7 @@ function prettyNumber(input) {
         }
       }
     }
-    if (color = d3_rgb_names.get(format)) {
-      return rgb(color.r, color.g, color.b);
-    }
+    if (color = d3_rgb_names.get(format)) return rgb(color.r, color.g, color.b);
     if (format != null && format.charAt(0) === "#" && !isNaN(color = parseInt(format.slice(1), 16))) {
       if (format.length === 4) {
         r = (color & 3840) >> 4;
@@ -11370,7 +10328,6 @@ function prettyNumber(input) {
     plum: 14524637,
     powderblue: 11591910,
     purple: 8388736,
-    rebeccapurple: 6697881,
     red: 16711680,
     rosybrown: 12357519,
     royalblue: 4286945,
@@ -11409,6 +10366,9 @@ function prettyNumber(input) {
     };
   }
   d3.functor = d3_functor;
+  function d3_identity(d) {
+    return d;
+  }
   d3.xhr = d3_xhrType(d3_identity);
   function d3_xhrType(response) {
     return function(url, mimeType, callback) {
@@ -11419,7 +10379,7 @@ function prettyNumber(input) {
   }
   function d3_xhr(url, mimeType, response, callback) {
     var xhr = {}, dispatch = d3.dispatch("beforesend", "progress", "load", "error"), headers = {}, request = new XMLHttpRequest(), responseType = null;
-    if (this.XDomainRequest && !("withCredentials" in request) && /^(http(s)?:)?\/\//.test(url)) request = new XDomainRequest();
+    if (d3_window.XDomainRequest && !("withCredentials" in request) && /^(http(s)?:)?\/\//.test(url)) request = new XDomainRequest();
     "onload" in request ? request.onload = request.onerror = respond : request.onreadystatechange = function() {
       request.readyState > 3 && respond();
     };
@@ -11605,19 +10565,17 @@ function prettyNumber(input) {
   };
   d3.csv = d3.dsv(",", "text/csv");
   d3.tsv = d3.dsv("	", "text/tab-separated-values");
-  var d3_timer_queueHead, d3_timer_queueTail, d3_timer_interval, d3_timer_timeout, d3_timer_frame = this[d3_vendorSymbol(this, "requestAnimationFrame")] || function(callback) {
+  var d3_timer_queueHead, d3_timer_queueTail, d3_timer_interval, d3_timer_timeout, d3_timer_active, d3_timer_frame = d3_window[d3_vendorSymbol(d3_window, "requestAnimationFrame")] || function(callback) {
     setTimeout(callback, 17);
   };
-  d3.timer = function() {
-    d3_timer.apply(this, arguments);
-  };
-  function d3_timer(callback, delay, then) {
+  d3.timer = function(callback, delay, then) {
     var n = arguments.length;
     if (n < 2) delay = 0;
     if (n < 3) then = Date.now();
     var time = then + delay, timer = {
       c: callback,
       t: time,
+      f: false,
       n: null
     };
     if (d3_timer_queueTail) d3_timer_queueTail.n = timer; else d3_timer_queueHead = timer;
@@ -11627,8 +10585,7 @@ function prettyNumber(input) {
       d3_timer_interval = 1;
       d3_timer_frame(d3_timer_step);
     }
-    return timer;
-  }
+  };
   function d3_timer_step() {
     var now = d3_timer_mark(), delay = d3_timer_sweep() - now;
     if (delay > 24) {
@@ -11647,21 +10604,22 @@ function prettyNumber(input) {
     d3_timer_sweep();
   };
   function d3_timer_mark() {
-    var now = Date.now(), timer = d3_timer_queueHead;
-    while (timer) {
-      if (now >= timer.t && timer.c(now - timer.t)) timer.c = null;
-      timer = timer.n;
+    var now = Date.now();
+    d3_timer_active = d3_timer_queueHead;
+    while (d3_timer_active) {
+      if (now >= d3_timer_active.t) d3_timer_active.f = d3_timer_active.c(now - d3_timer_active.t);
+      d3_timer_active = d3_timer_active.n;
     }
     return now;
   }
   function d3_timer_sweep() {
     var t0, t1 = d3_timer_queueHead, time = Infinity;
     while (t1) {
-      if (t1.c) {
+      if (t1.f) {
+        t1 = t0 ? t0.n = t1.n : d3_timer_queueHead = t1.n;
+      } else {
         if (t1.t < time) time = t1.t;
         t1 = (t0 = t1).n;
-      } else {
-        t1 = t0 ? t0.n = t1.n : d3_timer_queueHead = t1.n;
       }
     }
     d3_timer_queueTail = t0;
@@ -11676,7 +10634,7 @@ function prettyNumber(input) {
   var d3_formatPrefixes = [ "y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y" ].map(d3_formatPrefix);
   d3.formatPrefix = function(value, precision) {
     var i = 0;
-    if (value = +value) {
+    if (value) {
       if (value < 0) value *= -1;
       if (precision) value = d3.round(value, d3_format_precision(value, precision));
       i = 1 + Math.floor(1e-12 + Math.log(value) / Math.LN10);
@@ -12020,8 +10978,7 @@ function prettyNumber(input) {
         if (i != string.length) return null;
         if ("p" in d) d.H = d.H % 12 + d.p * 12;
         var localZ = d.Z != null && d3_date !== d3_date_utc, date = new (localZ ? d3_date_utc : d3_date)();
-        if ("j" in d) date.setFullYear(d.y, 0, d.j); else if ("W" in d || "U" in d) {
-          if (!("w" in d)) d.w = "W" in d ? 1 : 0;
+        if ("j" in d) date.setFullYear(d.y, 0, d.j); else if ("w" in d && ("W" in d || "U" in d)) {
           date.setFullYear(d.y, 0, 1);
           date.setFullYear(d.y, 0, "W" in d ? (d.w + 6) % 7 + d.W * 7 - (date.getDay() + 5) % 7 : d.w + d.U * 7 - (date.getDay() + 6) % 7);
         } else date.setFullYear(d.y, d.m, d.d);
@@ -13005,7 +11962,7 @@ function prettyNumber(input) {
         λ0 = λ, sinφ0 = sinφ, cosφ0 = cosφ, point0 = point;
       }
     }
-    return (polarAngle < -ε || polarAngle < ε && d3_geo_areaRingSum < -ε) ^ winding & 1;
+    return (polarAngle < -ε || polarAngle < ε && d3_geo_areaRingSum < 0) ^ winding & 1;
   }
   function d3_geo_clipCircle(radius) {
     var cr = Math.cos(radius), smallRadius = cr > 0, notHemisphere = abs(cr) > ε, interpolate = d3_geo_circleInterpolate(radius, 6 * d3_radians);
@@ -15163,7 +14120,7 @@ function prettyNumber(input) {
     (function find(node, x1, y1, x2, y2) {
       if (x1 > x3 || y1 > y3 || x2 < x0 || y2 < y0) return;
       if (point = node.point) {
-        var point, dx = x - node.x, dy = y - node.y, distance2 = dx * dx + dy * dy;
+        var point, dx = x - point[0], dy = y - point[1], distance2 = dx * dx + dy * dy;
         if (distance2 < minDistance2) {
           var distance = Math.sqrt(minDistance2 = distance2);
           x0 = x - distance, y0 = y - distance;
@@ -15269,7 +14226,7 @@ function prettyNumber(input) {
   }
   d3.interpolators = [ function(a, b) {
     var t = typeof b;
-    return (t === "string" ? d3_rgb_names.has(b.toLowerCase()) || /^(#|rgb\(|hsl\()/i.test(b) ? d3_interpolateRgb : d3_interpolateString : b instanceof d3_color ? d3_interpolateRgb : Array.isArray(b) ? d3_interpolateArray : t === "object" && isNaN(b) ? d3_interpolateObject : d3_interpolateNumber)(a, b);
+    return (t === "string" ? d3_rgb_names.has(b) || /^(#|rgb\(|hsl\()/.test(b) ? d3_interpolateRgb : d3_interpolateString : b instanceof d3_color ? d3_interpolateRgb : Array.isArray(b) ? d3_interpolateArray : t === "object" && isNaN(b) ? d3_interpolateObject : d3_interpolateNumber)(a, b);
   } ];
   d3.interpolateArray = d3_interpolateArray;
   function d3_interpolateArray(a, b) {
@@ -15470,68 +14427,54 @@ function prettyNumber(input) {
     f: 0
   };
   d3.interpolateTransform = d3_interpolateTransform;
-  function d3_interpolateTransformPop(s) {
-    return s.length ? s.pop() + "," : "";
-  }
-  function d3_interpolateTranslate(ta, tb, s, q) {
-    if (ta[0] !== tb[0] || ta[1] !== tb[1]) {
-      var i = s.push("translate(", null, ",", null, ")");
+  function d3_interpolateTransform(a, b) {
+    var s = [], q = [], n, A = d3.transform(a), B = d3.transform(b), ta = A.translate, tb = B.translate, ra = A.rotate, rb = B.rotate, wa = A.skew, wb = B.skew, ka = A.scale, kb = B.scale;
+    if (ta[0] != tb[0] || ta[1] != tb[1]) {
+      s.push("translate(", null, ",", null, ")");
       q.push({
-        i: i - 4,
+        i: 1,
         x: d3_interpolateNumber(ta[0], tb[0])
       }, {
-        i: i - 2,
+        i: 3,
         x: d3_interpolateNumber(ta[1], tb[1])
       });
     } else if (tb[0] || tb[1]) {
       s.push("translate(" + tb + ")");
+    } else {
+      s.push("");
     }
-  }
-  function d3_interpolateRotate(ra, rb, s, q) {
-    if (ra !== rb) {
+    if (ra != rb) {
       if (ra - rb > 180) rb += 360; else if (rb - ra > 180) ra += 360;
       q.push({
-        i: s.push(d3_interpolateTransformPop(s) + "rotate(", null, ")") - 2,
+        i: s.push(s.pop() + "rotate(", null, ")") - 2,
         x: d3_interpolateNumber(ra, rb)
       });
     } else if (rb) {
-      s.push(d3_interpolateTransformPop(s) + "rotate(" + rb + ")");
+      s.push(s.pop() + "rotate(" + rb + ")");
     }
-  }
-  function d3_interpolateSkew(wa, wb, s, q) {
-    if (wa !== wb) {
+    if (wa != wb) {
       q.push({
-        i: s.push(d3_interpolateTransformPop(s) + "skewX(", null, ")") - 2,
+        i: s.push(s.pop() + "skewX(", null, ")") - 2,
         x: d3_interpolateNumber(wa, wb)
       });
     } else if (wb) {
-      s.push(d3_interpolateTransformPop(s) + "skewX(" + wb + ")");
+      s.push(s.pop() + "skewX(" + wb + ")");
     }
-  }
-  function d3_interpolateScale(ka, kb, s, q) {
-    if (ka[0] !== kb[0] || ka[1] !== kb[1]) {
-      var i = s.push(d3_interpolateTransformPop(s) + "scale(", null, ",", null, ")");
+    if (ka[0] != kb[0] || ka[1] != kb[1]) {
+      n = s.push(s.pop() + "scale(", null, ",", null, ")");
       q.push({
-        i: i - 4,
+        i: n - 4,
         x: d3_interpolateNumber(ka[0], kb[0])
       }, {
-        i: i - 2,
+        i: n - 2,
         x: d3_interpolateNumber(ka[1], kb[1])
       });
-    } else if (kb[0] !== 1 || kb[1] !== 1) {
-      s.push(d3_interpolateTransformPop(s) + "scale(" + kb + ")");
+    } else if (kb[0] != 1 || kb[1] != 1) {
+      s.push(s.pop() + "scale(" + kb + ")");
     }
-  }
-  function d3_interpolateTransform(a, b) {
-    var s = [], q = [];
-    a = d3.transform(a), b = d3.transform(b);
-    d3_interpolateTranslate(a.translate, b.translate, s, q);
-    d3_interpolateRotate(a.rotate, b.rotate, s, q);
-    d3_interpolateSkew(a.skew, b.skew, s, q);
-    d3_interpolateScale(a.scale, b.scale, s, q);
-    a = b = null;
+    n = q.length;
     return function(t) {
-      var i = -1, n = q.length, o;
+      var i = -1, o;
       while (++i < n) s[(o = q[i]).i] = o.x(t);
       return s.join("");
     };
@@ -15635,7 +14578,7 @@ function prettyNumber(input) {
           index: di,
           startAngle: x0,
           endAngle: x,
-          value: groupSums[di]
+          value: (x - x0) / k
         };
         x += padding;
       }
@@ -15703,7 +14646,7 @@ function prettyNumber(input) {
     return chord;
   };
   d3.layout.force = function() {
-    var force = {}, event = d3.dispatch("start", "tick", "end"), timer, size = [ 1, 1 ], drag, alpha, friction = .9, linkDistance = d3_layout_forceLinkDistance, linkStrength = d3_layout_forceLinkStrength, charge = -30, chargeDistance2 = d3_layout_forceChargeDistance2, gravity = .1, theta2 = .64, nodes = [], links = [], distances, strengths, charges;
+    var force = {}, event = d3.dispatch("start", "tick", "end"), size = [ 1, 1 ], drag, alpha, friction = .9, linkDistance = d3_layout_forceLinkDistance, linkStrength = d3_layout_forceLinkStrength, charge = -30, chargeDistance2 = d3_layout_forceChargeDistance2, gravity = .1, theta2 = .64, nodes = [], links = [], distances, strengths, charges;
     function repulse(node) {
       return function(quad, x1, _, x2) {
         if (quad.point !== node) {
@@ -15727,7 +14670,6 @@ function prettyNumber(input) {
     }
     force.tick = function() {
       if ((alpha *= .99) < .005) {
-        timer = null;
         event.end({
           type: "end",
           alpha: alpha = 0
@@ -15745,7 +14687,7 @@ function prettyNumber(input) {
           l = alpha * strengths[i] * ((l = Math.sqrt(l)) - distances[i]) / l;
           x *= l;
           y *= l;
-          t.x -= x * (k = s.weight + t.weight ? s.weight / (s.weight + t.weight) : .5);
+          t.x -= x * (k = s.weight / (t.weight + s.weight));
           t.y -= y * k;
           s.x += x * (k = 1 - k);
           s.y += y * k;
@@ -15841,21 +14783,13 @@ function prettyNumber(input) {
       if (!arguments.length) return alpha;
       x = +x;
       if (alpha) {
-        if (x > 0) {
-          alpha = x;
-        } else {
-          timer.c = null, timer.t = NaN, timer = null;
-          event.end({
-            type: "end",
-            alpha: alpha = 0
-          });
-        }
+        if (x > 0) alpha = x; else alpha = 0;
       } else if (x > 0) {
         event.start({
           type: "start",
           alpha: alpha = x
         });
-        timer = d3_timer(force.tick);
+        d3.timer(force.tick);
       }
       return force;
     };
@@ -15897,8 +14831,8 @@ function prettyNumber(input) {
             neighbors[o.target.index].push(o.source);
           }
         }
-        var candidates = neighbors[i], j = -1, l = candidates.length, x;
-        while (++j < l) if (!isNaN(x = candidates[j][dimension])) return x;
+        var candidates = neighbors[i], j = -1, m = candidates.length, x;
+        while (++j < m) if (!isNaN(x = candidates[j][dimension])) return x;
         return Math.random() * size;
       }
       return force.resume();
@@ -16109,7 +15043,7 @@ function prettyNumber(input) {
     function pie(data) {
       var n = data.length, values = data.map(function(d, i) {
         return +value.call(pie, d, i);
-      }), a = +(typeof startAngle === "function" ? startAngle.apply(this, arguments) : startAngle), da = (typeof endAngle === "function" ? endAngle.apply(this, arguments) : endAngle) - a, p = Math.min(Math.abs(da) / n, +(typeof padAngle === "function" ? padAngle.apply(this, arguments) : padAngle)), pa = p * (da < 0 ? -1 : 1), sum = d3.sum(values), k = sum ? (da - n * pa) / sum : 0, index = d3.range(n), arcs = [], v;
+      }), a = +(typeof startAngle === "function" ? startAngle.apply(this, arguments) : startAngle), da = (typeof endAngle === "function" ? endAngle.apply(this, arguments) : endAngle) - a, p = Math.min(Math.abs(da) / n, +(typeof padAngle === "function" ? padAngle.apply(this, arguments) : padAngle)), pa = p * (da < 0 ? -1 : 1), k = (da - n * pa) / d3.sum(values), index = d3.range(n), arcs = [], v;
       if (sort != null) index.sort(sort === d3_layout_pieSortByValue ? function(i, j) {
         return values[j] - values[i];
       } : function(i, j) {
@@ -16822,8 +15756,10 @@ function prettyNumber(input) {
     }
     function treemap(d) {
       var nodes = stickies || hierarchy(d), root = nodes[0];
-      root.x = root.y = 0;
-      if (root.value) root.dx = size[0], root.dy = size[1]; else root.dx = root.dy = 0;
+      root.x = 0;
+      root.y = 0;
+      root.dx = size[0];
+      root.dy = size[1];
       if (stickies) hierarchy.revalue(root);
       scale([ root ], root.dx * root.dy / root.value);
       (stickies ? stickify : squarify)(root);
@@ -17043,9 +15979,7 @@ function prettyNumber(input) {
     return d3.rebind(scale, linear, "range", "rangeRound", "interpolate", "clamp");
   }
   function d3_scale_linearNice(domain, m) {
-    d3_scale_nice(domain, d3_scale_niceStep(d3_scale_linearTickRange(domain, m)[2]));
-    d3_scale_nice(domain, d3_scale_niceStep(d3_scale_linearTickRange(domain, m)[2]));
-    return domain;
+    return d3_scale_nice(domain, d3_scale_niceStep(d3_scale_linearTickRange(domain, m)[2]));
   }
   function d3_scale_linearTickRange(domain, m) {
     if (m == null) m = 10;
@@ -17147,11 +16081,10 @@ function prettyNumber(input) {
     scale.tickFormat = function(n, format) {
       if (!arguments.length) return d3_scale_logFormat;
       if (arguments.length < 2) format = d3_scale_logFormat; else if (typeof format !== "function") format = d3.format(format);
-      var k = Math.max(1, base * n / scale.ticks().length);
+      var k = Math.max(.1, n / scale.ticks().length), f = positive ? (e = 1e-12, Math.ceil) : (e = -1e-12, 
+      Math.floor), e;
       return function(d) {
-        var i = d / pow(Math.round(log(d)));
-        if (i * base < base - .5) i *= base;
-        return i <= k ? format(d) : "";
+        return d / pow(f(log(d) + e)) <= k ? format(d) : "";
       };
     };
     scale.copy = function() {
@@ -17490,16 +16423,11 @@ function prettyNumber(input) {
       } else {
         x2 = y2 = 0;
       }
-      if (da > ε && (rc = Math.min(Math.abs(r1 - r0) / 2, +cornerRadius.apply(this, arguments))) > .001) {
+      if ((rc = Math.min(Math.abs(r1 - r0) / 2, +cornerRadius.apply(this, arguments))) > .001) {
         cr = r0 < r1 ^ cw ? 0 : 1;
-        var rc1 = rc, rc0 = rc;
-        if (da < π) {
-          var oc = x3 == null ? [ x2, y2 ] : x1 == null ? [ x0, y0 ] : d3_geom_polygonIntersect([ x0, y0 ], [ x3, y3 ], [ x1, y1 ], [ x2, y2 ]), ax = x0 - oc[0], ay = y0 - oc[1], bx = x1 - oc[0], by = y1 - oc[1], kc = 1 / Math.sin(Math.acos((ax * bx + ay * by) / (Math.sqrt(ax * ax + ay * ay) * Math.sqrt(bx * bx + by * by))) / 2), lc = Math.sqrt(oc[0] * oc[0] + oc[1] * oc[1]);
-          rc0 = Math.min(rc, (r0 - lc) / (kc - 1));
-          rc1 = Math.min(rc, (r1 - lc) / (kc + 1));
-        }
+        var oc = x3 == null ? [ x2, y2 ] : x1 == null ? [ x0, y0 ] : d3_geom_polygonIntersect([ x0, y0 ], [ x3, y3 ], [ x1, y1 ], [ x2, y2 ]), ax = x0 - oc[0], ay = y0 - oc[1], bx = x1 - oc[0], by = y1 - oc[1], kc = 1 / Math.sin(Math.acos((ax * bx + ay * by) / (Math.sqrt(ax * ax + ay * ay) * Math.sqrt(bx * bx + by * by))) / 2), lc = Math.sqrt(oc[0] * oc[0] + oc[1] * oc[1]);
         if (x1 != null) {
-          var t30 = d3_svg_arcCornerTangents(x3 == null ? [ x2, y2 ] : [ x3, y3 ], [ x0, y0 ], r1, rc1, cw), t12 = d3_svg_arcCornerTangents([ x1, y1 ], [ x2, y2 ], r1, rc1, cw);
+          var rc1 = Math.min(rc, (r1 - lc) / (kc + 1)), t30 = d3_svg_arcCornerTangents(x3 == null ? [ x2, y2 ] : [ x3, y3 ], [ x0, y0 ], r1, rc1, cw), t12 = d3_svg_arcCornerTangents([ x1, y1 ], [ x2, y2 ], r1, rc1, cw);
           if (rc === rc1) {
             path.push("M", t30[0], "A", rc1, ",", rc1, " 0 0,", cr, " ", t30[1], "A", r1, ",", r1, " 0 ", 1 - cw ^ d3_svg_arcSweep(t30[1][0], t30[1][1], t12[1][0], t12[1][1]), ",", cw, " ", t12[1], "A", rc1, ",", rc1, " 0 0,", cr, " ", t12[0]);
           } else {
@@ -17509,7 +16437,7 @@ function prettyNumber(input) {
           path.push("M", x0, ",", y0);
         }
         if (x3 != null) {
-          var t03 = d3_svg_arcCornerTangents([ x0, y0 ], [ x3, y3 ], r0, -rc0, cw), t21 = d3_svg_arcCornerTangents([ x2, y2 ], x1 == null ? [ x0, y0 ] : [ x1, y1 ], r0, -rc0, cw);
+          var rc0 = Math.min(rc, (r0 - lc) / (kc - 1)), t03 = d3_svg_arcCornerTangents([ x0, y0 ], [ x3, y3 ], r0, -rc0, cw), t21 = d3_svg_arcCornerTangents([ x2, y2 ], x1 == null ? [ x0, y0 ] : [ x1, y1 ], r0, -rc0, cw);
           if (rc === rc0) {
             path.push("L", t21[0], "A", rc0, ",", rc0, " 0 0,", cr, " ", t21[1], "A", r0, ",", r0, " 0 ", cw ^ d3_svg_arcSweep(t21[1][0], t21[1][1], t03[1][0], t03[1][1]), ",", 1 - cw, " ", t03[1], "A", rc0, ",", rc0, " 0 0,", cr, " ", t03[0]);
           } else {
@@ -17591,7 +16519,7 @@ function prettyNumber(input) {
     return (x0 - x1) * y0 - (y0 - y1) * x0 > 0 ? 0 : 1;
   }
   function d3_svg_arcCornerTangents(p0, p1, r1, rc, cw) {
-    var x01 = p0[0] - p1[0], y01 = p0[1] - p1[1], lo = (cw ? rc : -rc) / Math.sqrt(x01 * x01 + y01 * y01), ox = lo * y01, oy = -lo * x01, x1 = p0[0] + ox, y1 = p0[1] + oy, x2 = p1[0] + ox, y2 = p1[1] + oy, x3 = (x1 + x2) / 2, y3 = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, d2 = dx * dx + dy * dy, r = r1 - rc, D = x1 * y2 - x2 * y1, d = (dy < 0 ? -1 : 1) * Math.sqrt(Math.max(0, r * r * d2 - D * D)), cx0 = (D * dy - dx * d) / d2, cy0 = (-D * dx - dy * d) / d2, cx1 = (D * dy + dx * d) / d2, cy1 = (-D * dx + dy * d) / d2, dx0 = cx0 - x3, dy0 = cy0 - y3, dx1 = cx1 - x3, dy1 = cy1 - y3;
+    var x01 = p0[0] - p1[0], y01 = p0[1] - p1[1], lo = (cw ? rc : -rc) / Math.sqrt(x01 * x01 + y01 * y01), ox = lo * y01, oy = -lo * x01, x1 = p0[0] + ox, y1 = p0[1] + oy, x2 = p1[0] + ox, y2 = p1[1] + oy, x3 = (x1 + x2) / 2, y3 = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, d2 = dx * dx + dy * dy, r = r1 - rc, D = x1 * y2 - x2 * y1, d = (dy < 0 ? -1 : 1) * Math.sqrt(r * r * d2 - D * D), cx0 = (D * dy - dx * d) / d2, cy0 = (-D * dx - dy * d) / d2, cx1 = (D * dy + dx * d) / d2, cy1 = (-D * dx + dy * d) / d2, dx0 = cx0 - x3, dy0 = cy0 - y3, dx1 = cx1 - x3, dy1 = cy1 - y3;
     if (dx0 * dx0 + dy0 * dy0 > dx1 * dx1 + dy1 * dy1) cx0 = cx1, cy0 = cy1;
     return [ [ cx0 - ox, cy0 - oy ], [ cx0 * r1 / r, cy0 * r1 / r ] ];
   }
@@ -17663,10 +16591,10 @@ function prettyNumber(input) {
     value.closed = /-closed$/.test(key);
   });
   function d3_svg_lineLinear(points) {
-    return points.length > 1 ? points.join("L") : points + "Z";
+    return points.join("L");
   }
   function d3_svg_lineLinearClosed(points) {
-    return points.join("L") + "Z";
+    return d3_svg_lineLinear(points) + "Z";
   }
   function d3_svg_lineStep(points) {
     var i = 0, n = points.length, p = points[0], path = [ p[0], ",", p[1] ];
@@ -17688,7 +16616,7 @@ function prettyNumber(input) {
     return points.length < 4 ? d3_svg_lineLinear(points) : points[1] + d3_svg_lineHermite(points.slice(1, -1), d3_svg_lineCardinalTangents(points, tension));
   }
   function d3_svg_lineCardinalClosed(points, tension) {
-    return points.length < 3 ? d3_svg_lineLinearClosed(points) : points[0] + d3_svg_lineHermite((points.push(points[0]), 
+    return points.length < 3 ? d3_svg_lineLinear(points) : points[0] + d3_svg_lineHermite((points.push(points[0]), 
     points), d3_svg_lineCardinalTangents([ points[points.length - 2] ].concat(points, [ points[1] ]), tension));
   }
   function d3_svg_lineCardinal(points, tension) {
@@ -18102,41 +17030,9 @@ function prettyNumber(input) {
   });
   d3.svg.symbolTypes = d3_svg_symbols.keys();
   var d3_svg_symbolSqrt3 = Math.sqrt(3), d3_svg_symbolTan30 = Math.tan(30 * d3_radians);
-  d3_selectionPrototype.transition = function(name) {
-    var id = d3_transitionInheritId || ++d3_transitionId, ns = d3_transitionNamespace(name), subgroups = [], subgroup, node, transition = d3_transitionInherit || {
-      time: Date.now(),
-      ease: d3_ease_cubicInOut,
-      delay: 0,
-      duration: 250
-    };
-    for (var j = -1, m = this.length; ++j < m; ) {
-      subgroups.push(subgroup = []);
-      for (var group = this[j], i = -1, n = group.length; ++i < n; ) {
-        if (node = group[i]) d3_transitionNode(node, i, ns, id, transition);
-        subgroup.push(node);
-      }
-    }
-    return d3_transition(subgroups, ns, id);
-  };
-  d3_selectionPrototype.interrupt = function(name) {
-    return this.each(name == null ? d3_selection_interrupt : d3_selection_interruptNS(d3_transitionNamespace(name)));
-  };
-  var d3_selection_interrupt = d3_selection_interruptNS(d3_transitionNamespace());
-  function d3_selection_interruptNS(ns) {
-    return function() {
-      var lock, activeId, active;
-      if ((lock = this[ns]) && (active = lock[activeId = lock.active])) {
-        active.timer.c = null;
-        active.timer.t = NaN;
-        if (--lock.count) delete lock[activeId]; else delete this[ns];
-        lock.active += .5;
-        active.event && active.event.interrupt.call(this, this.__data__, active.index);
-      }
-    };
-  }
-  function d3_transition(groups, ns, id) {
+  function d3_transition(groups, namespace, id) {
     d3_subclass(groups, d3_transitionPrototype);
-    groups.namespace = ns;
+    groups.namespace = namespace;
     groups.id = id;
     return groups;
   }
@@ -18145,8 +17041,8 @@ function prettyNumber(input) {
   d3_transitionPrototype.empty = d3_selectionPrototype.empty;
   d3_transitionPrototype.node = d3_selectionPrototype.node;
   d3_transitionPrototype.size = d3_selectionPrototype.size;
-  d3.transition = function(selection, name) {
-    return selection && selection.transition ? d3_transitionInheritId ? selection.transition(name) : selection : d3.selection().transition(selection);
+  d3.transition = function(selection) {
+    return arguments.length ? d3_transitionInheritId ? selection.transition() : selection : d3_selectionRoot.transition();
   };
   d3.transition.prototype = d3_transitionPrototype;
   d3_transitionPrototype.select = function(selector) {
@@ -18275,7 +17171,7 @@ function prettyNumber(input) {
     }
     function styleString(b) {
       return b == null ? styleNull : (b += "", function() {
-        var a = d3_window(this).getComputedStyle(this, null).getPropertyValue(name), i;
+        var a = d3_window.getComputedStyle(this, null).getPropertyValue(name), i;
         return a !== b && (i = d3_interpolate(a, b), function(t) {
           this.style.setProperty(name, i(t), priority);
         });
@@ -18286,7 +17182,7 @@ function prettyNumber(input) {
   d3_transitionPrototype.styleTween = function(name, tween, priority) {
     if (arguments.length < 3) priority = "";
     function styleTween(d, i) {
-      var f = tween.call(this, d, i, d3_window(this).getComputedStyle(this, null).getPropertyValue(name));
+      var f = tween.call(this, d, i, d3_window.getComputedStyle(this, null).getPropertyValue(name));
       return f && function(t) {
         this.style.setProperty(name, f(t), priority);
       };
@@ -18339,16 +17235,13 @@ function prettyNumber(input) {
     var id = this.id, ns = this.namespace;
     if (arguments.length < 2) {
       var inherit = d3_transitionInherit, inheritId = d3_transitionInheritId;
-      try {
-        d3_transitionInheritId = id;
-        d3_selection_each(this, function(node, i, j) {
-          d3_transitionInherit = node[ns][id];
-          type.call(node, node.__data__, i, j);
-        });
-      } finally {
-        d3_transitionInherit = inherit;
-        d3_transitionInheritId = inheritId;
-      }
+      d3_transitionInheritId = id;
+      d3_selection_each(this, function(node, i, j) {
+        d3_transitionInherit = node[ns][id];
+        type.call(node, node.__data__, i, j);
+      });
+      d3_transitionInherit = inherit;
+      d3_transitionInheritId = inheritId;
     } else {
       d3_selection_each(this, function(node) {
         var transition = node[ns][id];
@@ -18379,79 +17272,57 @@ function prettyNumber(input) {
   function d3_transitionNamespace(name) {
     return name == null ? "__transition__" : "__transition_" + name + "__";
   }
-  function d3_transitionNode(node, i, ns, id, inherit) {
-    var lock = node[ns] || (node[ns] = {
+  function d3_transitionNode(node, i, namespace, id, inherit) {
+    var lock = node[namespace] || (node[namespace] = {
       active: 0,
       count: 0
-    }), transition = lock[id], time, timer, duration, ease, tweens;
-    function schedule(elapsed) {
-      var delay = transition.delay;
-      timer.t = delay + time;
-      if (delay <= elapsed) return start(elapsed - delay);
-      timer.c = start;
-    }
-    function start(elapsed) {
-      var activeId = lock.active, active = lock[activeId];
-      if (active) {
-        active.timer.c = null;
-        active.timer.t = NaN;
-        --lock.count;
-        delete lock[activeId];
-        active.event && active.event.interrupt.call(node, node.__data__, active.index);
-      }
-      for (var cancelId in lock) {
-        if (+cancelId < id) {
-          var cancel = lock[cancelId];
-          cancel.timer.c = null;
-          cancel.timer.t = NaN;
-          --lock.count;
-          delete lock[cancelId];
-        }
-      }
-      timer.c = tick;
-      d3_timer(function() {
-        if (timer.c && tick(elapsed || 1)) {
-          timer.c = null;
-          timer.t = NaN;
-        }
-        return 1;
-      }, 0, time);
-      lock.active = id;
-      transition.event && transition.event.start.call(node, node.__data__, i);
-      tweens = [];
-      transition.tween.forEach(function(key, value) {
-        if (value = value.call(node, node.__data__, i)) {
-          tweens.push(value);
-        }
-      });
-      ease = transition.ease;
-      duration = transition.duration;
-    }
-    function tick(elapsed) {
-      var t = elapsed / duration, e = ease(t), n = tweens.length;
-      while (n > 0) {
-        tweens[--n].call(node, e);
-      }
-      if (t >= 1) {
-        transition.event && transition.event.end.call(node, node.__data__, i);
-        if (--lock.count) delete lock[id]; else delete node[ns];
-        return 1;
-      }
-    }
+    }), transition = lock[id];
     if (!transition) {
-      time = inherit.time;
-      timer = d3_timer(schedule, 0, time);
+      var time = inherit.time;
       transition = lock[id] = {
         tween: new d3_Map(),
         time: time,
-        timer: timer,
         delay: inherit.delay,
         duration: inherit.duration,
-        ease: inherit.ease,
-        index: i
+        ease: inherit.ease
       };
       inherit = null;
       ++lock.count;
+      d3.timer(function(elapsed) {
+        var d = node.__data__, delay = transition.delay, duration, ease, timer = d3_timer_active, tweened = [];
+        timer.t = delay + time;
+        if (delay <= elapsed) return start(elapsed - delay);
+        timer.c = start;
+        function start(elapsed) {
+          if (lock.active > id) return stop(false);
+          lock.active = id;
+          transition.event && transition.event.start.call(node, d, i);
+          transition.tween.forEach(function(key, value) {
+            if (value = value.call(node, d, i)) {
+              tweened.push(value);
+            }
+          });
+          ease = transition.ease;
+          duration = transition.duration;
+          d3.timer(function() {
+            timer.c = tick(elapsed || 1) ? d3_true : tick;
+            return 1;
+          }, 0, time);
+        }
+        function tick(elapsed) {
+          if (lock.active !== id) return stop(false);
+          var t = elapsed / duration, e = ease(t), n = tweened.length;
+          while (n > 0) {
+            tweened[--n].call(node, e);
+          }
+          if (t >= 1) return stop(true);
+        }
+        function stop(end) {
+          if (transition.event) transition.event[end ? "end" : "interrupt"].call(node, d, i);
+          if (--lock.count) delete lock[id]; else delete node[namespace];
+          return 1;
+        }
+      }, 0, time);
     }
   }
   d3.svg.axis = function() {
@@ -18505,7 +17376,7 @@ function prettyNumber(input) {
     };
     axis.ticks = function() {
       if (!arguments.length) return tickArguments_;
-      tickArguments_ = d3_array(arguments);
+      tickArguments_ = arguments;
       return axis;
     };
     axis.tickValues = function(x) {
@@ -18665,8 +17536,8 @@ function prettyNumber(input) {
       g.selectAll(".extent,.e>rect,.w>rect").attr("height", yExtent[1] - yExtent[0]);
     }
     function brushstart() {
-      var target = this, eventTarget = d3.select(d3.event.target), event_ = event.of(target, arguments), g = d3.select(target), resizing = eventTarget.datum(), resizingX = !/^(n|s)$/.test(resizing) && x, resizingY = !/^(e|w)$/.test(resizing) && y, dragging = eventTarget.classed("extent"), dragRestore = d3_event_dragSuppress(target), center, origin = d3.mouse(target), offset;
-      var w = d3.select(d3_window(target)).on("keydown.brush", keydown).on("keyup.brush", keyup);
+      var target = this, eventTarget = d3.select(d3.event.target), event_ = event.of(target, arguments), g = d3.select(target), resizing = eventTarget.datum(), resizingX = !/^(n|s)$/.test(resizing) && x, resizingY = !/^(e|w)$/.test(resizing) && y, dragging = eventTarget.classed("extent"), dragRestore = d3_event_dragSuppress(), center, origin = d3.mouse(target), offset;
+      var w = d3.select(d3_window).on("keydown.brush", keydown).on("keyup.brush", keyup);
       if (d3.event.changedTouches) {
         w.on("touchmove.brush", brushmove).on("touchend.brush", brushend);
       } else {
@@ -19027,6 +17898,9 @@ function prettyNumber(input) {
   d3.xml = d3_xhrType(function(request) {
     return request.responseXML;
   });
-  if (typeof define === "function" && define.amd) this.d3 = d3, define(d3); else if (typeof module === "object" && module.exports) module.exports = d3; else this.d3 = d3;
+  if (typeof define === "function" && define.amd) define(d3); else if (typeof module === "object" && module.exports) module.exports = d3;
+  this.d3 = d3;
 }();
-},{}]},{},[14]);
+},{}],31:[function(require,module,exports){
+arguments[4][30][0].apply(exports,arguments)
+},{"dup":30}]},{},[14]);
