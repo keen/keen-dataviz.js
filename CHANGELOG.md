@@ -1,3 +1,10 @@
+<a name="1.1.1"></a>
+# 1.1.1 Scientific Notation for Big Numbers
+
+**FIXED:**
+* This resolves an issue with the `prettyNumber` function returning `undefined` when it runs out of suffixes for large numbers. Now these numbers will be displayed in exponential/scientific notation. (#67)
+
+
 <a name="1.1.0"></a>
 # 1.1.0 Global Namespace Fix
 
