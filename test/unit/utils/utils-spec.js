@@ -55,13 +55,14 @@ describe('Utils', function(){
       expect(prettyNumber(-100000000000)).to.eql('-100B');
       expect(prettyNumber(-1000000000000)).to.eql('-1T');
       expect(prettyNumber(-10000000000000)).to.eql('-10T');
-      expect(prettyNumber(-100000000000000)).to.eql('-1.00e+14');
+      expect(prettyNumber(-100000000000000)).to.eql('-100T');
     });
 
     it ('should use exponential notation when called with integers greater than 100T', function(){
       expect(prettyNumber(1000000000000000)).to.eql('1.00e+15');
       expect(prettyNumber(100000000000000000000)).to.eql('1.00e+20');
       expect(prettyNumber(10052361296322342964777)).to.eql('1.01e+22');
+      expect(prettyNumber(10000000000000000000099999)).to.eql('1.00e+25');
       expect(prettyNumber(18642864286428642864286428)).to.eql('1.86e+25');
     });
 
