@@ -13,7 +13,7 @@ describe('Utils', function(){
       expect(prettyNumber(1800000000000000000000)).to.be.a('string');
     });
 
-    it ('should correctly format ints and floats between -1 and 1', function() {
+    it ('should correctly format ints and floats between -1 and 1', function(){
       expect(prettyNumber(-1)).to.eql('-1');
       expect(prettyNumber(-1.0)).to.eql('-1');
       expect(prettyNumber(-1.00)).to.eql('-1');
