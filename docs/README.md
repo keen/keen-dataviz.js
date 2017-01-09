@@ -9,7 +9,7 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.0.js"></script>
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.2.js"></script>
 
     <!-- Dataviz dependencies -->
     <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.1.css" rel="stylesheet" />
