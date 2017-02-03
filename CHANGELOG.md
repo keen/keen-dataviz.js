@@ -1,3 +1,15 @@
+<a name="1.1.3"></a>
+# 1.1.3 Variable Declaration Bug Fix 
+
+FIXED:
+* A variable declaration has been added to `Dataviz.message`, preventing failure when called in strict mode. (#71)
+
+<a name="1.1.2"></a>
+# 1.1.2 Variable Declaration Bug Fix 
+
+FIXED:
+* A variable declaration has been added to create-null-list.js, preventing failure in strict mode. (#70)
+
 <a name="1.1.1"></a>
 # 1.1.1 Scientific Notation for Big Numbers
 
