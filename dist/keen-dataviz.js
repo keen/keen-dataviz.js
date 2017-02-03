@@ -1096,7 +1096,7 @@ function parseExtraction(){
     }
     if (this.el()) {
       this.el().innerHTML = '';
-      message = Dataviz.libraries['default'].message;
+      var message = Dataviz.libraries['default'].message;
       if (message.render) {
         message.render.apply(this, arguments);
       }
