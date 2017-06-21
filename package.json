@@ -22,7 +22,7 @@
     "node": ">=4.0.x"
   },
   "dependencies": {
-    "c3": "^0.4.10",
+    "c3": "^0.4.11",
     "d3": "^3.5.0"
   },
   "devDependencies": {
