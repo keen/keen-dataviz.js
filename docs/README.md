@@ -132,7 +132,6 @@ Set configuration options intended for the underlying charting library adapter. 
 ```javascript
 chart
   .chartOptions({
-    isStacked: true,
     legend: {
       position: 'none'
     }
@@ -334,6 +333,14 @@ chart.sortIntervals('desc');
 // Return current value
 chart.sortIntervals();
 ```
+
+### .stacked(boolean)
+
+Create a stacked chart, used to break down and compare parts of a whole.
+
+```javascript
+chart.stacked(true);
+ ```
 
 ### .theme(string)
 
