@@ -210,6 +210,19 @@ chart.dateFormat(function(ms){
 chart.dateFormat();
 ```
 
+**Date Localization:** Dates will be localized to the browser's timezone by default. This is generally desirable, but there are some instances where you may wish to retain the timezones that are returned by the API. You can [disable this behavior](http://c3js.org/reference.html#axis-x-localtime) in any C3.js-based visualization by setting `axis.x.localtime` to `false`, via `chartOptions()`:
+
+```javascript
+chart.chartOptions({
+  axis: {
+    x: {
+      localtime: false
+    }
+  }
+});
+```
+
+
 ### .destroy()
 
 Destroy a visualization and remove all rendered DOM elements.
