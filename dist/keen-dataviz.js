@@ -1875,7 +1875,10 @@ function defineC3(){
         r: 2,
         show: true
       },
-      tooltip: {}
+      tooltip: {},
+      transition: {
+        duration: 0
+      }
     };
     ENFORCED_OPTIONS = {
       bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
@@ -1891,10 +1894,7 @@ function defineC3(){
         height: this.height() ? this.height() - this.el().offsetHeight : 400,
         width: this.width()
       },
-      tooltip: {},
-      transition: {
-        duration: 0
-      }
+      tooltip: {}
     };
     options = extendDeep({}, DEFAULT_OPTIONS, this.chartOptions());
     options = extendDeep(options, ENFORCED_OPTIONS);
