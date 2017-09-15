@@ -1188,7 +1188,7 @@ function parseExtraction(){
     return this;
   };
   Dataviz.prototype.sortIntervals = function(str){
-    if (!arguments.length) return this.view.sortInterval;
+    if (!arguments.length) return this.view.sortIntervals;
     this.view.sortIntervals = (str ? String(str) : null);
     if (this.view.sortIntervals) {
       this.dataset.sortRows(this.view.sortIntervals);
