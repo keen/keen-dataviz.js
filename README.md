@@ -86,7 +86,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
   </head>
   <body>
     <!-- DOM Element -->
-    <div id='my-chart-div'></div>
+    <div id="my-chart-div"></div>
 
     <!-- Create and Render -->
     <script>

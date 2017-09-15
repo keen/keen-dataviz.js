@@ -17,7 +17,7 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
   </head>
   <body>
     <!-- DOM Element -->
-    <div id='my-chart-div'></div>
+    <div id="my-chart-div"></div>
 
     <!-- Create and Render -->
     <script>
