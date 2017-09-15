@@ -1,6 +1,7 @@
 /*-- Chart --*/
 .c3 svg {
-  font: 10px sans-serif; }
+  font: 10px sans-serif;
+  -webkit-tap-highlight-color: transparent; }
 .c3 path, .c3 line {
   fill: none;
   stroke: #000; }
@@ -9,7 +10,11 @@
   -moz-user-select: none;
   -ms-user-select: none;
       user-select: none; }
-.c3-legend-item-tile, .c3-xgrid-focus, .c3-ygrid, .c3-event-rect, .c3-bars path {
+.c3-legend-item-tile,
+.c3-xgrid-focus,
+.c3-ygrid,
+.c3-event-rect,
+.c3-bars path {
   shape-rendering: crispEdges; }
 .c3-chart-arc path {
   stroke: #fff; }
@@ -42,6 +47,7 @@
 .c3-bar {
   stroke-width: 0; }
 .c3-bar._expanded_ {
+  fill-opacity: 1;
   fill-opacity: 0.75; }
 /*-- Focus --*/
 .c3-target.c3-focused {
@@ -53,10 +59,10 @@
 /*-- Region --*/
 .c3-region {
   fill: steelblue;
-  fill-opacity: 0.1; }
+  fill-opacity: .1; }
 /*-- Brush --*/
 .c3-brush .extent {
-  fill-opacity: 0.1; }
+  fill-opacity: .1; }
 /*-- Select - Drag --*/
 /*-- Legend --*/
 .c3-legend-item {
@@ -68,6 +74,9 @@
   fill: white;
   stroke: lightgray;
   stroke-width: 1; }
+/*-- Title --*/
+.c3-title {
+  font: 14px sans-serif; }
 /*-- Tooltip --*/
 .c3-tooltip-container {
   z-index: 10; }
@@ -119,6 +128,10 @@
 .c3-chart-arc .c3-gauge-value {
   fill: #000;
   /*  font-size: 28px !important;*/ }
+.c3-chart-arc.c3-target g path {
+  opacity: 1; }
+.c3-chart-arc.c3-target.c3-focused g path {
+  opacity: 1; }
 /* WRAPPER */
 .keen-dataviz {
   box-sizing: border-box;

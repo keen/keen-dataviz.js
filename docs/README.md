@@ -9,15 +9,15 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.2.js"></script>
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.3.0.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.3.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.1.3.js"></script>
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.2.0.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.2.0.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
-    <div id='my-chart-div'></div>
+    <div id="my-chart-div"></div>
 
     <!-- Create and Render -->
     <script>
@@ -209,6 +209,19 @@ chart.dateFormat(function(ms){
 // Return current setting
 chart.dateFormat();
 ```
+
+**Date Localization:** Dates will be localized to the browser's timezone by default. This is generally desirable, but there are some instances where you may wish to retain the timezones that are returned by the API. You can [disable this behavior](http://c3js.org/reference.html#axis-x-localtime) in any C3.js-based visualization by setting `axis.x.localtime` to `false`, via `chartOptions()`:
+
+```javascript
+chart.chartOptions({
+  axis: {
+    x: {
+      localtime: false
+    }
+  }
+});
+```
+
 
 ### .destroy()
 
