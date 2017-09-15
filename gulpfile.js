@@ -165,9 +165,30 @@ gulp.task('aws', ['build'], function() {
     }
   });
 
-  return gulp.src([
+  var jsHeaders = Object.assign({}, headers, {
+    'Content-Type': 'application/javascript;charset=UTF-8'
+  });
+
+  var cssHeaders = Object.assign({}, headers, {
+    'Content-Type': 'text/css'
+  });
+
+  gulp
+    .src([
       './dist/' + pkg.name + '.js',
-      './dist/' + pkg.name + '.min.js',
+      './dist/' + pkg.name + '.min.js'
+    ])
+    .pipe(rename(function(path) {
+      path.dirname += '/';
+      var name = pkg.name + '-' + pkg.version;
+      path.basename = (path.basename.indexOf('min') > -1) ? name + '.min' : name;
+    }))
+    .pipe(aws.gzip())
+    .pipe(publisher.publish(jsHeaders, { force: true }))
+    .pipe(publisher.cache())
+    .pipe(aws.reporter());
+
+  return gulp.src([
       './dist/' + pkg.name + '.css',
       './dist/' + pkg.name + '.min.css'
     ])
@@ -177,7 +198,7 @@ gulp.task('aws', ['build'], function() {
       path.basename = (path.basename.indexOf('min') > -1) ? name + '.min' : name;
     }))
     .pipe(aws.gzip())
-    .pipe(publisher.publish(headers, { force: true }))
+    .pipe(publisher.publish(cssHeaders, { force: true }))
     .pipe(publisher.cache())
     .pipe(aws.reporter());
 
