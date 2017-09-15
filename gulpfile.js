@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 var aws = require('gulp-awspublish'),
     browserify = require('browserify'),
     connect = require('gulp-connect'),
-    compress = require('gulp-yuicompressor'),
+    // compress = require('gulp-yuicompressor'),
     karma = require('karma').Server,
     minifyCss = require('gulp-minify-css'),
     mocha = require('gulp-mocha'),
@@ -12,7 +12,8 @@ var aws = require('gulp-awspublish'),
     rename = require('gulp-rename'),
     squash = require('gulp-remove-empty-lines'),
     strip = require('gulp-strip-comments'),
-    through2 = require('through2');
+    through2 = require('through2'),
+    uglify = require('gulp-uglify');
 
 // Style
 var postcss = require('gulp-postcss'),
@@ -63,7 +64,8 @@ gulp.task('build:script', function(){
 
 gulp.task('build:minify-script', ['build:script'], function(){
   return gulp.src('./dist/' + pkg.name + '.js')
-    .pipe(compress({ type: 'js' }))
+    // .pipe(compress({ type: 'js' }))
+    .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('./dist/'));
 });
