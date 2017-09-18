@@ -1,13 +1,26 @@
-<a name="1.1.3"></a>
-# 1.1.3 Variable Declaration Bug Fix 
+<a name="1.2.0"></a>
+# 1.2.0 Bug Fixes and Dependency Updates
 
-FIXED:
+**FIXED:**
+* CDN versions of files now served properly with `UTF-8` encoding (#76)
+* Fixed typo in `sortIntervals()` accessor (#66)
+* C3 animation property is now editable (#77)
+
+**NEW:**
+* Updated C3.js to v0.4.18, D3.js to v3.5.17 (#74)
+* Document use of `axis.x.localtime` property in C3.js (#78)
+
+
+<a name="1.1.3"></a>
+# 1.1.3 Variable Declaration Bug Fix
+
+**FIXED:**
 * A variable declaration has been added to `Dataviz.message`, preventing failure when called in strict mode. (#71)
 
 <a name="1.1.2"></a>
-# 1.1.2 Variable Declaration Bug Fix 
+# 1.1.2 Variable Declaration Bug Fix
 
-FIXED:
+**FIXED:**
 * A variable declaration has been added to create-null-list.js, preventing failure in strict mode. (#70)
 
 <a name="1.1.1"></a>
