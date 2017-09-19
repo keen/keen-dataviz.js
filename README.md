@@ -1,5 +1,7 @@
 # keen-dataviz.js
 
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fkeen%2Fkeen-dataviz.js.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fkeen%2Fkeen-dataviz.js?ref=badge_shield)
+
 This project contains the most advanced data visualization functionality available for Keen IO, and will soon be built directly into [keen-js](https://github.com/keen/keen-js), replacing and upgrading the current visualization capabilities of that library.
 
 **What's new:**
@@ -186,3 +188,6 @@ $ gulp
 $ gulp
 $ open http://localhost:9002/demo
 ```
+## License
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fkeen%2Fkeen-dataviz.js.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fkeen%2Fkeen-dataviz.js?ref=badge_large)
