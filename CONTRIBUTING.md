@@ -49,3 +49,5 @@ Fetch the branch and/or deploy to staging to test the following:
 
 ## Related tickets?
 ```
+
+This PR template can be viewed rendered in Markdown [here](./.github/PULL_REQUEST_TEMPLATE.md).
