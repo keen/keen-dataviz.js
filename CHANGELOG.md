@@ -1,3 +1,13 @@
+<a name="1.2.1"></a>
+# 1.2.1 Bug Fix and PR Template
+
+**FIXED:**
+* Fixed reference error within `render()` method (#84 by [theopolisme](https://github.com/theopolisme))
+
+**NEW:**
+* New Pull Request template (#82, via #83 by [hydrosquall](https://github.com/hydrosquall))
+
+
 <a name="1.2.0"></a>
 # 1.2.0 Bug Fixes and Dependency Updates
 

@@ -1157,7 +1157,7 @@ function parseExtraction(){
       }
       else {
         if (typeof Dataviz.libraries[library][type] === 'undefined') {
-          this.message('Incorrect chart type');
+          self.message('Incorrect chart type');
           throw 'Incorrect chart type';
           return;
         }
