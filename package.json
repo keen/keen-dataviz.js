@@ -23,7 +23,8 @@
     "Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)",
     "Eric Anderson <eric@keen.io> (https://github.com/aroc)",
     "Joe Wegner <joe@keen.io> (https://github.com/josephwegner)",
-    "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)"
+    "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)",
+    "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
   "engines": {
     "node": ">=4.0.x"
