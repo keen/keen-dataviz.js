@@ -7,20 +7,24 @@
   "style": "style/index.css",
   "scripts": {
     "start": "gulp",
-    "test": "gulp test:mocha && gulp test:karma"
+    "test": "gulp test:mocha && gulp test:karma",
+    "preversion": "gulp build && npm run test",
+    "version": "git add .",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/keen/keen-dataviz.js.git"
   },
   "bugs": "https://github.com/keen/keen-dataviz.js/issues",
-  "author": "Dustin Larimer <dustin@keen.io> (https://keen.io/)",
+  "author": "Keen IO <team@keen.io> (https://keen.io/)",
   "contributors": [
     "Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)",
     "Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)",
     "Eric Anderson <eric@keen.io> (https://github.com/aroc)",
     "Joe Wegner <joe@keen.io> (https://github.com/josephwegner)",
-    "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)"
+    "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)",
+    "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
   "engines": {
     "node": ">=4.0.x"
