@@ -81,8 +81,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.3.2.min.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.2.1.min.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.2.1.min.js"></script>
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.0.min.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.0.min.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -178,11 +178,9 @@ $ git clone https://github.com/keen/keen-dataviz.js.git && cd keen-dataviz.js
 # Install project dependencies
 $ npm install
 
-# Build project with gulp
-# npm install -g gulp
-$ gulp
+# Build project with webpack
+$ npm run build
 
 # Build and launch to view demo page
-$ gulp
-$ open http://localhost:9002/demo
+$ npm run start
 ```
