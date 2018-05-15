@@ -13,7 +13,10 @@
     "build:external_d3_c3": "ENV=production EXTERNAL_D3_C3=1 webpack -p && ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p",
     "profile": "webpack --profile --json > stats.json",
     "analyze": "webpack-bundle-analyzer stats.json /dist",
-    "test": "gulp test:mocha && gulp test:karma"
+    "test": "gulp test:mocha && gulp test:karma",
+    "preversion": "npm run build",
+    "version": "git add .",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
