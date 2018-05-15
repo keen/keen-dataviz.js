@@ -1,3 +1,14 @@
+<a name="2.0.0"></a>
+# Move from Gulp to Webpack & UMDs
+
+**NEW:**
+* all JS /dist files are now bundled by Webpack 4.8.3 - UMD!
+* custom Dataviz version WITHOUT C3/D3 libraries (#87) - /dist/external_d3_c3
+* no global exports option - use `const __KEEN_NO_COMMON_GLOBAL_OBJECT__ = true` before import (#51)
+
+**FIXED:**
+* escaping labels (#89)
+
 <a name="1.2.1"></a>
 # 1.2.1 Bug Fix and PR Template
 
