@@ -1,4 +1,4 @@
-@import "c3/c3.css";
+@import "../../node_modules/c3/c3.css";
 
 :root {
   --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
@@ -22,6 +22,10 @@
 
   --lavender:   hsl(310, 42%, 63%);
   --mint:       #00CFBB;
+}
+
+.keen-dataviz .axis {
+  shape-rendering: crispEdges
 }
 
 /* WRAPPER */

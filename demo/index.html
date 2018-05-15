@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Webpack Dev Keen Dataviz Demo</title>
+    <meta charset="utf-8">
+    <script src="./assets/faker.js"></script>
+    <script src="keen-dataviz.js"></script>
+    <link rel="stylesheet" href="./assets/keen-dashboards.css">
+    <style>
+    body {
+      background: #f2f2f2;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    h1 {
+      color: #282828;
+      font-weight: 200;
+      margin: 0;
+    }
+    h2 {
+      color: #4D4D4D;
+      font-size: 21px;
+      margin: 48px 0 24px;
+      text-transform: uppercase;
+    }
+    h3 {
+      color: #555;
+      font-size: 16px;
+      margin: 0 0 24px;
+    }
+
+    /*.container {
+      margin: 0 auto;
+      max-width: 980px;
+    }*/
+    .demo-chart {
+      background: #fff;
+      margin: 0 auto;
+      /*padding: 10px;*/
+      width: 600px;
+    }
+    </style>
+    <style>
+      .custom-theme {
+        background: #fff;
+        border: 1px solid #d7d7d7;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .custom-theme-title {
+        border-bottom: 1px solid #d7d7d7;
+        border-radius: 5px 5px 0 0;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+      .custom-theme-notes {
+        background: #fbfbfb;
+        border-radius: 0 0 5px 5px;
+        border-top: 1px solid #d7d7d7;
+        font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        font-size: 11px;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body onload="init()">
+    <div class="container">
+
+      <h1>Dataviz Examples</h1>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4" id="nested">
+          <h2>Metric</h2>
+          <div class="chart-demo-metric"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <h2>Message</h2>
+          <div class="chart-demo-message"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <h2>Spinner</h2>
+          <div id="chart-demo-spinner"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <h2>Table</h2>
+          <div class="chart-demo-table"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <h2>Empty Table</h2>
+          <div class="chart-demo-empty-table"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <h2>Gauge</h2>
+          <div class="chart-c3-gauge"></div>
+          <hr>
+          <div class="chart-c3-gauge2"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <h2>Donut</h2>
+          <div class="chart-c3-donut"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <h2>Pie</h2>
+          <div class="chart-c3-pie"></div>
+        </div>
+      </div>
+
+
+
+      <h2>Bar chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-bar"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-bar-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-bar-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries (yearly)</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-bar-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-bar-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-bar-time-stacked"></div>
+        </div>
+      </div>
+
+
+      <h2>Line chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-line"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-line-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-line-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries (daily)</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-line-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-line-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-line-time-stacked"></div>
+        </div>
+      </div>
+
+
+
+      <h2>Spline chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-spline"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-spline-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-spline-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries (hourly)</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-spline-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-spline-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-spline-time-stacked"></div>
+        </div>
+      </div>
+
+
+
+
+      <h2>Area chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries (minutely)</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-time-stacked"></div>
+        </div>
+      </div>
+
+
+      <h2>Area-Spline chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-spline"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-spline-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-spline-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries (secondly)</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-spline-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-spline-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-spline-time-stacked"></div>
+        </div>
+      </div>
+
+
+      <h2>Area-Step chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-step"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-step-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-step-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-step-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-step-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-area-step-time-stacked"></div>
+        </div>
+      </div>
+
+
+      <h2>Step chart</h2>
+
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-stacked"></div>
+        </div>
+      </div>
+
+      <h3>Timeseries</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-time"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-time-multi"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-time-stacked"></div>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+
+    <script>
+    // setTimeout(init, 500);
+
+    function init(){
+
+      var RAND_DATA_MAX = 50;
+
+      var metricData = [
+        [ 'Index', 'Value' ],
+        [ 'Result', 24502 ]
+      ];
+
+      var gaugeData = [
+        [ 'Index', 'Value' ],
+        [ 'Result', 79.1 ]
+      ];
+      // var gaugeData = [
+      //   [ 'Index' ]
+      // ];
+
+      var groupedData = [
+        [ 'Index', 'Result' ],
+        [ faker.internet.url(), faker.internet.exampleEmail(), faker.internet.exampleEmail(), 189.98 ],
+        [ faker.internet.url(), 135.83 ],
+        [ faker.internet.url(), 124.56 ],
+        [ faker.internet.url(), 117.22 ],
+        [ faker.internet.url(), 55.12  ]
+      ];
+
+      function makeGroupedDataset(){
+        var ds = new Dataset();
+        var len = rand(0, RAND_DATA_MAX);
+        for (var i = 0; i < len; i++) {
+          ds.appendRow(faker.internet.email(), [faker.random.number()]);
+        }
+        ds.appendRow('null', [faker.random.number()]);
+        return ds;
+      }
+
+      function makeGroupedIntervalDataset(){
+        var ds = new Dataset();
+        ds.matrix = [
+          [ 'Index' ],
+          [ '2015-12-01T10:56:00.000Z' ],
+          [ '2015-12-01T10:57:00.000Z' ],
+          [ '2015-12-01T10:58:00.000Z' ],
+          [ '2015-12-01T10:59:00.000Z' ],
+          [ '2015-12-01T11:00:00.000Z' ]
+        ];
+
+        // Add more rows
+        for (var i = 0; i < 25; i++) {
+          var val = i < 10 ? '0'+i : i;
+          ds.matrix.push([ '2015-12-01T11:' + val + ':00.000Z' ]);
+        }
+
+        var len = ds.selectColumn(0).length;
+        for (var i = 0; i < RAND_DATA_MAX; i++) {
+          var newCol = gen(len-1);
+          if (i > 0) {
+            ds.appendColumn(newCol[0], newCol.slice(1));
+          }
+          else {
+            // Inject a null value
+            ds.appendColumn('null', newCol.slice(1));
+          }
+        }
+        return ds;
+      }
+
+      var groupedMultiData = [
+        [ 'Index', faker.internet.url(), faker.internet.url(), faker.internet.url()],
+        [ 'A', 189.98, 322.43, 654.44 ],
+        [ 'B', 135.83, 564.21, 622.12 ],
+        [ 'C', 124.56, 611.23, 432.11 ],
+        [ 'D', 117.22, 434.37, 488.12 ],
+        [ 'E', 55.12, 212.44, 323.55  ]
+      ];
+
+      var intervalData = [
+        [ 'Index', 'Result' ],
+        [ '2014-12-01T00:00:00.000Z', 189.98 ],
+        [ '2015-01-01T00:00:00.000Z', 135.83 ],
+        [ '2015-02-01T00:00:00.000Z', 124.56 ],
+        [ '2015-03-01T00:00:00.000Z', 117.22 ],
+        [ '2015-04-01T00:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiData = [
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
+        [ '2014-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-02-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-03-01T00:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-04-01T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+
+      // Yearly dataset
+
+      var intervalDataYearly = [
+        [ 'Index', 'Result' ],
+        [ '2011-01-01T00:00:00.000Z', 189.98 ],
+        [ '2012-01-01T00:00:00.000Z', 135.83 ],
+        [ '2013-01-01T00:00:00.000Z', 124.56 ],
+        [ '2014-01-01T00:00:00.000Z', 117.22 ],
+        [ '2015-01-01T00:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataYearly = [
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
+        [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2012-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2013-01-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2014-01-01T00:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-01-01T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+      // Secondly dataset
+
+      var intervalDataSecondly = [
+        [ 'Index', 'Result' ],
+        [ '2015-12-01T10:59:56.000Z', 189.98 ],
+        [ '2015-12-01T10:59:57.000Z', 135.83 ],
+        [ '2015-12-01T10:59:58.000Z', 124.56 ],
+        [ '2015-12-01T10:59:59.000Z', 117.22 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataSecondly = [
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
+        [ '2015-12-01T10:59:56.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-01T10:59:57.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-01T10:59:58.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-01T10:59:59.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+      // Minutely dataset
+
+      var intervalDataMinutely = [
+        [ 'Index', 'Result' ],
+        [ '2015-12-01T10:56:00.000Z', 189.98 ],
+        [ '2015-12-01T10:57:00.000Z', 135.83 ],
+        [ '2015-12-01T10:58:00.000Z', 124.56 ],
+        [ '2015-12-01T10:59:00.000Z', 117.22 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataMinutely = [
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
+        [ '2015-12-01T10:56:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-01T10:57:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-01T10:58:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-01T10:59:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-01T11:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+
+      // Hourly dataset
+
+      var intervalDataHourly = [
+        [ 'Index', 'Result' ],
+        [ '2015-12-01T10:00:00.000Z', 189.98 ],
+        [ '2015-12-01T11:00:00.000Z', 135.83 ],
+        [ '2015-12-01T12:00:00.000Z', 124.56 ],
+        [ '2015-12-01T13:00:00.000Z', 117.22 ],
+        [ '2015-12-01T14:00:00.000Z', 55.12  ]
+      ];
+
+      var intervalMultiDataHourly = [
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
+        [ '2015-12-01T10:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-01T11:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-01T12:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-01T13:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-01T14:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+
+      // Daily dataset
+
+      // var intervalDataDaily = [
+      //   [ 'Index' ]
+      // ];
+      var intervalDataDaily = [
+        [ 'Index', 'Result' ],
+        [ '2015-12-01T00:00:00.000Z', 189.98 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12  ]
+      ];
+
+      // var intervalMultiDataDaily = [
+      //   [ 'Index' ],
+      //   [ '2015-12-01T00:00:00.000Z' ],
+      //   [ '2015-12-02T00:00:00.000Z' ],
+      //   [ '2015-12-03T00:00:00.000Z' ],
+      //   [ '2015-12-04T00:00:00.000Z' ],
+      //   [ '2015-12-05T00:00:00.000Z' ]
+      // ];
+      var intervalMultiDataDaily = [
+        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+      ];
+
+      var tableData = [
+        [ 'Index', 'First', 'Second', 'Another', 'Fourth', 'Fifth', 'Last' ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ],
+        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
+        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
+        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
+        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ]
+      ];
+
+      window.spinner = new Dataviz()
+        .height(280)
+        .el('#chart-demo-spinner')
+        .type('spinner')
+        .render();
+
+      window.message = new Dataviz()
+        .height(280)
+        .el('.chart-demo-message')
+        .type('message')
+        .message('This is a manual message!');
+
+      window.metric = new Dataviz()
+        .height(280)
+        .el('#nested .chart-demo-metric')
+        .type('metric')
+        .title('High-fives today')
+        .prepare();
+
+      window.table = new Dataviz()
+        .el('.chart-demo-table')
+        // .theme('custom-theme')
+        .height(300)
+        .type('table')
+        .title('Basic table view')
+        .notes('Footnotes for this table')
+        .call(function(){
+          this.dataset.matrix = tableData;
+        })
+        .render();
+
+      var emptyTable = new Dataviz()
+        .el('.chart-demo-empty-table')
+        // .theme('custom-theme')
+        .height(300)
+        .type('table')
+        .title('Empty Basic Table View')
+        .notes('Footnotes for this table should appear even when empty')
+        .call(function(){
+          this.dataset.matrix = [[]];
+        })
+        .render();
+
+
+      setTimeout(function(){
+        window.metric.call(function(){
+          this.dataset.matrix = metricData;
+        }).render();
+      }, 1 * 1000);
+
+      window.gauge = new Dataviz()
+        .height(160)
+        .el('.chart-c3-gauge')
+        .title('Percentage of awesome')
+        .theme('custom-theme')
+        .notes('Sample notes go down here')
+        .type('gauge')
+        // .chartOptions({})
+        .call(function(){
+          this.dataset.matrix = gaugeData;
+        })
+        .render();
+
+      window.gauge2 = new Dataviz()
+        .height(160)
+        .el('.chart-c3-gauge2')
+        .title('Percentage of awesome')
+        .notes('Sample notes go down here')
+        .type('gauge')
+        .chartOptions({
+          color: {
+            pattern: ['#fe6672', '#ff855c', '#73d483'],
+            threshold: {
+              values: [25, 50, 75]
+            }
+          }
+        })
+        .call(function(){
+          this.dataset.matrix = gaugeData;
+        })
+        .render();
+
+      setInterval(function(){
+        window.gauge2.call(function(){
+          this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
+        }).render();
+      }, 1000);
+
+      window.donut = new Dataviz()
+        .height(300)
+        .el('.chart-c3-donut')
+        .title('Mmmm, donuts...')
+        .type('donut')
+        .chartOptions({})
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
+        .render();
+
+      window.pie = new Dataviz()
+        .height(300)
+        .el('.chart-c3-pie')
+        .title('Mmmm, pie...')
+        .type('piechart')
+        .call(function(){
+          this.dataset.matrix = groupedData;
+        })
+        .render();
+
+
+      // -------------------------
+      // BAR
+      // -------------------------
+
+      window.bar = new Dataviz()
+        .height(300)
+        .el('.chart-c3-bar')
+        .title('Bar Chart')
+        .type('horizontal-bar')
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
+        .render();
+
+      window.barMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-bar-multi')
+        .title('Bar Chart')
+        .type('barchart')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.barMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-bar-stacked')
+        .title('Bar Chart')
+        .type('bar')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.barTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-bar-time')
+        .title('Bar Chart')
+        .type('barchart')
+        .call(function(){
+          this.dataset.matrix = intervalDataYearly;
+        })
+        .render();
+
+      window.barTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-bar-time-multi')
+        .title('Bar Chart')
+        .type('bar')
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataYearly;
+        })
+        .render();
+
+      window.barTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-bar-time-stacked')
+        .title('Bar Chart')
+        .type('barchart')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataYearly;
+        })
+        .render();
+
+      // -------------------------
+      // END BAR
+      // -------------------------
+
+
+      // -------------------------
+      // LINE
+      // -------------------------
+
+      window.line = new Dataviz()
+        .height(300)
+        .el('.chart-c3-line')
+        .title('Line Chart')
+        .type('line')
+        .data(makeGroupedDataset())
+        .sortGroups('desc')
+        .render();
+
+      window.lineMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-line-multi')
+        .title('Line Chart')
+        .type('linechart')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.lineMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-line-stacked')
+        .title('Line Chart')
+        .type('line')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.lineTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-line-time')
+        .title('Line Chart')
+        .type('linechart')
+        .call(function(){
+          this.dataset.matrix = intervalDataDaily;
+        })
+        .render();
+
+      window.lineTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-line-time-multi')
+        .title('Line Chart')
+        .type('line')
+        .stacked(false)
+        .data(makeGroupedIntervalDataset())
+        .sortGroups('desc')
+        .render();
+
+      window.lineTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-line-time-stacked')
+        .title('Line Chart')
+        .type('linechart')
+        .stacked(true)
+        .data(makeGroupedIntervalDataset())
+        .sortGroups('desc')
+        .render();
+
+      // -------------------------
+      // END LINE
+      // -------------------------
+
+
+      // -------------------------
+      // SPLINE
+      // -------------------------
+
+      window.spline = new Dataviz()
+        .height(300)
+        .el('.chart-c3-spline')
+        .title('Spline Chart')
+        .type('spline')
+        .data(makeGroupedDataset())
+        .render();
+
+      window.splineMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-spline-multi')
+        .title('Spline Chart')
+        .type('spline')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.splineMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-spline-stacked')
+        .title('Spline Chart')
+        .type('spline')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.splineTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-spline-time')
+        .title('Spline Chart')
+        .type('spline')
+        .call(function(){
+          this.dataset.matrix = intervalDataHourly;
+        })
+        .render();
+
+      window.splineTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-spline-time-multi')
+        .title('Spline Chart')
+        .type('spline')
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataHourly;
+        })
+        .render();
+
+      window.splineTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-spline-time-stacked')
+        .title('Spline Chart')
+        .type('spline')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataHourly;
+        })
+        .render();
+
+      // -------------------------
+      // END SPLINE
+      // -------------------------
+
+
+
+      // -------------------------
+      // AREA
+      // -------------------------
+
+      window.area = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area')
+        .title('Area Chart')
+        .type('area')
+        .data(makeGroupedDataset())
+        .render();
+
+      window.areaMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-multi')
+        .title('Area Chart')
+        .type('areachart')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-stacked')
+        .title('Area Chart')
+        .type('area')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-time')
+        .title('Area Chart')
+        .type('areachart')
+        .call(function(){
+          this.dataset.matrix = intervalDataMinutely;
+        })
+        .render();
+
+      window.areaTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-time-multi')
+        .title('Area Chart')
+        .type('area')
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      window.areaTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-time-stacked')
+        .title('Area Chart')
+        .type('areachart')
+        .stacked(true)
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      // -------------------------
+      // END AREA
+      // -------------------------
+
+
+
+      // -------------------------
+      // AREA-SPLINE
+      // -------------------------
+
+      window.areaSpline = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-spline')
+        .title('Area-Spline Chart')
+        .type('area-spline')
+        .data(makeGroupedDataset())
+        .render();
+
+      window.areaSplineMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-spline-multi')
+        .title('Area-Spline Chart')
+        .type('area-spline')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaSplineMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-spline-stacked')
+        .title('Area-Spline Chart')
+        .type('area-spline')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaSplineTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-spline-time')
+        .title('Area-Spline Chart')
+        .type('area-spline')
+        .call(function(){
+          this.dataset.matrix = intervalDataSecondly;
+        })
+        .render();
+
+      window.areaSplineTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-spline-time-multi')
+        .title('Area-Spline Chart')
+        .type('area-spline')
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+
+      window.areaSplineTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-spline-time-stacked')
+        .title('Area-Spline Chart')
+        .type('area-spline')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+
+      // -------------------------
+      // END AREA-SPLINE
+      // -------------------------
+
+
+
+      // -------------------------
+      // AREA-STEP
+      // -------------------------
+
+      window.areaStep = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-step')
+        .title('Area-Step Chart')
+        .type('area-step')
+        .data(makeGroupedDataset())
+        .render();
+
+      window.areaStepMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-step-multi')
+        .title('Area-Step Chart')
+        .type('area-step')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaStepMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-step-stacked')
+        .title('Area-Step Chart')
+        .type('area-step')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaStepTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-step-time')
+        .title('Area-Step Chart')
+        .type('area-step')
+        .call(function(){
+          this.dataset.matrix = intervalData;
+        })
+        .render();
+
+      window.areaStepTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-step-time-multi')
+        .title('Area-Step Chart')
+        .type('area-step')
+        .call(function(){
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-area-step-time-stacked')
+        .title('Area-Step Chart')
+        .type('area-step')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      // -------------------------
+      // END AREA-STEP
+      // -------------------------
+
+
+      // -------------------------
+      // STEP
+      // -------------------------
+
+      window.step = new Dataviz()
+        .height(300)
+        .el('.chart-c3-step')
+        .title('Step Chart')
+        .type('step')
+        .data(makeGroupedDataset())
+        .render();
+
+      window.stepMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-step-multi')
+        .title('Step Chart')
+        .type('step')
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.stepMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-step-stacked')
+        .title('Step Chart')
+        .type('step')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.stepTime = new Dataviz()
+        .height(300)
+        .el('.chart-c3-step-time')
+        .title('Step Chart')
+        .type('step')
+        .call(function(){
+          this.dataset.matrix = intervalData;
+        })
+        .render();
+
+      window.stepTimeMulti = new Dataviz()
+        .height(300)
+        .el('.chart-c3-step-time-multi')
+        .title('Step Chart')
+        .type('step')
+        .call(function(){
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new Dataviz()
+        .height(300)
+        .el('.chart-c3-step-time-stacked')
+        .title('Step Chart')
+        .type('step')
+        .stacked(true)
+        .call(function(){
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      // -------------------------
+      // END STEP
+      // -------------------------
+
+
+      function rand(a, b){
+        return Math.floor((Math.random() * b) + a);
+      }
+      function gen(n){
+        var arr = [ faker.internet.exampleEmail() ];
+        for (var i = 0; i < n; i++) {
+          arr.push(rand(0, 1000));
+        }
+        return arr;
+      }
+
+    }
+    </script>
+  </body>
+</html>
