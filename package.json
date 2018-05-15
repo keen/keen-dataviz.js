@@ -7,7 +7,7 @@
   "style": "dist/keen-dataviz.css",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "ENV=production webpack -p && npm run build:css && ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css:min && npm run build:external_c3",
+    "build": "ENV=production webpack -p && npm run build:css && ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css:min && npm run build:external_d3_c3",
     "build:css": "node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/keen-dataviz.css --config postcss.config.js",
     "build:css:min": "OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/keen-dataviz.min.css --config postcss.config.js",
     "build:external_d3_c3": "ENV=production EXTERNAL_D3_C3=1 webpack -p && ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p",
