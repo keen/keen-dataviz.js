@@ -3,10 +3,11 @@
   "description": "Data Visualization SDK for Keen IO",
   "license": "MIT",
   "version": "2.0.0",
-  "main": "lib/index.js",
+  "main": "dist/external_d3_c3/keen-dataviz.js",
   "style": "dist/keen-dataviz.css",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "concurrently --kill-others \"webpack-dev-server\" \"npm run postcss-watch\"",
+    "postcss-watch": "node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o demo/keen-dataviz.css --watch --config postcss.config.js",
     "build": "ENV=production webpack -p && npm run build:css && ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css:min && npm run build:external_d3_c3",
     "build:css": "node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/keen-dataviz.css --config postcss.config.js",
     "build:css:min": "OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/keen-dataviz.min.css --config postcss.config.js",
@@ -32,12 +33,6 @@
     "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)",
     "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
-  "engines": {
-    "node": ">=6.0.x"
-  },
-  "devEngines": {
-    "node": "8.x || 9.x"
-  },
   "dependencies": {
     "c3": "^0.4.22",
     "d3": "^3.5.17"
@@ -50,7 +45,7 @@
     "browserify": "^12.0.1",
     "chai": "^3.4.0",
     "chai-dom": "^1.4.0",
-    "css-loader": "^0.28.11",
+    "concurrently": "^3.5.1",
     "cssnano": "^3.10.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
