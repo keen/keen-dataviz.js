@@ -1,3 +1,7 @@
+<a name="2.0.1"></a>
+**FIXED:**
+* npm Dataviz import without css build tools
+
 <a name="2.0.0"></a>
 # Move from Gulp to Webpack & UMDs
 
