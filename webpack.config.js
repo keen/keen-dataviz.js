@@ -6,8 +6,7 @@ if (process.env.EXTERNAL_D3_C3) {
 }
 
 module.exports = {
-  entry: ['./lib/index.js',
-  ],
+  entry: ['./lib/index.js'],
 
   target: process.env.TARGET ? `${process.env.TARGET}` : 'web',
 
@@ -38,24 +37,6 @@ module.exports = {
         test: /\.html$/,
         loader: 'html-loader',
       },
-
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-          },
-        ],
-      },
     ],
 
   },
@@ -64,26 +45,7 @@ module.exports = {
     modules: [
       'node_modules',
     ],
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
-    alias: process.env.ENV ? {
-      './style/keen-dataviz.css': path.resolve(__dirname, 'lib/style/blank.css'),
-      /*
-        To accelerate local development of the lib, we use css inline-importing
-        In the production build we shouldn't force people to use our css
-        so we import an empty file
-      */
-    } : {
-    },
-  },
-
-  performance: {
-    hints: 'warning', // enum
-    maxAssetSize: 200000, // int (in bytes),
-    maxEntrypointSize: 400000, // int (in bytes)
-    assetFilter(assetFilename) {
-      // Function predicate that provides asset filenames
-      return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
-    },
+    extensions: ['.js', '.json', '.jsx'],
   },
 
   optimization: {
@@ -96,7 +58,8 @@ module.exports = {
 
   // stats: 'verbose',
 
-  plugins: [],
+  plugins: [
+  ],
 
   mode: !process.env.ENV ? 'development' : process.env.ENV,
 
@@ -105,6 +68,7 @@ module.exports = {
     open: true,
     inline: true,
     hot: false,
+    watchContentBase: true,
   },
 
   externals: !process.env.EXTERNAL_D3_C3 ? {} : {
