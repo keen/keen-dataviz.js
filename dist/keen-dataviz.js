@@ -9962,13 +9962,10 @@ function stripHtmlTags(inputString) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.methods = undefined;
 
 var _each = __webpack_require__(0);
 
 var _extend = __webpack_require__(2);
-
-var helpers = {};
 
 function average(arr, start, end) {
   var set = arr.slice(start || 0, end ? end + 1 : arr.length),
@@ -10024,29 +10021,47 @@ function sum(arr, start, end) {
   return sum;
 }
 
-// Convenience methods
+var getColumnAverage = function getColumnAverage(arr) {
+  return average(arr, 1);
+};
+var getRowAverage = getColumnAverage;
 
-(0, _each.each)(methods, function (method, name) {
-  var capitalized = name.charAt(0).toUpperCase() + name.slice(1);
-  helpers['getColumn' + capitalized] = helpers['getRow' + capitalized] = function (arr) {
-    return this[name](arr, 1);
-  };
-});
+var getColumnSum = function getColumnSum(arr) {
+  return sum(arr, 1);
+};
+var getRowSum = getColumnSum;
 
-helpers['getColumnLabel'] = helpers['getRowIndex'] = function (arr) {
+var getColumnMaximum = function getColumnMaximum(arr) {
+  return maximum(arr, 1);
+};
+var getRowMaximum = getColumnMaximum;
+
+var getColumnMinimum = function getColumnMinimum(arr) {
+  return minimum(arr, 1);
+};
+var getRowMinimum = getColumnMinimum;
+
+var getColumnLabel = function getColumnLabel(arr) {
   return arr[0];
 };
+var getRowIndex = getColumnLabel;
 
-var methods = exports.methods = {
+exports.default = {
   average: average,
   maximum: maximum,
   minimum: minimum,
-  sum: sum
+  sum: sum,
+  getColumnAverage: getColumnAverage,
+  getRowAverage: getRowAverage,
+  getColumnSum: getColumnSum,
+  getRowSum: getRowSum,
+  getColumnMaximum: getColumnMaximum,
+  getRowMaximum: getRowMaximum,
+  getColumnMinimum: getColumnMinimum,
+  getRowMinimum: getRowMinimum,
+  getColumnLabel: getColumnLabel,
+  getRowIndex: getRowIndex
 };
-
-(0, _extend.extend)(methods, helpers);
-
-exports.default = { methods: methods };
 
 /***/ }),
 /* 9 */
@@ -10090,7 +10105,7 @@ var update = _interopRequireWildcard(_update);
 
 var _analyses = __webpack_require__(8);
 
-var analyses = _interopRequireWildcard(_analyses);
+var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(2);
 
@@ -10164,8 +10179,7 @@ Dataset.prototype.type = function (str) {
 (0, _extend.extend)(Dataset.prototype, select);
 (0, _extend.extend)(Dataset.prototype, sort);
 (0, _extend.extend)(Dataset.prototype, update);
-
-(0, _extend.extend)(Dataset.prototype, analyses);
+(0, _extend.extend)(Dataset.prototype, _analyses2.default);
 Dataset.parser = (0, _parsers2.default)(Dataset);
 
 exports.default = Dataset;
@@ -21084,13 +21098,17 @@ var _each = __webpack_require__(0);
 
 var _analyses = __webpack_require__(8);
 
+var _analyses2 = _interopRequireDefault(_analyses);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function sortColumns(str, comp) {
   var self = this,
       head = this.matrix[0].slice(1),
       // minus index
   cols = [],
       clone = [],
-      fn = comp || _analyses.methods.getColumnLabel;
+      fn = comp || _analyses2.default.getColumnLabel;
 
   // Isolate each column (except the index)
   (0, _each.each)(head, function (cell, i) {
@@ -21117,7 +21135,7 @@ function sortRows(str, comp) {
   var self = this,
       head = this.matrix.slice(0, 1),
       body = this.matrix.slice(1),
-      fn = comp || _analyses.methods.getRowIndex;
+      fn = comp || _analyses2.default.getRowIndex;
   body.sort(function (a, b) {
     // If fn(a) > fn(b)
     var op = fn.call(self, a) > fn.call(self, b);
