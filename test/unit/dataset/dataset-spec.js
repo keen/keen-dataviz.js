@@ -39,12 +39,12 @@ describe('Dataset', () => {
 
   describe('.data()', () => {
     it('should output the correct values', () => {
-      expect(this.ds.data()).to.be.an('array')
+      expect(this.ds.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(1);
     });
     it('should rewrite the internal matrix value', () => {
       this.ds.data([]);
-      expect(this.ds.data()).to.be.an('array')
+      expect(this.ds.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(0);
     });
   });
@@ -54,14 +54,14 @@ describe('Dataset', () => {
     it('should create a column and row when they don\'t already exist (integer)', () => {
       this.ds.data([['Index']]);
       this.ds.set([1,1], 10);
-      expect(this.ds.selectRow(1)).to.be.an('array')
+      expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
         .and.to.deep.equal(['1', 10]);
     });
 
     it('should create a column and row when they don\'t already exist (string)', () => {
       this.ds.data([['Index']]);
       this.ds.set(['A','Row'], 10);
-      expect(this.ds.selectRow(1)).to.be.an('array')
+      expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
         .and.to.deep.equal(['Row', 10]);
     });
 
@@ -70,13 +70,13 @@ describe('Dataset', () => {
       this.ds.set([1,1], 10);
       this.ds.set([2,2], 10);
       this.ds.set([1,3], 10);
-      expect(this.ds.selectRow(1)).to.be.an('array')
+      expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
         .and.to.deep.equal(['1', 10, null]);
-      expect(this.ds.selectRow(2)).to.be.an('array')
+      expect(this.ds.selectRow(2)).toBeInstanceOf(Array)
         .and.to.deep.equal(['2', null, 10]);
-      expect(this.ds.selectRow(3)).to.be.an('array')
+      expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
         .and.to.deep.equal(['3', 10, null]);
-      expect(this.ds.selectColumn(2)).to.be.an('array')
+      expect(this.ds.selectColumn(2)).toBeInstanceOf(Array)
         .and.to.deep.equal(['2', null, 10, null]);
     });
 
@@ -85,13 +85,13 @@ describe('Dataset', () => {
       this.ds.set(['A','Row 1'], 10);
       this.ds.set(['B','Row 2'], 10);
       this.ds.set(['A','Row 3'], 10);
-      expect(this.ds.selectRow(1)).to.be.an('array')
+      expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
         .and.to.deep.equal(['Row 1', 10, null]);
-      expect(this.ds.selectRow(2)).to.be.an('array')
+      expect(this.ds.selectRow(2)).toBeInstanceOf(Array)
         .and.to.deep.equal(['Row 2', null, 10]);
-      expect(this.ds.selectRow(3)).to.be.an('array')
+      expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
         .and.to.deep.equal(['Row 3', 10, null]);
-      expect(this.ds.selectColumn(2)).to.be.an('array')
+      expect(this.ds.selectColumn(2)).toBeInstanceOf(Array)
         .and.to.deep.equal(['B', null, 10, null]);
     });
 
@@ -103,13 +103,13 @@ describe('Dataset', () => {
       it('should return a given row', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(table[1]);
       });
       it('should accept a string query argument, even if string starts with a number (indexOf match)', () => {
         var table = [['Index', 'A', 'B'],['1 a', 342, 664],['1 b', 353, 322]];
         this.ds.data(table);
-        expect(this.ds.selectRow('1 a')).to.be.an('array')
+        expect(this.ds.selectRow('1 a')).toBeInstanceOf(Array)
           .and.to.deep.equal(table[1]);
       });
     });
@@ -119,21 +119,21 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.appendRow(2);
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal([2, null, null]);
       });
       it('should append a given row when passing an array', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.appendRow(2, [344, 554]);
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal([2, 344, 554]);
       });
       it('should append a given row when passing a computational helper', () => {
         var table = [['Index', 'A', 'B'],[0, 10, 20],[1, 5, 5]];
         this.ds.data(table);
         this.ds.appendRow(2, this.ds.getColumnSum);
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal([2, 15, 25]);
       });
       it('should append a given row when passing a custom function', () => {
@@ -142,14 +142,14 @@ describe('Dataset', () => {
         this.ds.appendRow(0, function(c, i){
           return 0;
         });
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal([0, 0, 0]);
       });
       it('should append an empty row when nothing returned from a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.appendRow(2, () => {});
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal([2, null, null]);
       });
       it('should extend other rows when passed array is longer than existing rows', () => {
@@ -160,9 +160,9 @@ describe('Dataset', () => {
         ];
         this.ds.data(table);
         this.ds.appendRow('new', [ 333, 222, 111 ]);
-        expect(this.ds.selectRow('new')).to.be.an('array')
+        expect(this.ds.selectRow('new')).toBeInstanceOf(Array)
           .and.to.deep.equal(['new', 333, 222, 111]);
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3', null, null, 111]);
       });
     });
@@ -172,21 +172,21 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertRow(1);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([null, null, null]);
       });
       it('should insert a given row at a given index', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertRow(1, 2, [344, 554]);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([2, 344, 554]);
       });
       it('should insert a given row when passing a computational helper', () => {
         var table = [['Index', 'A', 'B'],[0, 10, 20],[1, 5, 5]];
         this.ds.data(table);
         this.ds.insertRow(1, 'Total', this.ds.getColumnSum);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', 15, 25]);
       });
       it('should insert a given row when passing a custom function', () => {
@@ -195,14 +195,14 @@ describe('Dataset', () => {
         this.ds.insertRow(1, 'Total', function(c, i){
           return 0;
         });
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', 0, 0]);
       });
       it('should insert an empty row when nothing is returned from a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertRow(1, 'Total', () => {});
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', null, null]);
       });
       it('should extend other rows when the passed array is longer than other rows', () => {
@@ -213,11 +213,11 @@ describe('Dataset', () => {
         ];
         this.ds.data(table);
         this.ds.insertRow(1, 'Total', [123, 321, 323, null]);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', 123, 321, 323, null]);
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3', 323, null, null]);
-        expect(this.ds.selectColumn(4)).to.be.an('array')
+        expect(this.ds.selectColumn(4)).toBeInstanceOf(Array)
           .and.to.deep.equal(['4', null, null, null]);
       });
     });
@@ -227,14 +227,14 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.updateRow(1, [10, 10]);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([0, 10, 10]);
       });
       it('should accept a string query argument, even if string starts with a number (indexOf match)', () => {
         var table = [['Index', 'A', 'B'],['2 a', 342, 664],['1 b', 353, 322]];
         this.ds.data(table);
         this.ds.updateRow('2 a', [1, 2]);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['2 a', 1, 2]);
       });
       it('should rewrite a given row with a custom function', () => {
@@ -243,14 +243,14 @@ describe('Dataset', () => {
         this.ds.updateRow(1, function(value, index, col){
           return this.getColumnSum(col);
         });
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([1, 695, 986]);
       });
       it('should keep the previous cell value if nothing is returne from a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.updateRow(1, () => {});
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([0, 342, 664]);
       });
       it('should rewrite a given row with a computational helper', () => {
@@ -259,7 +259,7 @@ describe('Dataset', () => {
         this.ds.updateRow(1, function(value, index, col){
           return this.getColumnSum(col);
         });
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([1, 695, 986]);
       });
       it('should extend other rows when passed array is longer than existing rows', () => {
@@ -270,9 +270,9 @@ describe('Dataset', () => {
         ];
         this.ds.data(table);
         this.ds.updateRow(1, [10, 10, null, null]);
-        expect(this.ds.selectRow(1)).to.be.an('array')
+        expect(this.ds.selectRow(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([0, 10,10,null,null]);
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3', null, null]);
       });
     });
@@ -282,15 +282,15 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.deleteRow(1);
-        expect(this.ds.data()).to.be.an('array')
-          .and.to.have.length(2);
+        expect(this.ds.data()).toBeInstanceOf(Array)
+          .and.toHaveLength(2);
       });
       it('should accept a string query argument, even if string starts with a number (indexOf match)', () => {
         var table = [['Index', 'A', 'B'],['1 a', 342, 664],['2 b', 353, 322]];
         this.ds.data(table);
         this.ds.deleteRow('1 a');
-        expect(this.ds.data()).to.be.an('array')
-          .and.to.have.length(2);
+        expect(this.ds.data()).toBeInstanceOf(Array)
+          .and.toHaveLength(2);
       });
     });
 
@@ -307,10 +307,10 @@ describe('Dataset', () => {
           }
           return total < 11;
         });
-        expect(this.ds.data()).to.be.an('array')
-          .and.to.have.length(2);
-        expect(this.ds.data()[1][1]).to.be.a('number')
-          .and.to.eql(5);
+        expect(this.ds.data()).toBeInstanceOf(Array)
+          .and.toHaveLength(2);
+        expect(this.ds.data()[1][1]).toBeInstanceOf(Number)
+          .and.toEqual(5);
       });
     });
 
@@ -324,28 +324,28 @@ describe('Dataset', () => {
         ]);
       });
       it('should sort rows properly, without calling a comparator', () => {
-        expect(this.ds.sortRows('asc').data()[1][0]).to.eql(0);
-        expect(this.ds.sortRows('desc').data()[1][0]).to.eql(2);
+        expect(this.ds.sortRows('asc').data()[1][0]).toEqual(0);
+        expect(this.ds.sortRows('desc').data()[1][0]).toEqual(2);
       });
       it('should sort rows properly, when calling a general comparator (sum)', () => {
         expect(this.ds
           .sortRows('asc', this.ds.sum, 1)
           .data()[1][0])
-        .to.eql(0);
+        .toEqual(0);
         expect(this.ds
           .sortRows('desc', this.ds.sum, 1)
           .data()[1][0])
-        .to.eql(2);
+        .toEqual(2);
       });
       it('should sort rows ascending, when calling a specific comparator (getRowSum)', () => {
         expect(this.ds
           .sortRows('asc', this.ds.getRowSum)
           .data()[1][0])
-        .to.eql(0);
+        .toEqual(0);
         expect(this.ds
           .sortRows('desc', this.ds.getRowSum)
           .data()[1][0])
-        .to.eql(2);
+        .toEqual(2);
       });
       it('should sort rows ascending, when calling a custom comparator', () => {
         var demo = function(row){
@@ -354,11 +354,11 @@ describe('Dataset', () => {
         expect(this.ds
           .sortRows('asc', demo)
           .data()[1][0])
-        .to.eql(0);
+        .toEqual(0);
         expect(this.ds
           .sortRows('desc', demo)
           .data()[1][0])
-        .to.eql(2);
+        .toEqual(2);
       });
     });
 
@@ -369,12 +369,12 @@ describe('Dataset', () => {
     describe('.selectColumn()', function() {
       it('should return an array representing a given column', () => {
         this.ds.data([['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]]);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['A', 342, 353]);
       });
       it('should accept a string query argument, even if string starts with a number (indexOf match)', () => {
         this.ds.data([['Index', '1A', '2B'],[0, 342, 664],[1, 353, 322]]);
-        expect(this.ds.selectColumn('1A')).to.be.an('array')
+        expect(this.ds.selectColumn('1A')).toBeInstanceOf(Array)
           .and.to.deep.equal(['1A', 342, 353]);
       });
     });
@@ -384,21 +384,21 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.appendColumn('C');
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['C', null, null]);
       });
       it('should append a given column when passing an array', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.appendColumn('C', [0, 0]);
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['C', 0, 0]);
       });
       it('should append a given column when passing a computational helper', () => {
         var table = [['Index', 'A', 'B'],[0, 1, 1],[1, 2, 2]];
         this.ds.data(table);
         this.ds.appendColumn('C', this.ds.getRowSum);
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['C', 2, 4]);
       });
       it('should append a given column when passing a custom function', () => {
@@ -407,14 +407,14 @@ describe('Dataset', () => {
         this.ds.appendColumn('C', function(row, i){
           return 0;
         });
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['C', 0, 0]);
       });
       it('should append a column of empty values nothing is returned from a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.appendColumn('C', () => {});
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['C', null, null]);
       });
       it('should extend other columns when passed array is longer than existing columns', () => {
@@ -425,11 +425,11 @@ describe('Dataset', () => {
         ];
         this.ds.data(table);
         this.ds.appendColumn('C', [123, 456, 789, 321]);
-        expect(this.ds.selectColumn(3)).to.be.an('array')
+        expect(this.ds.selectColumn(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['C', 123, 456, 789, 321]);
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3', null, null, 789]);
-        expect(this.ds.selectRow(4)).to.be.an('array')
+        expect(this.ds.selectRow(4)).toBeInstanceOf(Array)
           .and.to.deep.equal(['4', null, null, 321]);
       });
     });
@@ -439,21 +439,21 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertColumn(1);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal([null, null, null]);
       });
       it('should insert a given column at a given index', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertColumn(1, '_', [0, 0]);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['_', 0, 0]);
       });
       it('should insert a given column at a given index when passing a computational helper', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertColumn(1, 'Total', this.ds.getRowSum);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', 1006, 675]);
       });
       it('should insert a given column at a given index when passing a custom function', () => {
@@ -462,14 +462,14 @@ describe('Dataset', () => {
         this.ds.insertColumn(1, 'Total', function(r){
           return 0;
         });
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', 0, 0]);
       });
       it('should insert an empty column when nothing is returned from a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.insertColumn(1, 'Total', () => {});
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', null, null]);
       });
 
@@ -481,13 +481,13 @@ describe('Dataset', () => {
         ];
         this.ds.data(table);
         this.ds.insertColumn(1, 'Total', [10, 10, 10, null]);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['Total', 10, 10, 10, null]);
-        expect(this.ds.selectRow(2)).to.be.an('array')
+        expect(this.ds.selectRow(2)).toBeInstanceOf(Array)
           .and.to.deep.equal([1, 10, 353, 322]);
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3', 10, null, null]);
-        expect(this.ds.selectRow(4)).to.be.an('array')
+        expect(this.ds.selectRow(4)).toBeInstanceOf(Array)
           .and.to.deep.equal(['4', null, null, null]);
       });
 
@@ -498,28 +498,28 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.updateColumn(1, [0, 0]);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['A', 0, 0]);
       });
       it('should accept a string query argument, even if string starts with a number (indexOf match)', () => {
         var table = [['Index', '3 A', '12 B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.updateColumn('3 A', [0, 0]);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3 A', 0, 0]);
       });
       it('should rewrite each cell of given column with a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.updateColumn(1, function(value, index, row){ return 5; });
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['A', 5, 5]);
       });
       it('should keep the previous cell value when nothing returned from a custom function', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.updateColumn(1, () => {});
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['A', 342, 353]);
       });
       it('should rewrite each cell of given column with a computational helper', () => {
@@ -528,7 +528,7 @@ describe('Dataset', () => {
         this.ds.updateColumn(1, function(value, index, row){
           return this.getRowSum(row);
         });
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['A', 1006, 675]);
       });
       it('should extend other columns when passed array is longer than existing columns', () => {
@@ -539,11 +539,11 @@ describe('Dataset', () => {
         ];
         this.ds.data(table);
         this.ds.updateColumn(1, [10, 10, null, null]);
-        expect(this.ds.selectColumn(1)).to.be.an('array')
+        expect(this.ds.selectColumn(1)).toBeInstanceOf(Array)
           .and.to.deep.equal(['A', 10, 10, null, null]);
-        expect(this.ds.selectColumn(2)).to.be.an('array')
+        expect(this.ds.selectColumn(2)).toBeInstanceOf(Array)
           .and.to.deep.equal(['B', 664, 322, null, null]);
-        expect(this.ds.selectRow(3)).to.be.an('array')
+        expect(this.ds.selectRow(3)).toBeInstanceOf(Array)
           .and.to.deep.equal(['3', null, null]);
       });
     });
@@ -553,23 +553,23 @@ describe('Dataset', () => {
         var table = [['Index', 'A', 'B'],[0, 342, 664],[1, 353, 322]];
         this.ds.data(table);
         this.ds.deleteColumn(1);
-        expect(this.ds.data()).to.be.an('array')
-          .and.to.have.length(3);
-        expect(this.ds.data()[0]).to.be.an('array')
-          .and.to.have.length(2);
-        expect(this.ds.data()[0][1]).to.be.a('string')
-          .and.to.eql('B');
+        expect(this.ds.data()).toBeInstanceOf(Array)
+          .and.toHaveLength(3);
+        expect(this.ds.data()[0]).toBeInstanceOf(Array)
+          .and.toHaveLength(2);
+        expect(this.ds.data()[0][1]).toBeInstanceOf(String);
+          .and.toEqual('B');
       });
       it('should accept a string query argument, even if string starts with a number (indexOf match)', () => {
         var table = [['Index', '1A', '2B'],['b', 342, 664],['b', 353, 322]];
         this.ds.data(table);
         this.ds.deleteColumn('1A');
-        expect(this.ds.data()).to.be.an('array')
-          .and.to.have.length(3);
-        expect(this.ds.data()[0]).to.be.an('array')
-          .and.to.have.length(2);
-        expect(this.ds.data()[0][1]).to.be.a('string')
-          .and.to.eql('2B');
+        expect(this.ds.data()).toBeInstanceOf(Array)
+          .and.toHaveLength(3);
+        expect(this.ds.data()[0]).toBeInstanceOf(Array)
+          .and.toHaveLength(2);
+        expect(this.ds.data()[0][1]).toBeInstanceOf(String);
+          .and.toEqual('2B');
       });
     });
 
@@ -587,12 +587,12 @@ describe('Dataset', () => {
           }
           return total > 15;
         });
-        expect(this.ds.data()).to.be.an('array')
-          .and.to.have.length(3);
-        expect(this.ds.data()[0]).to.be.an('array')
-          .and.to.have.length(2);
-        expect(this.ds.data()[0][1]).to.be.a('string')
-          .and.to.eql('B');
+        expect(this.ds.data()).toBeInstanceOf(Array)
+          .and.toHaveLength(3);
+        expect(this.ds.data()[0]).toBeInstanceOf(Array)
+          .and.toHaveLength(2);
+        expect(this.ds.data()[0][1]).toBeInstanceOf(String);
+          .and.toEqual('B');
       });
     });
 
@@ -607,29 +607,29 @@ describe('Dataset', () => {
       });
       it('should sort columns properly, without calling a comparator', () => {
         this.ds.sortColumns('asc');
-        expect(this.ds.data()[0][1]).to.eql('A');
+        expect(this.ds.data()[0][1]).toEqual('A');
         this.ds.sortColumns('desc');
-        expect(this.ds.data()[0][1]).to.eql('C');
+        expect(this.ds.data()[0][1]).toEqual('C');
       });
       it('should sort columns properly, when calling a general comparator (sum)', () => {
         expect(this.ds
           .sortColumns('asc', this.ds.sum, 1)
           .data()[0][1])
-        .to.eql('A');
+        .toEqual('A');
         expect(this.ds
           .sortColumns('desc', this.ds.sum, 1)
           .data()[0][1])
-        .to.eql('C');
+        .toEqual('C');
       });
       it('should sort columns ascending, when calling a specific comparator (getColumnSum)', () => {
         expect(this.ds
           .sortColumns('asc', this.ds.getColumnSum)
           .data()[0][1])
-        .to.eql('A');
+        .toEqual('A');
         expect(this.ds
           .sortColumns('desc', this.ds.getColumnSum)
           .data()[0][1])
-        .to.eql('C');
+        .toEqual('C');
       });
       it('should sort columns ascending, when calling a custom comparator', () => {
         var demo = function(row){
@@ -638,11 +638,11 @@ describe('Dataset', () => {
         expect(this.ds
           .sortColumns('asc', demo)
           .data()[0][1])
-        .to.eql('A');
+        .toEqual('A');
         expect(this.ds
           .sortColumns('desc', demo)
           .data()[0][1])
-        .to.eql('C');
+        .toEqual('C');
       });
     });
 
@@ -653,26 +653,26 @@ describe('Dataset', () => {
     describe('#sum', () => {
       it('should return the sum for an unbounded range', () => {
         var sum = this.ds.sum([10,10,10,10,10]);
-        expect(sum).to.eql(50);
+        expect(sum).toEqual(50);
       });
       it('should return the sum for a partially bounded range', () => {
         var sum = this.ds.sum([10,10,10,10,10], 1);
-        expect(sum).to.eql(40);
+        expect(sum).toEqual(40);
       });
       it('should return the sum for a fully bounded range', () => {
         var sum = this.ds.sum([10,10,10,10,10], 1, 3);
-        expect(sum).to.eql(30);
+        expect(sum).toEqual(30);
       });
       describe('#getRowSum', () => {
         it('should return the sum of values in a given row (array), excluding the first value', () => {
           var sum = this.ds.getRowSum([2, 0, 1, 2, 3]);
-          expect(sum).to.eql(6);
+          expect(sum).toEqual(6);
         });
       });
       describe('#getColumnSum', () => {
         it('should return the sum of values in a given column (array), excluding the first value', () => {
           var sum = this.ds.getColumnSum([2, 0, 1, 2, 3]);
-          expect(sum).to.eql(6);
+          expect(sum).toEqual(6);
         });
       });
     });
@@ -680,26 +680,26 @@ describe('Dataset', () => {
     describe('#average', () => {
       it('should return the average for an unbounded range', () => {
         var avg = this.ds.average([1,2,3,4,5]);
-        expect(avg).to.eql(3);
+        expect(avg).toEqual(3);
       });
       it('should return the average for a partially bounded range', () => {
         var avg = this.ds.average([1,2,3,4,5], 1);
-        expect(avg).to.eql(3.5);
+        expect(avg).toEqual(3.5);
       });
       it('should return the average for a fully bounded range', () => {
         var avg = this.ds.average([1,2,3,4,5], 1, 3);
-        expect(avg).to.eql(3);
+        expect(avg).toEqual(3);
       });
       describe('#getRowAverage', () => {
         it('should return the average of values in a given row (array), excluding the first value', () => {
           var avg = this.ds.getRowAverage(['Exclude', 0, 1, 2, 3]);
-          expect(avg).to.eql(1.5);
+          expect(avg).toEqual(1.5);
         });
       });
       describe('#getColumnAverage', () => {
         it('should return the average of values in a given column (array), excluding the first value', () => {
           var avg = this.ds.getColumnAverage(['Exclude', 0, 1, 2, 3]);
-          expect(avg).to.eql(1.5);
+          expect(avg).toEqual(1.5);
         });
       });
     });
@@ -708,26 +708,26 @@ describe('Dataset', () => {
     describe('#minimum', () => {
       it('should return the minimum for an unbounded range', () => {
         var min = this.ds.minimum([1,2,3,4,5]);
-        expect(min).to.eql(1);
+        expect(min).toEqual(1);
       });
       it('should return the minimum for a partially bounded range', () => {
         var min = this.ds.minimum([1,2,3,4,5], 1);
-        expect(min).to.eql(2);
+        expect(min).toEqual(2);
       });
       it('should return the minimum for a fully bounded range', () => {
         var min = this.ds.minimum([1,2,3,4,5], 1, 3);
-        expect(min).to.eql(2);
+        expect(min).toEqual(2);
       });
       describe('#getRowMinimum', () => {
         it('should return the minimum of values in a given row (array), excluding the first value', () => {
           var min = this.ds.getRowMinimum(['Exclude', 0, 1, 2, 3]);
-          expect(min).to.eql(0);
+          expect(min).toEqual(0);
         });
       });
       describe('#getColumnMinimum', () => {
         it('should return the minimum of values in a given column (array), excluding the first value', () => {
           var min = this.ds.getColumnMinimum(['Exclude', 0, 1, 2, 3]);
-          expect(min).to.eql(0);
+          expect(min).toEqual(0);
         });
       });
     });
@@ -735,26 +735,26 @@ describe('Dataset', () => {
     describe('#maximum', () => {
       it('should return the maximum for an unbounded range', () => {
         var max = this.ds.maximum([1,2,3,4,5]);
-        expect(max).to.eql(5);
+        expect(max).toEqual(5);
       });
       it('should return the maximum for a partially bounded range', () => {
         var max = this.ds.maximum([1,2,3,4,5], 1);
-        expect(max).to.eql(5);
+        expect(max).toEqual(5);
       });
       it('should return the maximum for a fully bounded range', () => {
         var max = this.ds.maximum([1,2,3,4,5], 1, 3);
-        expect(max).to.eql(4);
+        expect(max).toEqual(4);
       });
       describe('#getRowMaximum', () => {
         it('should return the maximum of values in a given row (array), excluding the first value', () => {
           var max = this.ds.getRowMaximum(['Exclude', 0, 1, 2, 3]);
-          expect(max).to.eql(3);
+          expect(max).toEqual(3);
         });
       });
       describe('#getColumnMaximum', () => {
         it('should return the maximum of values in a given column (array), excluding the first value', () => {
           var max = this.ds.getColumnMaximum(['Exclude', 0, 1, 2, 3]);
-          expect(max).to.eql(3);
+          expect(max).toEqual(3);
         });
       });
     });
@@ -763,13 +763,13 @@ describe('Dataset', () => {
 
     describe('#getRowIndex', () => {
       it('should return the first value of a given row (array)', () => {
-        expect(this.ds.getRowIndex(['Index', 0, 1, 2, 3])).to.eql('Index');
+        expect(this.ds.getRowIndex(['Index', 0, 1, 2, 3])).toEqual('Index');
       });
     });
 
     describe('#getColumnLabel', () => {
       it('should return the first value of a given column (array)', () => {
-        expect(this.ds.getColumnLabel(['Series A', 1, 2, 3, 4,])).to.eql('Series A');
+        expect(this.ds.getColumnLabel(['Series A', 1, 2, 3, 4,])).toEqual('Series A');
       });
     });
 
@@ -784,68 +784,68 @@ describe('Dataset', () => {
       var dataset = parser(data_metric);
 
       expect(dataset.data())
-        .to.be.an('array')
+        .toBeInstanceOf(Array)
         .and.to.be.of.length(2);
-      expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('Value');
-      expect(dataset.data()[1][0]).to.eql('Result');
-      expect(dataset.data()[1][1]).to.eql(2450);
-      expect(dataset.type()).to.eql('metric');
+      expect(dataset.data()[0][0]).toEqual('Index');
+      expect(dataset.data()[0][1]).toEqual('Value');
+      expect(dataset.data()[1][0]).toEqual('Result');
+      expect(dataset.data()[1][1]).toEqual(2450);
+      expect(dataset.type()).toEqual('metric');
     });
 
     it('interval.json (indexed by timeframe.end)', () => {
       var parser = Dataset.parser('interval', 'timeframe.end');
       var dataset = parser(data_interval);
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(13);
       expect(dataset.data()[0]).to.be.of.length(2);
-      expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('Result');
+      expect(dataset.data()[0][0]).toEqual('Index');
+      expect(dataset.data()[0][1]).toEqual('Result');
 
       // timeframe.end
       expect(dataset.data()[1][0])
-        .to.eql('2015-01-01T00:00:00.000Z');
-      expect(dataset.type()).to.eql('interval');
+        .toEqual('2015-01-01T00:00:00.000Z');
+      expect(dataset.type()).toEqual('interval');
     });
 
     it('groupby.json', () => {
       var dataset = Dataset.parser('grouped-metric')(data_groupBy);
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(56);
       expect(dataset.data()[0]).to.be.of.length(2);
-      expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('Result');
-      expect(dataset.type()).to.eql('grouped-metric');
+      expect(dataset.data()[0][0]).toEqual('Index');
+      expect(dataset.data()[0][1]).toEqual('Result');
+      expect(dataset.type()).toEqual('grouped-metric');
     });
 
     it('groupBy-boolean.json', () => {
       var dataset = Dataset.parser('grouped-metric')(data_groupBy_boolean);
       dataset.sortRows('desc', dataset.sum, 1);
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(4);
-      expect(dataset.data()[1][0]).to.eql('true');
-      expect(dataset.data()[2][0]).to.eql('false');
-      expect(dataset.type()).to.eql('grouped-metric');
+      expect(dataset.data()[1][0]).toEqual('true');
+      expect(dataset.data()[2][0]).toEqual('false');
+      expect(dataset.type()).toEqual('grouped-metric');
     });
 
     it('interval-groupBy-empties.json', () => {
       var dataset = Dataset.parser('grouped-interval')(data_interval_groupBy_empties);
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(7);
-      expect(dataset.type()).to.eql('grouped-interval');
+      expect(dataset.type()).toEqual('grouped-interval');
     });
 
     it('interval-groupBy-boolean.json (indexed by timeframe.end)', () => {
       var parser = Dataset.parser('grouped-interval', 'timeframe.end');
       var dataset = parser(data_interval_groupBy_boolean);
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(7);
       expect(dataset.data()[1][0])
-        .to.eql('2013-11-01T07:00:00.000Z');
-      expect(dataset.type()).to.eql('grouped-interval');
+        .toEqual('2013-11-01T07:00:00.000Z');
+      expect(dataset.type()).toEqual('grouped-interval');
     });
 
     it('interval-groupBy-nulls.json', () => {
@@ -854,61 +854,61 @@ describe('Dataset', () => {
       dataset.sortColumns('desc', dataset.sum, 1);
       dataset.sortRows('asc');
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(7);
       expect(dataset.data()[0]).to.be.of.length(3);
-      expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('null');
-      expect(dataset.data()[0][2]).to.eql('Windows Vista');
-      expect(dataset.type()).to.eql('grouped-interval');
+      expect(dataset.data()[0][0]).toEqual('Index');
+      expect(dataset.data()[0][1]).toEqual('null');
+      expect(dataset.data()[0][2]).toEqual('Windows Vista');
+      expect(dataset.type()).toEqual('grouped-interval');
     });
 
     it('extraction.json 1', () => {
       var dataset = Dataset.parser('extraction')(data_extraction);
 
       expect(dataset.data())
-        .to.be.an('array')
+        .toBeInstanceOf(Array)
         .and.to.be.of.length(data_extraction.result.length+1);
       expect(dataset.data()[0]).to.be.of.length(7);
-      expect(dataset.data()[0][0]).to.eql('keen.timestamp');
-      expect(dataset.data()[0][1]).to.eql('keen.created_at');
-      expect(dataset.data()[0][2]).to.eql('keen.id');
-      expect(dataset.type()).to.eql('extraction');
+      expect(dataset.data()[0][0]).toEqual('keen.timestamp');
+      expect(dataset.data()[0][1]).toEqual('keen.created_at');
+      expect(dataset.data()[0][2]).toEqual('keen.id');
+      expect(dataset.type()).toEqual('extraction');
     });
 
     it('extraction-uneven.json', () => {
       var dataset = Dataset.parser('extraction')(data_extraction_uneven);
 
       expect(dataset.data())
-        .to.be.an('array')
+        .toBeInstanceOf(Array)
         .and.to.be.of.length(data_extraction_uneven.result.length+1);
-      expect(dataset.type()).to.eql('extraction');
+      expect(dataset.type()).toEqual('extraction');
     });
 
     it('funnel.json', () => {
       var dataset = Dataset.parser('funnel')(data_funnel);
 
       expect(dataset.data())
-        .to.be.an('array')
+        .toBeInstanceOf(Array)
         .and.to.be.of.length(7);
-      expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('Step Value');
+      expect(dataset.data()[0][0]).toEqual('Index');
+      expect(dataset.data()[0][1]).toEqual('Step Value');
       expect(dataset.data()[1][0]).to.be.eql('pageview');
       expect(dataset.data()[1][1]).to.be.eql(42);
-      expect(dataset.type()).to.eql('funnel');
+      expect(dataset.type()).toEqual('funnel');
     });
 
     it('saved-funnel.json', () => {
       var dataset = Dataset.parser('funnel')(data_saved_funnel);
 
       expect(dataset.data())
-        .to.be.an('array')
+        .toBeInstanceOf(Array)
         .and.to.be.of.length(7);
-      expect(dataset.data()[0][0]).to.eql('Index');
-      expect(dataset.data()[0][1]).to.eql('Step Value');
+      expect(dataset.data()[0][0]).toEqual('Index');
+      expect(dataset.data()[0][1]).toEqual('Step Value');
       expect(dataset.data()[1][0]).to.be.eql('pageview');
       expect(dataset.data()[1][1]).to.be.eql(42);
-      expect(dataset.type()).to.eql('funnel');
+      expect(dataset.type()).toEqual('funnel');
     });
 
     it('double-groupBy.json', () => {
@@ -917,11 +917,11 @@ describe('Dataset', () => {
         'session.geo_information.province' ]);
       var dataset = parser(data_double_groupBy);
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(194);
       expect(dataset.data()[0])
         .to.be.of.length(2);
-      expect(dataset.type()).to.eql('double-grouped-metric');
+      expect(dataset.type()).toEqual('double-grouped-metric');
     });
 
     it('interval-double-groupBy.json (indexed by timeframe.end)', () => {
@@ -930,21 +930,21 @@ describe('Dataset', () => {
         'second.property' ], 'timeframe.end');
       var dataset = parser(data_interval_double_groupBy);
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(4);
-      expect(dataset.data()[0]).to.be.an('array')
+      expect(dataset.data()[0]).toBeInstanceOf(Array)
         .and.to.be.of.length(5);
-      expect(dataset.selectColumn(0)[1]).to.be.a('string')
-        .and.to.eql('2014-04-23T07:00:00.000Z');
-      expect(dataset.type()).to.eql('double-grouped-interval');
+      expect(dataset.selectColumn(0)[1]).toBeInstanceOf(String);
+        .and.toEqual('2014-04-23T07:00:00.000Z');
+      expect(dataset.type()).toEqual('double-grouped-interval');
     });
 
     it('select-unique.json', () => {
       var dataset = Dataset.parser('list')(data_uniques);
 
-      expect(dataset.data()).to.be.an('array')
+      expect(dataset.data()).toBeInstanceOf(Array)
         .and.to.be.of.length(60);
-      expect(dataset.type()).to.eql('list');
+      expect(dataset.type()).toEqual('list');
     });
 
   });

@@ -76,15 +76,20 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return each; });
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.each = each;
 function each(o, cb, s) {
   var n;
   if (!o) {
@@ -113,25 +118,15 @@ function each(o, cb, s) {
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return extend; });
-function extend(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    for (var prop in arguments[i]) {
-      target[prop] = arguments[i][prop];
-    }
-  }
-  return target;
-}
 
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return escapeHtml; });
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.escapeHtml = escapeHtml;
 var matchHtmlRegExp = /["'&<>]/;
 
 /**
@@ -190,6 +185,26 @@ function escapeHtml(string) {
   }
 
   return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.extend = extend;
+function extend(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    for (var prop in arguments[i]) {
+      target[prop] = arguments[i][prop];
+    }
+  }
+  return target;
 }
 
 /***/ }),
@@ -9757,66 +9772,80 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function() {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return stripHtmlTags; });
-/**
- * Strip html tags from string
- *
- * @param  {string} string The string to strip
- * @return {string}
- * @public
- */
 
-function stripHtmlTags(inputString) {
-  return inputString.replace(/(<([^>]+)>)/ig, '');
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.testObject = testObject;
+exports.testString = testString;
+
+exports.default = function (input) {
+  if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object') {
+    return testObject(input);
+  } else if (typeof input === 'string') {
+    return testString(input);
+  }
+  return false;
+};
+
+function testObject(input) {
+  if (input !== null && typeof input.getTime === 'function' && !isNaN(input.getTime())) {
+    return true;
+  }
+  return false;
+}
+
+function testString(input) {
+  var ISO_8601 = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/i;
+  return ISO_8601.test(input);
 }
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var append_namespaceObject = {};
-__webpack_require__.d(append_namespaceObject, "appendColumn", function() { return appendColumn; });
-__webpack_require__.d(append_namespaceObject, "appendRow", function() { return appendRow; });
-var delete_namespaceObject = {};
-__webpack_require__.d(delete_namespaceObject, "deleteColumn", function() { return deleteColumn; });
-__webpack_require__.d(delete_namespaceObject, "deleteRow", function() { return deleteRow; });
-var filter_namespaceObject = {};
-__webpack_require__.d(filter_namespaceObject, "filterColumns", function() { return filterColumns; });
-__webpack_require__.d(filter_namespaceObject, "filterRows", function() { return filterRows; });
-var insert_namespaceObject = {};
-__webpack_require__.d(insert_namespaceObject, "insertColumn", function() { return insertColumn; });
-__webpack_require__.d(insert_namespaceObject, "insertRow", function() { return insertRow; });
-var select_namespaceObject = {};
-__webpack_require__.d(select_namespaceObject, "selectColumn", function() { return selectColumn; });
-__webpack_require__.d(select_namespaceObject, "selectRow", function() { return selectRow; });
-var analyses_namespaceObject = {};
-__webpack_require__.d(analyses_namespaceObject, "methods", function() { return methods; });
-__webpack_require__.d(analyses_namespaceObject, "default", function() { return analyses; });
-var sort_namespaceObject = {};
-__webpack_require__.d(sort_namespaceObject, "sortColumns", function() { return sortColumns; });
-__webpack_require__.d(sort_namespaceObject, "sortRows", function() { return sortRows; });
-var update_namespaceObject = {};
-__webpack_require__.d(update_namespaceObject, "updateColumn", function() { return updateColumn; });
-__webpack_require__.d(update_namespaceObject, "updateRow", function() { return updateRow; });
 
-// CONCATENATED MODULE: ./lib/dataset/utils/create-null-list.js
-/* harmony default export */ var create_null_list = (function (len) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (len) {
   var list = [];
   for (var i = 0; i < len; i++) {
     list.push(null);
   }
   return list;
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-// EXTERNAL MODULE: ./lib/utils/each.js
-var each = __webpack_require__(0);
+exports.appendColumn = appendColumn;
+exports.appendRow = appendRow;
 
-// CONCATENATED MODULE: ./lib/dataset/modifiers/append.js
+var _createNullList = __webpack_require__(5);
 
+var _createNullList2 = _interopRequireDefault(_createNullList);
 
+var _each = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function appendColumn(str, input) {
   var self = this;
@@ -9825,7 +9854,7 @@ function appendColumn(str, input) {
 
   if (typeof input === 'function') {
     self.matrix[0].push(label);
-    Object(each["a" /* each */])(self.matrix, function (row, i) {
+    (0, _each.each)(self.matrix, function (row, i) {
       var cell = void 0;
       if (i > 0) {
         cell = input.call(self, row, i);
@@ -9839,11 +9868,11 @@ function appendColumn(str, input) {
     input = input || [];
 
     if (input.length <= self.matrix.length - 1) {
-      input = input.concat(create_null_list(self.matrix.length - 1 - input.length));
+      input = input.concat((0, _createNullList2.default)(self.matrix.length - 1 - input.length));
     } else {
       // If this new column is longer than existing columns,
       // we need to update the rest to match ...
-      Object(each["a" /* each */])(input, function (value, i) {
+      (0, _each.each)(input, function (value, i) {
         if (self.matrix.length - 1 < input.length) {
           appendRow.call(self, String(self.matrix.length));
         }
@@ -9851,7 +9880,7 @@ function appendColumn(str, input) {
     }
 
     self.matrix[0].push(label);
-    Object(each["a" /* each */])(input, function (value, i) {
+    (0, _each.each)(input, function (value, i) {
       self.matrix[i + 1][self.matrix[0].length - 1] = value;
     });
   }
@@ -9868,7 +9897,7 @@ function appendRow(str, input) {
   newRow.push(label);
 
   if (typeof input === 'function') {
-    Object(each["a" /* each */])(self.matrix[0], function (label, i) {
+    (0, _each.each)(self.matrix[0], function (label, i) {
       var col = void 0;
       var cell = void 0;
       if (i > 0) {
@@ -9885,9 +9914,9 @@ function appendRow(str, input) {
     input = input || [];
 
     if (input.length <= self.matrix[0].length - 1) {
-      input = input.concat(create_null_list(self.matrix[0].length - 1 - input.length));
+      input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
     } else {
-      Object(each["a" /* each */])(input, function (value, i) {
+      (0, _each.each)(input, function (value, i) {
         if (self.matrix[0].length - 1 < input.length) {
           appendColumn.call(self, String(self.matrix[0].length));
         }
@@ -9899,179 +9928,45 @@ function appendRow(str, input) {
 
   return self;
 }
-// CONCATENATED MODULE: ./lib/dataset/modifiers/delete.js
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
-function deleteColumn(q) {
-  var self = this;
-  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stripHtmlTags = stripHtmlTags;
+/**
+ * Strip html tags from string
+ *
+ * @param  {string} string The string to strip
+ * @return {string}
+ * @public
+ */
 
-  if (index > -1) {
-    Object(each["a" /* each */])(self.matrix, function (row, i) {
-      self.matrix[i].splice(index, 1);
-    });
-  }
-  return self;
+function stripHtmlTags(inputString) {
+  return inputString.replace(/(<([^>]+)>)/ig, '');
 }
 
-function deleteRow(q) {
-  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
 
-  if (index > -1) {
-    this.matrix.splice(index, 1);
-  }
-  return this;
-}
-// CONCATENATED MODULE: ./lib/dataset/modifiers/filter.js
+"use strict";
 
 
-function filterColumns(fn) {
-  var self = this;
-  var clone = [];
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.methods = undefined;
 
-  Object(each["a" /* each */])(self.matrix, function (row, i) {
-    clone.push([]);
-  });
+var _each = __webpack_require__(0);
 
-  Object(each["a" /* each */])(self.matrix[0], function (col, i) {
-    var selectedColumn = self.selectColumn(i);
-    if (i == 0 || fn.call(self, selectedColumn, i)) {
-      Object(each["a" /* each */])(selectedColumn, function (cell, ri) {
-        clone[ri].push(cell);
-      });
-    }
-  });
-
-  self.data(clone);
-  return self;
-}
-
-function filterRows(fn) {
-  var self = this;
-  var clone = [];
-
-  Object(each["a" /* each */])(self.matrix, function (row, i) {
-    if (i == 0 || fn.call(self, row, i)) {
-      clone.push(row);
-    }
-  });
-
-  self.data(clone);
-  return self;
-}
-// CONCATENATED MODULE: ./lib/dataset/modifiers/insert.js
-
-
-
-
-function insertColumn(index, str, input) {
-  var self = this;
-  var label = str !== undefined ? str : null;
-
-  if (typeof input === 'function') {
-
-    self.matrix[0].splice(index, 0, label);
-    Object(each["a" /* each */])(self.matrix, function (row, i) {
-      var cell;
-      if (i > 0) {
-        cell = input.call(self, row, i);
-        if (typeof cell === 'undefined') {
-          cell = null;
-        }
-        self.matrix[i].splice(index, 0, cell);
-      }
-    });
-  } else if (!input || input instanceof Array) {
-    input = input || [];
-
-    if (input.length <= self.matrix.length - 1) {
-      input = input.concat(create_null_list(self.matrix.length - 1 - input.length));
-    } else {
-      // If this new column is longer than existing columns,
-      // we need to update the rest to match ...
-      Object(each["a" /* each */])(input, function (value, i) {
-        if (self.matrix.length - 1 < input.length) {
-          appendRow.call(self, String(self.matrix.length));
-        }
-      });
-    }
-
-    self.matrix[0].splice(index, 0, label);
-    Object(each["a" /* each */])(input, function (value, i) {
-      self.matrix[i + 1].splice(index, 0, value);
-    });
-  }
-  return self;
-}
-
-function insertRow(index, str, input) {
-  var self = this;
-  var newRow = [];
-  var label = str !== undefined ? str : null;
-  newRow.push(label);
-
-  if (typeof input === 'function') {
-    Object(each["a" /* each */])(self.matrix[0], function (label, i) {
-      var col = void 0;
-      var cell = void 0;
-      if (i > 0) {
-        col = self.selectColumn(i);
-        cell = input.call(self, col, i);
-        if (typeof cell === 'undefined') {
-          cell = null;
-        }
-        newRow.push(cell);
-      }
-    });
-    self.matrix.splice(index, 0, newRow);
-  } else if (!input || input instanceof Array) {
-    input = input || [];
-
-    if (input.length <= self.matrix[0].length - 1) {
-      input = input.concat(create_null_list(self.matrix[0].length - 1 - input.length));
-    } else {
-      Object(each["a" /* each */])(input, function (value, i) {
-        if (self.matrix[0].length - 1 < input.length) {
-          appendColumn.call(self, String(self.matrix[0].length));
-        }
-      });
-    }
-
-    self.matrix.splice(index, 0, newRow.concat(input));
-  }
-
-  return self;
-}
-// CONCATENATED MODULE: ./lib/dataset/modifiers/select.js
-
-
-function selectColumn(q) {
-  var result = [];
-  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
-
-  if (index > -1 && typeof this.matrix[0][index] !== 'undefined') {
-    Object(each["a" /* each */])(this.matrix, function (row, i) {
-      result.push(row[index]);
-    });
-  }
-  return result;
-}
-
-function selectRow(q) {
-  var result = [];
-  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
-
-  if (index > -1 && typeof this.matrix[index] !== 'undefined') {
-    result = this.matrix[index];
-  }
-  return result;
-}
-// EXTERNAL MODULE: ./lib/utils/extend.js
-var extend = __webpack_require__(1);
-
-// CONCATENATED MODULE: ./lib/dataset/utils/analyses.js
-
-
+var _extend = __webpack_require__(2);
 
 var helpers = {};
 
@@ -10081,7 +9976,7 @@ function average(arr, start, end) {
       avg = null;
 
   // Add numeric values
-  Object(each["a" /* each */])(set, function (val, i) {
+  (0, _each.each)(set, function (val, i) {
     if (typeof val === 'number' && !isNaN(parseFloat(val))) {
       sum += parseFloat(val);
     }
@@ -10094,7 +9989,7 @@ function maximum(arr, start, end) {
       nums = [];
 
   // Pull numeric values
-  Object(each["a" /* each */])(set, function (val, i) {
+  (0, _each.each)(set, function (val, i) {
     if (typeof val === 'number' && !isNaN(parseFloat(val))) {
       nums.push(parseFloat(val));
     }
@@ -10107,7 +10002,7 @@ function minimum(arr, start, end) {
       nums = [];
 
   // Pull numeric values
-  Object(each["a" /* each */])(set, function (val, i) {
+  (0, _each.each)(set, function (val, i) {
     if (typeof val === 'number' && !isNaN(parseFloat(val))) {
       nums.push(parseFloat(val));
     }
@@ -10115,13 +10010,13 @@ function minimum(arr, start, end) {
   return Math.min.apply(Math, nums);
 }
 
-function analyses_sum(arr, start, end) {
+function sum(arr, start, end) {
   // Copy set with given range
   var set = arr.slice(start || 0, end ? end + 1 : arr.length),
       sum = 0;
 
   // Add numeric values
-  Object(each["a" /* each */])(set, function (val, i) {
+  (0, _each.each)(set, function (val, i) {
     if (typeof val === 'number' && !isNaN(parseFloat(val))) {
       sum += parseFloat(val);
     }
@@ -10131,7 +10026,7 @@ function analyses_sum(arr, start, end) {
 
 // Convenience methods
 
-Object(each["a" /* each */])(methods, function (method, name) {
+(0, _each.each)(methods, function (method, name) {
   var capitalized = name.charAt(0).toUpperCase() + name.slice(1);
   helpers['getColumn' + capitalized] = helpers['getRow' + capitalized] = function (arr) {
     return this[name](arr, 1);
@@ -10142,355 +10037,73 @@ helpers['getColumnLabel'] = helpers['getRowIndex'] = function (arr) {
   return arr[0];
 };
 
-var methods = {
+var methods = exports.methods = {
   average: average,
   maximum: maximum,
   minimum: minimum,
-  sum: analyses_sum
+  sum: sum
 };
 
-Object(extend["a" /* extend */])(methods, helpers);
+(0, _extend.extend)(methods, helpers);
 
-/* harmony default export */ var analyses = ({ methods: methods });
-// CONCATENATED MODULE: ./lib/dataset/modifiers/sort.js
+exports.default = { methods: methods };
 
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
 
-
-function sortColumns(str, comp) {
-  var self = this,
-      head = this.matrix[0].slice(1),
-      // minus index
-  cols = [],
-      clone = [],
-      fn = comp || methods.getColumnLabel;
-
-  // Isolate each column (except the index)
-  Object(each["a" /* each */])(head, function (cell, i) {
-    cols.push(self.selectColumn(i + 1).slice(0));
-  });
-  cols.sort(function (a, b) {
-    // If fn(a) > fn(b)
-    var op = fn.call(self, a) > fn.call(self, b);
-    if (op) {
-      return str === 'asc' ? 1 : -1;
-    } else if (!op) {
-      return str === 'asc' ? -1 : 1;
-    } else {
-      return 0;
-    }
-  });
-  Object(each["a" /* each */])(cols, function (col, i) {
-    self.deleteColumn(i + 1).insertColumn(i + 1, col[0], col.slice(1));
-  });
-  return self;
-}
-
-function sortRows(str, comp) {
-  var self = this,
-      head = this.matrix.slice(0, 1),
-      body = this.matrix.slice(1),
-      fn = comp || methods.getRowIndex;
-  body.sort(function (a, b) {
-    // If fn(a) > fn(b)
-    var op = fn.call(self, a) > fn.call(self, b);
-    if (op) {
-      return str === 'asc' ? 1 : -1;
-    } else if (!op) {
-      return str === 'asc' ? -1 : 1;
-    } else {
-      return 0;
-    }
-  });
-  self.data(head.concat(body));
-  return self;
-}
-// CONCATENATED MODULE: ./lib/dataset/modifiers/update.js
+"use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Dataset = undefined;
 
+var _append = __webpack_require__(6);
 
-function updateColumn(q, input) {
-  var self = this,
-      index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+var append = _interopRequireWildcard(_append);
 
-  if (index > -1) {
+var _delete = __webpack_require__(29);
 
-    if (typeof input === 'function') {
+var del = _interopRequireWildcard(_delete);
 
-      Object(each["a" /* each */])(self.data(), function (row, i) {
-        var cell;
-        if (i > 0) {
-          cell = input.call(self, row[index], i, row);
-          if (typeof cell !== 'undefined') {
-            self.matrix[i][index] = cell;
-          }
-        }
-      });
-    } else if (!input || input instanceof Array) {
-      input = input || [];
+var _filter = __webpack_require__(28);
 
-      if (input.length <= self.data().length - 1) {
-        input = input.concat(create_null_list(self.data().length - 1 - input.length));
-      } else {
-        // If this new column is longer than existing columns,
-        // we need to update the rest to match ...
-        Object(each["a" /* each */])(input, function (value, i) {
-          if (self.matrix.length - 1 < input.length) {
-            appendRow.call(self, String(self.matrix.length));
-          }
-        });
-      }
+var filter = _interopRequireWildcard(_filter);
 
-      Object(each["a" /* each */])(input, function (value, i) {
-        self.matrix[i + 1][index] = value;
-      });
-    }
-  }
-  return self;
-}
+var _insert = __webpack_require__(27);
 
-function updateRow(q, input) {
-  var self = this,
-      index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+var insert = _interopRequireWildcard(_insert);
 
-  if (index > -1) {
+var _select = __webpack_require__(26);
 
-    if (typeof input === 'function') {
+var select = _interopRequireWildcard(_select);
 
-      Object(each["a" /* each */])(self.data()[index], function (value, i) {
-        var col = self.selectColumn(i),
-            cell = input.call(self, value, i, col);
-        if (typeof cell !== 'undefined') {
-          self.matrix[index][i] = cell;
-        }
-      });
-    } else if (!input || input instanceof Array) {
-      input = input || [];
+var _sort = __webpack_require__(25);
 
-      if (input.length <= self.matrix[0].length - 1) {
-        input = input.concat(create_null_list(self.matrix[0].length - 1 - input.length));
-      } else {
-        Object(each["a" /* each */])(input, function (value, i) {
-          if (self.matrix[0].length - 1 < input.length) {
-            appendColumn.call(self, String(self.matrix[0].length));
-          }
-        });
-      }
+var sort = _interopRequireWildcard(_sort);
 
-      Object(each["a" /* each */])(input, function (value, i) {
-        self.matrix[index][i + 1] = value;
-      });
-    }
-  }
-  return self;
-}
-// CONCATENATED MODULE: ./lib/dataset/utils/flatten.js
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _update = __webpack_require__(24);
 
-// Pure awesomeness by Will Rayner (penguinboy)
-// https://gist.github.com/penguinboy/762197
+var update = _interopRequireWildcard(_update);
 
-function flatten(ob) {
-  var toReturn = {};
-  for (var i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
-    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
-      var flatObject = flatten(ob[i]);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) continue;
-        toReturn[i + '.' + x] = flatObject[x];
-      }
-    } else {
-      toReturn[i] = ob[i];
-    }
-  }
-  return toReturn;
-};
-// CONCATENATED MODULE: ./lib/dataset/utils/parsers.js
-var Dataset = void 0; /* injected */
+var _analyses = __webpack_require__(8);
 
+var analyses = _interopRequireWildcard(_analyses);
 
+var _extend = __webpack_require__(2);
 
+var _parsers = __webpack_require__(23);
 
-function initialize(lib) {
-  Dataset = lib;
-  return function (name) {
-    var options = Array.prototype.slice.call(arguments, 1);
+var _parsers2 = _interopRequireDefault(_parsers);
 
-    if (!parsers[name]) {
-      throw 'Requested parser does not exist';
-    } else {
-      return parsers[name].apply(this, options);
-    }
-  };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function parseMetric() {
-  return function (res) {
-    return new Dataset().set(['Value', 'Result'], res.result).type('metric');
-  };
-}
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-//var myParser = Dataset.parser('interval', 'timeframe.end');
-function parseInterval() {
-  var options = Array.prototype.slice.call(arguments);
-  return function (res) {
-    var dataset = new Dataset().type('interval');
-    Object(each["a" /* each */])(res.result, function (record, i) {
-      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      dataset.set(['Result', index], record.value);
-    });
-    return dataset;
-  };
-}
-
-function parseGroupedMetric() {
-  return function (res) {
-    var dataset = new Dataset().type('grouped-metric');
-    Object(each["a" /* each */])(res.result, function (record, i) {
-      var label;
-      Object(each["a" /* each */])(record, function (value, key) {
-        if (key !== 'result') {
-          label = key;
-        }
-      });
-      dataset.set(['Result', String(record[label])], record.result);
-    });
-    return dataset;
-  };
-}
-
-//var myParser = Dataset.parser('grouped-interval', 'timeframe.end');
-function parseGroupedInterval() {
-  var options = Array.prototype.slice.call(arguments);
-  return function (res) {
-    var dataset = new Dataset().type('grouped-interval');
-    Object(each["a" /* each */])(res.result, function (record, i) {
-      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      if (record.value.length) {
-        Object(each["a" /* each */])(record.value, function (group, j) {
-          var label;
-          Object(each["a" /* each */])(group, function (value, key) {
-            if (key !== 'result') {
-              label = key;
-            }
-          });
-          dataset.set([String(group[label]), index], group.result);
-        });
-      } else {
-        dataset.appendRow(index);
-      }
-    });
-    return dataset;
-  };
-}
-
-//var myParser = Dataset.parser('double-grouped-metric', ['first', 'second']);
-function parseDoubleGroupedMetric() {
-  var options = Array.prototype.slice.call(arguments);
-  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
-  return function (res) {
-    var dataset = new Dataset().type('double-grouped-metric');
-    Object(each["a" /* each */])(res.result, function (record, i) {
-      var rowLabel = record[options[0][0]] + ' ' + record[options[0][1]];
-      dataset.set(['Result', rowLabel], record.result);
-    });
-    return dataset;
-  };
-}
-
-//var myParser = Dataset.parser('double-grouped-interval', ['first', 'second'], 'timeframe.end');
-function parseDoubleGroupedInterval() {
-  var options = Array.prototype.slice.call(arguments);
-  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
-  return function (res) {
-    var dataset = new Dataset().type('double-grouped-interval');
-    Object(each["a" /* each */])(res.result, function (record, i) {
-      var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      Object(each["a" /* each */])(record['value'], function (value, j) {
-        var label = value[options[0][0]] + ' ' + value[options[0][1]];
-        dataset.set([label, index], value.result);
-      });
-    });
-    return dataset;
-  };
-}
-
-function parseFunnel() {
-  return function (res) {
-    var result, steps, dataset;
-    if (typeof res.steps !== 'undefined' && typeof res.result !== 'undefined' && res.result instanceof Array) {
-      // Ad-hoc funnel response
-      result = res.result;
-      steps = res.steps;
-    } else if (typeof res.result.steps !== 'undefined' && typeof res.result.result !== 'undefined' && res.result.result instanceof Array) {
-      // Saved funnel response
-      result = res.result.result;
-      steps = res.result.steps;
-    }
-    dataset = new Dataset().type('funnel');
-    dataset.appendColumn('Step Value');
-    Object(each["a" /* each */])(result, function (value, i) {
-      if (typeof steps !== 'undefined' && steps[i]) {
-        dataset.appendRow(String(steps[i].event_collection), [value]);
-      }
-    });
-    return dataset;
-  };
-}
-
-function parseList() {
-  return function (res) {
-    var dataset = new Dataset().type('list');
-    Object(each["a" /* each */])(res.result, function (value, i) {
-      dataset.set(['Result', String(i + 1)], value);
-    });
-    return dataset;
-  };
-}
-
-function parseExtraction() {
-  return function (res) {
-    var dataset = new Dataset().type('extraction');
-    Object(each["a" /* each */])(res.result, function (record, i) {
-      Object(each["a" /* each */])(flatten(record), function (value, key) {
-        dataset.set([key, String(i + 1)], value);
-      });
-    });
-    dataset.deleteColumn(0);
-    return dataset;
-  };
-}
-
-// Parser definitions
-var parsers = {
-  metric: parseMetric,
-  interval: parseInterval,
-  'grouped-metric': parseGroupedMetric,
-  'grouped-interval': parseGroupedInterval,
-  'double-grouped-metric': parseDoubleGroupedMetric,
-  'double-grouped-interval': parseDoubleGroupedInterval,
-  funnel: parseFunnel,
-  list: parseList,
-  extraction: parseExtraction
-};
-// CONCATENATED MODULE: ./lib/dataset/index.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return dataset_Dataset; });
 // Modifiers
-
-
-
-
-
-
-
-
-// Utils
-
-
-
-
-var dataset_Dataset = function Dataset() {
+var Dataset = exports.Dataset = function Dataset() {
   if (this instanceof Dataset === false) {
     return new Dataset();
   }
@@ -10501,32 +10114,35 @@ var dataset_Dataset = function Dataset() {
   };
 };
 
-dataset_Dataset.prototype.data = function (arr) {
+// Utils
+
+
+Dataset.prototype.data = function (arr) {
   if (!arguments.length) return this.matrix;
   this.matrix = arr instanceof Array ? arr : null;
   return this;
 };
 
-dataset_Dataset.prototype.set = function (coords, value) {
+Dataset.prototype.set = function (coords, value) {
   if (arguments.length < 2 || coords.length < 2) {
     throw Error('Incorrect arguments provided for #set method');
   }
 
   var colIndex = 'number' === typeof coords[0] ? coords[0] : this.matrix[0].indexOf(coords[0]),
-      rowIndex = 'number' === typeof coords[1] ? coords[1] : selectColumn.call(this, 0).indexOf(coords[1]);
+      rowIndex = 'number' === typeof coords[1] ? coords[1] : select.selectColumn.call(this, 0).indexOf(coords[1]);
 
-  var colResult = selectColumn.call(this, coords[0]),
-      rowResult = selectRow.call(this, coords[1]);
+  var colResult = select.selectColumn.call(this, coords[0]),
+      rowResult = select.selectRow.call(this, coords[1]);
 
   // Column doesn't exist, create and reset colIndex
   if (colResult.length < 1) {
-    appendColumn.call(this, String(coords[0]));
+    append.appendColumn.call(this, String(coords[0]));
     colIndex = this.matrix[0].length - 1;
   }
 
   // Row doesn't exist, create and reset rowIndex
   if (rowResult.length < 1) {
-    appendRow.call(this, String(coords[1]));
+    append.appendRow.call(this, String(coords[1]));
     rowIndex = this.matrix.length - 1;
   }
 
@@ -10535,60 +10151,720 @@ dataset_Dataset.prototype.set = function (coords, value) {
   return this;
 };
 
-dataset_Dataset.prototype.type = function (str) {
+Dataset.prototype.type = function (str) {
   if (!arguments.length) return this.meta['type'];
   this.meta['type'] = str ? String(str) : undefined;
   return this;
 };
 
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, append_namespaceObject);
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, delete_namespaceObject);
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, filter_namespaceObject);
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, insert_namespaceObject);
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, select_namespaceObject);
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, sort_namespaceObject);
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, update_namespaceObject);
+(0, _extend.extend)(Dataset.prototype, append);
+(0, _extend.extend)(Dataset.prototype, del);
+(0, _extend.extend)(Dataset.prototype, filter);
+(0, _extend.extend)(Dataset.prototype, insert);
+(0, _extend.extend)(Dataset.prototype, select);
+(0, _extend.extend)(Dataset.prototype, sort);
+(0, _extend.extend)(Dataset.prototype, update);
 
-Object(extend["a" /* extend */])(dataset_Dataset.prototype, analyses_namespaceObject);
-dataset_Dataset.parser = initialize(dataset_Dataset);
+(0, _extend.extend)(Dataset.prototype, analyses);
+Dataset.parser = (0, _parsers2.default)(Dataset);
 
-/* harmony default export */ var lib_dataset = __webpack_exports__["b"] = (dataset_Dataset);
-
-/***/ }),
-/* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export testObject */
-/* unused harmony export testString */
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function testObject(input) {
-  if (input !== null && typeof input.getTime === 'function' && !isNaN(input.getTime())) {
-    return true;
-  }
-  return false;
-}
-
-function testString(input) {
-  var ISO_8601 = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/i;
-  return ISO_8601.test(input);
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (function (input) {
-  if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object') {
-    return testObject(input);
-  } else if (typeof input === 'string') {
-    return testString(input);
-  }
-  return false;
-});
+exports.default = Dataset;
 
 /***/ }),
-/* 7 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* @license C3.js v0.4.22 | (c) C3 Team and other contributors | http://c3js.org/ */
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  render: function render() {
+    var html = '',
+        artifacts = this.view._artifacts.spinner = {},
+        height = this.height() || 35,
+        offsetPadding = (height - 35) / 2,
+        prefixes = ['webkit', 'Moz', 'ms', 'O'],
+        radius = this.view._artifacts.radius = 0,
+        spinner;
+
+    // Build DOM element
+    html += '<div class="' + this.theme() + '">';
+    html += '<div class="keen-spinner-container" style="height: ' + height + 'px; padding-top: ' + offsetPadding + 'px;">';
+    html += '<div class="keen-spinner-indicator"></div>';
+    html += '</div>';
+    html += '</div>';
+    this.el().innerHTML = html;
+
+    spinner = this.el().querySelector('.keen-spinner-indicator');
+    if (spinner.style.animationName === undefined) {
+      radius = 0;
+      artifacts.interval = setInterval(function () {
+        radius = radius === 350 ? 0 : radius + 10;
+        for (var i = 0; i < prefixes.length; i++) {
+          spinner.style[prefixes[i]] = 'rotate(' + artifacts.radius + 'deg)';
+        }
+      }, 15);
+    }
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    if (this.view._artifacts.spinner) {
+      if (this.view._artifacts.spinner.interval) {
+        clearInterval(this.view._artifacts.spinner.interval);
+      }
+      this.view._artifacts.spinner.radius = 0;
+      try {
+        delete this.view._artifacts.spinner;
+      } catch (e) {
+        this.view._artifacts.spinner = undefined;
+      }
+    }
+    this.el().innerHTML = '';
+  }
+};
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _each = __webpack_require__(0);
+
+var defaults = {
+  height: undefined,
+  width: undefined,
+  stickyHeader: true,
+  stickyFooter: false
+};
+
+function _generateTableRows(dataset, colWidths, colAligns) {
+  var html = '';
+  for (var i = 0; i < dataset.length; i++) {
+    if (i > 0) {
+      html += '<tr>';
+      for (var j = 0; j < dataset[i].length; j++) {
+        html += '<td style="min-width: ' + 10 * colWidths[j] + 'px; text-align: ' + colAligns[j] + ';">' + dataset[i][j] + '</td>';
+      }
+      html += '</tr>';
+    }
+  }
+  return html;
+}
+
+exports.default = {
+  render: function render() {
+    var dataset = this.data(),
+        el = this.el(),
+        height = (this.height() || defaults.height) - this.el().offsetHeight,
+        theme = this.theme(),
+        width = this.width() || defaults.width;
+
+    var html = '',
+        colAligns = new Array(dataset[0].length),
+        colWidths = new Array(dataset[0].length),
+        fixedHeader;
+
+    var isEmpty = dataset.length === 1 && dataset[0].length === 0;
+    if (isEmpty) {
+      this.message('No data to display');
+      return;
+    }
+
+    // Calculate max column widths
+    (0, _each.each)(dataset, function (row) {
+      (0, _each.each)(row, function (cell, i) {
+        if (!colWidths[i]) {
+          colWidths[i] = 0;
+        }
+        colAligns[i] = typeof cell === 'number' ? 'right' : 'left';
+        colWidths[i] = String(cell).length > colWidths[i] ? String(cell).length : colWidths[i];
+      });
+    });
+
+    // Open wrapper
+    html += '<div class="' + theme + '-table" style="height: ' + (height ? height + 'px' : 'auto') + '; width: ' + (width ? width + 'px' : 'auto') + ';">';
+
+    // Static, scrollable table
+    html += '<table class="' + theme + '-table-dataset">';
+    html += '<thead>';
+    html += '<tr>';
+    for (var i = 0; i < dataset[0].length; i++) {
+      html += '<th style="width: ' + 10 * colWidths[i] + 'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+    }
+    html += '</tr>';
+    html += '</thead>';
+    // Table data
+    html += '<tbody>';
+    html += _generateTableRows.bind(this, dataset, colWidths, colAligns)();
+    html += '</tbody>';
+    html += '</table>';
+
+    // Fixed table (header)
+    html += '<table class="' + theme + '-table-fixed-header">';
+    html += '<thead>';
+    html += '<tr>';
+    for (var i = 0; i < dataset[0].length; i++) {
+      html += '<th style="min-width: ' + 10 * colWidths[i] + 'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+    }
+    html += '</tr>';
+    html += '</thead>';
+    html += '</table>';
+
+    // Close wrapper
+    html += '</div>';
+
+    // Inject HTML string
+    el.querySelector('.' + theme + '-rendering').innerHTML = html;
+
+    fixedHeader = el.querySelector('.' + theme + '-table-fixed-header');
+    el.querySelector('.' + theme + '-table').onscroll = function (e) {
+      fixedHeader.style.top = e.target.scrollTop + 'px';
+    };
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    var el = this.el().querySelector('.' + this.theme() + '-table');
+    if (el && el.onscroll) {
+      el.onscroll = undefined;
+    }
+  }
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.prettyNumber = prettyNumber;
+function prettyNumber(input) {
+  // If it has 3 or fewer sig figs already, just return the number.
+  var input = Number(input),
+      sciNo = input.toPrecision(3),
+      prefix = '',
+      suffixes = ['', 'k', 'M', 'B', 'T'];
+
+  if (Number(sciNo) == input && String(input).length <= 4) {
+    return String(input);
+  }
+
+  if (Math.abs(input) >= 1000000000000000) {
+    return sciNo;
+  }
+
+  if (input >= 1 || input <= -1) {
+    if (input < 0) {
+      //Pull off the negative side and stash that.
+      input = -input;
+      prefix = '-';
+    }
+    return prefix + recurse(input, 0);
+  } else {
+    return input.toPrecision(3);
+  }
+
+  function recurse(input, iteration) {
+    var input = String(input);
+    var split = input.split('.');
+    // If there's a dot
+    if (split.length > 1) {
+      // Keep the left hand side only
+      input = split[0];
+      var rhs = split[1];
+      // If the left-hand side is too short, pad until it has 3 digits
+      if (input.length == 2 && rhs.length > 0) {
+        // Pad with right-hand side if possible
+        if (rhs.length > 0) {
+          input = input + '.' + rhs.charAt(0);
+        }
+        // Pad with zeroes if you must
+        else {
+            input += '0';
+          }
+      } else if (input.length == 1 && rhs.length > 0) {
+        input = input + '.' + rhs.charAt(0);
+        // Pad with right-hand side if possible
+        if (rhs.length > 1) {
+          input += rhs.charAt(1);
+        }
+        // Pad with zeroes if you must
+        else {
+            input += '0';
+          }
+      }
+    }
+    var numNumerals = input.length;
+    // if it has a period, then numNumerals is 1 smaller than the string length:
+    if (input.split('.').length > 1) {
+      numNumerals--;
+    }
+    if (numNumerals <= 3) {
+      return String(input) + suffixes[iteration];
+    } else {
+      return recurse(Number(input) / 1000, iteration + 1);
+    }
+  }
+}
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _prettyNumber = __webpack_require__(12);
+
+var _escapeHtml = __webpack_require__(1);
+
+exports.default = {
+  render: function render() {
+    var color = this.colors()[0],
+        theme = this.theme(),
+        title = this.title(),
+        value = '-',
+        height = this.height() || 140,
+        width = this.width(),
+        opts = this.chartOptions(),
+        html = '',
+        prefix = '',
+        suffix = '',
+        formattedNum,
+        valueEl;
+
+    if (typeof this.data()[1][1] === 'number') {
+      value = this.data()[1][1];
+    }
+
+    formattedNum = value;
+    if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(value))) {
+      formattedNum = (0, _prettyNumber.prettyNumber)(value);
+    }
+
+    if (opts['prefix']) {
+      prefix = '<span class="' + theme + '-metric-prefix">' + opts['prefix'] + '</span>';
+    }
+    if (opts['suffix']) {
+      suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
+    }
+
+    html += '<div class="' + theme + '">';
+    html += '<div class="' + theme + '-metric" style="background-color: ' + color + '; width: ' + (width ? width + 'px' : 'auto') + ';" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
+    html += '<span class="' + theme + '-metric-value">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</span>';
+    if (title) {
+      html += '<span class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</span>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    this.el().innerHTML = html;
+    valueEl = this.el().querySelector('.' + theme + '-metric-value');
+    valueEl.style.paddingTop = (height - this.el().offsetHeight) / 2 + 'px';
+    this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    // no special clean-up
+  }
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _escapeHtml = __webpack_require__(1);
+
+exports.default = {
+  render: function render(text) {
+    var outer = document.createElement('div');
+    var inner = document.createElement('div');
+    var msg = document.createElement('span');
+    var height = this.height() || 140;
+
+    var titleContainer = document.createElement('div');
+    var notesContainer = document.createElement('div');
+
+    outer.className = this.theme();
+    inner.className = this.theme() + '-message';
+    inner.style.width = this.width() + 'px';
+
+    // Create title and notes for message
+    titleContainer.className = this.theme() + '-title';
+    titleContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.title() || '');
+    notesContainer.className = this.theme() + '-notes';
+    notesContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.notes() || '');
+
+    msg.innerHTML = (0, _escapeHtml.escapeHtml)(text) || '';
+    inner.appendChild(msg);
+    outer.appendChild(titleContainer);
+    outer.appendChild(inner);
+    outer.appendChild(notesContainer);
+
+    this.el().innerHTML = '';
+    this.el().appendChild(outer);
+
+    var actualInnerHeight = height - titleContainer.offsetHeight - notesContainer.offsetHeight;
+    inner.style.height = actualInnerHeight + 'px';
+    inner.style.paddingTop = actualInnerHeight / 2 - 12 + 'px';
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    // no special clean-up
+  }
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
+  var bgcolor, name, nameFormat, text, title, titleFormat, value, valueFormat;
+
+  // Set config options or defaults
+  nameFormat = this.config.tooltip_format_name || function (name) {
+    return name;
+  };
+  titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
+  valueFormat = this.config.tooltip_format_value || defaultValueFormat;
+
+  // Reverse list to match legend
+  for (var i = 0; i < d.length; i++) {
+    if (!(d[i] && (d[i].value || d[i].value === 0))) {
+      continue;
+    }
+    if (!text) {
+      title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+      text = "<table class='" + this.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + (0, _escapeHtml.escapeHtml)(title) + "</th></tr>" : "");
+    }
+    name = nameFormat(d[i].name);
+    value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+    bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
+    if (value) {
+      text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
+      text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + (0, _escapeHtml.escapeHtml)(name) + "</td>";
+      text += "<td class='value'>" + (0, _escapeHtml.escapeHtml)(value) + "</td>";
+      text += "</tr>";
+    }
+  }
+  return text + "</table>";
+};
+
+var _escapeHtml = __webpack_require__(1);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (cols) {
+  var self = this,
+      chart = this.view._artifacts.c3,
+      columns = [],
+      domNode = this.el().querySelector('.' + this.theme() + '-rendering'),
+      legendWidth = 120;
+
+  var pagination = this.view._artifacts.pagination = {
+    hidden: [],
+    labels: [],
+    position: 0,
+    range: Math.round((domNode.offsetHeight - 78) / 20),
+    total: 0
+  };
+
+  // Reduce threshold for donut/pie charts
+  if (this.type() === 'donut' || this.type() === 'pie') {
+    pagination.range = pagination.range >= 5 ? 5 : pagination.range;
+  }
+
+  for (var i = 0; i < cols.length; i++) {
+    if (cols[i][0] !== 'x' && !(0, _assertDateString2.default)(cols[i][1])) {
+      columns.push(cols[i][0]);
+    }
+  }
+
+  var legendEl = _d2.default.select(domNode).append('svg').attr({
+    'class': 'keen-c3-legend',
+    'height': domNode.offsetHeight - 10,
+    'width': legendWidth
+  }).style({
+    'right': -legendWidth + 'px',
+    'top': '10px'
+  });
+
+  var legendItems = legendEl.append('g').attr('class', 'keen-c3-legend-items');
+
+  var paginateElOffset = 20 * pagination.range;
+  var paginateEl = legendEl.append('g').attr({
+    'class': 'keen-c3-legend-pagination',
+    'transform': function transform() {
+      return 'translate(2, ' + paginateElOffset + ')';
+    }
+  });
+
+  paginateData();
+
+  function paginateData() {
+    pagination.labels = columns.slice(pagination.position, pagination.position + pagination.range);
+    pagination.total = columns.length;
+    renderLegendComponent.call(self, pagination.labels);
+    if (pagination.total > pagination.range) {
+      renderPaginationComponent.call(self);
+    }
+    chart.resize();
+  }
+
+  function renderLegendComponent() {
+    legendItems.selectAll('g').remove();
+
+    var legendItemList = legendItems.selectAll('g').data(pagination.labels);
+
+    legendItemList.enter().append('g').attr('transform', function (id, i) {
+      return 'translate(0, ' + 20 * i + ')';
+    }).attr('data-id', function (id) {
+      return id;
+    }).style('opacity', function (id) {
+      var isHidden = pagination.hidden.indexOf(id);
+      return isHidden < 0 ? 1 : .35;
+    }).each(function (id) {
+      _d2.default.select(this).append('text').attr({
+        'font-size': 12,
+        'pointer-events': 'none',
+        'x': 15,
+        'y': 9
+      }).text(id).text(function (id) {
+        if (_d2.default.select(this).node().getBBox().width > 105) {
+          return id.length <= 15 ? id : id.substring(0, 12) + '...';
+        } else {
+          return id;
+        }
+      });
+      _d2.default.select(this).append('rect').attr({
+        'height': 14,
+        'width': 110,
+        'x': 0,
+        'y': 0
+      }).style({
+        'cursor': 'pointer',
+        'fill-opacity': 0
+      });
+      _d2.default.select(this).append('rect').attr({
+        'fill': chart.color(id),
+        'height': 10,
+        'pointer-events': 'none',
+        'rx': 5,
+        'ry': 5,
+        'width': 10,
+        'x': 0,
+        'y': 0
+      });
+    }).on('mouseover', function (id, i) {
+      chart.focus(id);
+      // show a tooltip overlay w/ full value
+      if (id.length > 15) {
+        _d2.default.select(domNode).append('div').attr('class', 'keen-c3-legend-label-overlay').style({
+          'max-width': '75%',
+          'right': -legendWidth + 'px',
+          'top': 5 + (i + 1) * 20 + 'px'
+        }).html(id).append('div').attr('class', 'keen-c3-legend-label-overlay-pointer');
+      }
+    }).on('mouseout', function (id) {
+      chart.revert();
+      // clear out the tooltip overlay
+      _d2.default.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay')).remove();
+    }).on('click', function (id) {
+      _d2.default.select(this).style('opacity', function () {
+        var isHidden = pagination.hidden.indexOf(id);
+        if (isHidden < 0) {
+          pagination.hidden.push(id);
+          return .35;
+        } else {
+          pagination.hidden.splice(isHidden, 1);
+          return 1;
+        }
+      });
+      chart.toggle(id);
+    });
+
+    legendItemList.exit().remove();
+  }
+
+  function renderPaginationComponent() {
+    paginateEl.selectAll('g').remove();
+
+    paginateEl.selectAll('g').data([{ direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' }, { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }]).enter().append('g').attr('transform', function (id, i) {
+      return 'translate(' + i * 20 + ', 0)';
+    }).each(function (id) {
+      _d2.default.select(this).append('path').attr('d', function (d) {
+        return d.path_d;
+      }).style({
+        'cursor': 'pointer',
+        'fill': '#D7D7D7',
+        'stroke': 'none'
+      }).on('mouseover', function (id) {
+        _d2.default.select(this).style('fill', '#4D4D4D');
+      }).on('mouseout', function (id) {
+        _d2.default.select(this).style('fill', '#D7D7D7');
+      }).on('click', function (d) {
+        if (d.direction === 'forward') {
+          if (pagination.position + pagination.range < pagination.total) {
+            pagination.position = pagination.position + pagination.range;
+          }
+        } else {
+          if (pagination.position - pagination.range >= 0) {
+            pagination.position = pagination.position - pagination.range;
+          }
+        }
+        paginateData();
+        clearSelectedText();
+      });
+    });
+  }
+
+  function clearSelectedText() {
+    var selection;
+    if (document.selection && document.selection.empty) {
+      selection = document.selection;
+      selection.empty();
+    } else if (window.getSelection) {
+      selection = window.getSelection();
+      selection.removeAllRanges();
+    }
+  }
+};
+
+var _d = __webpack_require__(3);
+
+var _d2 = _interopRequireDefault(_d);
+
+var _assertDateString = __webpack_require__(4);
+
+var _assertDateString2 = _interopRequireDefault(_assertDateString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (startDate, endDate) {
+  var timeDiff = Math.abs(new Date(startDate).getTime() - new Date(endDate).getTime());
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+  // Yearly (31536000000) + Monthly
+  if (timeDiff >= 2419200000) {
+    return function (ms) {
+      var date = new Date(ms);
+      return months[date.getMonth()] + ' ' + date.getFullYear();
+    };
+  }
+  // Daily
+  else if (timeDiff >= 86400000) {
+      return function (ms) {
+        var date = new Date(ms);
+        return months[date.getMonth()] + ' ' + date.getDate();
+      };
+    }
+    // Hourly
+    else if (timeDiff >= 3600000) {
+        return '%I:%M %p';
+      }
+      // Minutely
+      else {
+          return '%I:%M:%S %p';
+        }
+};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.extendDeep = extendDeep;
+
+var _each = __webpack_require__(0);
+
+function extendDeep(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    (0, _each.each)(arguments[i], function (prop, key) {
+      if (typeof target[key] !== 'undefined' && typeof prop !== 'undefined' && _typeof(target[key]) === 'object' && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object' && target[key] !== null && prop !== null) {
+        extendDeep(target[key], prop);
+      } else {
+        target[key] = prop;
+      }
+    });
+  }
+  return target;
+}
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* @license C3.js v0.4.23 | (c) C3 Team and other contributors | http://c3js.org/ */
 (function (global, factory) {
      true ? module.exports = factory() :
     undefined;
@@ -10880,6 +11156,11 @@ function testString(input) {
     c3_axis_internal_fn.tspanData = function (d, i, ticks, scale) {
         var internal = this;
         var splitted = internal.params.tickMultiline ? internal.splitTickText(d, ticks, scale) : [].concat(internal.textFormatted(d));
+
+        if (internal.params.tickMultiline && internal.params.tickMultilineMax > 0) {
+            splitted = internal.ellipsify(splitted, internal.params.tickMultilineMax);
+        }
+
         return splitted.map(function (s) {
             return { index: i, splitted: s, length: splitted.length };
         });
@@ -10918,6 +11199,27 @@ function testString(input) {
         }
 
         return split(splitted, tickText + "");
+    };
+    c3_axis_internal_fn.ellipsify = function (splitted, max) {
+        if (splitted.length <= max) {
+            return splitted;
+        }
+
+        var ellipsified = splitted.slice(0, max);
+        var remaining = 3;
+        for (var i = max - 1; i >= 0; i--) {
+            var available = ellipsified[i].length;
+
+            ellipsified[i] = ellipsified[i].substr(0, available - remaining).padEnd(available, '.');
+
+            remaining -= available;
+
+            if (remaining <= 0) {
+                break;
+            }
+        }
+
+        return ellipsified;
     };
     c3_axis_internal_fn.updateTickLength = function () {
         var internal = this;
@@ -11213,6 +11515,7 @@ function testString(input) {
             isCategory: $$.isCategorized(),
             withOuterTick: withOuterTick,
             tickMultiline: config.axis_x_tick_multiline,
+            tickMultilineMax: config.axis_x_tick_multiline ? Number(config.axis_x_tick_multilineMax) : 0,
             tickWidth: config.axis_x_tick_width,
             tickTextRotate: withoutRotateTickText ? 0 : config.axis_x_tick_rotate,
             withoutTransition: withoutTransition
@@ -11574,7 +11877,7 @@ function testString(input) {
         transitions.axisSubX.call($$.subXAxis);
     };
 
-    var c3 = { version: "0.4.22" };
+    var c3 = { version: "0.4.23" };
 
     var c3_chart_fn;
     var c3_chart_internal_fn;
@@ -13931,6 +14234,26 @@ function testString(input) {
         }
     })();
 
+    // String.padEnd polyfill for IE11
+    //
+    // https://github.com/uxitten/polyfill/blob/master/string.polyfill.js
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padEnd
+    if (!String.prototype.padEnd) {
+        String.prototype.padEnd = function padEnd(targetLength, padString) {
+            targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
+            padString = String(typeof padString !== 'undefined' ? padString : ' ');
+            if (this.length > targetLength) {
+                return String(this);
+            } else {
+                targetLength = targetLength - this.length;
+                if (targetLength > padString.length) {
+                    padString += padString.repeat(targetLength / padString.length); //append to original to ensure we are longer than needed
+                }
+                return String(this) + padString.slice(0, targetLength);
+            }
+        };
+    }
+
     /* jshint ignore:end */
 
     c3_chart_fn.axis = function () {};
@@ -15767,6 +16090,7 @@ function testString(input) {
             axis_x_tick_rotate: 0,
             axis_x_tick_outer: true,
             axis_x_tick_multiline: true,
+            axis_x_tick_multilineMax: 0,
             axis_x_tick_width: null,
             axis_x_max: undefined,
             axis_x_min: undefined,
@@ -19896,639 +20220,17 @@ function testString(input) {
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-// EXTERNAL MODULE: ./node_modules/c3/c3.js
-var c3 = __webpack_require__(7);
-var c3_default = /*#__PURE__*/__webpack_require__.n(c3);
 
-// EXTERNAL MODULE: ./node_modules/d3/d3.js
-var d3 = __webpack_require__(3);
-var d3_default = /*#__PURE__*/__webpack_require__.n(d3);
-
-// EXTERNAL MODULE: ./lib/utils/each.js
-var each = __webpack_require__(0);
-
-// EXTERNAL MODULE: ./lib/utils/extend.js
-var extend = __webpack_require__(1);
-
-// CONCATENATED MODULE: ./lib/utils/extend-deep.js
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-
-
-function extendDeep(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    Object(each["a" /* each */])(arguments[i], function (prop, key) {
-      if (typeof target[key] !== 'undefined' && typeof prop !== 'undefined' && _typeof(target[key]) === 'object' && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object' && target[key] !== null && prop !== null) {
-        extendDeep(target[key], prop);
-      } else {
-        target[key] = prop;
-      }
-    });
-  }
-  return target;
-}
-// EXTERNAL MODULE: ./lib/utils/assert-date-string.js
-var assert_date_string = __webpack_require__(6);
-
-// CONCATENATED MODULE: ./lib/libraries/c3/extensions/default-date-format.js
-/* harmony default export */ var default_date_format = (function (startDate, endDate) {
-  var timeDiff = Math.abs(new Date(startDate).getTime() - new Date(endDate).getTime());
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-
-  // Yearly (31536000000) + Monthly
-  if (timeDiff >= 2419200000) {
-    return function (ms) {
-      var date = new Date(ms);
-      return months[date.getMonth()] + ' ' + date.getFullYear();
-    };
-  }
-  // Daily
-  else if (timeDiff >= 86400000) {
-      return function (ms) {
-        var date = new Date(ms);
-        return months[date.getMonth()] + ' ' + date.getDate();
-      };
-    }
-    // Hourly
-    else if (timeDiff >= 3600000) {
-        return '%I:%M %p';
-      }
-      // Minutely
-      else {
-          return '%I:%M:%S %p';
-        }
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-// CONCATENATED MODULE: ./lib/libraries/c3/extensions/paginating-legend.js
 
-
-
-
-/* harmony default export */ var paginating_legend = (function (cols) {
-  var self = this,
-      chart = this.view._artifacts.c3,
-      columns = [],
-      domNode = this.el().querySelector('.' + this.theme() + '-rendering'),
-      legendWidth = 120;
-
-  var pagination = this.view._artifacts.pagination = {
-    hidden: [],
-    labels: [],
-    position: 0,
-    range: Math.round((domNode.offsetHeight - 78) / 20),
-    total: 0
-  };
-
-  // Reduce threshold for donut/pie charts
-  if (this.type() === 'donut' || this.type() === 'pie') {
-    pagination.range = pagination.range >= 5 ? 5 : pagination.range;
-  }
-
-  for (var i = 0; i < cols.length; i++) {
-    if (cols[i][0] !== 'x' && !Object(assert_date_string["a" /* default */])(cols[i][1])) {
-      columns.push(cols[i][0]);
-    }
-  }
-
-  var legendEl = d3_default.a.select(domNode).append('svg').attr({
-    'class': 'keen-c3-legend',
-    'height': domNode.offsetHeight - 10,
-    'width': legendWidth
-  }).style({
-    'right': -legendWidth + 'px',
-    'top': '10px'
-  });
-
-  var legendItems = legendEl.append('g').attr('class', 'keen-c3-legend-items');
-
-  var paginateElOffset = 20 * pagination.range;
-  var paginateEl = legendEl.append('g').attr({
-    'class': 'keen-c3-legend-pagination',
-    'transform': function transform() {
-      return 'translate(2, ' + paginateElOffset + ')';
-    }
-  });
-
-  paginateData();
-
-  function paginateData() {
-    pagination.labels = columns.slice(pagination.position, pagination.position + pagination.range);
-    pagination.total = columns.length;
-    renderLegendComponent.call(self, pagination.labels);
-    if (pagination.total > pagination.range) {
-      renderPaginationComponent.call(self);
-    }
-    chart.resize();
-  }
-
-  function renderLegendComponent() {
-    legendItems.selectAll('g').remove();
-
-    var legendItemList = legendItems.selectAll('g').data(pagination.labels);
-
-    legendItemList.enter().append('g').attr('transform', function (id, i) {
-      return 'translate(0, ' + 20 * i + ')';
-    }).attr('data-id', function (id) {
-      return id;
-    }).style('opacity', function (id) {
-      var isHidden = pagination.hidden.indexOf(id);
-      return isHidden < 0 ? 1 : .35;
-    }).each(function (id) {
-      d3_default.a.select(this).append('text').attr({
-        'font-size': 12,
-        'pointer-events': 'none',
-        'x': 15,
-        'y': 9
-      }).text(id).text(function (id) {
-        if (d3_default.a.select(this).node().getBBox().width > 105) {
-          return id.length <= 15 ? id : id.substring(0, 12) + '...';
-        } else {
-          return id;
-        }
-      });
-      d3_default.a.select(this).append('rect').attr({
-        'height': 14,
-        'width': 110,
-        'x': 0,
-        'y': 0
-      }).style({
-        'cursor': 'pointer',
-        'fill-opacity': 0
-      });
-      d3_default.a.select(this).append('rect').attr({
-        'fill': chart.color(id),
-        'height': 10,
-        'pointer-events': 'none',
-        'rx': 5,
-        'ry': 5,
-        'width': 10,
-        'x': 0,
-        'y': 0
-      });
-    }).on('mouseover', function (id, i) {
-      chart.focus(id);
-      // show a tooltip overlay w/ full value
-      if (id.length > 15) {
-        d3_default.a.select(domNode).append('div').attr('class', 'keen-c3-legend-label-overlay').style({
-          'max-width': '75%',
-          'right': -legendWidth + 'px',
-          'top': 5 + (i + 1) * 20 + 'px'
-        }).html(id).append('div').attr('class', 'keen-c3-legend-label-overlay-pointer');
-      }
-    }).on('mouseout', function (id) {
-      chart.revert();
-      // clear out the tooltip overlay
-      d3_default.a.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay')).remove();
-    }).on('click', function (id) {
-      d3_default.a.select(this).style('opacity', function () {
-        var isHidden = pagination.hidden.indexOf(id);
-        if (isHidden < 0) {
-          pagination.hidden.push(id);
-          return .35;
-        } else {
-          pagination.hidden.splice(isHidden, 1);
-          return 1;
-        }
-      });
-      chart.toggle(id);
-    });
-
-    legendItemList.exit().remove();
-  }
-
-  function renderPaginationComponent() {
-    paginateEl.selectAll('g').remove();
-
-    paginateEl.selectAll('g').data([{ direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' }, { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }]).enter().append('g').attr('transform', function (id, i) {
-      return 'translate(' + i * 20 + ', 0)';
-    }).each(function (id) {
-      d3_default.a.select(this).append('path').attr('d', function (d) {
-        return d.path_d;
-      }).style({
-        'cursor': 'pointer',
-        'fill': '#D7D7D7',
-        'stroke': 'none'
-      }).on('mouseover', function (id) {
-        d3_default.a.select(this).style('fill', '#4D4D4D');
-      }).on('mouseout', function (id) {
-        d3_default.a.select(this).style('fill', '#D7D7D7');
-      }).on('click', function (d) {
-        if (d.direction === 'forward') {
-          if (pagination.position + pagination.range < pagination.total) {
-            pagination.position = pagination.position + pagination.range;
-          }
-        } else {
-          if (pagination.position - pagination.range >= 0) {
-            pagination.position = pagination.position - pagination.range;
-          }
-        }
-        paginateData();
-        clearSelectedText();
-      });
-    });
-  }
-
-  function clearSelectedText() {
-    var selection;
-    if (document.selection && document.selection.empty) {
-      selection = document.selection;
-      selection.empty();
-    } else if (window.getSelection) {
-      selection = window.getSelection();
-      selection.removeAllRanges();
-    }
-  }
-});
-// EXTERNAL MODULE: ./lib/utils/escape-html.js
-var escape_html = __webpack_require__(2);
-
-// CONCATENATED MODULE: ./lib/libraries/c3/extensions/tooltip-contents.js
-
-
-/* harmony default export */ var tooltip_contents = (function (d, defaultTitleFormat, defaultValueFormat, color) {
-  var bgcolor, name, nameFormat, text, title, titleFormat, value, valueFormat;
-
-  // Set config options or defaults
-  nameFormat = this.config.tooltip_format_name || function (name) {
-    return name;
-  };
-  titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
-  valueFormat = this.config.tooltip_format_value || defaultValueFormat;
-
-  // Reverse list to match legend
-  for (var i = 0; i < d.length; i++) {
-    if (!(d[i] && (d[i].value || d[i].value === 0))) {
-      continue;
-    }
-    if (!text) {
-      title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-      text = "<table class='" + this.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + Object(escape_html["a" /* escapeHtml */])(title) + "</th></tr>" : "");
-    }
-    name = nameFormat(d[i].name);
-    value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-    bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
-    if (value) {
-      text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
-      text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + Object(escape_html["a" /* escapeHtml */])(name) + "</td>";
-      text += "<td class='value'>" + Object(escape_html["a" /* escapeHtml */])(value) + "</td>";
-      text += "</tr>";
-    }
-  }
-  return text + "</table>";
-});
-// CONCATENATED MODULE: ./lib/libraries/default/message.js
-
-
-/* harmony default export */ var message = ({
-  render: function render(text) {
-    var outer = document.createElement('div');
-    var inner = document.createElement('div');
-    var msg = document.createElement('span');
-    var height = this.height() || 140;
-
-    var titleContainer = document.createElement('div');
-    var notesContainer = document.createElement('div');
-
-    outer.className = this.theme();
-    inner.className = this.theme() + '-message';
-    inner.style.width = this.width() + 'px';
-
-    // Create title and notes for message
-    titleContainer.className = this.theme() + '-title';
-    titleContainer.innerHTML = Object(escape_html["a" /* escapeHtml */])(this.title() || '');
-    notesContainer.className = this.theme() + '-notes';
-    notesContainer.innerHTML = Object(escape_html["a" /* escapeHtml */])(this.notes() || '');
-
-    msg.innerHTML = Object(escape_html["a" /* escapeHtml */])(text) || '';
-    inner.appendChild(msg);
-    outer.appendChild(titleContainer);
-    outer.appendChild(inner);
-    outer.appendChild(notesContainer);
-
-    this.el().innerHTML = '';
-    this.el().appendChild(outer);
-
-    var actualInnerHeight = height - titleContainer.offsetHeight - notesContainer.offsetHeight;
-    inner.style.height = actualInnerHeight + 'px';
-    inner.style.paddingTop = actualInnerHeight / 2 - 12 + 'px';
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    // no special clean-up
-  }
-});
-// CONCATENATED MODULE: ./lib/utils/pretty-number.js
-function prettyNumber(input) {
-  // If it has 3 or fewer sig figs already, just return the number.
-  var input = Number(input),
-      sciNo = input.toPrecision(3),
-      prefix = '',
-      suffixes = ['', 'k', 'M', 'B', 'T'];
-
-  if (Number(sciNo) == input && String(input).length <= 4) {
-    return String(input);
-  }
-
-  if (Math.abs(input) >= 1000000000000000) {
-    return sciNo;
-  }
-
-  if (input >= 1 || input <= -1) {
-    if (input < 0) {
-      //Pull off the negative side and stash that.
-      input = -input;
-      prefix = '-';
-    }
-    return prefix + recurse(input, 0);
-  } else {
-    return input.toPrecision(3);
-  }
-
-  function recurse(input, iteration) {
-    var input = String(input);
-    var split = input.split('.');
-    // If there's a dot
-    if (split.length > 1) {
-      // Keep the left hand side only
-      input = split[0];
-      var rhs = split[1];
-      // If the left-hand side is too short, pad until it has 3 digits
-      if (input.length == 2 && rhs.length > 0) {
-        // Pad with right-hand side if possible
-        if (rhs.length > 0) {
-          input = input + '.' + rhs.charAt(0);
-        }
-        // Pad with zeroes if you must
-        else {
-            input += '0';
-          }
-      } else if (input.length == 1 && rhs.length > 0) {
-        input = input + '.' + rhs.charAt(0);
-        // Pad with right-hand side if possible
-        if (rhs.length > 1) {
-          input += rhs.charAt(1);
-        }
-        // Pad with zeroes if you must
-        else {
-            input += '0';
-          }
-      }
-    }
-    var numNumerals = input.length;
-    // if it has a period, then numNumerals is 1 smaller than the string length:
-    if (input.split('.').length > 1) {
-      numNumerals--;
-    }
-    if (numNumerals <= 3) {
-      return String(input) + suffixes[iteration];
-    } else {
-      return recurse(Number(input) / 1000, iteration + 1);
-    }
-  }
-}
-// CONCATENATED MODULE: ./lib/libraries/default/metric.js
-
-
-
-/* harmony default export */ var metric = ({
-  render: function render() {
-    var color = this.colors()[0],
-        theme = this.theme(),
-        title = this.title(),
-        value = '-',
-        height = this.height() || 140,
-        width = this.width(),
-        opts = this.chartOptions(),
-        html = '',
-        prefix = '',
-        suffix = '',
-        formattedNum,
-        valueEl;
-
-    if (typeof this.data()[1][1] === 'number') {
-      value = this.data()[1][1];
-    }
-
-    formattedNum = value;
-    if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(value))) {
-      formattedNum = prettyNumber(value);
-    }
-
-    if (opts['prefix']) {
-      prefix = '<span class="' + theme + '-metric-prefix">' + opts['prefix'] + '</span>';
-    }
-    if (opts['suffix']) {
-      suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
-    }
-
-    html += '<div class="' + theme + '">';
-    html += '<div class="' + theme + '-metric" style="background-color: ' + color + '; width: ' + (width ? width + 'px' : 'auto') + ';" title="' + Object(escape_html["a" /* escapeHtml */])(value) + '">';
-    html += '<span class="' + theme + '-metric-value">' + prefix + Object(escape_html["a" /* escapeHtml */])(formattedNum) + suffix + '</span>';
-    if (title) {
-      html += '<span class="' + theme + '-metric-title">' + Object(escape_html["a" /* escapeHtml */])(title) + '</span>';
-    }
-    html += '</div>';
-    html += '</div>';
-
-    this.el().innerHTML = html;
-    valueEl = this.el().querySelector('.' + theme + '-metric-value');
-    valueEl.style.paddingTop = (height - this.el().offsetHeight) / 2 + 'px';
-    this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    // no special clean-up
-  }
-});
-// CONCATENATED MODULE: ./lib/libraries/default/table.js
-
-
-var defaults = {
-  height: undefined,
-  width: undefined,
-  stickyHeader: true,
-  stickyFooter: false
-};
-
-function _generateTableRows(dataset, colWidths, colAligns) {
-  var html = '';
-  for (var i = 0; i < dataset.length; i++) {
-    if (i > 0) {
-      html += '<tr>';
-      for (var j = 0; j < dataset[i].length; j++) {
-        html += '<td style="min-width: ' + 10 * colWidths[j] + 'px; text-align: ' + colAligns[j] + ';">' + dataset[i][j] + '</td>';
-      }
-      html += '</tr>';
-    }
-  }
-  return html;
-}
-
-/* harmony default export */ var table = ({
-  render: function render() {
-    var dataset = this.data(),
-        el = this.el(),
-        height = (this.height() || defaults.height) - this.el().offsetHeight,
-        theme = this.theme(),
-        width = this.width() || defaults.width;
-
-    var html = '',
-        colAligns = new Array(dataset[0].length),
-        colWidths = new Array(dataset[0].length),
-        fixedHeader;
-
-    var isEmpty = dataset.length === 1 && dataset[0].length === 0;
-    if (isEmpty) {
-      this.message('No data to display');
-      return;
-    }
-
-    // Calculate max column widths
-    Object(each["a" /* each */])(dataset, function (row) {
-      Object(each["a" /* each */])(row, function (cell, i) {
-        if (!colWidths[i]) {
-          colWidths[i] = 0;
-        }
-        colAligns[i] = typeof cell === 'number' ? 'right' : 'left';
-        colWidths[i] = String(cell).length > colWidths[i] ? String(cell).length : colWidths[i];
-      });
-    });
-
-    // Open wrapper
-    html += '<div class="' + theme + '-table" style="height: ' + (height ? height + 'px' : 'auto') + '; width: ' + (width ? width + 'px' : 'auto') + ';">';
-
-    // Static, scrollable table
-    html += '<table class="' + theme + '-table-dataset">';
-    html += '<thead>';
-    html += '<tr>';
-    for (var i = 0; i < dataset[0].length; i++) {
-      html += '<th style="width: ' + 10 * colWidths[i] + 'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
-    }
-    html += '</tr>';
-    html += '</thead>';
-    // Table data
-    html += '<tbody>';
-    html += _generateTableRows.bind(this, dataset, colWidths, colAligns)();
-    html += '</tbody>';
-    html += '</table>';
-
-    // Fixed table (header)
-    html += '<table class="' + theme + '-table-fixed-header">';
-    html += '<thead>';
-    html += '<tr>';
-    for (var i = 0; i < dataset[0].length; i++) {
-      html += '<th style="min-width: ' + 10 * colWidths[i] + 'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
-    }
-    html += '</tr>';
-    html += '</thead>';
-    html += '</table>';
-
-    // Close wrapper
-    html += '</div>';
-
-    // Inject HTML string
-    el.querySelector('.' + theme + '-rendering').innerHTML = html;
-
-    fixedHeader = el.querySelector('.' + theme + '-table-fixed-header');
-    el.querySelector('.' + theme + '-table').onscroll = function (e) {
-      fixedHeader.style.top = e.target.scrollTop + 'px';
-    };
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    var el = this.el().querySelector('.' + this.theme() + '-table');
-    if (el && el.onscroll) {
-      el.onscroll = undefined;
-    }
-  }
-});
-// CONCATENATED MODULE: ./lib/libraries/default/spinner.js
-/* harmony default export */ var spinner = ({
-  render: function render() {
-    var html = '',
-        artifacts = this.view._artifacts.spinner = {},
-        height = this.height() || 35,
-        offsetPadding = (height - 35) / 2,
-        prefixes = ['webkit', 'Moz', 'ms', 'O'],
-        radius = this.view._artifacts.radius = 0,
-        spinner;
-
-    // Build DOM element
-    html += '<div class="' + this.theme() + '">';
-    html += '<div class="keen-spinner-container" style="height: ' + height + 'px; padding-top: ' + offsetPadding + 'px;">';
-    html += '<div class="keen-spinner-indicator"></div>';
-    html += '</div>';
-    html += '</div>';
-    this.el().innerHTML = html;
-
-    spinner = this.el().querySelector('.keen-spinner-indicator');
-    if (spinner.style.animationName === undefined) {
-      radius = 0;
-      artifacts.interval = setInterval(function () {
-        radius = radius === 350 ? 0 : radius + 10;
-        for (var i = 0; i < prefixes.length; i++) {
-          spinner.style[prefixes[i]] = 'rotate(' + artifacts.radius + 'deg)';
-        }
-      }, 15);
-    }
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    if (this.view._artifacts.spinner) {
-      if (this.view._artifacts.spinner.interval) {
-        clearInterval(this.view._artifacts.spinner.interval);
-      }
-      this.view._artifacts.spinner.radius = 0;
-      try {
-        delete this.view._artifacts.spinner;
-      } catch (e) {
-        this.view._artifacts.spinner = undefined;
-      }
-    }
-    this.el().innerHTML = '';
-  }
-});
-// CONCATENATED MODULE: ./lib/libraries/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var types = {
-  message: message,
-  metric: metric,
-  table: table,
-  spinner: spinner
-};
-
-/* harmony default export */ var libraries = __webpack_exports__["a"] = (function (lib) {
+exports.default = function (lib) {
   var timer, delay;
   bindResizeListener(function () {
     if (timer) {
@@ -20536,7 +20238,7 @@ var types = {
     }
     delay = lib.visuals.length > 12 ? 1000 : 250;
     timer = setTimeout(function () {
-      Object(each["a" /* each */])(lib.visuals, function (chart) {
+      (0, _each.each)(lib.visuals, function (chart) {
         if (chart.view._artifacts.c3) {
           chart.view._artifacts.c3.resize();
         }
@@ -20546,7 +20248,64 @@ var types = {
 
   defineC3();
   return types;
-});;
+};
+
+var _c = __webpack_require__(19);
+
+var _c2 = _interopRequireDefault(_c);
+
+var _d = __webpack_require__(3);
+
+var _d2 = _interopRequireDefault(_d);
+
+var _each = __webpack_require__(0);
+
+var _extend = __webpack_require__(2);
+
+var _extendDeep = __webpack_require__(18);
+
+var _assertDateString = __webpack_require__(4);
+
+var _assertDateString2 = _interopRequireDefault(_assertDateString);
+
+var _defaultDateFormat = __webpack_require__(17);
+
+var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
+
+var _paginatingLegend = __webpack_require__(16);
+
+var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
+
+var _tooltipContents = __webpack_require__(15);
+
+var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
+
+var _message = __webpack_require__(14);
+
+var _message2 = _interopRequireDefault(_message);
+
+var _metric = __webpack_require__(13);
+
+var _metric2 = _interopRequireDefault(_metric);
+
+var _table = __webpack_require__(11);
+
+var _table2 = _interopRequireDefault(_table);
+
+var _spinner = __webpack_require__(10);
+
+var _spinner2 = _interopRequireDefault(_spinner);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var types = {
+  message: _message2.default,
+  metric: _metric2.default,
+  table: _table2.default,
+  spinner: _spinner2.default
+};
+
+;
 
 function defineC3() {
   var c3Types = [
@@ -20591,7 +20350,7 @@ function defineC3() {
         pattern: this.colors()
       },
       data: {
-        colors: Object(extend["a" /* extend */])({}, this.colorMapping()),
+        colors: (0, _extend.extend)({}, this.colorMapping()),
         columns: [],
         type: this.type().replace('horizontal-', '')
       },
@@ -20603,10 +20362,10 @@ function defineC3() {
     };
 
     // Apply chartOptions
-    options = extendDeep({}, DEFAULT_OPTIONS, this.chartOptions());
+    options = (0, _extendDeep.extendDeep)({}, DEFAULT_OPTIONS, this.chartOptions());
 
     // Apply enforced options
-    options = extendDeep(options, ENFORCED_OPTIONS);
+    options = (0, _extendDeep.extendDeep)(options, ENFORCED_OPTIONS);
     options.color.pattern = ENFORCED_OPTIONS.color.pattern;
     options.data.colors = ENFORCED_OPTIONS.data.colors;
     options.data.columns = ENFORCED_OPTIONS.data.columns;
@@ -20614,7 +20373,7 @@ function defineC3() {
     return options;
   }
 
-  Object(each["a" /* each */])(c3Types, function (type, index) {
+  (0, _each.each)(c3Types, function (type, index) {
     types[type] = {
       render: function render() {
         var options = getDefaultOptions.call(this);
@@ -20637,17 +20396,17 @@ function defineC3() {
             options.axis.rotated = type.indexOf('horizontal-') > -1;
           }
 
-          if (Object(assert_date_string["a" /* default */])(this.data()[1][0])) {
+          if ((0, _assertDateString2.default)(this.data()[1][0])) {
             // TIMESERIES
             options.axis.x = options.axis.x || {};
             options.axis.x.type = 'timeseries';
             options.axis.x.tick = options.axis.x.tick || {
-              format: this.dateFormat() || default_date_format(this.data()[1][0], this.data()[2] ? this.data()[2][0] : this.data()[1][0]),
+              format: this.dateFormat() || (0, _defaultDateFormat2.default)(this.data()[1][0], this.data()[2] ? this.data()[2][0] : this.data()[1][0]),
               culling: { max: 5 }
             };
 
             options.data.columns[0] = [];
-            Object(each["a" /* each */])(this.dataset.selectColumn(0), function (cell, i) {
+            (0, _each.each)(this.dataset.selectColumn(0), function (cell, i) {
               if (i > 0) {
                 cell = new Date(cell);
               }
@@ -20672,7 +20431,7 @@ function defineC3() {
             options.legend.show = false;
           }
 
-          Object(each["a" /* each */])(this.data()[0], function (cell, i) {
+          (0, _each.each)(this.data()[0], function (cell, i) {
             if (i > 0) {
               options.data.columns.push(this.dataset.selectColumn(i));
             }
@@ -20686,7 +20445,7 @@ function defineC3() {
 
           // Apply custom tooltip
           options.tooltip = {
-            contents: tooltip_contents,
+            contents: _tooltipContents2.default,
             format: {
               value: c3CustomTooltipFiltering.bind(this)
             }
@@ -20698,11 +20457,11 @@ function defineC3() {
           this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
 
           // Render artifacts
-          this.view._artifacts['c3'] = c3_default.a.generate(options);
-          paginating_legend.call(this, options.data.columns);
+          this.view._artifacts['c3'] = _c2.default.generate(options);
+          _paginatingLegend2.default.call(this, options.data.columns);
         } else {
           options.legend.show = false;
-          this.view._artifacts['c3'] = c3_default.a.generate(options);
+          this.view._artifacts['c3'] = _c2.default.generate(options);
         }
       },
       update: function update() {
@@ -20764,26 +20523,37 @@ function bindResizeListener(fn) {
 }
 
 /***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _dataset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
-/* harmony import */ var _utils_extend__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var _utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-
-/* harmony default export */ __webpack_exports__["a"] = (function (data) {
+exports.default = function (data) {
   if (!arguments.length) return this.dataset.data();
-  if (data instanceof _dataset__WEBPACK_IMPORTED_MODULE_0__[/* default */ "b"]) {
+  if (data instanceof _dataset2.default) {
     this.dataset = data;
     return this;
   } else {
     return parseResponse.call(this, data);
   }
-});;
+};
+
+var _dataset = __webpack_require__(9);
+
+var _dataset2 = _interopRequireDefault(_dataset);
+
+var _extend = __webpack_require__(2);
+
+var _stripHtmlTags = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+;
 
 function parseResponse(response) {
   var dataset,
@@ -20801,7 +20571,7 @@ function parseResponse(response) {
   query = typeof response.query !== 'undefined' ? response.query : {};
 
   // Ensure all required params are present
-  query = Object(_utils_extend__WEBPACK_IMPORTED_MODULE_1__[/* extend */ "a"])({
+  query = (0, _extend.extend)({
     analysis_type: null,
     event_collection: null,
     filters: [],
@@ -20920,10 +20690,10 @@ function parseResponse(response) {
   }
 
   // Define the appropriate parser
-  selectedParser = _dataset__WEBPACK_IMPORTED_MODULE_0__[/* default */ "b"].parser.apply(this, [parser].concat(parserArgs));
+  selectedParser = _dataset2.default.parser.apply(this, [parser].concat(parserArgs));
 
   // Parse the response with augmented query body
-  dataset = selectedParser(Object(_utils_extend__WEBPACK_IMPORTED_MODULE_1__[/* extend */ "a"])(response, { 'query': query }));
+  dataset = selectedParser((0, _extend.extend)(response, { 'query': query }));
 
   // Set true dates for 'interval' data
   if (parser.indexOf('interval') > -1) {
@@ -20933,7 +20703,7 @@ function parseResponse(response) {
   }
 
   dataset.updateRow(0, function (value, i) {
-    return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_2__[/* stripHtmlTags */ "a"])(value);
+    return (0, _stripHtmlTags.stripHtmlTags)(value);
   });
 
   this.dataset = dataset;
@@ -20984,7 +20754,612 @@ function getDefaultType(parser) {
 }
 
 /***/ }),
-/* 10 */
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.flatten = flatten;
+// Pure awesomeness by Will Rayner (penguinboy)
+// https://gist.github.com/penguinboy/762197
+
+function flatten(ob) {
+  var toReturn = {};
+  for (var i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
+      var flatObject = flatten(ob[i]);
+      for (var x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = initialize;
+
+var _each = __webpack_require__(0);
+
+var _flatten = __webpack_require__(22);
+
+var Dataset = void 0; /* injected */
+
+function initialize(lib) {
+  Dataset = lib;
+  return function (name) {
+    var options = Array.prototype.slice.call(arguments, 1);
+
+    if (!parsers[name]) {
+      throw 'Requested parser does not exist';
+    } else {
+      return parsers[name].apply(this, options);
+    }
+  };
+}
+
+function parseMetric() {
+  return function (res) {
+    return new Dataset().set(['Value', 'Result'], res.result).type('metric');
+  };
+}
+
+//var myParser = Dataset.parser('interval', 'timeframe.end');
+function parseInterval() {
+  var options = Array.prototype.slice.call(arguments);
+  return function (res) {
+    var dataset = new Dataset().type('interval');
+    (0, _each.each)(res.result, function (record, i) {
+      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
+      dataset.set(['Result', index], record.value);
+    });
+    return dataset;
+  };
+}
+
+function parseGroupedMetric() {
+  return function (res) {
+    var dataset = new Dataset().type('grouped-metric');
+    (0, _each.each)(res.result, function (record, i) {
+      var label;
+      (0, _each.each)(record, function (value, key) {
+        if (key !== 'result') {
+          label = key;
+        }
+      });
+      dataset.set(['Result', String(record[label])], record.result);
+    });
+    return dataset;
+  };
+}
+
+//var myParser = Dataset.parser('grouped-interval', 'timeframe.end');
+function parseGroupedInterval() {
+  var options = Array.prototype.slice.call(arguments);
+  return function (res) {
+    var dataset = new Dataset().type('grouped-interval');
+    (0, _each.each)(res.result, function (record, i) {
+      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
+      if (record.value.length) {
+        (0, _each.each)(record.value, function (group, j) {
+          var label;
+          (0, _each.each)(group, function (value, key) {
+            if (key !== 'result') {
+              label = key;
+            }
+          });
+          dataset.set([String(group[label]), index], group.result);
+        });
+      } else {
+        dataset.appendRow(index);
+      }
+    });
+    return dataset;
+  };
+}
+
+//var myParser = Dataset.parser('double-grouped-metric', ['first', 'second']);
+function parseDoubleGroupedMetric() {
+  var options = Array.prototype.slice.call(arguments);
+  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
+  return function (res) {
+    var dataset = new Dataset().type('double-grouped-metric');
+    (0, _each.each)(res.result, function (record, i) {
+      var rowLabel = record[options[0][0]] + ' ' + record[options[0][1]];
+      dataset.set(['Result', rowLabel], record.result);
+    });
+    return dataset;
+  };
+}
+
+//var myParser = Dataset.parser('double-grouped-interval', ['first', 'second'], 'timeframe.end');
+function parseDoubleGroupedInterval() {
+  var options = Array.prototype.slice.call(arguments);
+  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
+  return function (res) {
+    var dataset = new Dataset().type('double-grouped-interval');
+    (0, _each.each)(res.result, function (record, i) {
+      var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
+      (0, _each.each)(record['value'], function (value, j) {
+        var label = value[options[0][0]] + ' ' + value[options[0][1]];
+        dataset.set([label, index], value.result);
+      });
+    });
+    return dataset;
+  };
+}
+
+function parseFunnel() {
+  return function (res) {
+    var result, steps, dataset;
+    if (typeof res.steps !== 'undefined' && typeof res.result !== 'undefined' && res.result instanceof Array) {
+      // Ad-hoc funnel response
+      result = res.result;
+      steps = res.steps;
+    } else if (typeof res.result.steps !== 'undefined' && typeof res.result.result !== 'undefined' && res.result.result instanceof Array) {
+      // Saved funnel response
+      result = res.result.result;
+      steps = res.result.steps;
+    }
+    dataset = new Dataset().type('funnel');
+    dataset.appendColumn('Step Value');
+    (0, _each.each)(result, function (value, i) {
+      if (typeof steps !== 'undefined' && steps[i]) {
+        dataset.appendRow(String(steps[i].event_collection), [value]);
+      }
+    });
+    return dataset;
+  };
+}
+
+function parseList() {
+  return function (res) {
+    var dataset = new Dataset().type('list');
+    (0, _each.each)(res.result, function (value, i) {
+      dataset.set(['Result', String(i + 1)], value);
+    });
+    return dataset;
+  };
+}
+
+function parseExtraction() {
+  return function (res) {
+    var dataset = new Dataset().type('extraction');
+    (0, _each.each)(res.result, function (record, i) {
+      (0, _each.each)((0, _flatten.flatten)(record), function (value, key) {
+        dataset.set([key, String(i + 1)], value);
+      });
+    });
+    dataset.deleteColumn(0);
+    return dataset;
+  };
+}
+
+// Parser definitions
+var parsers = {
+  metric: parseMetric,
+  interval: parseInterval,
+  'grouped-metric': parseGroupedMetric,
+  'grouped-interval': parseGroupedInterval,
+  'double-grouped-metric': parseDoubleGroupedMetric,
+  'double-grouped-interval': parseDoubleGroupedInterval,
+  funnel: parseFunnel,
+  list: parseList,
+  extraction: parseExtraction
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateColumn = updateColumn;
+exports.updateRow = updateRow;
+
+var _each = __webpack_require__(0);
+
+var _createNullList = __webpack_require__(5);
+
+var _createNullList2 = _interopRequireDefault(_createNullList);
+
+var _append = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function updateColumn(q, input) {
+  var self = this,
+      index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+
+  if (index > -1) {
+
+    if (typeof input === 'function') {
+
+      (0, _each.each)(self.data(), function (row, i) {
+        var cell;
+        if (i > 0) {
+          cell = input.call(self, row[index], i, row);
+          if (typeof cell !== 'undefined') {
+            self.matrix[i][index] = cell;
+          }
+        }
+      });
+    } else if (!input || input instanceof Array) {
+      input = input || [];
+
+      if (input.length <= self.data().length - 1) {
+        input = input.concat((0, _createNullList2.default)(self.data().length - 1 - input.length));
+      } else {
+        // If this new column is longer than existing columns,
+        // we need to update the rest to match ...
+        (0, _each.each)(input, function (value, i) {
+          if (self.matrix.length - 1 < input.length) {
+            _append.appendRow.call(self, String(self.matrix.length));
+          }
+        });
+      }
+
+      (0, _each.each)(input, function (value, i) {
+        self.matrix[i + 1][index] = value;
+      });
+    }
+  }
+  return self;
+}
+
+function updateRow(q, input) {
+  var self = this,
+      index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+
+  if (index > -1) {
+
+    if (typeof input === 'function') {
+
+      (0, _each.each)(self.data()[index], function (value, i) {
+        var col = self.selectColumn(i),
+            cell = input.call(self, value, i, col);
+        if (typeof cell !== 'undefined') {
+          self.matrix[index][i] = cell;
+        }
+      });
+    } else if (!input || input instanceof Array) {
+      input = input || [];
+
+      if (input.length <= self.matrix[0].length - 1) {
+        input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
+      } else {
+        (0, _each.each)(input, function (value, i) {
+          if (self.matrix[0].length - 1 < input.length) {
+            _append.appendColumn.call(self, String(self.matrix[0].length));
+          }
+        });
+      }
+
+      (0, _each.each)(input, function (value, i) {
+        self.matrix[index][i + 1] = value;
+      });
+    }
+  }
+  return self;
+}
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.sortColumns = sortColumns;
+exports.sortRows = sortRows;
+
+var _each = __webpack_require__(0);
+
+var _analyses = __webpack_require__(8);
+
+function sortColumns(str, comp) {
+  var self = this,
+      head = this.matrix[0].slice(1),
+      // minus index
+  cols = [],
+      clone = [],
+      fn = comp || _analyses.methods.getColumnLabel;
+
+  // Isolate each column (except the index)
+  (0, _each.each)(head, function (cell, i) {
+    cols.push(self.selectColumn(i + 1).slice(0));
+  });
+  cols.sort(function (a, b) {
+    // If fn(a) > fn(b)
+    var op = fn.call(self, a) > fn.call(self, b);
+    if (op) {
+      return str === 'asc' ? 1 : -1;
+    } else if (!op) {
+      return str === 'asc' ? -1 : 1;
+    } else {
+      return 0;
+    }
+  });
+  (0, _each.each)(cols, function (col, i) {
+    self.deleteColumn(i + 1).insertColumn(i + 1, col[0], col.slice(1));
+  });
+  return self;
+}
+
+function sortRows(str, comp) {
+  var self = this,
+      head = this.matrix.slice(0, 1),
+      body = this.matrix.slice(1),
+      fn = comp || _analyses.methods.getRowIndex;
+  body.sort(function (a, b) {
+    // If fn(a) > fn(b)
+    var op = fn.call(self, a) > fn.call(self, b);
+    if (op) {
+      return str === 'asc' ? 1 : -1;
+    } else if (!op) {
+      return str === 'asc' ? -1 : 1;
+    } else {
+      return 0;
+    }
+  });
+  self.data(head.concat(body));
+  return self;
+}
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.selectColumn = selectColumn;
+exports.selectRow = selectRow;
+
+var _each = __webpack_require__(0);
+
+function selectColumn(q) {
+  var result = [];
+  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+
+  if (index > -1 && typeof this.matrix[0][index] !== 'undefined') {
+    (0, _each.each)(this.matrix, function (row, i) {
+      result.push(row[index]);
+    });
+  }
+  return result;
+}
+
+function selectRow(q) {
+  var result = [];
+  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+
+  if (index > -1 && typeof this.matrix[index] !== 'undefined') {
+    result = this.matrix[index];
+  }
+  return result;
+}
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.insertColumn = insertColumn;
+exports.insertRow = insertRow;
+
+var _each = __webpack_require__(0);
+
+var _createNullList = __webpack_require__(5);
+
+var _createNullList2 = _interopRequireDefault(_createNullList);
+
+var _append = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function insertColumn(index, str, input) {
+  var self = this;
+  var label = str !== undefined ? str : null;
+
+  if (typeof input === 'function') {
+
+    self.matrix[0].splice(index, 0, label);
+    (0, _each.each)(self.matrix, function (row, i) {
+      var cell;
+      if (i > 0) {
+        cell = input.call(self, row, i);
+        if (typeof cell === 'undefined') {
+          cell = null;
+        }
+        self.matrix[i].splice(index, 0, cell);
+      }
+    });
+  } else if (!input || input instanceof Array) {
+    input = input || [];
+
+    if (input.length <= self.matrix.length - 1) {
+      input = input.concat((0, _createNullList2.default)(self.matrix.length - 1 - input.length));
+    } else {
+      // If this new column is longer than existing columns,
+      // we need to update the rest to match ...
+      (0, _each.each)(input, function (value, i) {
+        if (self.matrix.length - 1 < input.length) {
+          _append.appendRow.call(self, String(self.matrix.length));
+        }
+      });
+    }
+
+    self.matrix[0].splice(index, 0, label);
+    (0, _each.each)(input, function (value, i) {
+      self.matrix[i + 1].splice(index, 0, value);
+    });
+  }
+  return self;
+}
+
+function insertRow(index, str, input) {
+  var self = this;
+  var newRow = [];
+  var label = str !== undefined ? str : null;
+  newRow.push(label);
+
+  if (typeof input === 'function') {
+    (0, _each.each)(self.matrix[0], function (label, i) {
+      var col = void 0;
+      var cell = void 0;
+      if (i > 0) {
+        col = self.selectColumn(i);
+        cell = input.call(self, col, i);
+        if (typeof cell === 'undefined') {
+          cell = null;
+        }
+        newRow.push(cell);
+      }
+    });
+    self.matrix.splice(index, 0, newRow);
+  } else if (!input || input instanceof Array) {
+    input = input || [];
+
+    if (input.length <= self.matrix[0].length - 1) {
+      input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
+    } else {
+      (0, _each.each)(input, function (value, i) {
+        if (self.matrix[0].length - 1 < input.length) {
+          _append.appendColumn.call(self, String(self.matrix[0].length));
+        }
+      });
+    }
+
+    self.matrix.splice(index, 0, newRow.concat(input));
+  }
+
+  return self;
+}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.filterColumns = filterColumns;
+exports.filterRows = filterRows;
+
+var _each = __webpack_require__(0);
+
+function filterColumns(fn) {
+  var self = this;
+  var clone = [];
+
+  (0, _each.each)(self.matrix, function (row, i) {
+    clone.push([]);
+  });
+
+  (0, _each.each)(self.matrix[0], function (col, i) {
+    var selectedColumn = self.selectColumn(i);
+    if (i == 0 || fn.call(self, selectedColumn, i)) {
+      (0, _each.each)(selectedColumn, function (cell, ri) {
+        clone[ri].push(cell);
+      });
+    }
+  });
+
+  self.data(clone);
+  return self;
+}
+
+function filterRows(fn) {
+  var self = this;
+  var clone = [];
+
+  (0, _each.each)(self.matrix, function (row, i) {
+    if (i == 0 || fn.call(self, row, i)) {
+      clone.push(row);
+    }
+  });
+
+  self.data(clone);
+  return self;
+}
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.deleteColumn = deleteColumn;
+exports.deleteRow = deleteRow;
+
+var _each = __webpack_require__(0);
+
+function deleteColumn(q) {
+  var self = this;
+  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+
+  if (index > -1) {
+    (0, _each.each)(self.matrix, function (row, i) {
+      self.matrix[i].splice(index, 1);
+    });
+  }
+  return self;
+}
+
+function deleteRow(q) {
+  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+
+  if (index > -1) {
+    this.matrix.splice(index, 1);
+  }
+  return this;
+}
+
+/***/ }),
+/* 30 */
 /***/ (function(module, exports) {
 
 var g;
@@ -21010,39 +21385,57 @@ module.exports = g;
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Dataviz", function() { return Dataviz; });
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
-/* harmony import */ var _dataset__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
-/* harmony import */ var _utils_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _utils_assert_date_string__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
-/* harmony import */ var _utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-/* harmony import */ var _utils_escape_html__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2);
-/* harmony import */ var _libraries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Dataset", function() { return _dataset__WEBPACK_IMPORTED_MODULE_1__["a"]; });
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Dataset = exports.Dataviz = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-
-
 // Utils
 
 
+var _dataset = __webpack_require__(9);
 
+Object.defineProperty(exports, 'Dataset', {
+  enumerable: true,
+  get: function get() {
+    return _dataset.Dataset;
+  }
+});
 
+var _data = __webpack_require__(21);
 
+var _data2 = _interopRequireDefault(_data);
+
+var _each = __webpack_require__(0);
+
+var _assertDateString = __webpack_require__(4);
+
+var _assertDateString2 = _interopRequireDefault(_assertDateString);
+
+var _stripHtmlTags = __webpack_require__(7);
+
+var _escapeHtml = __webpack_require__(1);
+
+var _libraries = __webpack_require__(20);
+
+var _libraries2 = _interopRequireDefault(_libraries);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Constructor
-var Dataviz = function Dataviz() {
+var Dataviz = exports.Dataviz = function Dataviz() {
   if (this instanceof Dataviz === false) {
     return new Dataviz();
   }
 
-  this.dataset = new _dataset__WEBPACK_IMPORTED_MODULE_1__[/* Dataset */ "a"]();
+  this.dataset = new _dataset.Dataset();
   this.view = {
     _prepared: false,
     _rendered: false,
@@ -21073,13 +21466,13 @@ var Dataviz = function Dataviz() {
 
 Dataviz.libraries = { default: {} };
 if (typeof window !== 'undefined') {
-  Dataviz.libraries.default = Object(_libraries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(Dataviz);
+  Dataviz.libraries.default = (0, _libraries2.default)(Dataviz);
 }
 Dataviz.visuals = [];
 
 Dataviz.register = function (name, actions) {
   Dataviz.libraries[name] = Dataviz.libraries[name] || {};
-  Object(_utils_each__WEBPACK_IMPORTED_MODULE_2__[/* each */ "a"])(actions, function (method, key) {
+  (0, _each.each)(actions, function (method, key) {
     Dataviz.libraries[name][key] = method;
   });
 };
@@ -21088,7 +21481,7 @@ Dataviz.find = function (target) {
   if (!arguments.length) return Dataviz.visuals;
   var el = target.nodeName ? target : document.querySelector(target),
       match = null;
-  Object(_utils_each__WEBPACK_IMPORTED_MODULE_2__[/* each */ "a"])(Dataviz.visuals, function (visual) {
+  (0, _each.each)(Dataviz.visuals, function (visual) {
     if (el == visual.el()) {
       match = visual;
       return false;
@@ -21103,7 +21496,7 @@ Dataviz.find = function (target) {
 Dataviz.prototype.attributes = function (obj) {
   if (!arguments.length) return this.view;
   var view = this.view;
-  Object(_utils_each__WEBPACK_IMPORTED_MODULE_2__[/* each */ "a"])(obj, function (prop, key) {
+  (0, _each.each)(obj, function (prop, key) {
     // Handle deprecated property names
     if (key === 'chartType') {
       key = 'type';
@@ -21124,7 +21517,7 @@ Dataviz.prototype.chartOptions = function (obj) {
   if (obj === null) {
     this.view.chartOptions = {};
   } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-    Object(_utils_each__WEBPACK_IMPORTED_MODULE_2__[/* each */ "a"])(obj, function (value, key) {
+    (0, _each.each)(obj, function (value, key) {
       self.view.chartOptions[key] = value ? value : null;
     });
   }
@@ -21143,14 +21536,14 @@ Dataviz.prototype.colorMapping = function (obj) {
   if (obj === null) {
     this.view.colorMapping = {};
   } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-    Object(_utils_each__WEBPACK_IMPORTED_MODULE_2__[/* each */ "a"])(obj, function (value, key) {
+    (0, _each.each)(obj, function (value, key) {
       self.view.colorMapping[key] = value ? value : null;
     });
   }
   return this;
 };
 
-Dataviz.prototype.data = _data__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"];
+Dataviz.prototype.data = _data2.default;
 
 Dataviz.prototype.dateFormat = function (val) {
   if (!arguments.length) return this.view.dateFormat;
@@ -21217,19 +21610,19 @@ Dataviz.prototype.labels = function (arr) {
   this.view.labels = arr instanceof Array ? arr : [];
 
   // Write labels
-  if (this.data()[0].length === 2 && !Object(_utils_assert_date_string__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(this.data()[1][0])) {
+  if (this.data()[0].length === 2 && !(0, _assertDateString2.default)(this.data()[1][0])) {
     this.dataset.updateColumn(0, function (value, index) {
       if (this.view.labels[index - 1]) {
-        return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(String(this.view.labels[index - 1]));
+        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labels[index - 1]));
       }
-      return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(value);
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
     }.bind(this));
   } else {
     this.dataset.updateRow(0, function (value, index) {
       if (index > 0 && this.view.labels[index - 1]) {
-        return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(String(this.view.labels[index - 1]));
+        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labels[index - 1]));
       }
-      return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(value);
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
     }.bind(this));
   }
   return this;
@@ -21240,25 +21633,25 @@ Dataviz.prototype.labelMapping = function (obj) {
   if (obj === null) {
     this.view.labelMapping = {};
   } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-    Object(_utils_each__WEBPACK_IMPORTED_MODULE_2__[/* each */ "a"])(obj, function (value, key) {
+    (0, _each.each)(obj, function (value, key) {
       this.view.labelMapping[key] = value ? value : null;
     }.bind(this));
   }
 
   // Write labels
-  if (this.data()[0].length === 2 && !Object(_utils_assert_date_string__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(this.data()[1][0])) {
+  if (this.data()[0].length === 2 && !(0, _assertDateString2.default)(this.data()[1][0])) {
     this.dataset.updateColumn(0, function (value) {
       if (this.view.labelMapping[value]) {
-        return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(String(this.view.labelMapping[value]));
+        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labelMapping[value]));
       }
-      return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(value);
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
     }.bind(this));
   } else {
     this.dataset.updateRow(0, function (value) {
       if (this.view.labelMapping[value]) {
-        return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(String(this.view.labelMapping[value]));
+        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labelMapping[value]));
       }
-      return Object(_utils_strip_html_tags__WEBPACK_IMPORTED_MODULE_4__[/* stripHtmlTags */ "a"])(value);
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
     }.bind(this));
   }
   return this;
@@ -21371,7 +21764,7 @@ Dataviz.prototype.sortGroups = function (str) {
 
   // Sort groups
   if (this.view.sortGroups && this.data().length > 1) {
-    if (Object(_utils_assert_date_string__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(this.data()[1][0])) {
+    if ((0, _assertDateString2.default)(this.data()[1][0])) {
       this.dataset.sortColumns(this.view.sortGroups, this.dataset.getColumnSum);
     } else {
       this.dataset.sortRows(this.view.sortGroups, this.dataset.getRowSum);
@@ -21449,11 +21842,11 @@ function buildDomWrapper(el, options) {
   var html = '';
   html += '<div class="' + options.theme + '">';
   if (options['title']) {
-    html += '<div class="' + options.theme + '-title">' + Object(_utils_escape_html__WEBPACK_IMPORTED_MODULE_5__[/* escapeHtml */ "a"])(options['title']) + '</div>';
+    html += '<div class="' + options.theme + '-title">' + (0, _escapeHtml.escapeHtml)(options['title']) + '</div>';
   }
   html += '<div class="' + options.theme + '-stage"><div class="' + options.theme + '-rendering"></div></div>';
   if (options.notes) {
-    html += '<div class="' + options.theme + '-notes">' + Object(_utils_escape_html__WEBPACK_IMPORTED_MODULE_5__[/* escapeHtml */ "a"])(options.notes) + '</div>';
+    html += '<div class="' + options.theme + '-notes">' + (0, _escapeHtml.escapeHtml)(options.notes) + '</div>';
   }
   html += '</div>';
   el.innerHTML = html;
@@ -21499,22 +21892,39 @@ function domReady(fn) {
 if (typeof __KEEN_NO_COMMON_GLOBAL_OBJECT__ === 'undefined') {
   (function (env) {
     env.Keen = env.Keen || {};
-    env.Keen.Dataset = _dataset__WEBPACK_IMPORTED_MODULE_1__[/* Dataset */ "a"];
+    env.Keen.Dataset = _dataset.Dataset;
     env.Keen.Dataviz = Dataviz;
   }).call(undefined, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {});
 }
 
-
-
-/* harmony default export */ __webpack_exports__["default"] = (Dataviz);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(10)))
+exports.default = Dataviz;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(30)))
 
 /***/ }),
-/* 12 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(11);
+"use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _index = __webpack_require__(31);
+
+Object.defineProperty(exports, 'Dataviz', {
+  enumerable: true,
+  get: function get() {
+    return _index.Dataviz;
+  }
+});
+Object.defineProperty(exports, 'Dataset', {
+  enumerable: true,
+  get: function get() {
+    return _index.Dataset;
+  }
+});
 
 /***/ })
 /******/ ]);

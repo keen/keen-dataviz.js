@@ -6,5 +6,5 @@ module.exports = {
   verbose: true,
   bail: true,
   testMatch: [files],
-  testEnvironment: process.env.TEST_ENV || 'jsdom'
+  testEnvironment: process.env.TEST_ENV || 'jsdom-c3',
 };

@@ -38,8 +38,8 @@ describe('Dataviz', () => {
             visualization: { chart_type: 'metric' }
           }
         });
-      expect(this.dataviz.title()).to.eql('test');
-      expect(this.dataviz.type()).to.eql('metric');
+      expect(this.dataviz.title()).toEqual('test');
+      expect(this.dataviz.type()).toEqual('metric');
     });
     it('should not set title and type from saved query body when already set', () => {
       this.dataviz
@@ -52,13 +52,13 @@ describe('Dataviz', () => {
             visualization: { chart_type: 'metric' }
           }
         });
-      expect(this.dataviz.title()).to.eql('Already set');
-      expect(this.dataviz.type()).to.eql('table');
+      expect(this.dataviz.title()).toEqual('Already set');
+      expect(this.dataviz.type()).toEqual('table');
     });
 
     it('should parse \'metric\' data and set the correct type', () => {
       this.dataviz.data(data_metric);
-      expect(this.dataviz.type()).to.eql('metric');
+      expect(this.dataviz.type()).toEqual('metric');
     });
     it('should parse \'grouped-metric\' data and set the correct type', () => {
       this.dataviz.data({
@@ -68,16 +68,16 @@ describe('Dataviz', () => {
         },
         result: data_groupBy.result
       });
-      expect(this.dataviz.type()).to.eql('bar');
+      expect(this.dataviz.type()).toEqual('bar');
     });
     it('should parse \'double-grouped-metric\' data and set the correct type', () => {
       this.dataviz.data(data_double_groupBy);
-      expect(this.dataviz.type()).to.eql('bar');
+      expect(this.dataviz.type()).toEqual('bar');
     });
 
     it('should parse \'interval\' data and set the correct type', () => {
       this.dataviz.data(data_interval);
-      expect(this.dataviz.type()).to.eql('area');
+      expect(this.dataviz.type()).toEqual('area');
     });
     it('should parse \'grouped-interval\' data and set the correct type', () => {
       this.dataviz.data({
@@ -88,7 +88,7 @@ describe('Dataviz', () => {
         },
         result: data_interval_groupBy_empties.result
       });
-      expect(this.dataviz.type()).to.eql('line');
+      expect(this.dataviz.type()).toEqual('line');
     });
     it('should parse empty \'grouped-interval\' data and set the correct type', () => {
       this.dataviz.data({
@@ -99,37 +99,37 @@ describe('Dataviz', () => {
         },
         result: data_interval_groupBy_all_empty.result
       });
-      expect(this.dataviz.type()).to.eql('line');
+      expect(this.dataviz.type()).toEqual('line');
     });
     it('should parse \'double-grouped-interval\' data and set the correct type', () => {
       this.dataviz.data(data_interval_double_groupBy);
-      expect(this.dataviz.type()).to.eql('line');
+      expect(this.dataviz.type()).toEqual('line');
     });
 
     it('should parse \'funnel\' data and set the correct type', () => {
       this.dataviz.data(data_funnel);
-      expect(this.dataviz.type()).to.eql('horizontal-bar');
+      expect(this.dataviz.type()).toEqual('horizontal-bar');
     });
     it('should parse \'list\' data and set the correct type', () => {
       this.dataviz.data(data_uniques);
-      expect(this.dataviz.type()).to.eql('table');
+      expect(this.dataviz.type()).toEqual('table');
     });
     it('should parse \'extraction\' data and set the correct type', () => {
       this.dataviz.data(data_extraction);
-      expect(this.dataviz.type()).to.eql('table');
+      expect(this.dataviz.type()).toEqual('table');
     });
 
     it('should parse \'funnel\' data and not set a type', () => {
       this.dataviz.type('test').data(data_funnel);
-      expect(this.dataviz.type()).to.eql('test');
+      expect(this.dataviz.type()).toEqual('test');
     });
     it('should parse \'list\' data and not set a type', () => {
       this.dataviz.type('test').data(data_uniques);
-      expect(this.dataviz.type()).to.eql('test');
+      expect(this.dataviz.type()).toEqual('test');
     });
     it('should parse \'extraction\' data and not set a type', () => {
       this.dataviz.type('test').data(data_extraction);
-      expect(this.dataviz.type()).to.eql('test');
+      expect(this.dataviz.type()).toEqual('test');
     });
 
   });

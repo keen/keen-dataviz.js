@@ -45,8 +45,8 @@ describe('Dataviz', () => {
       this.dataviz.el(document.getElementById('chart-test'));
       expect(this.dataviz.el()).to.contain(document.getElementById('chart-test'));
       if (this.dataviz.el().nodeName) {
-        expect(this.dataviz.el().nodeName).to.be.a('string')
-          .and.to.eql('DIV');
+        expect(this.dataviz.el().nodeName).toBeInstanceOf(String);
+          .and.toEqual('DIV');
       }
     });
     it('should unset el by passing null', () => {
@@ -84,7 +84,7 @@ describe('Dataviz', () => {
   describe('.destroy()', () => {
     it('should call the #destroy method of a given adapter', () => {
       this.dataviz.destroy();
-      // expect(this.dataviz.el().innerHTML).to.eql('');
+      // expect(this.dataviz.el().innerHTML).toEqual('');
       // expect(Dataviz.libraries.demo.chart.destroy.called).to.be.ok;
     });
   });

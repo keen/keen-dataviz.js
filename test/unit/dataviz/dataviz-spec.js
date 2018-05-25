@@ -1,57 +1,55 @@
-var expect = require('chai').expect;
-
-var Dataset = require('../../../lib/dataset'),
-    Dataviz = require('../../../lib/');
+import { Dataset, Dataviz } from '../../../lib/browser';
 
 describe('Dataviz', () => {
+  let dataviz1;
 
   beforeEach(() => {
-    this.dataviz = new Dataviz();
+    dataviz1 = new Dataviz();
   });
 
   afterEach(() => {
-    this.dataviz = null;
-    Dataviz.visuals = new Array();
+    dataviz1 = null;
+    Dataviz.visuals = [];
   });
 
   describe('constructor', () => {
 
     it('should create a new Dataviz instance', () => {
-      expect(this.dataviz).toBeInstanceOf(Dataviz);
+      expect(dataviz1).toBeInstanceOf(Dataviz);
     });
 
     it('should contain a new Dataset instance', () => {
-      expect(this.dataviz.dataset).toBeInstanceOf(Dataset);
+      expect(dataviz1.dataset).toBeInstanceOf(Dataset);
     });
 
     it('should contain a view object', () => {
-      expect(this.dataviz.view).to.be.an('object');
+      expect(dataviz1.view).toBeInstanceOf(Object);
     });
 
     it('should be appended to Dataviz.visuals', () => {
-      expect(Dataviz.visuals).to.have.length(1);
-      expect(Dataviz.visuals[0]).and.toBeInstanceOf(Dataviz);
+      expect(Dataviz.visuals.length).toBe(1);
+      expect(Dataviz.visuals[0]).toBeInstanceOf(Dataviz);
     });
 
   });
-
+/*
   describe('.attributes()', () => {
 
     it('should get the current properties', () => {
-      expect(this.dataviz.attributes()).to.be.an('object');
+      expect(dataviz1.attributes()).toBeInstanceOf(Object);
     });
 
     it('should set a hash of properties', () => {
-      this.dataviz.attributes({ title: 'Updated Attributes', width: 600 });
-      expect(this.dataviz.view.title).to.be.a('string')
-        .and.to.eql('Updated Attributes');
-      expect(this.dataviz.view.width).to.be.a('number')
-        .and.to.eql(600);
+      dataviz1.attributes({ title: 'Updated Attributes', width: 600 });
+      expect(dataviz1.view.title).toBeInstanceOf(String);
+        .and.toEqual('Updated Attributes');
+      expect(dataviz1.view.width).toBeInstanceOf(Number)
+        .and.toEqual(600);
     });
 
     it('should unset properties by passing null', () => {
-      this.dataviz.attributes({ height: null });
-      expect(this.dataviz.view.height).to.not.exist;
+      dataviz1.attributes({ height: null });
+      expect(dataviz1.view.height).to.not.exist;
     });
 
   });
@@ -60,86 +58,86 @@ describe('Dataviz', () => {
   describe('.colors()', () => {
 
     it('should get the current color set', () => {
-      expect(this.dataviz.colors())
-        .to.be.an('array')
-        .and.to.eql(this.dataviz.view.colors);
+      expect(dataviz1.colors())
+        .toBeInstanceOf(Array)
+        .and.toEqual(dataviz1.view.colors);
     });
 
     it('should set a new array of colors', () => {
       var array = ['red','green','blue'];
-      this.dataviz.colors(array);
-      expect(this.dataviz.view.colors).to.be.an('array')
-        .and.to.have.length(3)
-        .and.to.eql(array);
+      dataviz1.colors(array);
+      expect(dataviz1.view.colors).toBeInstanceOf(Array)
+        .and.toHaveLength(3)
+        .and.toEqual(array);
     });
 
     it('should unset the colors set by passing null', () => {
       var array = ['red','green','blue'];
-      this.dataviz.colors(array);
-      this.dataviz.colors(null);
-      expect(this.dataviz.view.colors)
-        .to.be.an('array')
-        .and.to.have.length(0);
+      dataviz1.colors(array);
+      dataviz1.colors(null);
+      expect(dataviz1.view.colors)
+        .toBeInstanceOf(Array)
+        .and.toHaveLength(0);
     });
 
   });
 
   describe('.dateFormat()', () => {
     it('should return undefined by default', () => {
-      expect(this.dataviz.dateFormat()).to.be.an('undefined');
+      expect(dataviz1.dateFormat()).to.be.an('undefined');
     });
     it('should set and get a new dateFormat string', () => {
-      this.dataviz.dateFormat('test');
-      expect(this.dataviz.dateFormat()).to.be.a('string')
-        .and.to.eql('test');
+      dataviz1.dateFormat('test');
+      expect(dataviz1.dateFormat()).toBeInstanceOf(String);
+        .and.toEqual('test');
     });
     it('should set and get a new dateFormat function', () => {
       var noop = () => {};
-      this.dataviz.dateFormat(noop);
-      expect(this.dataviz.dateFormat()).to.be.a('function')
-        .and.to.eql(noop);
+      dataviz1.dateFormat(noop);
+      expect(dataviz1.dateFormat()).to.be.a('function')
+        .and.toEqual(noop);
     });
     it('should unset dateFormat by passing null', () => {
-      this.dataviz.dateFormat(null);
-      expect(this.dataviz.dateFormat()).to.be.an('undefined');
+      dataviz1.dateFormat(null);
+      expect(dataviz1.dateFormat()).to.be.an('undefined');
     });
   });
 
   describe('.colorMapping()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.colorMapping())
+      expect(dataviz1.colorMapping())
         .to.be.an('object')
         .and.to.deep.equal({});
     });
 
     it('should set and get a hash of properties', () => {
       var hash = { 'A': '#aaa', 'B': '#bbb' };
-      this.dataviz.colorMapping(hash);
-      expect(this.dataviz.view.colorMapping)
+      dataviz1.colorMapping(hash);
+      expect(dataviz1.view.colorMapping)
         .to.be.an('object')
         .and.to.deep.equal(hash);
     });
 
     it('should unset a property by passing null', () => {
       var hash = { 'A': '#aaa', 'B': '#bbb' };
-      this.dataviz.colorMapping(hash);
-      expect(this.dataviz.view.colorMapping.A)
-        .to.be.a('string')
-        .and.to.eql(hash.A);
-      this.dataviz.colorMapping({ 'A': null });
-      expect(this.dataviz.view.colorMapping.A)
+      dataviz1.colorMapping(hash);
+      expect(dataviz1.view.colorMapping.A)
+        ..toBeInstanceOf(String);
+        .and.toEqual(hash.A);
+      dataviz1.colorMapping({ 'A': null });
+      expect(dataviz1.view.colorMapping.A)
         .to.not.exist;
     });
 
     it('should reset the configuration by passing null', () => {
       var hash = { 'A': '#aaa', 'B': '#bbb' };
-      this.dataviz.colorMapping(hash);
-      expect(this.dataviz.view.colorMapping.A)
-        .to.be.a('string')
-        .and.to.eql(hash.A);
-      this.dataviz.colorMapping(null);
-      expect(this.dataviz.view.colorMapping)
+      dataviz1.colorMapping(hash);
+      expect(dataviz1.view.colorMapping.A)
+        ..toBeInstanceOf(String);
+        .and.toEqual(hash.A);
+      dataviz1.colorMapping(null);
+      expect(dataviz1.view.colorMapping)
         .to.be.an('object')
         .and.to.deep.equal({});
     });
@@ -149,24 +147,24 @@ describe('Dataviz', () => {
   describe('.labels()', () => {
 
     it('should return an empty array by default', () => {
-      expect(this.dataviz.labels()).to.be.an('array')
-        .and.to.have.length(0);
+      expect(dataviz1.labels()).toBeInstanceOf(Array)
+        .and.toHaveLength(0);
     });
 
     it('should set and get a new array of labels', () => {
       var array = ['A','B','C'];
-      this.dataviz.labels(array);
-      expect(this.dataviz.view.labels).to.be.an('array')
-        .and.to.have.length(3)
-        .and.to.eql(array);
+      dataviz1.labels(array);
+      expect(dataviz1.view.labels).toBeInstanceOf(Array)
+        .and.toHaveLength(3)
+        .and.toEqual(array);
     });
 
     it('should unset the labels set by passing null', () => {
       var array = ['A','B','C'];
-      this.dataviz.labels(array);
-      this.dataviz.labels(null);
-      expect(this.dataviz.view.labels).to.be.an('array')
-        .and.to.have.length(0);
+      dataviz1.labels(array);
+      dataviz1.labels(null);
+      expect(dataviz1.view.labels).toBeInstanceOf(Array)
+        .and.toHaveLength(0);
     });
 
     it('should rewrite the labels in a categorical Dataset instance', () => {
@@ -178,10 +176,10 @@ describe('Dataviz', () => {
         ['Row 2', 2],
         ['Row 3', 3]
       ];
-      this.dataviz.data(ds).labels(array);
-      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
-        .and.to.have.length(4)
-        .and.to.eql(['Index', 'A', 'B', 'Row 3']);
+      dataviz1.data(ds).labels(array);
+      expect(dataviz1.dataset.selectColumn(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(4)
+        .and.toEqual(['Index', 'A', 'B', 'Row 3']);
     });
 
     it('should rewrite the labels in a timeseries Dataset instance', () => {
@@ -193,10 +191,10 @@ describe('Dataviz', () => {
         ['2013-01-01T12:00:00', 2, 2],
         ['2014-01-01T12:00:00', 3, 1]
       ];
-      this.dataviz.data(ds).labels(array);
-      expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
-        .and.to.have.length(3)
-        .and.to.eql(['Index', 'A', 'Next']);
+      dataviz1.data(ds).labels(array);
+      expect(dataviz1.dataset.selectRow(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(3)
+        .and.toEqual(['Index', 'A', 'Next']);
     });
 
   });
@@ -204,38 +202,38 @@ describe('Dataviz', () => {
   describe('.labelMapping()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.labelMapping())
+      expect(dataviz1.labelMapping())
         .to.be.an('object')
         .and.to.deep.eql({});
     });
 
     it('should set and get a hash of properties', () => {
       var hash = { '_a_': 'A', '_b_': 'B' };
-      this.dataviz.labelMapping(hash);
-      expect(this.dataviz.view.labelMapping)
+      dataviz1.labelMapping(hash);
+      expect(dataviz1.view.labelMapping)
         .to.be.an('object')
         .and.to.deep.equal(hash);
     });
 
     it('should unset a property by passing null', () => {
       var hash = { '_a_': 'A', '_b_': 'B' };
-      this.dataviz.labelMapping(hash);
-      expect(this.dataviz.view.labelMapping._a_)
-        .to.be.a('string')
-        .and.to.eql('A');
-      this.dataviz.labelMapping({ '_a_': null });
-      expect(this.dataviz.view.labelMapping._a_)
+      dataviz1.labelMapping(hash);
+      expect(dataviz1.view.labelMapping._a_)
+        ..toBeInstanceOf(String);
+        .and.toEqual('A');
+      dataviz1.labelMapping({ '_a_': null });
+      expect(dataviz1.view.labelMapping._a_)
         .to.not.exist;
     });
 
     it('should reset the configuration by passing null', () => {
       var hash = { '_a_': 'A', '_b_': 'B' };
-      this.dataviz.labelMapping(hash);
-      expect(this.dataviz.view.labelMapping._a_)
-        .to.be.a('string')
-        .and.to.eql('A');
-      this.dataviz.labelMapping(null);
-      expect(this.dataviz.view.labelMapping)
+      dataviz1.labelMapping(hash);
+      expect(dataviz1.view.labelMapping._a_)
+        ..toBeInstanceOf(String);
+        .and.toEqual('A');
+      dataviz1.labelMapping(null);
+      expect(dataviz1.view.labelMapping)
         .to.be.an('object')
         .and.to.deep.equal({});
 
@@ -255,10 +253,10 @@ describe('Dataviz', () => {
         ['Row 2', 2],
         ['Row 3', 3]
       ];
-      this.dataviz.data(ds).labelMapping(labels);
-      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
-        .and.to.have.length(4)
-        .and.to.eql(['Index', 'A', 'B', 'Row 3']);
+      dataviz1.data(ds).labelMapping(labels);
+      expect(dataviz1.dataset.selectColumn(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(4)
+        .and.toEqual(['Index', 'A', 'B', 'Row 3']);
     });
 
     it('should rewrite the labels in a timeseries Dataset instance', () => {
@@ -273,29 +271,29 @@ describe('Dataviz', () => {
         ['2013-01-01T12:00:00', 2, 2],
         ['2014-01-01T12:00:00', 3, 1]
       ];
-      this.dataviz.data(ds).labelMapping(labels);
-      expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
-        .and.to.have.length(3)
-        .and.to.eql(['Index', 'A', 'Next']);
+      dataviz1.data(ds).labelMapping(labels);
+      expect(dataviz1.dataset.selectRow(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(3)
+        .and.toEqual(['Index', 'A', 'Next']);
     });
 
   });
 
   describe('.height()', () => {
     it('should return undefined by default', () => {
-      expect(this.dataviz.height())
+      expect(dataviz1.height())
         .to.be.undefined;
     });
     it('should set and get a new height', () => {
       var height = 375;
-      this.dataviz.height(height);
-      expect(this.dataviz.view.height)
-        .to.be.a('number')
-        .and.to.eql(height);
+      dataviz1.height(height);
+      expect(dataviz1.view.height)
+        .toBeInstanceOf(Number)
+        .and.toEqual(height);
     });
     it('should unset the height by passing null', () => {
-      this.dataviz.height(null);
-      expect(this.dataviz.view.height)
+      dataviz1.height(null);
+      expect(dataviz1.view.height)
         .to.not.exist;
     });
   });
@@ -303,20 +301,20 @@ describe('Dataviz', () => {
   describe('.notes()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.notes())
+      expect(dataviz1.notes())
         .to.be.an('undefined');
     });
 
     it('should set and get a new notes value', () => {
-      this.dataviz.notes('test');
-      expect(this.dataviz.view.notes)
-        .to.be.a('string')
-        .and.to.eql('test');
+      dataviz1.notes('test');
+      expect(dataviz1.view.notes)
+        ..toBeInstanceOf(String);
+        .and.toEqual('test');
     });
 
     it('should unset the notes by passing null', () => {
-      this.dataviz.notes(null);
-      expect(this.dataviz.view.notes)
+      dataviz1.notes(null);
+      expect(dataviz1.view.notes)
         .to.not.exist;
     });
 
@@ -325,20 +323,20 @@ describe('Dataviz', () => {
   describe('.title()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.title()).to.be.an('undefined');
+      expect(dataviz1.title()).to.be.an('undefined');
     });
 
     it('should set and get a new title', () => {
       var title = 'New Title';
-      this.dataviz.title(title);
-      expect(this.dataviz.view.title)
-        .to.be.a('string')
-        .and.to.eql(title);
+      dataviz1.title(title);
+      expect(dataviz1.view.title)
+        ..toBeInstanceOf(String);
+        .and.toEqual(title);
     });
 
     it('should unset the title by passing null', () => {
-      this.dataviz.title(null);
-      expect(this.dataviz.view.title)
+      dataviz1.title(null);
+      expect(dataviz1.view.title)
         .to.not.exist;
     });
 
@@ -347,20 +345,20 @@ describe('Dataviz', () => {
   describe('.width()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.width()).to.be.an('undefined');
+      expect(dataviz1.width()).to.be.an('undefined');
     });
 
     it('should set and get a new width', () => {
       var width = 900;
-      this.dataviz.width(width);
-      expect(this.dataviz.view.width)
-        .to.be.a('number')
-        .and.to.eql(width);
+      dataviz1.width(width);
+      expect(dataviz1.view.width)
+        .toBeInstanceOf(Number)
+        .and.toEqual(width);
     });
 
     it('should unset the width by passing null', () => {
-      this.dataviz.width(null);
-      expect(this.dataviz.view.width)
+      dataviz1.width(null);
+      expect(dataviz1.view.width)
         .to.not.exist;
     });
 
@@ -369,22 +367,22 @@ describe('Dataviz', () => {
   describe('.library()', () => {
 
     it('should return \'default\' by default', () => {
-      expect(this.dataviz.library())
-        .to.be.a('string')
-        .and.to.eql('default');
+      expect(dataviz1.library())
+        ..toBeInstanceOf(String);
+        .and.toEqual('default');
     });
 
     it('should set and get a new library', () => {
       var lib = 'nvd3';
-      this.dataviz.library(lib);
-      expect(this.dataviz.view.library)
-        .to.be.a('string')
-        .and.to.eql(lib);
+      dataviz1.library(lib);
+      expect(dataviz1.view.library)
+        ..toBeInstanceOf(String);
+        .and.toEqual(lib);
     });
 
     it('should unset the library by passing null', () => {
-      this.dataviz.library(null);
-      expect(this.dataviz.view.library)
+      dataviz1.library(null);
+      expect(dataviz1.view.library)
         .to.not.exist;
     });
 
@@ -393,22 +391,22 @@ describe('Dataviz', () => {
   describe('.theme()', () => {
 
     it('should return \'keen-dataviz\' by default', () => {
-      expect(this.dataviz.theme())
-        .to.be.a('string')
-        .and.to.eql('keen-dataviz');
+      expect(dataviz1.theme())
+        ..toBeInstanceOf(String);
+        .and.toEqual('keen-dataviz');
     });
 
     it('should set and get a new theme', () => {
       var theme = 'custom';
-      this.dataviz.theme(theme);
-      expect(this.dataviz.view.theme)
-        .to.be.a('string')
-        .and.to.eql(theme);
+      dataviz1.theme(theme);
+      expect(dataviz1.view.theme)
+        ..toBeInstanceOf(String);
+        .and.toEqual(theme);
     });
 
     it('should unset the theme by passing null', () => {
-      this.dataviz.theme(null);
-      expect(this.dataviz.view.theme)
+      dataviz1.theme(null);
+      expect(dataviz1.view.theme)
         .to.not.exist;
     });
 
@@ -418,27 +416,27 @@ describe('Dataviz', () => {
 
     it('should set and get a hash of properties', () => {
       var hash = { legend: { position: 'none' }, isStacked: true };
-      this.dataviz.chartOptions(hash);
-      expect(this.dataviz.view.chartOptions.legend)
+      dataviz1.chartOptions(hash);
+      expect(dataviz1.view.chartOptions.legend)
         .to.be.an('object')
         .and.to.deep.eql(hash.legend);
-      expect(this.dataviz.view.chartOptions.isStacked)
+      expect(dataviz1.view.chartOptions.isStacked)
         .to.be.a('boolean')
-        .and.to.eql(true);
+        .and.toEqual(true);
     });
 
     it('should unset properties by passing null', () => {
       var hash = { legend: { position: 'none' }, isStacked: true };
-      this.dataviz.chartOptions(hash);
-      this.dataviz.chartOptions({ legend: null });
-      expect(this.dataviz.view.chartOptions.legend).to.not.exist;
+      dataviz1.chartOptions(hash);
+      dataviz1.chartOptions({ legend: null });
+      expect(dataviz1.view.chartOptions.legend).to.not.exist;
     });
 
     it('should reset the configuration by passing null', () => {
       var hash = { legend: { position: 'none' }, isStacked: true };
-      this.dataviz.chartOptions(hash);
-      this.dataviz.chartOptions(null);
-      expect(this.dataviz.view.chartOptions)
+      dataviz1.chartOptions(hash);
+      dataviz1.chartOptions(null);
+      expect(dataviz1.view.chartOptions)
         .to.be.an('object')
         .and.to.deep.equal({});
     });
@@ -447,19 +445,19 @@ describe('Dataviz', () => {
 
   describe('.type()', () => {
     it('should return undefined by default', () => {
-      expect(this.dataviz.type())
+      expect(dataviz1.type())
         .to.be.an('undefined');
     });
     it('should set and get a new chartType', () => {
       var chartType = 'magic-pie'
-      this.dataviz.type(chartType);
-      expect(this.dataviz.view.type)
-        .to.be.a('string')
-        .and.to.eql(chartType);
+      dataviz1.type(chartType);
+      expect(dataviz1.view.type)
+        ..toBeInstanceOf(String);
+        .and.toEqual(chartType);
     });
     it('should unset properties by passing null', () => {
-      this.dataviz.type(null);
-      expect(this.dataviz.view.type)
+      dataviz1.type(null);
+      expect(dataviz1.view.type)
         .to.not.exist;
     });
   });
@@ -468,23 +466,23 @@ describe('Dataviz', () => {
   describe('.indexBy()', () => {
 
     it('should return \'timeframe.start\' by default', () => {
-      expect(this.dataviz.indexBy())
-        .to.be.a('string')
-        .and.to.eql('timeframe.start');
+      expect(dataviz1.indexBy())
+        ..toBeInstanceOf(String);
+        .and.toEqual('timeframe.start');
     });
 
     it('should set and get a new indexBy property', () => {
-      this.dataviz.indexBy('timeframe.end');
-      expect(this.dataviz.view.indexBy)
-        .to.be.a('string')
-        .and.to.eql('timeframe.end');
+      dataviz1.indexBy('timeframe.end');
+      expect(dataviz1.view.indexBy)
+        ..toBeInstanceOf(String);
+        .and.toEqual('timeframe.end');
     });
 
     it('should revert the property to default value by passing null', () => {
-      this.dataviz.indexBy(null);
-      expect(this.dataviz.view.indexBy)
-        .to.be.a('string')
-        .and.to.eql('timeframe.start');
+      dataviz1.indexBy(null);
+      expect(dataviz1.view.indexBy)
+        ..toBeInstanceOf(String);
+        .and.toEqual('timeframe.start');
     });
 
   });
@@ -493,20 +491,20 @@ describe('Dataviz', () => {
   describe('.sortGroups()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.sortGroups())
+      expect(dataviz1.sortGroups())
         .to.be.an('undefined');
     });
 
     it('should set and get a new sortGroups property', () => {
-      this.dataviz.sortGroups('asc');
-      expect(this.dataviz.view.sortGroups)
-        .to.be.a('string')
-        .and.to.eql('asc');
+      dataviz1.sortGroups('asc');
+      expect(dataviz1.view.sortGroups)
+        ..toBeInstanceOf(String);
+        .and.toEqual('asc');
     });
 
     it('should unset property by passing null', () => {
-      this.dataviz.sortGroups(null);
-      expect(this.dataviz.view.sortGroups)
+      dataviz1.sortGroups(null);
+      expect(dataviz1.view.sortGroups)
         .to.not.exist;
     });
 
@@ -518,10 +516,10 @@ describe('Dataviz', () => {
         ['Row 2', 2],
         ['Row 3', 3]
       ];
-      this.dataviz.data(ds).sortGroups('desc');
-      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
-        .and.to.have.length(4)
-        .and.to.eql(['Index', 'Row 3', 'Row 2', 'Row 1']);
+      dataviz1.data(ds).sortGroups('desc');
+      expect(dataviz1.dataset.selectColumn(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(4)
+        .and.toEqual(['Index', 'Row 3', 'Row 2', 'Row 1']);
     });
 
     it('should sort labels in a timeseries Dataset instance', () => {
@@ -532,10 +530,10 @@ describe('Dataviz', () => {
         ['2013-01-01T12:00:00', 3, 2],
         ['2014-01-01T12:00:00', 3, 1]
       ];
-      this.dataviz.data(ds).sortGroups('asc');
-      expect(this.dataviz.dataset.selectRow(0)).to.be.an('array')
-        .and.to.have.length(3)
-        .and.to.eql(['Index', 'Next', 'First']);
+      dataviz1.data(ds).sortGroups('asc');
+      expect(dataviz1.dataset.selectRow(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(3)
+        .and.toEqual(['Index', 'Next', 'First']);
     });
 
   });
@@ -544,20 +542,20 @@ describe('Dataviz', () => {
   describe('.sortIntervals()', () => {
 
     it('should return undefined by default', () => {
-      expect(this.dataviz.sortIntervals())
+      expect(dataviz1.sortIntervals())
         .to.be.an('undefined');
     });
 
     it('should set and get a new sortIntervals property', () => {
-      this.dataviz.sortIntervals('asc');
-      expect(this.dataviz.view.sortIntervals)
-        .to.be.a('string')
-        .and.to.eql('asc');
+      dataviz1.sortIntervals('asc');
+      expect(dataviz1.view.sortIntervals)
+        ..toBeInstanceOf(String);
+        .and.toEqual('asc');
     });
 
     it('should unset property by passing null', () => {
-      this.dataviz.sortIntervals(null);
-      expect(this.dataviz.view.sortIntervals)
+      dataviz1.sortIntervals(null);
+      expect(dataviz1.view.sortIntervals)
         .to.not.exist;
     });
 
@@ -569,10 +567,10 @@ describe('Dataviz', () => {
         ['2013-01-01T12:00:00', 3, 2],
         ['2014-01-01T12:00:00', 3, 1]
       ];
-      this.dataviz.data(ds).sortIntervals('desc');
-      expect(this.dataviz.dataset.selectColumn(0)).to.be.an('array')
-        .and.to.have.length(4)
-        .and.to.eql(['Index', '2014-01-01T12:00:00', '2013-01-01T12:00:00', '2012-01-01T12:00:00']);
+      dataviz1.data(ds).sortIntervals('desc');
+      expect(dataviz1.dataset.selectColumn(0)).toBeInstanceOf(Array)
+        .and.toHaveLength(4)
+        .and.toEqual(['Index', '2014-01-01T12:00:00', '2013-01-01T12:00:00', '2012-01-01T12:00:00']);
     });
 
   });
@@ -581,26 +579,26 @@ describe('Dataviz', () => {
   describe('.stacked()', () => {
 
     it('should return false by default', () => {
-      expect(this.dataviz.stacked())
+      expect(dataviz1.stacked())
         .to.be.a('boolean')
-        .and.to.eql(false);
+        .and.toEqual(false);
     });
 
     it('should set `stacked` to true by passing true', () => {
-      this.dataviz.stacked(true);
-      expect(this.dataviz.view.stacked)
+      dataviz1.stacked(true);
+      expect(dataviz1.view.stacked)
         .to.be.a('boolean')
-        .and.to.eql(true);
+        .and.toEqual(true);
     });
 
     it('should set `stacked` to false by passing null', () => {
-      this.dataviz.stacked(true);
-      this.dataviz.stacked(null);
-      expect(this.dataviz.view.stacked)
+      dataviz1.stacked(true);
+      dataviz1.stacked(null);
+      expect(dataviz1.view.stacked)
         .to.be.a('boolean')
-        .and.to.eql(false);
+        .and.toEqual(false);
     });
 
   });
-
+*/
 });
