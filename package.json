@@ -19,9 +19,8 @@
     "preversion": "npm run build",
     "version": "git add .",
     "postversion": "git push && git push --tags",
-    "test": "NODE_ENV=test jest && NODE_ENV=test TEST_ENV=node jest",
+    "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
-    "test:node:watch": "NODE_ENV=test TEST_ENV=node jest --watch",
     "demo": "node ./test/demo/index.node.js"
   },
   "repository": {

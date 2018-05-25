@@ -1,17 +1,17 @@
 import { Dataviz } from '../../../lib/browser';
 
-import data_metric from '../dataset/sample-data/metric';
-import data_groupBy from '../dataset/sample-data/groupBy';
-import data_double_groupBy from '../dataset/sample-data/double-groupBy';
+import data_metric from '../../sample-data/metric';
+import data_groupBy from '../../sample-data/groupBy';
+import data_double_groupBy from '../../sample-data/double-groupBy';
 
-import data_interval from '../dataset/sample-data/interval';
-import data_interval_groupBy_empties from '../dataset/sample-data/interval-groupBy-empties';
-import data_interval_groupBy_all_empty from '../dataset/sample-data/interval-groupBy-all-empty';
-import data_interval_double_groupBy from '../dataset/sample-data/interval-double-groupBy';
+import data_interval from '../../sample-data/interval';
+import data_interval_groupBy_empties from '../../sample-data/interval-groupBy-empties';
+import data_interval_groupBy_all_empty from '../../sample-data/interval-groupBy-all-empty';
+import data_interval_double_groupBy from '../../sample-data/interval-double-groupBy';
 
-import data_funnel from '../dataset/sample-data/funnel';
-import data_uniques from '../dataset/sample-data/select-unique';
-import data_extraction from '../dataset/sample-data/extraction';
+import data_funnel from '../../sample-data/funnel';
+import data_uniques from '../../sample-data/select-unique';
+import data_extraction from '../../sample-data/extraction';
 
 describe('Dataviz', () => {
   let dataviz1;

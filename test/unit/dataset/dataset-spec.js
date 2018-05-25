@@ -1,23 +1,23 @@
 import { Dataset } from '../../../lib/browser';
 import each from '../../../lib/utils/each';
 
-import data_metric from './sample-data/metric';
-import data_groupBy from './sample-data/groupBy';
-import data_double_groupBy from './sample-data/double-groupBy';
-import data_groupBy_boolean  from './sample-data/groupBy-boolean';
+import data_metric from '../../sample-data/metric';
+import data_groupBy from '../../sample-data/groupBy';
+import data_double_groupBy from '../../sample-data/double-groupBy';
+import data_groupBy_boolean  from '../../sample-data/groupBy-boolean';
 
-import data_interval from './sample-data/interval';
-import data_interval_groupBy_empties from './sample-data/interval-groupBy-empties';
-import data_interval_groupBy_all_empty from './sample-data/interval-groupBy-all-empty';
-import data_interval_double_groupBy from './sample-data/interval-double-groupBy';
-import data_interval_groupBy_boolean from './sample-data/interval-groupBy-boolean';
-import data_interval_groupBy_nulls from './sample-data/interval-groupBy-nulls';
+import data_interval from '../../sample-data/interval';
+import data_interval_groupBy_empties from '../../sample-data/interval-groupBy-empties';
+import data_interval_groupBy_all_empty from '../../sample-data/interval-groupBy-all-empty';
+import data_interval_double_groupBy from '../../sample-data/interval-double-groupBy';
+import data_interval_groupBy_boolean from '../../sample-data/interval-groupBy-boolean';
+import data_interval_groupBy_nulls from '../../sample-data/interval-groupBy-nulls';
 
-import data_funnel from './sample-data/funnel';
-import data_saved_funnel from './sample-data/saved-funnel';
-import data_uniques from './sample-data/select-unique';
-import data_extraction from './sample-data/extraction';
-import data_extraction_uneven from './sample-data/extraction-uneven';
+import data_funnel from '../../sample-data/funnel';
+import data_saved_funnel from '../../sample-data/saved-funnel';
+import data_uniques from '../../sample-data/select-unique';
+import data_extraction from '../../sample-data/extraction';
+import data_extraction_uneven from '../../sample-data/extraction-uneven';
 
 describe('Dataset', () => {
   let ds;

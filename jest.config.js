@@ -1,4 +1,4 @@
-const files = `<rootDir>/test/unit/**/*${
+const files = `<rootDir>/test/unit/*/*${
   process.env.TEST_ENV ? `-${process.env.TEST_ENV}-` : ``
 }*.js`;
 
