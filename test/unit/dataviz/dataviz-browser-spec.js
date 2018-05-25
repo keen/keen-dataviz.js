@@ -39,7 +39,7 @@ describe('Dataviz', () => {
     });
 
     it('should return undefined by default', () => {
-      expect(new Dataviz().el()).to.be.an('undefined');
+      expect(new Dataviz().el()).toBe(undefined);
     });
     it('should set and get a new el', () => {
       this.dataviz.el(document.getElementById('chart-test'));
@@ -52,7 +52,7 @@ describe('Dataviz', () => {
     it('should unset el by passing null', () => {
       this.dataviz.el(document.getElementById('chart-test'));
       this.dataviz.el(null);
-      expect(this.dataviz.el()).to.not.exist;
+      expect(this.dataviz.el()).toBe(null);
     });
   });
 
