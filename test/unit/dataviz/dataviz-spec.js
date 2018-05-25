@@ -3,45 +3,45 @@ var expect = require('chai').expect;
 var Dataset = require('../../../lib/dataset'),
     Dataviz = require('../../../lib/');
 
-describe('Dataviz', function(){
+describe('Dataviz', () => {
 
-  beforeEach(function(){
+  beforeEach(() => {
     this.dataviz = new Dataviz();
   });
 
-  afterEach(function(){
+  afterEach(() => {
     this.dataviz = null;
     Dataviz.visuals = new Array();
   });
 
-  describe('constructor', function(){
+  describe('constructor', () => {
 
-    it('should create a new Dataviz instance', function(){
-      expect(this.dataviz).to.be.an.instanceof(Dataviz);
+    it('should create a new Dataviz instance', () => {
+      expect(this.dataviz).toBeInstanceOf(Dataviz);
     });
 
-    it('should contain a new Dataset instance', function(){
-      expect(this.dataviz.dataset).to.be.an.instanceof(Dataset);
+    it('should contain a new Dataset instance', () => {
+      expect(this.dataviz.dataset).toBeInstanceOf(Dataset);
     });
 
-    it('should contain a view object', function(){
+    it('should contain a view object', () => {
       expect(this.dataviz.view).to.be.an('object');
     });
 
-    it('should be appended to Dataviz.visuals', function(){
+    it('should be appended to Dataviz.visuals', () => {
       expect(Dataviz.visuals).to.have.length(1);
-      expect(Dataviz.visuals[0]).and.to.be.an.instanceof(Dataviz);
+      expect(Dataviz.visuals[0]).and.toBeInstanceOf(Dataviz);
     });
 
   });
 
-  describe('.attributes()', function(){
+  describe('.attributes()', () => {
 
-    it('should get the current properties', function(){
+    it('should get the current properties', () => {
       expect(this.dataviz.attributes()).to.be.an('object');
     });
 
-    it('should set a hash of properties', function(){
+    it('should set a hash of properties', () => {
       this.dataviz.attributes({ title: 'Updated Attributes', width: 600 });
       expect(this.dataviz.view.title).to.be.a('string')
         .and.to.eql('Updated Attributes');
@@ -49,7 +49,7 @@ describe('Dataviz', function(){
         .and.to.eql(600);
     });
 
-    it('should unset properties by passing null', function(){
+    it('should unset properties by passing null', () => {
       this.dataviz.attributes({ height: null });
       expect(this.dataviz.view.height).to.not.exist;
     });
@@ -57,15 +57,15 @@ describe('Dataviz', function(){
   });
 
 
-  describe('.colors()', function(){
+  describe('.colors()', () => {
 
-    it('should get the current color set', function(){
+    it('should get the current color set', () => {
       expect(this.dataviz.colors())
         .to.be.an('array')
         .and.to.eql(this.dataviz.view.colors);
     });
 
-    it('should set a new array of colors', function(){
+    it('should set a new array of colors', () => {
       var array = ['red','green','blue'];
       this.dataviz.colors(array);
       expect(this.dataviz.view.colors).to.be.an('array')
@@ -73,7 +73,7 @@ describe('Dataviz', function(){
         .and.to.eql(array);
     });
 
-    it('should unset the colors set by passing null', function(){
+    it('should unset the colors set by passing null', () => {
       var array = ['red','green','blue'];
       this.dataviz.colors(array);
       this.dataviz.colors(null);
@@ -84,36 +84,36 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.dateFormat()', function(){
-    it('should return undefined by default', function(){
+  describe('.dateFormat()', () => {
+    it('should return undefined by default', () => {
       expect(this.dataviz.dateFormat()).to.be.an('undefined');
     });
-    it('should set and get a new dateFormat string', function(){
+    it('should set and get a new dateFormat string', () => {
       this.dataviz.dateFormat('test');
       expect(this.dataviz.dateFormat()).to.be.a('string')
         .and.to.eql('test');
     });
-    it('should set and get a new dateFormat function', function(){
-      var noop = function(){};
+    it('should set and get a new dateFormat function', () => {
+      var noop = () => {};
       this.dataviz.dateFormat(noop);
       expect(this.dataviz.dateFormat()).to.be.a('function')
         .and.to.eql(noop);
     });
-    it('should unset dateFormat by passing null', function(){
+    it('should unset dateFormat by passing null', () => {
       this.dataviz.dateFormat(null);
       expect(this.dataviz.dateFormat()).to.be.an('undefined');
     });
   });
 
-  describe('.colorMapping()', function(){
+  describe('.colorMapping()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.colorMapping())
         .to.be.an('object')
         .and.to.deep.equal({});
     });
 
-    it('should set and get a hash of properties', function(){
+    it('should set and get a hash of properties', () => {
       var hash = { 'A': '#aaa', 'B': '#bbb' };
       this.dataviz.colorMapping(hash);
       expect(this.dataviz.view.colorMapping)
@@ -121,7 +121,7 @@ describe('Dataviz', function(){
         .and.to.deep.equal(hash);
     });
 
-    it('should unset a property by passing null', function(){
+    it('should unset a property by passing null', () => {
       var hash = { 'A': '#aaa', 'B': '#bbb' };
       this.dataviz.colorMapping(hash);
       expect(this.dataviz.view.colorMapping.A)
@@ -132,7 +132,7 @@ describe('Dataviz', function(){
         .to.not.exist;
     });
 
-    it('should reset the configuration by passing null', function(){
+    it('should reset the configuration by passing null', () => {
       var hash = { 'A': '#aaa', 'B': '#bbb' };
       this.dataviz.colorMapping(hash);
       expect(this.dataviz.view.colorMapping.A)
@@ -146,14 +146,14 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.labels()', function(){
+  describe('.labels()', () => {
 
-    it('should return an empty array by default', function(){
+    it('should return an empty array by default', () => {
       expect(this.dataviz.labels()).to.be.an('array')
         .and.to.have.length(0);
     });
 
-    it('should set and get a new array of labels', function(){
+    it('should set and get a new array of labels', () => {
       var array = ['A','B','C'];
       this.dataviz.labels(array);
       expect(this.dataviz.view.labels).to.be.an('array')
@@ -161,7 +161,7 @@ describe('Dataviz', function(){
         .and.to.eql(array);
     });
 
-    it('should unset the labels set by passing null', function(){
+    it('should unset the labels set by passing null', () => {
       var array = ['A','B','C'];
       this.dataviz.labels(array);
       this.dataviz.labels(null);
@@ -169,7 +169,7 @@ describe('Dataviz', function(){
         .and.to.have.length(0);
     });
 
-    it('should rewrite the labels in a categorical Dataset instance', function(){
+    it('should rewrite the labels in a categorical Dataset instance', () => {
       var array = ['A','B'];
       var ds = new Dataset();
       ds.matrix = [
@@ -184,7 +184,7 @@ describe('Dataviz', function(){
         .and.to.eql(['Index', 'A', 'B', 'Row 3']);
     });
 
-    it('should rewrite the labels in a timeseries Dataset instance', function(){
+    it('should rewrite the labels in a timeseries Dataset instance', () => {
       var array = ['A'];
       var ds = new Dataset();
       ds.matrix = [
@@ -201,15 +201,15 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.labelMapping()', function(){
+  describe('.labelMapping()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.labelMapping())
         .to.be.an('object')
         .and.to.deep.eql({});
     });
 
-    it('should set and get a hash of properties', function(){
+    it('should set and get a hash of properties', () => {
       var hash = { '_a_': 'A', '_b_': 'B' };
       this.dataviz.labelMapping(hash);
       expect(this.dataviz.view.labelMapping)
@@ -217,7 +217,7 @@ describe('Dataviz', function(){
         .and.to.deep.equal(hash);
     });
 
-    it('should unset a property by passing null', function(){
+    it('should unset a property by passing null', () => {
       var hash = { '_a_': 'A', '_b_': 'B' };
       this.dataviz.labelMapping(hash);
       expect(this.dataviz.view.labelMapping._a_)
@@ -228,7 +228,7 @@ describe('Dataviz', function(){
         .to.not.exist;
     });
 
-    it('should reset the configuration by passing null', function(){
+    it('should reset the configuration by passing null', () => {
       var hash = { '_a_': 'A', '_b_': 'B' };
       this.dataviz.labelMapping(hash);
       expect(this.dataviz.view.labelMapping._a_)
@@ -242,7 +242,7 @@ describe('Dataviz', function(){
     });
 
     // TODO: re-activate
-    it('should rewrite the labels in a categorical Dataset instance', function(){
+    it('should rewrite the labels in a categorical Dataset instance', () => {
       var labels = {
         'First': 'A',
         'Row 1': 'A',
@@ -261,7 +261,7 @@ describe('Dataviz', function(){
         .and.to.eql(['Index', 'A', 'B', 'Row 3']);
     });
 
-    it('should rewrite the labels in a timeseries Dataset instance', function(){
+    it('should rewrite the labels in a timeseries Dataset instance', () => {
       var labels = {
         'First': 'A',
         'Row 2': 'B'
@@ -281,40 +281,40 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.height()', function(){
-    it('should return undefined by default', function(){
+  describe('.height()', () => {
+    it('should return undefined by default', () => {
       expect(this.dataviz.height())
         .to.be.undefined;
     });
-    it('should set and get a new height', function(){
+    it('should set and get a new height', () => {
       var height = 375;
       this.dataviz.height(height);
       expect(this.dataviz.view.height)
         .to.be.a('number')
         .and.to.eql(height);
     });
-    it('should unset the height by passing null', function(){
+    it('should unset the height by passing null', () => {
       this.dataviz.height(null);
       expect(this.dataviz.view.height)
         .to.not.exist;
     });
   });
 
-  describe('.notes()', function(){
+  describe('.notes()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.notes())
         .to.be.an('undefined');
     });
 
-    it('should set and get a new notes value', function(){
+    it('should set and get a new notes value', () => {
       this.dataviz.notes('test');
       expect(this.dataviz.view.notes)
         .to.be.a('string')
         .and.to.eql('test');
     });
 
-    it('should unset the notes by passing null', function(){
+    it('should unset the notes by passing null', () => {
       this.dataviz.notes(null);
       expect(this.dataviz.view.notes)
         .to.not.exist;
@@ -322,13 +322,13 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.title()', function(){
+  describe('.title()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.title()).to.be.an('undefined');
     });
 
-    it('should set and get a new title', function(){
+    it('should set and get a new title', () => {
       var title = 'New Title';
       this.dataviz.title(title);
       expect(this.dataviz.view.title)
@@ -336,7 +336,7 @@ describe('Dataviz', function(){
         .and.to.eql(title);
     });
 
-    it('should unset the title by passing null', function(){
+    it('should unset the title by passing null', () => {
       this.dataviz.title(null);
       expect(this.dataviz.view.title)
         .to.not.exist;
@@ -344,13 +344,13 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.width()', function(){
+  describe('.width()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.width()).to.be.an('undefined');
     });
 
-    it('should set and get a new width', function(){
+    it('should set and get a new width', () => {
       var width = 900;
       this.dataviz.width(width);
       expect(this.dataviz.view.width)
@@ -358,7 +358,7 @@ describe('Dataviz', function(){
         .and.to.eql(width);
     });
 
-    it('should unset the width by passing null', function(){
+    it('should unset the width by passing null', () => {
       this.dataviz.width(null);
       expect(this.dataviz.view.width)
         .to.not.exist;
@@ -366,15 +366,15 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.library()', function(){
+  describe('.library()', () => {
 
-    it('should return \'default\' by default', function(){
+    it('should return \'default\' by default', () => {
       expect(this.dataviz.library())
         .to.be.a('string')
         .and.to.eql('default');
     });
 
-    it('should set and get a new library', function(){
+    it('should set and get a new library', () => {
       var lib = 'nvd3';
       this.dataviz.library(lib);
       expect(this.dataviz.view.library)
@@ -382,7 +382,7 @@ describe('Dataviz', function(){
         .and.to.eql(lib);
     });
 
-    it('should unset the library by passing null', function(){
+    it('should unset the library by passing null', () => {
       this.dataviz.library(null);
       expect(this.dataviz.view.library)
         .to.not.exist;
@@ -390,15 +390,15 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.theme()', function(){
+  describe('.theme()', () => {
 
-    it('should return \'keen-dataviz\' by default', function(){
+    it('should return \'keen-dataviz\' by default', () => {
       expect(this.dataviz.theme())
         .to.be.a('string')
         .and.to.eql('keen-dataviz');
     });
 
-    it('should set and get a new theme', function(){
+    it('should set and get a new theme', () => {
       var theme = 'custom';
       this.dataviz.theme(theme);
       expect(this.dataviz.view.theme)
@@ -406,7 +406,7 @@ describe('Dataviz', function(){
         .and.to.eql(theme);
     });
 
-    it('should unset the theme by passing null', function(){
+    it('should unset the theme by passing null', () => {
       this.dataviz.theme(null);
       expect(this.dataviz.view.theme)
         .to.not.exist;
@@ -414,9 +414,9 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.chartOptions()', function(){
+  describe('.chartOptions()', () => {
 
-    it('should set and get a hash of properties', function(){
+    it('should set and get a hash of properties', () => {
       var hash = { legend: { position: 'none' }, isStacked: true };
       this.dataviz.chartOptions(hash);
       expect(this.dataviz.view.chartOptions.legend)
@@ -427,14 +427,14 @@ describe('Dataviz', function(){
         .and.to.eql(true);
     });
 
-    it('should unset properties by passing null', function(){
+    it('should unset properties by passing null', () => {
       var hash = { legend: { position: 'none' }, isStacked: true };
       this.dataviz.chartOptions(hash);
       this.dataviz.chartOptions({ legend: null });
       expect(this.dataviz.view.chartOptions.legend).to.not.exist;
     });
 
-    it('should reset the configuration by passing null', function(){
+    it('should reset the configuration by passing null', () => {
       var hash = { legend: { position: 'none' }, isStacked: true };
       this.dataviz.chartOptions(hash);
       this.dataviz.chartOptions(null);
@@ -445,19 +445,19 @@ describe('Dataviz', function(){
 
   });
 
-  describe('.type()', function(){
-    it('should return undefined by default', function(){
+  describe('.type()', () => {
+    it('should return undefined by default', () => {
       expect(this.dataviz.type())
         .to.be.an('undefined');
     });
-    it('should set and get a new chartType', function(){
+    it('should set and get a new chartType', () => {
       var chartType = 'magic-pie'
       this.dataviz.type(chartType);
       expect(this.dataviz.view.type)
         .to.be.a('string')
         .and.to.eql(chartType);
     });
-    it('should unset properties by passing null', function(){
+    it('should unset properties by passing null', () => {
       this.dataviz.type(null);
       expect(this.dataviz.view.type)
         .to.not.exist;
@@ -465,22 +465,22 @@ describe('Dataviz', function(){
   });
 
 
-  describe('.indexBy()', function(){
+  describe('.indexBy()', () => {
 
-    it('should return \'timeframe.start\' by default', function(){
+    it('should return \'timeframe.start\' by default', () => {
       expect(this.dataviz.indexBy())
         .to.be.a('string')
         .and.to.eql('timeframe.start');
     });
 
-    it('should set and get a new indexBy property', function(){
+    it('should set and get a new indexBy property', () => {
       this.dataviz.indexBy('timeframe.end');
       expect(this.dataviz.view.indexBy)
         .to.be.a('string')
         .and.to.eql('timeframe.end');
     });
 
-    it('should revert the property to default value by passing null', function(){
+    it('should revert the property to default value by passing null', () => {
       this.dataviz.indexBy(null);
       expect(this.dataviz.view.indexBy)
         .to.be.a('string')
@@ -490,27 +490,27 @@ describe('Dataviz', function(){
   });
 
 
-  describe('.sortGroups()', function(){
+  describe('.sortGroups()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.sortGroups())
         .to.be.an('undefined');
     });
 
-    it('should set and get a new sortGroups property', function(){
+    it('should set and get a new sortGroups property', () => {
       this.dataviz.sortGroups('asc');
       expect(this.dataviz.view.sortGroups)
         .to.be.a('string')
         .and.to.eql('asc');
     });
 
-    it('should unset property by passing null', function(){
+    it('should unset property by passing null', () => {
       this.dataviz.sortGroups(null);
       expect(this.dataviz.view.sortGroups)
         .to.not.exist;
     });
 
-    it('should sort labels in a categorical Dataset instance', function(){
+    it('should sort labels in a categorical Dataset instance', () => {
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'Result'],
@@ -524,7 +524,7 @@ describe('Dataviz', function(){
         .and.to.eql(['Index', 'Row 3', 'Row 2', 'Row 1']);
     });
 
-    it('should sort labels in a timeseries Dataset instance', function(){
+    it('should sort labels in a timeseries Dataset instance', () => {
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'First', 'Next'],
@@ -541,27 +541,27 @@ describe('Dataviz', function(){
   });
 
 
-  describe('.sortIntervals()', function(){
+  describe('.sortIntervals()', () => {
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(this.dataviz.sortIntervals())
         .to.be.an('undefined');
     });
 
-    it('should set and get a new sortIntervals property', function(){
+    it('should set and get a new sortIntervals property', () => {
       this.dataviz.sortIntervals('asc');
       expect(this.dataviz.view.sortIntervals)
         .to.be.a('string')
         .and.to.eql('asc');
     });
 
-    it('should unset property by passing null', function(){
+    it('should unset property by passing null', () => {
       this.dataviz.sortIntervals(null);
       expect(this.dataviz.view.sortIntervals)
         .to.not.exist;
     });
 
-    it('should sort intervals in a timeseries Dataset instance', function(){
+    it('should sort intervals in a timeseries Dataset instance', () => {
       var ds = new Dataset();
       ds.matrix = [
         ['Index', 'First', 'Next'],
@@ -578,22 +578,22 @@ describe('Dataviz', function(){
   });
 
 
-  describe('.stacked()', function(){
+  describe('.stacked()', () => {
 
-    it('should return false by default', function(){
+    it('should return false by default', () => {
       expect(this.dataviz.stacked())
         .to.be.a('boolean')
         .and.to.eql(false);
     });
 
-    it('should set `stacked` to true by passing true', function(){
+    it('should set `stacked` to true by passing true', () => {
       this.dataviz.stacked(true);
       expect(this.dataviz.view.stacked)
         .to.be.a('boolean')
         .and.to.eql(true);
     });
 
-    it('should set `stacked` to false by passing null', function(){
+    it('should set `stacked` to false by passing null', () => {
       this.dataviz.stacked(true);
       this.dataviz.stacked(null);
       expect(this.dataviz.view.stacked)

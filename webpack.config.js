@@ -5,14 +5,21 @@ if (process.env.EXTERNAL_D3_C3) {
   extendedPath = `${extendedPath}/external_d3_c3/`;
 }
 
+const fileName = 'keen-dataviz';
+const entry = ( process.env.TARGET !== 'node' ) ? './lib/browser.js' : './lib/server.js' ;
+
 module.exports = {
-  entry: ['./lib/index.js'],
+  entry,
 
   target: process.env.TARGET ? `${process.env.TARGET}` : 'web',
 
   output: {
     path: extendedPath,
-    filename: `keen-dataviz${
+    filename: `${
+      process.env.TARGET ? `${process.env.TARGET}/` : ''
+    }${
+      fileName
+    }${
       process.env.OPTIMIZE_MINIMIZE ? '.min' : ''
     }.js`,
     library: `${!process.env.LIBRARY ? '' : process.env.LIBRARY}`,
@@ -61,10 +68,10 @@ module.exports = {
   plugins: [
   ],
 
-  mode: !process.env.ENV ? 'development' : process.env.ENV,
+  mode: process.env.NODE_ENV,
 
   devServer: {
-    contentBase: path.join(__dirname, 'demo'),
+    contentBase: path.join(__dirname, 'test/demo'),
     open: true,
     inline: true,
     hot: false,

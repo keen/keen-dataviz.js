@@ -8,14 +8,14 @@ chai.use(chaiDom);
 var Dataset = require('../../../lib/dataset'),
     Dataviz = require('../../../lib/');
 
-describe('Dataviz', function(){
+describe('Dataviz', () => {
 
-  beforeEach(function(){
+  beforeEach(() => {
     Dataviz.register('demo', {
       'chart': {
-        render: function(){},
-        update: function(){},
-        destroy: function(){}
+        render: () => {},
+        update: () => {},
+        destroy: () => {}
       }
     });
     this.dataviz = new Dataviz()
@@ -24,24 +24,24 @@ describe('Dataviz', function(){
       .type('chart');
   });
 
-  afterEach(function(){
+  afterEach(() => {
     this.dataviz.el('#chart-test').destroy();
     this.dataviz = null;
     Dataviz.visuals = [];
   });
 
-  describe('.el()', function(){
+  describe('.el()', () => {
 
-    beforeEach(function(){
+    beforeEach(() => {
       var elDiv = document.createElement('div');
       elDiv.id = 'chart-test';
       document.body.appendChild(elDiv);
     });
 
-    it('should return undefined by default', function(){
+    it('should return undefined by default', () => {
       expect(new Dataviz().el()).to.be.an('undefined');
     });
-    it('should set and get a new el', function(){
+    it('should set and get a new el', () => {
       this.dataviz.el(document.getElementById('chart-test'));
       expect(this.dataviz.el()).to.contain(document.getElementById('chart-test'));
       if (this.dataviz.el().nodeName) {
@@ -49,15 +49,15 @@ describe('Dataviz', function(){
           .and.to.eql('DIV');
       }
     });
-    it('should unset el by passing null', function(){
+    it('should unset el by passing null', () => {
       this.dataviz.el(document.getElementById('chart-test'));
       this.dataviz.el(null);
       expect(this.dataviz.el()).to.not.exist;
     });
   });
 
-  describe('.prepare()', function(){
-    it('should set the view._prepared flag to true', function(){
+  describe('.prepare()', () => {
+    it('should set the view._prepared flag to true', () => {
       expect(this.dataviz.view._prepared).to.be.false;
       this.dataviz
         .el(document.getElementById('chart-test'))
@@ -66,23 +66,23 @@ describe('Dataviz', function(){
     });
   });
 
-  // describe('.message()', function(){
-  //   it('should call the #message method', function(){
+  // describe('.message()', () => {
+  //   it('should call the #message method', () => {
   //     this.dataviz.message();
   //     // expect(Dataviz.libraries.demo.chart.message.called).to.be.ok;
   //   });
   // });
 
-  describe('.render()', function(){
-    it('should set the view._rendered flag to true', function(){
+  describe('.render()', () => {
+    it('should set the view._rendered flag to true', () => {
       expect(this.dataviz.view._rendered).to.be.false;
       this.dataviz.el(document.getElementById('chart-test')).render();
       expect(this.dataviz.view._rendered).to.be.true;
     });
   });
 
-  describe('.destroy()', function(){
-    it('should call the #destroy method of a given adapter', function(){
+  describe('.destroy()', () => {
+    it('should call the #destroy method of a given adapter', () => {
       this.dataviz.destroy();
       // expect(this.dataviz.el().innerHTML).to.eql('');
       // expect(Dataviz.libraries.demo.chart.destroy.called).to.be.ok;
