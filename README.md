@@ -81,8 +81,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.3.2.min.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.2.min.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.2.min.js"></script>
+    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.css" rel="stylesheet" />
+    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -128,14 +128,11 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 </html>
 ```
 
-This library can also be installed via npm or bower:
+This library can also be installed via npm:
 
 ```ssh
 # via npm
 $ npm install keen-dataviz
-
-# or bower
-$ bower install keen-dataviz
 ```
 
 ## Create a Dataviz instance
@@ -183,4 +180,7 @@ $ npm run build
 
 # Build and launch to view demo page
 $ npm run start
+
+# Run Jest tests
+$ npm run test
 ```

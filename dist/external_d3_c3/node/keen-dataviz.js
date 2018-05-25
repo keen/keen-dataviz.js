@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("d3"), require("c3")) : factory(root["d3"], root["c3"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function(__WEBPACK_EXTERNAL_MODULE__6__, __WEBPACK_EXTERNAL_MODULE__19__) {
+})(global, function(__WEBPACK_EXTERNAL_MODULE__6__, __WEBPACK_EXTERNAL_MODULE__19__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2468,36 +2468,10 @@ function deleteRow(q) {
 
 /***/ }),
 /* 30 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -3006,33 +2980,20 @@ if (typeof __KEEN_NO_COMMON_GLOBAL_OBJECT__ === 'undefined') {
 }
 
 exports.default = Dataviz;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(30)))
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var _index = __webpack_require__(30);
 
-var _index = __webpack_require__(31);
-
-Object.defineProperty(exports, 'Dataviz', {
-  enumerable: true,
-  get: function get() {
-    return _index.Dataviz;
-  }
-});
-Object.defineProperty(exports, 'Dataset', {
-  enumerable: true,
-  get: function get() {
-    return _index.Dataset;
-  }
-});
+module.exports = {
+  Dataviz: _index.Dataviz,
+  Dataset: _index.Dataset
+};
 
 /***/ })
 /******/ ]);

@@ -1,3 +1,11 @@
+<a name="2.0.3"></a>
+**FIXED:**
+* tests and build tools for custom builds
+
+<a name="2.0.2"></a>
+**FIXED:**
+* c3/d3 are now externals (not bundled into our npm package) by default
+
 <a name="2.0.1"></a>
 **FIXED:**
 * npm Dataviz import without css build tools

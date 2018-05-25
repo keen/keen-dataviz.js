@@ -1,91 +1,79 @@
-/* globals: sinon */
-var chai = require('chai');
-var chaiDom = require('chai-dom');
-var expect = chai.expect;
+import { Dataset, Dataviz } from '../../../lib/browser';
 
-chai.use(chaiDom);
+describe('Dataviz', () => {
+  let dataviz1;
 
-var Dataset = require('../../../lib/dataset'),
-    Dataviz = require('../../../lib/');
-
-describe('Dataviz', function(){
-
-  beforeEach(function(){
+  beforeEach(() => {
     Dataviz.register('demo', {
       'chart': {
-        render: function(){},
-        update: function(){},
-        destroy: function(){}
+        render: () => {},
+        update: () => {},
+        destroy: () => {}
       }
     });
-    this.dataviz = new Dataviz()
+    dataviz1 = new Dataviz()
       .library('demo')
       .el('#chart-test')
       .type('chart');
   });
 
-  afterEach(function(){
-    this.dataviz.el('#chart-test').destroy();
-    this.dataviz = null;
+  afterEach(() => {
+    dataviz1.el('#chart-test').destroy();
+    dataviz1 = null;
     Dataviz.visuals = [];
   });
 
-  describe('.el()', function(){
+  describe('.el()', () => {
 
-    beforeEach(function(){
+    beforeEach(() => {
       var elDiv = document.createElement('div');
       elDiv.id = 'chart-test';
       document.body.appendChild(elDiv);
     });
 
-    it('should return undefined by default', function(){
-      expect(new Dataviz().el()).to.be.an('undefined');
+    it('should return undefined by default', () => {
+      expect(new Dataviz().el()).toBe(undefined);
     });
-    it('should set and get a new el', function(){
-      this.dataviz.el(document.getElementById('chart-test'));
-      expect(this.dataviz.el()).to.contain(document.getElementById('chart-test'));
-      if (this.dataviz.el().nodeName) {
-        expect(this.dataviz.el().nodeName).to.be.a('string')
-          .and.to.eql('DIV');
+
+    it('should set and get a new el', () => {
+      const element = document.getElementById('chart-test');
+      dataviz1.el(element);
+      expect(dataviz1.el()).toEqual(element);
+      if (dataviz1.el().nodeName) {
+        expect(dataviz1.el().nodeName)
+          .toEqual('DIV');
       }
     });
-    it('should unset el by passing null', function(){
-      this.dataviz.el(document.getElementById('chart-test'));
-      this.dataviz.el(null);
-      expect(this.dataviz.el()).to.not.exist;
+
+    it('should unset el by passing null', () => {
+      dataviz1.el(document.getElementById('chart-test'));
+      dataviz1.el(null);
+      expect(dataviz1.el()).toBe(undefined);
     });
   });
 
-  describe('.prepare()', function(){
-    it('should set the view._prepared flag to true', function(){
-      expect(this.dataviz.view._prepared).to.be.false;
-      this.dataviz
+  describe('.prepare()', () => {
+    it('should set the view._prepared flag to true', () => {
+      expect(dataviz1.view._prepared).toBe(false);
+      dataviz1
         .el(document.getElementById('chart-test'))
         .prepare();
-      expect(this.dataviz.view._prepared).to.be.true;
+      expect(dataviz1.view._prepared).toBe(true);
     });
   });
 
-  // describe('.message()', function(){
-  //   it('should call the #message method', function(){
-  //     this.dataviz.message();
-  //     // expect(Dataviz.libraries.demo.chart.message.called).to.be.ok;
-  //   });
-  // });
-
-  describe('.render()', function(){
-    it('should set the view._rendered flag to true', function(){
-      expect(this.dataviz.view._rendered).to.be.false;
-      this.dataviz.el(document.getElementById('chart-test')).render();
-      expect(this.dataviz.view._rendered).to.be.true;
+  describe('.render()', () => {
+    it('should set the view._rendered flag to true', () => {
+      expect(dataviz1.view._rendered).toBe(false);
+      dataviz1.el(document.getElementById('chart-test')).render();
+      expect(dataviz1.view._rendered).toBe(true);
     });
   });
 
-  describe('.destroy()', function(){
-    it('should call the #destroy method of a given adapter', function(){
-      this.dataviz.destroy();
-      // expect(this.dataviz.el().innerHTML).to.eql('');
-      // expect(Dataviz.libraries.demo.chart.destroy.called).to.be.ok;
+  describe('.destroy()', () => {
+    it('should call the #destroy method of a given adapter', () => {
+      dataviz1.destroy();
+      expect(dataviz1.el().innerHTML).toEqual('');
     });
   });
 

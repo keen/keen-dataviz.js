@@ -1,36 +1,34 @@
-var expect = require('chai').expect;
+import { Dataviz } from '../../../lib/browser';
 
-var Dataset = require('../../../lib/dataset'),
-    Dataviz = require('../../../lib/');
+import data_metric from '../../sample-data/metric';
+import data_groupBy from '../../sample-data/groupBy';
+import data_double_groupBy from '../../sample-data/double-groupBy';
 
-var data_metric = require('../dataset/sample-data/metric'),
-    data_groupBy = require('../dataset/sample-data/groupBy'),
-    data_double_groupBy = require('../dataset/sample-data/double-groupBy'),
+import data_interval from '../../sample-data/interval';
+import data_interval_groupBy_empties from '../../sample-data/interval-groupBy-empties';
+import data_interval_groupBy_all_empty from '../../sample-data/interval-groupBy-all-empty';
+import data_interval_double_groupBy from '../../sample-data/interval-double-groupBy';
 
-    data_interval = require('../dataset/sample-data/interval'),
-    data_interval_groupBy_empties = require('../dataset/sample-data/interval-groupBy-empties'),
-    data_interval_groupBy_all_empty = require('../dataset/sample-data/interval-groupBy-all-empty'),
-    data_interval_double_groupBy = require('../dataset/sample-data/interval-double-groupBy'),
+import data_funnel from '../../sample-data/funnel';
+import data_uniques from '../../sample-data/select-unique';
+import data_extraction from '../../sample-data/extraction';
 
-    data_funnel = require('../dataset/sample-data/funnel'),
-    data_uniques = require('../dataset/sample-data/select-unique'),
-    data_extraction = require('../dataset/sample-data/extraction');
+describe('Dataviz', () => {
+  let dataviz1;
 
-describe('Dataviz', function(){
-
-  beforeEach(function(){
-    this.dataviz = new Dataviz();
+  beforeEach(() => {
+    dataviz1 = new Dataviz();
   });
 
-  afterEach(function(){
-    this.dataviz = null;
+  afterEach(() => {
+    dataviz1 = null;
     Dataviz.visuals = [];
   });
 
-  describe('.data()', function(){
+  describe('.data()', () => {
 
-    it('should set title and type from saved query body', function(){
-      this.dataviz
+    it('should set title and type from saved query body', () => {
+      dataviz1
         .data({
           result: 123,
           metadata: {
@@ -38,11 +36,11 @@ describe('Dataviz', function(){
             visualization: { chart_type: 'metric' }
           }
         });
-      expect(this.dataviz.title()).to.eql('test');
-      expect(this.dataviz.type()).to.eql('metric');
+      expect(dataviz1.title()).toEqual('test');
+      expect(dataviz1.type()).toEqual('metric');
     });
-    it('should not set title and type from saved query body when already set', function(){
-      this.dataviz
+    it('should not set title and type from saved query body when already set', () => {
+      dataviz1
         .title('Already set')
         .type('table')
         .data({
@@ -52,35 +50,35 @@ describe('Dataviz', function(){
             visualization: { chart_type: 'metric' }
           }
         });
-      expect(this.dataviz.title()).to.eql('Already set');
-      expect(this.dataviz.type()).to.eql('table');
+      expect(dataviz1.title()).toEqual('Already set');
+      expect(dataviz1.type()).toEqual('table');
     });
 
-    it('should parse \'metric\' data and set the correct type', function(){
-      this.dataviz.data(data_metric);
-      expect(this.dataviz.type()).to.eql('metric');
+    it('should parse \'metric\' data and set the correct type', () => {
+      dataviz1.data(data_metric);
+      expect(dataviz1.type()).toEqual('metric');
     });
-    it('should parse \'grouped-metric\' data and set the correct type', function(){
-      this.dataviz.data({
+    it('should parse \'grouped-metric\' data and set the correct type', () => {
+      dataviz1.data({
         query: {
           analysis_type: 'count',
           group_by: ['page']
         },
         result: data_groupBy.result
       });
-      expect(this.dataviz.type()).to.eql('bar');
+      expect(dataviz1.type()).toEqual('bar');
     });
-    it('should parse \'double-grouped-metric\' data and set the correct type', function(){
-      this.dataviz.data(data_double_groupBy);
-      expect(this.dataviz.type()).to.eql('bar');
+    it('should parse \'double-grouped-metric\' data and set the correct type', () => {
+      dataviz1.data(data_double_groupBy);
+      expect(dataviz1.type()).toEqual('bar');
     });
 
-    it('should parse \'interval\' data and set the correct type', function(){
-      this.dataviz.data(data_interval);
-      expect(this.dataviz.type()).to.eql('area');
+    it('should parse \'interval\' data and set the correct type', () => {
+      dataviz1.data(data_interval);
+      expect(dataviz1.type()).toEqual('area');
     });
-    it('should parse \'grouped-interval\' data and set the correct type', function(){
-      this.dataviz.data({
+    it('should parse \'grouped-interval\' data and set the correct type', () => {
+      dataviz1.data({
         query: {
           analysis_type: 'count',
           group_by: ['key'],
@@ -88,10 +86,10 @@ describe('Dataviz', function(){
         },
         result: data_interval_groupBy_empties.result
       });
-      expect(this.dataviz.type()).to.eql('line');
+      expect(dataviz1.type()).toEqual('line');
     });
-    it('should parse empty \'grouped-interval\' data and set the correct type', function(){
-      this.dataviz.data({
+    it('should parse empty \'grouped-interval\' data and set the correct type', () => {
+      dataviz1.data({
         query: {
           analysis_type: 'count',
           group_by: ['key'],
@@ -99,37 +97,37 @@ describe('Dataviz', function(){
         },
         result: data_interval_groupBy_all_empty.result
       });
-      expect(this.dataviz.type()).to.eql('line');
+      expect(dataviz1.type()).toEqual('line');
     });
-    it('should parse \'double-grouped-interval\' data and set the correct type', function(){
-      this.dataviz.data(data_interval_double_groupBy);
-      expect(this.dataviz.type()).to.eql('line');
-    });
-
-    it('should parse \'funnel\' data and set the correct type', function(){
-      this.dataviz.data(data_funnel);
-      expect(this.dataviz.type()).to.eql('horizontal-bar');
-    });
-    it('should parse \'list\' data and set the correct type', function(){
-      this.dataviz.data(data_uniques);
-      expect(this.dataviz.type()).to.eql('table');
-    });
-    it('should parse \'extraction\' data and set the correct type', function(){
-      this.dataviz.data(data_extraction);
-      expect(this.dataviz.type()).to.eql('table');
+    it('should parse \'double-grouped-interval\' data and set the correct type', () => {
+      dataviz1.data(data_interval_double_groupBy);
+      expect(dataviz1.type()).toEqual('line');
     });
 
-    it('should parse \'funnel\' data and not set a type', function(){
-      this.dataviz.type('test').data(data_funnel);
-      expect(this.dataviz.type()).to.eql('test');
+    it('should parse \'funnel\' data and set the correct type', () => {
+      dataviz1.data(data_funnel);
+      expect(dataviz1.type()).toEqual('horizontal-bar');
     });
-    it('should parse \'list\' data and not set a type', function(){
-      this.dataviz.type('test').data(data_uniques);
-      expect(this.dataviz.type()).to.eql('test');
+    it('should parse \'list\' data and set the correct type', () => {
+      dataviz1.data(data_uniques);
+      expect(dataviz1.type()).toEqual('table');
     });
-    it('should parse \'extraction\' data and not set a type', function(){
-      this.dataviz.type('test').data(data_extraction);
-      expect(this.dataviz.type()).to.eql('test');
+    it('should parse \'extraction\' data and set the correct type', () => {
+      dataviz1.data(data_extraction);
+      expect(dataviz1.type()).toEqual('table');
+    });
+
+    it('should parse \'funnel\' data and not set a type', () => {
+      dataviz1.type('test').data(data_funnel);
+      expect(dataviz1.type()).toEqual('test');
+    });
+    it('should parse \'list\' data and not set a type', () => {
+      dataviz1.type('test').data(data_uniques);
+      expect(dataviz1.type()).toEqual('test');
+    });
+    it('should parse \'extraction\' data and not set a type', () => {
+      dataviz1.type('test').data(data_extraction);
+      expect(dataviz1.type()).toEqual('test');
     });
 
   });
