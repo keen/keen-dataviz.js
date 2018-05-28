@@ -1,26 +1,136 @@
 # keen-dataviz.js
 
-This project contains the most advanced data visualization functionality available for Keen IO, and will soon be built directly into [keen-js](https://github.com/keen/keen-js), replacing and upgrading the current visualization capabilities of that library.
+The most advanced data visualization library for [Keen IO](https://keen.io).
 
-**What's new:**
 
-* Visualizations are powered by [C3.js](http://c3js.org/); a [D3.js](http://d3js.org/)-based reusable chart library: [check out what's available!](./docs/README.md#chart-types)
-* Breaking changes from [keen-js](https://github.com/keen/keen-js): [learn more about upgrading](#upgrading-from-keen-js)
-* Lightweight and blazing fast, with dramatic performance improvements
-* [Create custom cohort analysis and visualizations](https://github.com/keen/cohorts)
+## Install as a NPM module
+
+```ssh
+# via npm
+$ npm install keen-dataviz
+```
+
+## Example
+
+```javascript
+import KeenAnalysis from 'keen-analysis';
+import KeenDataviz from 'keen-dataviz';
+
+const chart = new KeenDataviz()
+  .el('#my-chart-div')
+  .colors(['red', 'orange', 'green'])
+  .height(500)
+  .title('New Customers per Week')
+  .type('area')
+  .prepare();
+
+// Use keen-analysis.js to run a query
+// and pass the result into your chart:
+const client = new KeenAnalysis({
+  projectId: 'YOUR_PROJECT_ID',
+  readKey: 'YOUR_READ_KEY'
+});
+
+client
+  .query('count', {
+    event_collection: 'pageviews',
+    timeframe: 'this_7_days',
+    interval: 'daily'
+  })
+  .then(function(res){
+    // Handle the result
+    chart
+      .data(res)
+      .render();
+  })
+  .catch(function(err){
+    // Handle the error
+    chart
+      .message(err.message);
+  });
+```
+
+## Install the library (CDN)
+
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included.
+
+```html
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Use keen-analysis.js to fetch query results -->
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.min.js"></script>
+
+    <!-- Dataviz dependencies -->
+    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.4.min.css" rel="stylesheet" />
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.4.min.js"></script>
+  </head>
+  <body>
+    <!-- DOM Element -->
+    <div id="my-chart-div"></div>
+
+    <!-- Create and Render -->
+    <script>
+      const chart = new Keen.Dataviz()
+        .el('#my-chart-div')
+        .colors(['red', 'orange', 'green'])
+        .height(500)
+        .title('New Customers per Week')
+        .type('metric')
+        .prepare();
+
+
+      // Use keen-analysis.js to run a query
+      // and pass the result into your chart:
+      const client = new Keen({
+        projectId: 'YOUR_PROJECT_ID',
+        readKey: 'YOUR_READ_KEY'
+      });
+
+      client
+        .query('count', {
+          event_collection: 'pageviews',
+          timeframe: 'this_14_days',
+          interval: 'daily'
+        })
+        .then(function(res){
+          // Handle the result
+          chart
+            .data(res)
+            .render();
+        })
+        .catch(function(err){
+          // Handle the error
+          chart
+            .message(err.message);
+        });
+    </script>
+  </body>
+</html>
+```
+
+## Create a Dataviz instance
+
+Create a new `Dataviz` instance. This `chart` variable will be used throughout this guide as a reference to a `Dataviz` instance.
+
+```javascript
+const chart = new KeenDataviz()
+  .el('#dom-selector')
+  .height(280)
+  .title('Signups this week')
+  .type('metric')
+  .prepare();
+
+// Fetch data from the API:
+//  Imaginary callback ...
+chart
+  .data({ result: 621 })
+  .render();
+```
 
 **Upgrading from keen-js?** [Read this](#upgrading-from-keen-js).
 
 This [example setup](#create-a-dataviz-instance) demonstrates how to put this library to work.
-
-**Getting started:**
-
-If you haven't done so already, login to Keen IO to create a project. The Project ID and API Keys are available on the Project Overview page. You will need these for the next steps.
-
-* [Install the library and dependencies](#install-the-library)
-* [Create and configure a new Dataviz instance](#create-a-dataviz-instance)
-* [Load and parse data](./docs/README.md#data)
-* [Render into the page](./docs/README.md#render)
 
 **Advanced usage:**
 
@@ -53,7 +163,6 @@ There are several breaking changes and deprecations from [keen-js](https://githu
 <a name="additional-resources"></a>
 **Additional resources:**
 
-* [Example setup](#create-a-dataviz-instance) demonstrates how to put all of this to work
 * [Contributing](#contributing) is awesome and we hope you do!
 * [Custom builds](#custom-builds) are encouraged as well - have fun!
 
@@ -67,92 +176,6 @@ Need a hand with something? Shoot us an email at [team@keen.io](mailto:team@keen
 * [How-to guides](https://keen.io/guides)
 * [Data modeling guide](https://keen.io/guides/data-modeling-guide/)
 * [Slack (public)](http://slack.keen.io/)
-
-
-## Install the library
-
-Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included.
-
-```html
-<html>
-  <head>
-    <meta charset="utf-8">
-    <!-- Use keen-analysis.js to fetch query results -->
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.min.js"></script>
-
-    <!-- Dataviz dependencies -->
-    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.css" rel="stylesheet" />
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.js"></script>
-  </head>
-  <body>
-    <!-- DOM Element -->
-    <div id="my-chart-div"></div>
-
-    <!-- Create and Render -->
-    <script>
-      var chart = new Keen.Dataviz()
-        .el('#my-chart-div')
-        .colors(['red', 'orange', 'green'])
-        .height(500)
-        .title('New Customers per Week')
-        .type('metric')
-        .prepare();
-
-
-      // Use keen-analysis.js to run a query
-      // and pass the result into your chart:
-      var client = new Keen({
-        projectId: 'YOUR_PROJECT_ID',
-        readKey: 'YOUR_READ_KEY'
-      });
-
-      client
-        .query('count', {
-          event_collection: 'pageviews',
-          timeframe: 'this_14_days',
-          interval: 'daily'
-        })
-        .then(function(res){
-          // Handle the result
-          chart
-            .data(res)
-            .render();
-        })
-        .catch(function(err){
-          // Handle the error
-          chart
-            .message(err.message);
-        });
-    </script>
-  </body>
-</html>
-```
-
-This library can also be installed via npm:
-
-```ssh
-# via npm
-$ npm install keen-dataviz
-```
-
-## Create a Dataviz instance
-
-Create a new `Dataviz` instance. This `chart` variable will be used throughout this guide as a reference to a `Dataviz` instance.
-
-```javascript
-var chart = new Keen.Dataviz()
-  .el('#dom-selector')
-  .height(280)
-  .title('Signups this week')
-  .type('metric')
-  .prepare();
-
-// Fetch data from the API:
-//  Imaginary callback ...
-chart
-  .data({ result: 621 })
-  .render();
-```
 
 **[Learn more about the Dataviz API](./docs/)**
 
