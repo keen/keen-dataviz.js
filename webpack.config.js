@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 let extendedPath = path.resolve(__dirname, 'dist');
 if (process.env.EXTERNAL_D3_C3) {
@@ -66,6 +67,10 @@ module.exports = {
   // stats: 'verbose',
 
   plugins: [
+    new webpack.DefinePlugin({
+      KEEN_GLOBAL_OBJECT:
+        JSON.stringify(!process.env.EXTERNAL_D3_C3),
+    }),
   ],
 
   mode: process.env.NODE_ENV,

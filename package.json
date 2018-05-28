@@ -38,8 +38,8 @@
     "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
   "dependencies": {
-    "c3": "^0.4.22",
-    "d3": "^3.5.17"
+    "c3": "^0.6.1",
+    "d3": "^5.4.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.2.0",

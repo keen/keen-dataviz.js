@@ -9,11 +9,11 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.3.0.js"></script>
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.js"></script>
+    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.css" rel="stylesheet" />
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.js"></script>
   </head>
   <body>
     <!-- DOM Element -->

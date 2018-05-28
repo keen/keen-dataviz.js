@@ -1,3 +1,13 @@
+<a name="2.0.4"></a>
+**UPDATED:**
+* Dependencies: D3 v5.4, C3 v0.6 (#101)
+
+**FIXED:**
+* Keen-Dataviz.js imported as a NPM module is no longer exposing Dataviz/Dataset as a global variable. Now you can access full potential of ES6 modules by using imports
+
+    import KeenDataviz from 'keen-dataviz';
+    const chart = new KeenDataviz();
+
 <a name="2.0.3"></a>
 **FIXED:**
 * tests and build tools for custom builds
@@ -16,7 +26,7 @@
 **NEW:**
 * all JS /dist files are now bundled by Webpack 4.8.3 - UMD!
 * custom Dataviz version WITHOUT C3/D3 libraries (#87) - /dist/external_d3_c3
-* no global exports option - use `const __KEEN_NO_COMMON_GLOBAL_OBJECT__ = true` before import (#51)
+* no global exports option - use `const __KEEN_NO_COMMON_GLOBAL_OBJECT__ = true` before html script tag (#51)
 
 **FIXED:**
 * escaping labels (#89)
