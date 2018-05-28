@@ -3035,7 +3035,7 @@ var extendKeenGlobalObject = exports.extendKeenGlobalObject = function extendKee
   env.Keen.Dataviz = _index.Dataviz;
 };
 
-if (false || typeof KEEN_EXPOSE_AS_GLOBAL_OBJECT !== 'undefined') {
+if ("boolean" !== 'undefined' && false || typeof KEEN_EXPOSE_AS_GLOBAL_OBJECT !== 'undefined') {
   extendKeenGlobalObject(env);
 }
 
