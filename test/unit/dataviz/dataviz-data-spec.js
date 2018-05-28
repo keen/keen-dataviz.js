@@ -1,4 +1,4 @@
-import { Dataviz } from '../../../lib/browser';
+import Dataviz from '../../../lib/browser';
 
 import data_metric from '../../sample-data/metric';
 import data_groupBy from '../../sample-data/groupBy';

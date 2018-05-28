@@ -1,4 +1,4 @@
-import { Dataset, Dataviz } from '../../../lib/browser';
+import Dataviz, { Dataset } from '../../../lib/browser';
 
 describe('Dataviz', () => {
   let dataviz1;

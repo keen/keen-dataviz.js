@@ -2468,36 +2468,10 @@ function deleteRow(q) {
 
 /***/ }),
 /* 30 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2997,29 +2971,47 @@ function domReady(fn) {
   testDom(fn);
 }
 
-if (typeof __KEEN_NO_COMMON_GLOBAL_OBJECT__ === 'undefined') {
-  (function (env) {
-    env.Keen = env.Keen || {};
-    env.Keen.Dataset = _dataset.Dataset;
-    env.Keen.Dataviz = Dataviz;
-  }).call(undefined, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {});
+exports.default = Dataviz;
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
 }
 
-exports.default = Dataviz;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(30)))
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(global) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Dataset = exports.Dataviz = exports.extendKeenGlobalObject = undefined;
 
-var _index = __webpack_require__(31);
+var _index = __webpack_require__(30);
 
 Object.defineProperty(exports, 'Dataviz', {
   enumerable: true,
@@ -3033,6 +3025,22 @@ Object.defineProperty(exports, 'Dataset', {
     return _index.Dataset;
   }
 });
+
+
+var env = typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {};
+
+var extendKeenGlobalObject = exports.extendKeenGlobalObject = function extendKeenGlobalObject(env) {
+  env.Keen = env.Keen || {};
+  env.Keen.Dataset = _index.Dataset;
+  env.Keen.Dataviz = _index.Dataviz;
+};
+
+if (false || typeof KEEN_EXPOSE_AS_GLOBAL_OBJECT !== 'undefined') {
+  extendKeenGlobalObject(env);
+}
+
+exports.default = _index.Dataviz;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(31)))
 
 /***/ })
 /******/ ]);

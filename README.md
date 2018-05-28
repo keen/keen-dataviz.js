@@ -78,11 +78,11 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-analysis-1.3.2.min.js"></script>
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.min.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.css" rel="stylesheet" />
-    <script src="//d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.js"></script>
+    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.css" rel="stylesheet" />
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.min.js"></script>
   </head>
   <body>
     <!-- DOM Element -->

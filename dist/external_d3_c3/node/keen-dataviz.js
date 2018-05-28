@@ -2971,14 +2971,6 @@ function domReady(fn) {
   testDom(fn);
 }
 
-if (typeof __KEEN_NO_COMMON_GLOBAL_OBJECT__ === 'undefined') {
-  (function (env) {
-    env.Keen = env.Keen || {};
-    env.Keen.Dataset = _dataset.Dataset;
-    env.Keen.Dataviz = Dataviz;
-  }).call(undefined, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {});
-}
-
 exports.default = Dataviz;
 
 /***/ }),
@@ -2991,6 +2983,7 @@ exports.default = Dataviz;
 var _index = __webpack_require__(30);
 
 module.exports = {
+  default: _index.Dataviz,
   Dataviz: _index.Dataviz,
   Dataset: _index.Dataset
 };
