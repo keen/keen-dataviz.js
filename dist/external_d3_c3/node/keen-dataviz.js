@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 31);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -522,27 +522,27 @@ var _append = __webpack_require__(5);
 
 var append = _interopRequireWildcard(_append);
 
-var _delete = __webpack_require__(29);
+var _delete = __webpack_require__(30);
 
 var del = _interopRequireWildcard(_delete);
 
-var _filter = __webpack_require__(28);
+var _filter = __webpack_require__(29);
 
 var filter = _interopRequireWildcard(_filter);
 
-var _insert = __webpack_require__(27);
+var _insert = __webpack_require__(28);
 
 var insert = _interopRequireWildcard(_insert);
 
-var _select = __webpack_require__(26);
+var _select = __webpack_require__(27);
 
 var select = _interopRequireWildcard(_select);
 
-var _sort = __webpack_require__(25);
+var _sort = __webpack_require__(26);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _update = __webpack_require__(24);
+var _update = __webpack_require__(25);
 
 var update = _interopRequireWildcard(_update);
 
@@ -552,7 +552,7 @@ var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(2);
 
-var _parsers = __webpack_require__(23);
+var _parsers = __webpack_require__(24);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
@@ -1872,6 +1872,21 @@ function getDefaultType(parser) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.valueAtDeepKey = valueAtDeepKey;
+function valueAtDeepKey(obj, is, value) {
+  if (typeof is == 'string') return valueAtDeepKey(obj, is.split('.'), value);else if (is.length == 1 && value !== undefined) return obj[is[0]] = value;else if (is.length == 0) return obj;else return valueAtDeepKey(obj[is[0]], is.slice(1), value);
+}
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -1897,7 +1912,7 @@ function flatten(ob) {
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1910,7 +1925,9 @@ exports.default = initialize;
 
 var _each = __webpack_require__(0);
 
-var _flatten = __webpack_require__(22);
+var _flatten = __webpack_require__(23);
+
+var _object = __webpack_require__(22);
 
 var Dataset = void 0; /* injected */
 
@@ -2054,11 +2071,30 @@ function parseList() {
 function parseExtraction() {
   return function (res) {
     var dataset = new Dataset().type('extraction');
-    (0, _each.each)(res.result, function (record, i) {
+    // create header
+
+    var _loop = function _loop(i) {
+      var record = res.result[i];
       (0, _each.each)((0, _flatten.flatten)(record), function (value, key) {
         dataset.set([key, String(i + 1)], value);
       });
-    });
+    };
+
+    for (var i = 0; i < 1; i++) {
+      _loop(i);
+    }
+
+    // get keys of the Object
+    var names = Object.keys((0, _flatten.flatten)(res.result[0]));
+
+    for (var i = 1; i < res.result.length; i++) {
+      var record = [i + 1];
+      for (var iNames = 0; iNames < names.length; iNames++) {
+        record.push((0, _object.valueAtDeepKey)(res.result[i], names[iNames]));
+      }
+      dataset.matrix[String(i + 1)] = record;
+    }
+
     dataset.deleteColumn(0);
     return dataset;
   };
@@ -2078,7 +2114,7 @@ var parsers = {
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2177,7 +2213,7 @@ function updateRow(q, input) {
 }
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2247,7 +2283,7 @@ function sortRows(str, comp) {
 }
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2284,7 +2320,7 @@ function selectRow(q) {
 }
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2386,7 +2422,7 @@ function insertRow(index, str, input) {
 }
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2436,7 +2472,7 @@ function filterRows(fn) {
 }
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2472,7 +2508,7 @@ function deleteRow(q) {
 }
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2979,13 +3015,13 @@ function domReady(fn) {
 exports.default = Dataviz;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _index = __webpack_require__(30);
+var _index = __webpack_require__(31);
 
 module.exports = {
   default: _index.Dataviz,

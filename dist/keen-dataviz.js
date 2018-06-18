@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 64);
+/******/ 	return __webpack_require__(__webpack_require__.s = 65);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -21183,27 +21183,27 @@ var _append = __webpack_require__(36);
 
 var append = _interopRequireWildcard(_append);
 
-var _delete = __webpack_require__(61);
+var _delete = __webpack_require__(62);
 
 var del = _interopRequireWildcard(_delete);
 
-var _filter = __webpack_require__(60);
+var _filter = __webpack_require__(61);
 
 var filter = _interopRequireWildcard(_filter);
 
-var _insert = __webpack_require__(59);
+var _insert = __webpack_require__(60);
 
 var insert = _interopRequireWildcard(_insert);
 
-var _select = __webpack_require__(58);
+var _select = __webpack_require__(59);
 
 var select = _interopRequireWildcard(_select);
 
-var _sort = __webpack_require__(57);
+var _sort = __webpack_require__(58);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _update = __webpack_require__(56);
+var _update = __webpack_require__(57);
 
 var update = _interopRequireWildcard(_update);
 
@@ -21213,7 +21213,7 @@ var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(33);
 
-var _parsers = __webpack_require__(55);
+var _parsers = __webpack_require__(56);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
@@ -32361,6 +32361,21 @@ function getDefaultType(parser) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.valueAtDeepKey = valueAtDeepKey;
+function valueAtDeepKey(obj, is, value) {
+  if (typeof is == 'string') return valueAtDeepKey(obj, is.split('.'), value);else if (is.length == 1 && value !== undefined) return obj[is[0]] = value;else if (is.length == 0) return obj;else return valueAtDeepKey(obj[is[0]], is.slice(1), value);
+}
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -32386,7 +32401,7 @@ function flatten(ob) {
 };
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32399,7 +32414,9 @@ exports.default = initialize;
 
 var _each = __webpack_require__(7);
 
-var _flatten = __webpack_require__(54);
+var _flatten = __webpack_require__(55);
+
+var _object = __webpack_require__(54);
 
 var Dataset = void 0; /* injected */
 
@@ -32543,11 +32560,30 @@ function parseList() {
 function parseExtraction() {
   return function (res) {
     var dataset = new Dataset().type('extraction');
-    (0, _each.each)(res.result, function (record, i) {
+    // create header
+
+    var _loop = function _loop(i) {
+      var record = res.result[i];
       (0, _each.each)((0, _flatten.flatten)(record), function (value, key) {
         dataset.set([key, String(i + 1)], value);
       });
-    });
+    };
+
+    for (var i = 0; i < 1; i++) {
+      _loop(i);
+    }
+
+    // get keys of the Object
+    var names = Object.keys((0, _flatten.flatten)(res.result[0]));
+
+    for (var i = 1; i < res.result.length; i++) {
+      var record = [i + 1];
+      for (var iNames = 0; iNames < names.length; iNames++) {
+        record.push((0, _object.valueAtDeepKey)(res.result[i], names[iNames]));
+      }
+      dataset.matrix[String(i + 1)] = record;
+    }
+
     dataset.deleteColumn(0);
     return dataset;
   };
@@ -32567,7 +32603,7 @@ var parsers = {
 };
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32666,7 +32702,7 @@ function updateRow(q, input) {
 }
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32736,7 +32772,7 @@ function sortRows(str, comp) {
 }
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32773,7 +32809,7 @@ function selectRow(q) {
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32875,7 +32911,7 @@ function insertRow(index, str, input) {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32925,7 +32961,7 @@ function filterRows(fn) {
 }
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32961,7 +32997,7 @@ function deleteRow(q) {
 }
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33468,7 +33504,7 @@ function domReady(fn) {
 exports.default = Dataviz;
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 var g;
@@ -33494,7 +33530,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33505,7 +33541,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = exports.Dataviz = exports.extendKeenGlobalObject = undefined;
 
-var _index = __webpack_require__(62);
+var _index = __webpack_require__(63);
 
 Object.defineProperty(exports, 'Dataviz', {
   enumerable: true,
@@ -33534,7 +33570,7 @@ if (true) {
 }
 
 exports.default = _index.Dataviz;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(63)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(64)))
 
 /***/ })
 /******/ ]);
