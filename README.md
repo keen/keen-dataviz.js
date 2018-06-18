@@ -3,11 +3,10 @@
 The most advanced data visualization library for [Keen IO](https://keen.io).
 
 
-## Install as a NPM module
+## Install
 
 ```ssh
-# via npm
-$ npm install keen-dataviz
+npm install keen-dataviz --save
 ```
 
 ## Example
@@ -127,10 +126,6 @@ chart
   .data({ result: 621 })
   .render();
 ```
-
-**Upgrading from keen-js?** [Read this](#upgrading-from-keen-js).
-
-This [example setup](#create-a-dataviz-instance) demonstrates how to put this library to work.
 
 **Advanced usage:**
 

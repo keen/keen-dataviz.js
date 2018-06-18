@@ -4,3 +4,5 @@ node_modules
 .DS_Store
 
 demo-config.js
+huge.json
+huge_response.html
