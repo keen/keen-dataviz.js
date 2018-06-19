@@ -38,7 +38,7 @@
     "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
   "dependencies": {
-    "c3": "^0.6.1",
+    "c3": "^0.6.2",
     "d3": "^5.4.0"
   },
   "devDependencies": {
@@ -66,6 +66,8 @@
     "nock": "^9.2.6",
     "postcss": "^6.0.21",
     "postcss-cli": "^5.0.0",
+    "postcss-color-function": "^4.0.1",
+    "postcss-css-variables": "^0.8.1",
     "postcss-cssnext": "^2.4.0",
     "postcss-import": "^8.0.2",
     "postcss-loader": "^2.1.3",

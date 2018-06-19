@@ -3,6 +3,8 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
   plugins: [
     require('precss'),
+    require('postcss-css-variables'),
+    require('postcss-color-function'),
     process.env.OPTIMIZE_MINIMIZE ? require('cssnano')({
       preset: 'default',
     }) : null,
