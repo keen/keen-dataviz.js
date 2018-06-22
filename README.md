@@ -61,8 +61,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.min.js"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.7.min.css" rel="stylesheet" />
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.7.min.js"></script>
+    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.9.min.css" rel="stylesheet" />
+    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.9.min.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
