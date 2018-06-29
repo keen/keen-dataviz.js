@@ -579,7 +579,11 @@
         .el('#nested .chart-demo-metric')
         .type('metric')
         .title('High-fives today')
-        .prepare();
+        .prepare()
+        .call(function(){
+          this.dataset.matrix = metricData;
+        })
+        .render();
 
       window.table = new Dataviz()
         .el('.chart-demo-table')
@@ -605,46 +609,39 @@
         })
         .render();
 
-
-      setTimeout(function(){
-        window.metric.call(function(){
-          this.dataset.matrix = metricData;
-        }).render();
-      }, 1 * 1000);
-
       window.gauge = new Dataviz()
         .height(160)
         .el('.chart-c3-gauge')
-        .title('Percentage of awesome')
+        .title('Percentage of awesome Gauge 1')
         .theme('custom-theme')
         .notes('Sample notes go down here')
         .type('gauge')
-        // .chartOptions({})
+        .chartOptions({})
         .call(function(){
           this.dataset.matrix = gaugeData;
         })
         .render();
 
-      window.gauge2 = new Dataviz()
-        .height(160)
-        .el('.chart-c3-gauge2')
-        .title('Percentage of awesome')
-        .notes('Sample notes go down here')
-        .type('gauge')
-        .chartOptions({
-          color: {
-            pattern: ['#fe6672', '#ff855c', '#73d483'],
-            threshold: {
-              values: [25, 50, 75]
-            }
+      window.gauge2 = new Dataviz({
+        height: 160,
+        container: '.chart-c3-gauge2',
+        title: 'Percentage of awesome Gauge 2',
+        notes: 'some gauge2 note 123',
+        type: 'gauge',
+        theme: 'custom-theme',
+        color: {
+          pattern: ['#fe6672', '#ff855c', '#73d483'],
+          threshold: {
+            values: [25, 50, 75]
           }
-        })
+        }
+      })
         .call(function(){
           this.dataset.matrix = gaugeData;
         })
         .render();
 
-      setInterval(function(){
+      const gaugeInterval = setInterval(function(){
         window.gauge2.call(function(){
           this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
         }).render();

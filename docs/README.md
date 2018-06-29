@@ -9,11 +9,11 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@2"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.css" rel="stylesheet" />
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.3.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/keen-dataviz@3"></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -21,7 +21,7 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
 
     <!-- Create and Render -->
     <script>
-      var chart = new Keen.Dataviz()
+      const chart = new Keen.Dataviz()
         .el('#my-chart-div')
         .colors(['red', 'orange', 'green'])
         .height(500)
@@ -32,7 +32,7 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
 
       // Use keen-analysis.js to run a query
       // and pass the result into your chart:
-      var client = new Keen({
+      const client = new Keen({
         projectId: 'YOUR_PROJECT_ID',
         readKey: 'YOUR_READ_KEY'
       });
@@ -120,7 +120,7 @@ Call arbitrary functions within the prototype/instance context.
 ```javascript
 chart
   .call(function(){
-    var total = this.data().slice(1).length;
+    const total = this.data().slice(1).length;
     this.title('Total Results: ' + total);
   })
 ```
@@ -181,7 +181,7 @@ This method accepts two forms of input data.
 chart.data({ result: 621 });
 
 // Dataset instance
-var ds = new Keen.Dataset();
+const ds = new Keen.Dataset();
 ds.set(['Value', 'Result'], 621);
 chart.data(ds);
 
@@ -202,7 +202,7 @@ chart.dateFormat('%Y-%m');
 
 // .. or a function
 chart.dateFormat(function(ms){
-  var date = new Date(ms);
+  const date = new Date(ms);
   return date.getFullYear();
 });
 

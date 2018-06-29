@@ -3,7 +3,7 @@
 Themes allow for better control and reuse of visualization styles.
 
 ```javascript
-var chart = new Keen.Dataviz()
+const chart = new Keen.Dataviz()
   .type('metric')
   .theme('my-custom-theme')
   .render();

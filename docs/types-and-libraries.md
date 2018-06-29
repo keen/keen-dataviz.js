@@ -16,7 +16,7 @@ Dataviz.register('my-library', {
 });
 
 // Then use these libraries and types
-var chart = new Keen.Dataviz()
+const chart = new Keen.Dataviz()
   .library('my-library')
   .type('my-chart-type')
   .height(300)

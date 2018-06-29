@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Webpack Dev Keen Dataviz Demo</title>
+    <meta charset="utf-8">
+    <script src="./assets/faker.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@2.1.2"></script>
+
+    <script src="keen-dataviz.js"></script>
+    <script src="demo-config.js"></script>
+    <link rel="stylesheet" href="./keen-dataviz.css">
+    <link rel="stylesheet" href="./assets/keen-dashboards.css">
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script>
+    const chart = new Keen.Dataviz({
+      title: 'New Customers per Week',
+      legend: {
+        label: {
+          textMaxLength: 101
+        }
+      }
+    })
+  .el('#container')
+  .colors(['red', 'orange', 'green'])
+  .height(500)
+  .title('New Customers per Week')
+  // .type('metric')
+  .prepare();
+
+// Use keen-analysis.js to run a query
+// and pass the result into your chart:
+const client = new Keen(demoConfig);
+
+const q1 = new Keen.Query('count', {
+  event_collection: 'pageviews',
+  timeframe: 'this_17_days',
+  interval: 'daily',
+  group_by: 'local_time_full'
+});
+
+const q2 = new Keen.Query('count', {
+  event_collection: 'pageviews',
+  timeframe: 'this_17_days',
+  interval: 'daily'
+});
+
+client
+  .run([q1]).then(function(res){
+    console.log(res);
+      // Handle the result
+      chart
+        .data(res)
+        // res
+        // .data(res[1])
+        .render();
+    })
+    .catch(function(err){
+      // Handle the error
+      chart
+        .message(err.message);
+    });
+/*
+  .then(function(res){
+    // Handle the result
+    chart
+      .data(res)
+      .render();
+  })
+  .catch(function(err){
+    // Handle the error
+    chart
+      .message(err.message);
+  });
+  */
+    </script>
+
+  </body>
+</html>

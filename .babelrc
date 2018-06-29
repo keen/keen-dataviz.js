@@ -6,21 +6,19 @@
           "browsers": ["last 2 versions", "safari >= 7"]
         },
         "modules": false,
-        "plugins": ["transform-object-rest-spread"],
       },
       "development": {
         "targets": {
           "browsers": ["last 2 versions", "safari >= 7"]
         },
         "modules": false,
-        "plugins": ["transform-object-rest-spread"],
       },
       "test": {
         "plugins": [
           "transform-es2015-modules-commonjs",
-          "transform-object-rest-spread",
         ]
       }
     }]
-  ]
+  ],
+  "plugins": ["transform-object-rest-spread"]
 }
