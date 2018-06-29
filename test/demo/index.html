@@ -65,6 +65,9 @@
         font-size: 11px;
         padding: 5px 10px;
       }
+      .keen-c3-legend{
+        zwidth:300px;
+      }
     </style>
   </head>
   <body onload="init()">
@@ -647,12 +650,18 @@
         }).render();
       }, 1000);
 
-      window.donut = new Dataviz()
+      window.donut = new Dataviz({
+        legend: {
+          position: 'left',
+        //  width: '100px',
+          show: true
+        },
+        width: '300px'
+      })
         .height(300)
         .el('.chart-c3-donut')
         .title('Mmmm, donuts...')
         .type('donut')
-        .chartOptions({})
         .data(makeGroupedDataset())
         .sortGroups('desc')
         .render();
