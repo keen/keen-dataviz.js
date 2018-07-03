@@ -653,12 +653,9 @@
       window.donut = new Dataviz({
         legend: {
          position: 'bottom',
-        //  width: '100px',
           show: true
-        },
-        width: '300px'
+        }
       })
-        .height(300)
         .el('.chart-c3-donut')
         .title('Mmmm, donuts...')
         .type('donut')
@@ -700,12 +697,19 @@
         })
         .render();
 
-      window.barMultiStacked = new Dataviz()
-        .height(300)
+      window.barMultiStacked = new Dataviz({
+        title: 'Bar Chart Multi Stacked',
+        type: 'bar',
+        stacked: true,
+        tooltip: {
+          format: {
+            title: function (d) { return 'Datax ' + d; },
+            value: function (value, ratio, id) {
+              return value*2;
+            }
+          }
+        }})
         .el('.chart-c3-bar-stacked')
-        .title('Bar Chart')
-        .type('bar')
-        .stacked(true)
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
