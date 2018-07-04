@@ -163,8 +163,8 @@
 .keen-dataviz .c3-tooltip-container th {
   max-width: 50%;
   word-wrap: break-word;
-  background: var(--white);
-  color: var(--black);
+  color: var(--white);
+  background: var(--black);
 }
 .keen-dataviz .c3-tooltip-container td {
   max-width: 50%;
@@ -176,46 +176,44 @@
 }
 
 .keen-dataviz-rendering{
-  min-width: 400px;
-  min-height: 400px;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: space-around;
 
   .c3-chart{
-    display:flex;
-    flex-grow: 3;
+    display: flex;
+    flex-grow: 2;
     align-self: center;
+    order: 1;
   }
 
   .c3-chart-100-percent{
     width: 100%;
     align-self: center;
   }
+
+  &-horizontal{
+    flex-wrap: wrap;
+  }
 }
 
 /* CUSTOM LEGEND */
 .keen-c3-legend {
-  display:flex;
+  display: flex;
   position: relative;
   top: 0;
-  xwidth: 40%;
   flex-grow: 1;
-  min-width: 10%;
-  height: 100%;
   box-sizing: border-box;
 
   &-horizontal{
+    flex-direction: row;
     align-self: flex-end;
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
     margin: 1em 0;
-
-    .legend-item{
-      margin-right: 1em;
-    }
 
     &-pagination-left{
       order: 0;
@@ -235,38 +233,60 @@
     }
   }
 
+  &-top{
+    order: 0;
+  }
+  &-bottom {
+    order: 2;
+  }
+
   &-vertical{
+    flex-direction: column;
     .keen-c3-legend-pagination-icons
     {
-      float: left;
       margin: 0.5em 0.1em;
+      order: 2;
     }
   }
 
   &-left{
-    float:left;
-    padding-right: 1em;
+    order: 0;
   }
 
   &-right{
-    float:right;
-    padding-left: 1em;
+    order: 2;
   }
 
-  &-vertical{
+  &-items{
+    order: 1;
+  }
+
+  &-vertical-items{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
     .legend-item{
       width: 100%;
     }
   }
 
+  &-horizontal-items{
+    display: flex;
+    flex-direction: row;
+    .legend-item{
+      margin: 0 0.25em;
+    }
+  }
+
   .legend-item{
+    display: flex;
     cursor: pointer;
-    float: left;
     overflow: hidden;
-    padding: 0.1em;
+    padding: 0.2em;
     white-space: nowrap;
     text-overflow: ellipsis;
-    min-width: 5em;
     > * {
       vertical-align: middle;
     }
@@ -309,6 +329,7 @@
   }
 
   &-pagination-icons {
+    padding: 0.2em;
     i {
       border-left: 1em solid transparent;
       border-right: 1em solid transparent;
@@ -321,8 +342,8 @@
     }
 
     .right {
-        transform: rotate(-90deg);
-        -webkit-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+      -webkit-transform: rotate(-90deg);
     }
 
     .left {
@@ -337,16 +358,17 @@
     }
 
     .down {
+      margin-right: 0.1em;
     }
   }
 }
 
 .keen-c3-legend-label-overlay {
-  font-size:1em;
+  font-size: 1em;
   background: color(var(--white) alpha(-10%));
   box-shadow: 0 1px 1px color(var(--black) alpha(-90%));
   padding: 0.6em;
-  margin-top: 1em;
+  margin-top: 1.5em;
   position: absolute;
   word-wrap: break-word;
   pointer-events: none;

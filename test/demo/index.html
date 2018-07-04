@@ -613,7 +613,6 @@
         .render();
 
       window.gauge = new Dataviz()
-        .height(160)
         .el('.chart-c3-gauge')
         .title('Percentage of awesome Gauge 1')
         .theme('custom-theme')
@@ -626,7 +625,6 @@
         .render();
 
       window.gauge2 = new Dataviz({
-        height: 160,
         container: '.chart-c3-gauge2',
         title: 'Percentage of awesome Gauge 2',
         notes: 'some gauge2 note 123',
@@ -652,14 +650,20 @@
 
       window.donut = new Dataviz({
         legend: {
-         position: 'bottom',
+          position: 'bottom',
           show: true
         }
-      })
+        })
         .el('.chart-c3-donut')
         .title('Mmmm, donuts...')
         .type('donut')
-        .data(makeGroupedDataset())
+        .data(makeGroupedDataset()
+          /*{
+          result: [
+            {email: 'a@a', value: 100},
+            {email: 'b@b', value: 30}
+          ]
+        }*/)
         .sortGroups('desc')
         .render();
 
@@ -764,10 +768,15 @@
         .sortGroups('desc')
         .render();
 
-      window.lineMulti = new Dataviz()
+      window.lineMulti = new Dataviz({
+        legend: {
+          position: 'bottom',
+          show: true
+        }
+        })
         .height(300)
         .el('.chart-c3-line-multi')
-        .title('Line Chart')
+        .title('Multi Line Chart')
         .type('linechart')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
@@ -777,7 +786,7 @@
       window.lineMultiStacked = new Dataviz()
         .height(300)
         .el('.chart-c3-line-stacked')
-        .title('Line Chart')
+        .title('Stacked Line Chart')
         .type('line')
         .stacked(true)
         .call(function(){
@@ -795,8 +804,15 @@
         })
         .render();
 
-      window.lineTimeMulti = new Dataviz()
-        .height(300)
+      window.lineTimeMulti = new Dataviz({
+        legend: {
+          position: 'top',
+          show: true,
+          pagination: {
+            limit: 3
+          }
+        }
+        })
         .el('.chart-c3-line-time-multi')
         .title('Line Chart')
         .type('line')
@@ -806,7 +822,6 @@
         .render();
 
       window.lineTimeMultiStacked = new Dataviz()
-        .height(300)
         .el('.chart-c3-line-time-stacked')
         .title('Line Chart')
         .type('linechart')
@@ -832,10 +847,18 @@
         .data(makeGroupedDataset())
         .render();
 
-      window.splineMulti = new Dataviz()
+      window.splineMulti = new Dataviz({
+        legend: {
+          position: 'left',
+          show: true,
+          label: {
+            textMaxLength: 20
+          }
+        }
+        })
         .height(300)
         .el('.chart-c3-spline-multi')
-        .title('Spline Chart')
+        .title('Multi Spline Chart')
         .type('spline')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
