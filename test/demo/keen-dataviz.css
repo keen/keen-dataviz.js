@@ -303,7 +303,7 @@
   color: #4D4D4D;
 }
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
-  visibility: hidden;
+  xvisibility: hidden;
 }
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
   background: #FFFFFF;
