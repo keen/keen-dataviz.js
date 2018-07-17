@@ -61,18 +61,7 @@ Create a new Dataviz instance. This `chart` variable will be used throughout thi
 
 ## Chart types
 
-The following chart types are available for immediate use via the [`.type()` method](#type). Make sure [C3.js](http://c3js.org) and [D3.js](http://d3js.org) are installed before using any of the visualization types that rely on those dependencies.
-
-Custom (built by us):
-
-* metric
-* message
-
-Powered by [Spin.js](http://fgnass.github.io/spin.js/) (bundled with this library):
-
-* spinner
-
-Powered by [C3.js](http://c3js.org/examples.html) (installed separately):
+Powered by [C3.js](http://c3js.org/examples.html):
 
 * [area](http://c3js.org/samples/chart_area.html)
 * [area-spline](http://c3js.org/samples/chart_area.html)
@@ -95,23 +84,13 @@ Types like "bar" and "line" support [axis rotation](http://c3js.org/samples/axes
 * horizontal-spline
 * horizontal-step
 
+### Custom (built by us):
+
+* metric
+* message
 
 
 ## Prototype methods
-
-### .attributes(object)
-
-Set or get attributes with one fell swoop!
-
-```javascript
-chart.attributes({
-  title: 'My Title!',
-  width: 600
-});
-
-// Return attributes object
-chart.attributes();
-```
 
 ### .call(function)
 
@@ -123,22 +102,6 @@ chart
     const total = this.data().slice(1).length;
     this.title('Total Results: ' + total);
   })
-```
-
-### .chartOptions(object)
-
-Set configuration options intended for the underlying charting library adapter. Each adapter will document how this works for various libraries and chartTypes.
-
-```javascript
-chart
-  .chartOptions({
-    legend: {
-      position: 'none'
-    }
-  });
-
-// Return current chartOptions
-chart.chartOptions();
 ```
 
 ### .colors(array)
@@ -244,15 +207,6 @@ chart.el(document.getElementById('my-chart'));
 
 // Return current element
 chart.el();
-```
-
-### .height(number)
-
-```javascript
-chart.height(450);
-
-// Return current height
-chart.height();
 ```
 
 ### .labels(array)
@@ -384,13 +338,4 @@ chart.type('bar');
 
 // Return current type
 chart.type();
-```
-
-### .width(number)
-
-```javascript
-chart.width(900);
-
-// Return current width
-chart.width();
 ```

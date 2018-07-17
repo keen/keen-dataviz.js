@@ -15,13 +15,12 @@ npm install keen-dataviz --save
 import KeenAnalysis from 'keen-analysis';
 import KeenDataviz from 'keen-dataviz';
 
-const chart = new KeenDataviz()
-  .el('#my-chart-div')
-  .colors(['red', 'orange', 'green'])
-  .height(500)
-  .title('New Customers per Week')
-  .type('area')
-  .prepare();
+const chart = new KeenDataviz({
+  container: '#my-chart-div' // querySelector,
+  colors: ['red', 'orange', 'green'],
+  title: 'New Customers per Week',
+  type: 'area'
+});
 
 // Use keen-analysis.js to run a query
 // and pass the result into your chart:
@@ -36,16 +35,15 @@ client
     timeframe: 'this_7_days',
     interval: 'daily'
   })
-  .then(function(res){
+  .then(function(result){
     // Handle the result
     chart
-      .data(res)
-      .render();
+      .render(result);
   })
-  .catch(function(err){
+  .catch(function(error){
     // Handle the error
     chart
-      .message(err.message);
+      .message(error.message);
   });
 ```
 
@@ -70,18 +68,16 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
     <!-- Create and Render -->
     <script>
-      const chart = new Keen.Dataviz()
-        .el('#my-chart-div')
-        .colors(['red', 'orange', 'green'])
-        .height(500)
-        .title('New Customers per Week')
-        .type('metric')
-        .prepare();
-
+      const chart = new KeenDataviz({
+        container: '#my-chart-div' // querySelector,
+        colors: ['red', 'orange', 'green'],
+        title: 'New Customers per Week',
+        type: 'area'
+      });
 
       // Use keen-analysis.js to run a query
       // and pass the result into your chart:
-      const client = new Keen({
+      const client = new KeenAnalysis({
         projectId: 'YOUR_PROJECT_ID',
         readKey: 'YOUR_READ_KEY'
       });
@@ -92,39 +88,19 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
           timeframe: 'this_14_days',
           interval: 'daily'
         })
-        .then(function(res){
+        .then(function(result){
           // Handle the result
           chart
-            .data(res)
-            .render();
+            .render(result);
         })
-        .catch(function(err){
+        .catch(function(error){
           // Handle the error
           chart
-            .message(err.message);
+            .message(error.message);
         });
     </script>
   </body>
 </html>
-```
-
-## Create a Dataviz instance
-
-Create a new `Dataviz` instance. This `chart` variable will be used throughout this guide as a reference to a `Dataviz` instance.
-
-```javascript
-const chart = new KeenDataviz()
-  .el('#dom-selector')
-  .height(280)
-  .title('Signups this week')
-  .type('metric')
-  .prepare();
-
-// Fetch data from the API:
-//  Imaginary callback ...
-chart
-  .data({ result: 621 })
-  .render();
 ```
 
 **Advanced usage:**
@@ -134,30 +110,10 @@ chart
 * [Create custom themes](./docs/themes.md#custom-themes)
 * [Create custom visualizations](./docs/types-and-libraries.md#custom-types-and-libraries)
 
-<a name="upgrading-from-keen-js"></a>
-**Upgrading from keen-js:**
-
-There are several breaking changes and deprecations from [keen-js](https://github.com/keen/keen-js).
-
-* **client.draw() is not part of this SDK – check out [keen-analysis.js](https://github.com/keen/keen-analysis.js) for fetching query results**
-* **Method removal:** the following methods are no longer necessary, and so they have been removed entirely:
-    * `.parseRequest()`: this is now handled by `.data()` (learn more)
-    * `.dataType()`
-    * `.adapter()`
-    * `.initialize()`
-* **Method deprecations:** the following method names have been changed, but are still available as aliases:
-    * `.parseRawData()` is now handled by `.data()`
-    * `.chartType()` is now `.type()` (new)
-    * `.error()` is now `.message()` (new)
-* **Internal architecture:** the internals for each `Dataviz` instance have changed dramatically. Please review the source if you have built something referencing these properties directly.
-* **Dataset:** the `Dataset` instance prototype and internal architecture have been heavily refactored:
-    * `.input()` has been removed, as instances no longer maintain the original raw input data
-    * `.output()` has been renamed to `.data()` (no alias)
-    * `Dataset.parser()` returns parsing functions for all standard API response types. These functions will correctly parse a given response and return a new Dataset instance. [Learn more about these parsers](./docs/dataset/parsers.md#data-parsers)
-
 <a name="additional-resources"></a>
 **Additional resources:**
 
+* [Upgrading from keen-js](./docs/upgrading-from-keen-js.md)
 * [Contributing](#contributing) is awesome and we hope you do!
 * [Custom builds](#custom-builds) are encouraged as well - have fun!
 

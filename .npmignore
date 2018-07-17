@@ -6,15 +6,12 @@
 .awspublish-keen-js
 
 bower.json
-gulpfile.js
 demo-config.js
 bower.json
-gulpfile.js
 .babelrc
 test
 .travis.yml
 jest.config.js
-replace-config.js
 webpack.config.js
 .eslintrc
 

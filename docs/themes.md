@@ -3,10 +3,10 @@
 Themes allow for better control and reuse of visualization styles.
 
 ```javascript
-const chart = new Keen.Dataviz()
-  .type('metric')
-  .theme('my-custom-theme')
-  .render();
+const chart = new KeenDataviz({
+  type: 'metric',
+  theme: 'my-custom-theme'
+});
 ```
 
 ```css
