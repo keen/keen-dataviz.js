@@ -20149,6 +20149,36 @@ function appendRow(str, input) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.extendDeep = extendDeep;
+
+var _each = __webpack_require__(0);
+
+function extendDeep(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    (0, _each.each)(arguments[i], function (prop, key) {
+      if (typeof target[key] !== 'undefined' && typeof prop !== 'undefined' && _typeof(target[key]) === 'object' && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object' && target[key] !== null && prop !== null) {
+        extendDeep(target[key], prop);
+      } else {
+        target[key] = prop;
+      }
+    });
+  }
+  return target;
+}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.stripHtmlTags = stripHtmlTags;
 /**
  * Strip html tags from string
@@ -20163,7 +20193,7 @@ function stripHtmlTags(inputString) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20274,7 +20304,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20313,7 +20343,7 @@ var _update = __webpack_require__(25);
 
 var update = _interopRequireWildcard(_update);
 
-var _analyses = __webpack_require__(8);
+var _analyses = __webpack_require__(9);
 
 var _analyses2 = _interopRequireDefault(_analyses);
 
@@ -20395,7 +20425,7 @@ Dataset.parser = (0, _parsers2.default)(Dataset);
 exports.default = Dataset;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20406,32 +20436,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
   render: function render() {
-    var html = '',
-        artifacts = this.view._artifacts.spinner = {},
-        height = this.height() || 35,
-        offsetPadding = (height - 35) / 2,
-        prefixes = ['webkit', 'Moz', 'ms', 'O'],
-        radius = this.view._artifacts.radius = 0,
-        spinner;
+    var html = '';
+    var artifacts = this.view._artifacts.spinner = {};
 
     // Build DOM element
-    html += '<div class="' + this.theme() + '">';
-    html += '<div class="keen-spinner-container" style="height: ' + height + 'px; padding-top: ' + offsetPadding + 'px;">';
+    html += '<div class="' + this.config.theme + '">';
+    html += '<div class="keen-spinner-container keen-dataviz-box">';
     html += '<div class="keen-spinner-indicator"></div>';
     html += '</div>';
     html += '</div>';
     this.el().innerHTML = html;
-
-    spinner = this.el().querySelector('.keen-spinner-indicator');
-    if (spinner.style.animationName === undefined) {
-      radius = 0;
-      artifacts.interval = setInterval(function () {
-        radius = radius === 350 ? 0 : radius + 10;
-        for (var i = 0; i < prefixes.length; i++) {
-          spinner.style[prefixes[i]] = 'rotate(' + artifacts.radius + 'deg)';
-        }
-      }, 15);
-    }
   },
   update: function update() {
     // no special update handling
@@ -20454,7 +20468,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20469,36 +20483,78 @@ var _each = __webpack_require__(0);
 var defaults = {
   height: undefined,
   width: undefined,
-  stickyHeader: true,
+  stickyHeader: false,
   stickyFooter: false
 };
 
-function _generateTableRows(dataset, colWidths, colAligns) {
+function _generateTableRows(dataset) {
   var html = '';
-  for (var i = 0; i < dataset.length; i++) {
-    if (i > 0) {
-      html += '<tr>';
-      for (var j = 0; j < dataset[i].length; j++) {
-        html += '<td style="min-width: ' + 10 * colWidths[j] + 'px; text-align: ' + colAligns[j] + ';">' + dataset[i][j] + '</td>';
+  var i = 0;
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = dataset[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var row = _step.value;
+
+      if (i > 0) {
+        html += '<tr>';
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = row[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var rowCol = _step2.value;
+
+            html += '<td>' + rowCol + '</td>';
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
+
+        html += '</tr>';
       }
-      html += '</tr>';
+      i = 1;
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
     }
   }
+
   return html;
 }
 
 exports.default = {
   render: function render() {
-    var dataset = this.data(),
-        el = this.el(),
-        height = (this.height() || defaults.height) - this.el().offsetHeight,
-        theme = this.theme(),
-        width = this.width() || defaults.width;
+    var dataset = this.data();
+    var el = this.el();
+    var theme = this.theme();
 
-    var html = '',
-        colAligns = new Array(dataset[0].length),
-        colWidths = new Array(dataset[0].length),
-        fixedHeader;
+    var html = '';
+    var fixedHeader = void 0;
 
     var isEmpty = dataset.length === 1 && dataset[0].length === 0;
     if (isEmpty) {
@@ -20506,46 +20562,57 @@ exports.default = {
       return;
     }
 
-    // Calculate max column widths
-    (0, _each.each)(dataset, function (row) {
-      (0, _each.each)(row, function (cell, i) {
-        if (!colWidths[i]) {
-          colWidths[i] = 0;
-        }
-        colAligns[i] = typeof cell === 'number' ? 'right' : 'left';
-        colWidths[i] = String(cell).length > colWidths[i] ? String(cell).length : colWidths[i];
-      });
-    });
-
     // Open wrapper
-    html += '<div class="' + theme + '-table" style="height: ' + (height ? height + 'px' : 'auto') + '; width: ' + (width ? width + 'px' : 'auto') + ';">';
+    html += '<div class="' + theme + '-table">';
 
     // Static, scrollable table
     html += '<table class="' + theme + '-table-dataset">';
     html += '<thead>';
     html += '<tr>';
-    for (var i = 0; i < dataset[0].length; i++) {
-      html += '<th style="width: ' + 10 * colWidths[i] + 'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
+    var _iteratorNormalCompletion3 = true;
+    var _didIteratorError3 = false;
+    var _iteratorError3 = undefined;
+
+    try {
+      for (var _iterator3 = dataset[0][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+        var colName = _step3.value;
+
+        html += '<th>' + colName + '</th>';
+      }
+    } catch (err) {
+      _didIteratorError3 = true;
+      _iteratorError3 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion3 && _iterator3.return) {
+          _iterator3.return();
+        }
+      } finally {
+        if (_didIteratorError3) {
+          throw _iteratorError3;
+        }
+      }
     }
+
     html += '</tr>';
     html += '</thead>';
     // Table data
     html += '<tbody>';
-    html += _generateTableRows.bind(this, dataset, colWidths, colAligns)();
+    html += _generateTableRows.call(this, dataset);
     html += '</tbody>';
     html += '</table>';
-
-    // Fixed table (header)
-    html += '<table class="' + theme + '-table-fixed-header">';
-    html += '<thead>';
-    html += '<tr>';
-    for (var i = 0; i < dataset[0].length; i++) {
-      html += '<th style="min-width: ' + 10 * colWidths[i] + 'px; text-align: ' + colAligns[i] + ';">' + dataset[0][i] + '</th>';
-    }
-    html += '</tr>';
-    html += '</thead>';
-    html += '</table>';
-
+    /*
+        // Fixed table (header)
+        html +=   `<table class="${theme}-table-fixed-header">`;
+        html +=     '<thead>';
+        html +=       '<tr>';
+        for (let colName of dataset[0]) {
+          html +=       `<th>${colName}</th>`;
+        }
+        html +=       '</tr>';
+        html +=     '</thead>';
+        html +=   '</table>';
+    */
     // Close wrapper
     html += '</div>';
 
@@ -20570,7 +20637,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20650,7 +20717,7 @@ function prettyNumber(input) {
 }
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20660,24 +20727,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _prettyNumber = __webpack_require__(12);
+var _prettyNumber = __webpack_require__(13);
 
 var _escapeHtml = __webpack_require__(1);
 
 exports.default = {
   render: function render() {
-    var color = this.colors()[0],
-        theme = this.theme(),
-        title = this.title(),
-        value = '-',
-        height = this.height() || 140,
-        width = this.width(),
-        opts = this.chartOptions(),
-        html = '',
-        prefix = '',
-        suffix = '',
-        formattedNum,
-        valueEl;
+    var color = this.config.colors[0];
+    var theme = this.config.theme;
+    var title = this.config.title;
+    var opts = this.config;
+    var value = '-';
+    var html = '';
+    var prefix = '';
+    var suffix = '';
+    var formattedNum = void 0;
+    var valueEl = void 0;
 
     if (typeof this.data()[1][1] === 'number') {
       value = this.data()[1][1];
@@ -20696,73 +20761,18 @@ exports.default = {
     }
 
     html += '<div class="' + theme + '">';
-    html += '<div class="' + theme + '-metric" style="background-color: ' + color + '; width: ' + (width ? width + 'px' : 'auto') + ';" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
-    html += '<span class="' + theme + '-metric-value">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</span>';
+    html += '<div class="' + theme + '-metric keen-dataviz-box" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
+    html += '<div class="' + theme + '-metric-value">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
     if (title) {
-      html += '<span class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</span>';
+      html += '<div class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</div>';
     }
     html += '</div>';
     html += '</div>';
 
     this.el().innerHTML = html;
-    valueEl = this.el().querySelector('.' + theme + '-metric-value');
-    valueEl.style.paddingTop = (height - this.el().offsetHeight) / 2 + 'px';
-    this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    // no special clean-up
-  }
-};
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _escapeHtml = __webpack_require__(1);
-
-exports.default = {
-  render: function render(text) {
-    var outer = document.createElement('div');
-    var inner = document.createElement('div');
-    var msg = document.createElement('span');
-    var height = this.height() || 140;
-
-    var titleContainer = document.createElement('div');
-    var notesContainer = document.createElement('div');
-
-    outer.className = this.theme();
-    inner.className = this.theme() + '-message';
-    inner.style.width = this.width() + 'px';
-
-    // Create title and notes for message
-    titleContainer.className = this.theme() + '-title';
-    titleContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.title() || '');
-    notesContainer.className = this.theme() + '-notes';
-    notesContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.notes() || '');
-
-    msg.innerHTML = (0, _escapeHtml.escapeHtml)(text) || '';
-    inner.appendChild(msg);
-    outer.appendChild(titleContainer);
-    outer.appendChild(inner);
-    outer.appendChild(notesContainer);
-
-    this.el().innerHTML = '';
-    this.el().appendChild(outer);
-
-    var actualInnerHeight = height - titleContainer.offsetHeight - notesContainer.offsetHeight;
-    inner.style.height = actualInnerHeight + 'px';
-    inner.style.paddingTop = actualInnerHeight / 2 - 12 + 'px';
+    // valueEl = this.el().querySelector('.' + theme + '-metric-value');
+    // valueEl.style.paddingTop = ((height - this.el().offsetHeight) / 2) + 'px';
+    // this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
   },
   update: function update() {
     // no special update handling
@@ -20784,15 +20794,64 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
-  var bgcolor, name, nameFormat, text, title, titleFormat, value, valueFormat;
+var _escapeHtml = __webpack_require__(1);
 
+exports.default = {
+  render: function render(text) {
+    var outer = document.createElement('div');
+    var inner = document.createElement('div');
+    var msg = document.createElement('span');
+
+    var titleContainer = document.createElement('div');
+    var notesContainer = document.createElement('div');
+
+    outer.className = this.config.theme + ' keen-dataviz-box';
+    inner.className = this.config.theme + '-message';
+
+    // Create title and notes for message
+    titleContainer.className = this.config.theme + '-title';
+    titleContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.config.title || '');
+    notesContainer.className = this.config.theme + '-notes';
+    notesContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.config.notes || '');
+
+    msg.innerHTML = (0, _escapeHtml.escapeHtml)(text) || '';
+    inner.appendChild(msg);
+    outer.appendChild(titleContainer);
+    outer.appendChild(inner);
+    outer.appendChild(notesContainer);
+
+    this.el().innerHTML = '';
+    this.el().appendChild(outer);
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    // no special clean-up
+  }
+};
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
+  var text = void 0;
+  var title = void 0;
   // Set config options or defaults
-  nameFormat = this.config.tooltip_format_name || function (name) {
+  var nameFormat = this.config.tooltip_format_name || function (name) {
     return name;
   };
-  titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
-  valueFormat = this.config.tooltip_format_value || defaultValueFormat;
+  var titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
+  var valueFormat = this.config.tooltip_format_value || defaultValueFormat;
 
   // Reverse list to match legend
   for (var i = 0; i < d.length; i++) {
@@ -20803,9 +20862,9 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
       title = titleFormat ? titleFormat(d[i].x) : d[i].x;
       text = "<table class='" + this.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + (0, _escapeHtml.escapeHtml)(title) + "</th></tr>" : "");
     }
-    name = nameFormat(d[i].name);
-    value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-    bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
+    var name = nameFormat(d[i].name);
+    var value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+    var bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
     if (value) {
       text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
       text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + (0, _escapeHtml.escapeHtml)(name) + "</td>";
@@ -20819,7 +20878,7 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
 var _escapeHtml = __webpack_require__(1);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20829,25 +20888,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = function (cols) {
-  var self = this,
-      chart = this.view._artifacts.c3,
-      columns = [],
-      domNode = this.el().querySelector('.' + this.theme() + '-rendering'),
-      legendWidth = 120;
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-  var pagination = this.view._artifacts.pagination = {
+exports.default = function (options) {
+  var cols = options.data.columns;
+  var datavizInstance = this;
+  var chart = this.view._artifacts.c3;
+  var columns = [];
+  var domNode = this.el().querySelector('.' + datavizInstance.config.theme + '-rendering');
+  var legendConfig = datavizInstance.config.legend;
+
+  var pagination = this.view._artifacts.pagination = _extends({
     hidden: [],
     labels: [],
-    position: 0,
-    range: Math.round((domNode.offsetHeight - 78) / 20),
+    offset: 0,
+    limit: Math.round((domNode.offsetHeight - 78) / 20),
     total: 0
-  };
-
-  // Reduce threshold for donut/pie charts
-  if (this.type() === 'donut' || this.type() === 'pie') {
-    pagination.range = pagination.range >= 5 ? 5 : pagination.range;
-  }
+  }, legendConfig.pagination);
 
   for (var i = 0; i < cols.length; i++) {
     if (cols[i][0] !== 'x' && !(0, _assertDateString2.default)(cols[i][1])) {
@@ -20855,149 +20912,148 @@ exports.default = function (cols) {
     }
   }
 
-  var legendEl = d3.select(domNode).append('svg');
-  legendEl.attr('class', 'keen-c3-legend');
-  legendEl.attr('height', domNode.offsetHeight - 10);
-  legendEl.attr('width', legendWidth);
-  legendEl.style('right', -legendWidth + 'px');
-  legendEl.style('top', '10px');
+  var legendElement = this.el().querySelector('.keen-c3-legend');
 
-  var legendItems = legendEl.append('g');
-  legendItems.attr('class', 'keen-c3-legend-items');
+  var align = 'vertical';
+  if (legendConfig.position === 'top' || legendConfig.position === 'bottom') {
+    align = 'horizontal';
+  }
 
-  var paginateElOffset = 20 * pagination.range;
-  var paginateEl = legendEl.append('g');
-  paginateEl.attr('class', 'keen-c3-legend-pagination');
-  paginateEl.attr('transform', function () {
-    return 'translate(2, ' + paginateElOffset + ')';
-  });
+  var paginateHorizontalLeftElement = document.createElement('div');
+  paginateHorizontalLeftElement.setAttribute('class', 'keen-c3-legend-pagination-icons keen-c3-legend-horizontal-pagination-left');
+  if (align === 'horizontal') {
+    legendElement.append(paginateHorizontalLeftElement);
+  }
+
+  var legendItemsElement = document.createElement('div');
+  legendItemsElement.setAttribute('class', 'keen-c3-legend-items keen-c3-legend-' + align + '-items');
+  legendElement.append(legendItemsElement);
+
+  var paginateVerticalElement = document.createElement('div');
+  paginateVerticalElement.setAttribute('class', 'keen-c3-legend-pagination keen-c3-legend-pagination-icons');
+  if (align === 'vertical') {
+    legendElement.append(paginateVerticalElement);
+  }
+
+  var paginateHorizontalRightElement = document.createElement('div');
+  paginateHorizontalRightElement.setAttribute('class', 'keen-c3-legend-pagination-icons keen-c3-legend-horizontal-pagination-right');
+  if (align === 'horizontal') {
+    legendElement.append(paginateHorizontalRightElement);
+  }
 
   paginateData();
 
   function paginateData() {
-    pagination.labels = columns.slice(pagination.position, pagination.position + pagination.range);
+    pagination.labels = columns.slice(pagination.offset, pagination.offset + pagination.limit);
     pagination.total = columns.length;
-    renderLegendComponent.call(self, pagination.labels);
-    if (pagination.total > pagination.range) {
-      renderPaginationComponent.call(self);
+    renderLegendComponent.call(datavizInstance, pagination.labels);
+    if (pagination.total > pagination.limit) {
+      renderPaginationComponent.call(datavizInstance);
     }
     chart.resize();
   }
 
   function renderLegendComponent() {
-    legendItems.selectAll('g').remove();
+    legendItemsElement.innerHTML = '';
 
-    var legendItemList = legendItems.selectAll('g').data(pagination.labels);
+    pagination.labels.forEach(function (label) {
+      var labelShortened = legendConfig.label.textMaxLength ? label.slice(0, legendConfig.label.textMaxLength - 1) : label;
+      var legendItem = document.createElement("div");
+      legendItem.innerHTML = '<span class=\'legend-item-text\'>' + labelShortened + '</span>';
+      legendItem.chartPartId = label;
+      legendItem.setAttribute('class', 'legend-item');
+      legendItemsElement.append(legendItem);
 
-    legendItemList.enter().append('g').attr('transform', function (id, i) {
-      return 'translate(0, ' + 20 * i + ')';
-    }).attr('data-id', function (id) {
-      return id;
-    }).style('opacity', function (id) {
-      var isHidden = pagination.hidden.indexOf(id);
-      return isHidden < 0 ? 1 : .35;
-    }).each(function (id) {
-      var elementText = d3.select(this).append('text');
+      var legendItemColorSample = document.createElement("span");
+      legendItemColorSample.setAttribute('class', 'legend-item-color-sample');
+      legendItemColorSample.style.backgroundColor = chart.color(legendItem.chartPartId);
+      legendItem.prepend(legendItemColorSample);
 
-      elementText.attr('font-size', 12);
-      elementText.attr('pointer-events', 'none');
-      elementText.attr('x', 15);
-      elementText.attr('y', 9);
-      elementText.text(id);
-      elementText.text(function (id) {
-        if (d3.select(this).node().getBBox().width > 105) {
-          return id.length <= 15 ? id : id.substring(0, 12) + '...';
-        } else {
-          return id;
+      var tooltipElement = document.createElement("div");
+      legendItem.addEventListener('mouseover', function (event) {
+        chart.focus(legendItem.chartPartId);
+        if (legendConfig.tooltip.show && legendItem.chartPartId.length > legendConfig.label.textMaxLength) {
+          tooltipElement.setAttribute('class', 'keen-c3-legend-label-overlay keen-c3-legend-position-' + legendConfig.position);
+          tooltipElement.innerHTML = '' + (options.legend.tooltip.pointer ? '<div class=\'overlay-pointer\'></div>' : '') + legendItem.chartPartId;
+          legendItem.append(tooltipElement);
         }
       });
-      var legendItemBox = d3.select(this).append('rect');
-      legendItemBox.attr('height', 14);
-      legendItemBox.attr('width', 110);
-      legendItemBox.attr('x', 0);
-      legendItemBox.attr('y', 0);
-      legendItemBox.style('cursor', 'pointer');
-      legendItemBox.style('fill-opacity', 0);
-      var legendItemCircle = d3.select(this).append('rect');
-      legendItemCircle.attr('fill', chart.color(id));
-      legendItemCircle.attr('height', 10);
-      legendItemCircle.attr('pointer-events', 'none');
-      legendItemCircle.attr('rx', 5);
-      legendItemCircle.attr('ry', 5);
-      legendItemCircle.attr('width', 10);
-      legendItemCircle.attr('x', 0);
-      legendItemCircle.attr('y', 0);
-    }).on('mouseover', function (id, i) {
-      chart.focus(id);
-      // show a tooltip overlay w/ full value
-      if (id.length > 15) {
-        var tooltipElement = d3.select(domNode).append('div');
-        tooltipElement.attr('class', 'keen-c3-legend-label-overlay');
-        tooltipElement.style('max-width', '75%');
-        tooltipElement.style('right', -legendWidth + 'px');
-        tooltipElement.style('top', 15 + (i + 1) * 20 + 'px');
-        tooltipElement.html(id);
-        tooltipElement.append('div').attr('class', 'keen-c3-legend-label-overlay-pointer');
-      }
-    }).on('mouseout', function (id) {
-      chart.revert();
-      // clear out the tooltip overlay
-      d3.select(self.el().querySelector('.' + self.theme() + '-rendering .keen-c3-legend-label-overlay')).remove();
-    }).on('click', function (id) {
-      d3.select(this).style('opacity', function () {
-        var isHidden = pagination.hidden.indexOf(id);
+      legendItem.addEventListener('mouseout', function (event) {
+        chart.revert();
+        tooltipElement.remove();
+      });
+      legendItem.addEventListener('click', function (event) {
+        var opacity = 1;
+        var isHidden = pagination.hidden.indexOf(legendItem.chartPartId);
         if (isHidden < 0) {
-          pagination.hidden.push(id);
-          return .35;
+          pagination.hidden.push(legendItem.chartPartId);
+          opacity = .35;
         } else {
           pagination.hidden.splice(isHidden, 1);
-          return 1;
+          opacity = 1;
         }
+        legendItem.style.opacity = opacity;
+        chart.toggle(legendItem.chartPartId);
       });
-      chart.toggle(id);
     });
-
-    legendItemList.exit().remove();
   }
 
   function renderPaginationComponent() {
-    paginateEl.selectAll('g').remove();
+    paginateVerticalElement.innerHTML = '';
+    paginateHorizontalLeftElement.innerHTML = '';
+    paginateHorizontalRightElement.innerHTML = '';
 
-    paginateEl.selectAll('g').data([{ direction: 'reverse', path_d: 'M0 10 L10 0 L20 10 Z' }, { direction: 'forward', path_d: 'M0 0 L10 10 L20 0 Z' }]).enter().append('g').attr('transform', function (id, i) {
-      return 'translate(' + i * 20 + ', 0)';
-    }).each(function (id) {
-      var element = d3.select(this).append('path');
+    var arrowUp = document.createElement('i');
+    var arrowDown = document.createElement('i');
 
-      element.attr('d', function (d) {
-        return d.path_d;
-      });
-      element.style('cursor', 'pointer');
-      element.style('fill', '#D7D7D7');
-      element.style('stroke', 'none');
-      element.on('mouseover', function (id) {
-        d3.select(this).style('fill', '#4D4D4D');
-      });
-      element.on('mouseout', function (id) {
-        d3.select(this).style('fill', '#D7D7D7');
-      });
-      element.on('click', function (d) {
-        if (d.direction === 'forward') {
-          if (pagination.position + pagination.range < pagination.total) {
-            pagination.position = pagination.position + pagination.range;
-          }
-        } else {
-          if (pagination.position - pagination.range >= 0) {
-            pagination.position = pagination.position - pagination.range;
-          }
+    var paginate = function paginate(direction) {
+      if (direction === 'forward') {
+        var _diff = pagination.offset + pagination.limit;
+        if (_diff < pagination.total) {
+          pagination.offset = _diff;
+          return;
         }
-        paginateData();
-        clearSelectedText();
-      });
+        pagination.offset = 0;
+        return;
+      }
+
+      var diff = pagination.offset - pagination.limit;
+      if (diff >= 0) {
+        pagination.offset = diff;
+        return;
+      }
+
+      pagination.offset = Math.floor(pagination.total / pagination.limit) * pagination.limit;
+    };
+
+    arrowDown.addEventListener('click', function () {
+      paginate('forward');
+      paginateData();
+      clearSelectedText();
     });
+
+    arrowUp.addEventListener('click', function () {
+      paginate('backward');
+      paginateData();
+      clearSelectedText();
+    });
+
+    if (legendConfig.position === 'left' || legendConfig.position === 'right') {
+      arrowUp.setAttribute('class', 'up');
+      arrowDown.setAttribute('class', 'down');
+      paginateVerticalElement.append(arrowDown);
+      paginateVerticalElement.append(arrowUp);
+    } else {
+      // bottom top
+      arrowUp.setAttribute('class', 'left');
+      arrowDown.setAttribute('class', 'right');
+      paginateHorizontalLeftElement.append(arrowUp);
+      paginateHorizontalRightElement.append(arrowDown);
+    }
   }
 
   function clearSelectedText() {
-    var selection;
+    var selection = void 0;
     if (document.selection && document.selection.empty) {
       selection = document.selection;
       selection.empty();
@@ -21021,7 +21077,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21058,36 +21114,6 @@ exports.default = function (startDate, endDate) {
           return '%I:%M:%S %p';
         }
 };
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.extendDeep = extendDeep;
-
-var _each = __webpack_require__(0);
-
-function extendDeep(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    (0, _each.each)(arguments[i], function (prop, key) {
-      if (typeof target[key] !== 'undefined' && typeof prop !== 'undefined' && _typeof(target[key]) === 'object' && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object' && target[key] !== null && prop !== null) {
-        extendDeep(target[key], prop);
-      } else {
-        target[key] = prop;
-      }
-    });
-  }
-  return target;
-}
 
 /***/ }),
 /* 19 */
@@ -30313,13 +30339,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.default = function (lib) {
-  var timer, delay;
+  var timer = void 0;
   bindResizeListener(function () {
     if (timer) {
       clearTimeout(timer);
     }
-    delay = lib.visuals.length > 12 ? 1000 : 250;
+    var delay = lib.visuals.length > 12 ? 1000 : 250;
     timer = setTimeout(function () {
       (0, _each.each)(lib.visuals, function (chart) {
         if (chart.view._artifacts.c3) {
@@ -30329,8 +30357,7 @@ exports.default = function (lib) {
     }, delay);
   });
 
-  defineC3();
-  return types;
+  return defineC3();
 };
 
 var _c = __webpack_require__(19);
@@ -30345,52 +30372,52 @@ var _each = __webpack_require__(0);
 
 var _extend = __webpack_require__(2);
 
-var _extendDeep = __webpack_require__(18);
+var _extendDeep = __webpack_require__(7);
 
 var _assertDateString = __webpack_require__(4);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _defaultDateFormat = __webpack_require__(17);
+var _defaultDateFormat = __webpack_require__(18);
 
 var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
 
-var _paginatingLegend = __webpack_require__(16);
+var _paginatingLegend = __webpack_require__(17);
 
 var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
 
-var _tooltipContents = __webpack_require__(15);
+var _tooltipContents = __webpack_require__(16);
 
 var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
 
-var _message = __webpack_require__(14);
+var _message = __webpack_require__(15);
 
 var _message2 = _interopRequireDefault(_message);
 
-var _metric = __webpack_require__(13);
+var _metric = __webpack_require__(14);
 
 var _metric2 = _interopRequireDefault(_metric);
 
-var _table = __webpack_require__(11);
+var _table = __webpack_require__(12);
 
 var _table2 = _interopRequireDefault(_table);
 
-var _spinner = __webpack_require__(10);
+var _spinner = __webpack_require__(11);
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var types = {
-  message: _message2.default,
-  metric: _metric2.default,
-  table: _table2.default,
-  spinner: _spinner2.default
-};
-
 ;
 
 function defineC3() {
+  var types = {
+    message: _message2.default,
+    metric: _metric2.default,
+    table: _table2.default,
+    spinner: _spinner2.default
+  };
+
   var c3Types = [
   // Standard types
   'area', 'area-spline', 'area-step', 'bar', 'donut', 'gauge', 'line', 'pie', 'step', 'spline',
@@ -30399,66 +30426,30 @@ function defineC3() {
   'horizontal-area', 'horizontal-area-spline', 'horizontal-area-step', 'horizontal-bar', 'horizontal-line', 'horizontal-step', 'horizontal-spline'];
 
   function getDefaultOptions() {
-    var DEFAULT_OPTIONS, ENFORCED_OPTIONS, options;
-
-    DEFAULT_OPTIONS = {
-      axis: {},
-      color: {},
+    var ENFORCED_OPTIONS = {
+      bindto: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'),
+      color: {
+        pattern: this.config.colors
+      },
       data: {
-        order: null
+        colors: _extends({}, this.config.colorMapping),
+        columns: [],
+        type: this.config.type.replace('horizontal-', '')
       },
-      legend: {
-        position: 'right',
-        show: true
-      },
-      padding: {},
-      point: {
-        focus: {
-          expand: {
-            enabled: false
-          }
-        },
-        r: 2,
-        show: true
-      },
-      tooltip: {},
-      transition: {
-        duration: 0
+      size: {
+        width: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart').offsetWidth,
+        height: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart').offsetHeight > 0 ? this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart').offsetHeight : undefined
       }
     };
 
-    ENFORCED_OPTIONS = {
-      bindto: this.el().querySelector('.' + this.theme() + '-rendering'),
-      color: {
-        pattern: this.colors()
-      },
-      data: {
-        colors: (0, _extend.extend)({}, this.colorMapping()),
-        columns: [],
-        type: this.type().replace('horizontal-', '')
-      },
-      size: {
-        height: this.height() ? this.height() - this.el().offsetHeight : 400,
-        width: this.width()
-      },
-      tooltip: {}
-    };
-
-    // Apply chartOptions
-    options = (0, _extendDeep.extendDeep)({}, DEFAULT_OPTIONS, this.chartOptions());
-
-    // Apply enforced options
-    options = (0, _extendDeep.extendDeep)(options, ENFORCED_OPTIONS);
-    options.color.pattern = ENFORCED_OPTIONS.color.pattern;
-    options.data.colors = ENFORCED_OPTIONS.data.colors;
-    options.data.columns = ENFORCED_OPTIONS.data.columns;
-
-    return options;
+    return (0, _extendDeep.extendDeep)({}, this.config, ENFORCED_OPTIONS);
   }
 
   (0, _each.each)(c3Types, function (type, index) {
     types[type] = {
       render: function render() {
+        var _this = this;
+
         var options = getDefaultOptions.call(this);
 
         if (this.data()[0].length === 1 || this.data().length === 1) {
@@ -30468,7 +30459,7 @@ function defineC3() {
 
         if (type === 'gauge') {
           // Accommodate a neat bug:
-          options.legend.position = 'bottom';
+          options.legend.show = false;
           options.data.columns = [[this.title() || this.data()[1][0], this.data()[1][1]]];
         } else if (type === 'pie' || type === 'donut') {
           options.data.columns = this.data().slice(1);
@@ -30484,7 +30475,7 @@ function defineC3() {
             options.axis.x = options.axis.x || {};
             options.axis.x.type = 'timeseries';
             options.axis.x.tick = options.axis.x.tick || {
-              format: this.dateFormat() || (0, _defaultDateFormat2.default)(this.data()[1][0], this.data()[2] ? this.data()[2][0] : this.data()[1][0]),
+              format: this.config.dateFormat || (0, _defaultDateFormat2.default)(this.data()[1][0], this.data()[2] ? this.data()[2][0] : this.data()[1][0]),
               culling: { max: 5 }
             };
 
@@ -30497,7 +30488,7 @@ function defineC3() {
             });
             options.data.columns[0][0] = 'x';
             options.data.x = 'x';
-            if (this.stacked() && this.data()[0].length > 2) {
+            if (this.config.stacked && this.data()[0].length > 2) {
               options.data.groups = [this.dataset.selectRow(0).slice(1)];
             }
           } else {
@@ -30505,7 +30496,7 @@ function defineC3() {
             options.axis.x = options.axis.x || {};
             options.axis.x.type = 'category';
             options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
-            if (this.stacked() && this.data()[0].length > 2) {
+            if (this.config.stacked && this.data()[0].length > 2) {
               options.data.groups = [this.dataset.selectRow(0).slice(1)];
             }
           }
@@ -30521,29 +30512,32 @@ function defineC3() {
           }.bind(this));
         }
 
-        if (options.legend.show === true && options.legend.position === 'right' && ['gauge'].indexOf(type.replace('horizontal-', ''))) {
-
+        if (options.legend.show === true) {
+          var c3options = _extends({}, options);
           // Apply custom color handling
-          options.data.color = c3CustomDataMapping.bind(this);
+          c3options.data.color = c3CustomDataMapping.bind(this);
 
           // Apply custom tooltip
-          options.tooltip = {
+          c3options.tooltip = {
             contents: _tooltipContents2.default,
             format: {
-              value: c3CustomTooltipFiltering.bind(this)
+              title: this.config.tooltip.format.title,
+              value: function value(_value, ratio, id, index) {
+                var valueFormatted = c3CustomTooltipFiltering.call(_this, _value, ratio, id, index);
+                if (_this.config.tooltip && _this.config.tooltip.format && _this.config.tooltip.format.value) {
+                  valueFormatted = _this.config.tooltip.format.value.call(_this, valueFormatted, ratio, id, index);
+                }
+                return valueFormatted;
+              }
             }
           };
 
-          options.legend.show = false;
-          var paddedWidth = this.el().querySelector('.' + this.theme() + '-rendering').offsetWidth - 100;
-          options.size.width = options.size.width || paddedWidth;
-          this.el().querySelector('.' + this.theme() + '-rendering').setAttribute('style', 'margin-right: 120px;');
+          c3options.legend.show = false; // hide default c3 legend
 
           // Render artifacts
-          this.view._artifacts['c3'] = _c2.default.generate(options);
-          _paginatingLegend2.default.call(this, options.data.columns);
+          this.view._artifacts['c3'] = _c2.default.generate(c3options);
+          _paginatingLegend2.default.call(this, options);
         } else {
-          options.legend.show = false;
           this.view._artifacts['c3'] = _c2.default.generate(options);
         }
       },
@@ -30559,18 +30553,20 @@ function defineC3() {
       }
     };
   });
+
+  return types;
 }
 
 function c3CustomDataMapping(color, d) {
-  var scope;
-  if (this.view._artifacts.pagination && this.type() !== 'gauge'
+  var type = this.config.type;
+  if (this.view._artifacts.pagination && type !== 'gauge'
   /*&& this.type() !== 'pie'
     && this.type() !== 'donut'*/) {
-      scope = this.view._artifacts.pagination.labels;
+      var scope = this.view._artifacts.pagination.labels;
       if (d.id && scope.indexOf(d.id) > -1 || d && !d.id && scope.indexOf(d) > -1) {
         return color;
       } else {
-        if (this.type() === 'donut' || this.type() === 'pie') {
+        if (type === 'donut' || type === 'pie') {
           return 'rgba(0,0,0,.1)';
         } else {
           return 'rgba(0,0,0,.07)';
@@ -30582,11 +30578,12 @@ function c3CustomDataMapping(color, d) {
 }
 
 function c3CustomTooltipFiltering(value, ratio, id, index) {
-  var scope;
-  if (this.view._artifacts.pagination && this.type() !== 'gauge'
+  var type = this.config.type;
+
+  if (this.view._artifacts.pagination && type !== 'gauge'
   /*&& this.type() !== 'pie'
     && this.type() !== 'donut'*/) {
-      scope = this.view._artifacts.pagination.labels;
+      var scope = this.view._artifacts.pagination.labels;
       if (scope.indexOf(id) > -1) {
         return value;
       }
@@ -30626,13 +30623,13 @@ exports.default = function (data) {
   }
 };
 
-var _dataset = __webpack_require__(9);
+var _dataset = __webpack_require__(10);
 
 var _dataset2 = _interopRequireDefault(_dataset);
 
 var _extend = __webpack_require__(2);
 
-var _stripHtmlTags = __webpack_require__(7);
+var _stripHtmlTags = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30649,7 +30646,7 @@ function parseResponse(response) {
       title,
       type;
 
-  indexBy = this.indexBy() ? this.indexBy() : 'timestamp.start';
+  indexBy = this.config.indexBy;
   meta = response.metadata || {};
   query = typeof response.query !== 'undefined' ? response.query : {};
 
@@ -30753,23 +30750,23 @@ function parseResponse(response) {
   }
 
   // Set title from saved query body, or create a default title
-  if (!this.title()) {
+  if (!this.config.title) {
     if (meta.display_name) {
       title = meta.display_name;
     } else {
       title = getDefaultTitle(query);
     }
-    this.title(title);
+    this.config.title = title;
   }
 
   // Set type from saved query body, or use a default type
-  if (!this.type()) {
+  if (!this.config.type) {
     if (meta.visualization && meta.visualization.chart_type) {
       type = meta.visualization.chart_type;
     } else {
       type = getDefaultType(parser);
     }
-    this.type(type);
+    this.config.type = type;
   }
 
   // Define the appropriate parser
@@ -31201,7 +31198,7 @@ exports.sortRows = sortRows;
 
 var _each = __webpack_require__(0);
 
-var _analyses = __webpack_require__(8);
+var _analyses = __webpack_require__(9);
 
 var _analyses2 = _interopRequireDefault(_analyses);
 
@@ -31494,10 +31491,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.Dataset = exports.Dataviz = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 // Utils
 
 
-var _dataset = __webpack_require__(9);
+var _dataset = __webpack_require__(10);
 
 Object.defineProperty(exports, 'Dataset', {
   enumerable: true,
@@ -31516,7 +31515,7 @@ var _assertDateString = __webpack_require__(4);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _stripHtmlTags = __webpack_require__(7);
+var _stripHtmlTags = __webpack_require__(8);
 
 var _escapeHtml = __webpack_require__(1);
 
@@ -31524,41 +31523,109 @@ var _libraries = __webpack_require__(20);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
+var _extendDeep = __webpack_require__(7);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Constructor
 var Dataviz = exports.Dataviz = function Dataviz() {
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
   if (this instanceof Dataviz === false) {
-    return new Dataviz();
+    return new Dataviz(options);
+  }
+
+  var datavizInstance = this;
+
+  var defaultOptions = {
+    showDeprecationWarnings: true,
+    container: undefined, // querySelector of container, for example '#someDiv'
+    containerElement: undefined, // HTML parent element for the chart
+    // width: undefined, *deprecated* - use CSS
+    // height: undefined, *deprecated* - use CSS
+    title: undefined,
+    notes: undefined,
+    theme: 'keen-dataviz',
+
+    colors: ['#00bbde', '#fe6672', '#eeb058', '#8a8ad6', '#ff855c', '#00cfbb', '#5a9eed', '#73d483', '#c879bb', '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e', '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'],
+
+    colorMapping: {},
+
+    indexBy: 'timeframe.start',
+    labels: [],
+    labelMapping: {},
+    library: 'default',
+    sortGroups: undefined,
+    sortIntervals: undefined,
+    showLoadingSpinner: false,
+
+    // C3 chartOptions
+    type: undefined,
+    stacked: false,
+    dateFormat: undefined,
+    legend: {
+      show: true,
+      position: 'right',
+      label: {
+        textMaxLength: 12
+      },
+      pagination: {
+        offset: 0, // start from
+        limit: 5 // items per page
+      },
+      tooltip: {
+        show: true,
+        pointer: true
+      }
+    },
+
+    axis: {},
+    color: {},
+    data: {
+      order: null
+    },
+    size: {
+      // control it with CSS of .c3-chart
+    },
+    padding: {},
+    point: {
+      focus: {
+        expand: {
+          enabled: false
+        }
+      },
+      r: 2,
+      show: true
+    },
+    tooltip: {
+      format: {
+        // https://c3js.org/samples/tooltip_format.html
+      }
+    },
+    transition: {
+      // duration: 0
+    }
+  };
+
+  this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
+
+  // get DOM node by query
+  if (this.config.container) {
+    this.el(this.config.container);
   }
 
   this.dataset = new _dataset.Dataset();
   this.view = {
     _prepared: false,
     _rendered: false,
-    _artifacts: {/* state bin */},
-
-    chartOptions: {},
-    colors: ['#00bbde', '#fe6672', '#eeb058', '#8a8ad6', '#ff855c', '#00cfbb', '#5a9eed', '#73d483', '#c879bb', '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e', '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'],
-    colorMapping: {},
-    dateFormat: undefined,
-    el: undefined,
-    height: undefined,
-    indexBy: 'timeframe.start',
-    labels: [],
-    labelMapping: {},
-    library: 'default',
-    notes: undefined,
-    sortGroups: undefined,
-    sortIntervals: undefined,
-    stacked: false,
-    theme: 'keen-dataviz',
-    title: undefined,
-    type: undefined,
-    width: undefined
+    _artifacts: {/* state bin */}
   };
 
   Dataviz.visuals.push(this);
+
+  if (this.config.showLoadingSpinner) {
+    this.prepare();
+  }
 };
 
 Dataviz.libraries = { default: {} };
@@ -31576,10 +31643,10 @@ Dataviz.register = function (name, actions) {
 
 Dataviz.find = function (target) {
   if (!arguments.length) return Dataviz.visuals;
-  var el = target.nodeName ? target : document.querySelector(target),
-      match = null;
+  var el = target.nodeName ? target : document.querySelector(target);
+  var match = null;
   (0, _each.each)(Dataviz.visuals, function (visual) {
-    if (el == visual.el()) {
+    if (el == visual.config.container) {
       match = visual;
       return false;
     }
@@ -31591,8 +31658,11 @@ Dataviz.find = function (target) {
 // ------------
 
 Dataviz.prototype.attributes = function (obj) {
-  if (!arguments.length) return this.view;
-  var view = this.view;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.attributes() is deprecated. Use: new KeenDataviz({ _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config;
+  var view = this.config;
   (0, _each.each)(obj, function (prop, key) {
     // Handle deprecated property names
     if (key === 'chartType') {
@@ -31609,32 +31679,34 @@ Dataviz.prototype.call = function (fn) {
 };
 
 Dataviz.prototype.chartOptions = function (obj) {
-  var self = this;
-  if (!arguments.length) return this.view.chartOptions;
-  if (obj === null) {
-    this.view.chartOptions = {};
-  } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-    (0, _each.each)(obj, function (value, key) {
-      self.view.chartOptions[key] = value ? value : null;
-    });
+  if (this.config.showDeprecationWarnings) {
+    console.log('.chartOptions() is deprecated. Use: new KeenDataviz({ _your_value_here_ })');
   }
+  if (!arguments.length) return this.config;
+  this.config = (0, _extendDeep.extendDeep)(this.config, obj);
   return this;
 };
 
 Dataviz.prototype.colors = function (arr) {
-  if (!arguments.length) return this.view.colors;
-  this.view.colors = arr instanceof Array ? arr : [];
+  if (this.config.showDeprecationWarnings) {
+    console.log('.colors() is deprecated. Use: new KeenDataviz({ colors: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.colors;
+  this.config.colors = arr instanceof Array ? arr : [];
   return this;
 };
 
 Dataviz.prototype.colorMapping = function (obj) {
-  var self = this;
-  if (!arguments.length) return this.view.colorMapping;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.colorMapping() is deprecated. Use: new KeenDataviz({ colorMapping: _your_value_here_ })');
+  }
+  var datavizInstance = this;
+  if (!arguments.length) return this.config.colorMapping;
   if (obj === null) {
-    this.view.colorMapping = {};
+    this.config.colorMapping = {};
   } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
     (0, _each.each)(obj, function (value, key) {
-      self.view.colorMapping[key] = value ? value : null;
+      datavizInstance.config.colorMapping[key] = value ? value : null;
     });
   }
   return this;
@@ -31643,19 +31715,22 @@ Dataviz.prototype.colorMapping = function (obj) {
 Dataviz.prototype.data = _data2.default;
 
 Dataviz.prototype.dateFormat = function (val) {
-  if (!arguments.length) return this.view.dateFormat;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.dateFormat() is deprecated. Use: new KeenDataviz({ dateFormat: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.dateFormat;
   if (typeof val === 'string' || typeof val === 'function') {
-    this.view.dateFormat = val;
+    this.config.dateFormat = val;
   } else {
-    this.view.dateFormat = undefined;
+    this.config.dateFormat = undefined;
   }
   return this;
 };
 
 Dataviz.prototype.destroy = function () {
-  var library = this.library(),
-      type = this.type(),
-      element = this.el();
+  var library = this.library();
+  var type = this.config.type;
+  var element = this.el();
 
   // Call destroy method if present
   if (Dataviz.libraries[library] && Dataviz.libraries[library][type]) {
@@ -31673,101 +31748,121 @@ Dataviz.prototype.destroy = function () {
 };
 
 Dataviz.prototype.el = function (target) {
-  var self = this;
-  if (!arguments.length) return this.view.el;
+  var datavizInstance = this;
+  if (!arguments.length) return this.config.containerElement;
   domReady(function () {
     if (target && target !== null) {
       if (target.nodeName) {
-        self.view.el = target;
+        datavizInstance.config.containerElement = target;
       } else if (document.querySelector) {
-        self.view.el = document.querySelector(target);
+        datavizInstance.config.containerElement = document.querySelector(target);
       }
     } else {
-      self.view.el = undefined;
+      datavizInstance.config.containerElement = undefined;
     }
   });
   return this;
 };
 
 Dataviz.prototype.height = function (num) {
-  if (!arguments.length) return this.view['height'];
-  this.view['height'] = !isNaN(parseInt(num)) ? parseInt(num) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.height() is deprecated - use CSS classes');
+  }
   return this;
 };
 
 // IMPORTANT: Must be run before data parsing
 Dataviz.prototype.indexBy = function (str) {
-  if (!arguments.length) return this.view.indexBy;
-  this.view.indexBy = str ? String(str) : 'timeframe.start';
+  if (this.config.showDeprecationWarnings) {
+    console.log('.indexBy() is deprecated. Use: new KeenDataviz({ indexBy: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.indexBy;
+  this.config.indexBy = str ? String(str) : 'timeframe.start';
   return this;
 };
 
 Dataviz.prototype.labels = function (arr) {
-  if (!arguments.length) return this.view.labels;
-  this.view.labels = arr instanceof Array ? arr : [];
-
-  // Write labels
-  if (this.data()[0].length === 2 && !(0, _assertDateString2.default)(this.data()[1][0])) {
-    this.dataset.updateColumn(0, function (value, index) {
-      if (this.view.labels[index - 1]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labels[index - 1]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
-    }.bind(this));
-  } else {
-    this.dataset.updateRow(0, function (value, index) {
-      if (index > 0 && this.view.labels[index - 1]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labels[index - 1]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
-    }.bind(this));
+  if (this.config.showDeprecationWarnings) {
+    console.log('.labels() is deprecated. Use: new KeenDataviz({ labels: _your_value_here_ })');
   }
+
+  if (!arguments.length) return this.config.labels;
+  this.config.labels = arr instanceof Array ? arr : [];
+
+  setLabels(this);
+
   return this;
 };
+
+function setLabels(datavizInstance) {
+  // Write labels
+  if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+    datavizInstance.dataset.updateColumn(0, function (value, index) {
+      if (datavizInstance.config.labels[index - 1]) {
+        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labels[index - 1]));
+      }
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
+    }.bind(datavizInstance));
+  } else {
+    datavizInstance.dataset.updateRow(0, function (value, index) {
+      if (index > 0 && datavizInstance.config.labels[index - 1]) {
+        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labels[index - 1]));
+      }
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
+    }.bind(datavizInstance));
+  }
+}
 
 Dataviz.prototype.labelMapping = function (obj) {
-  if (!arguments.length) return this.view.labelMapping;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.labelMapping() is deprecated. Use: new KeenDataviz({ labelMapping: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.labelMapping;
   if (obj === null) {
-    this.view.labelMapping = {};
+    this.config.labelMapping = {};
   } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
     (0, _each.each)(obj, function (value, key) {
-      this.view.labelMapping[key] = value ? value : null;
+      this.config.labelMapping[key] = value ? value : null;
     }.bind(this));
   }
 
-  // Write labels
-  if (this.data()[0].length === 2 && !(0, _assertDateString2.default)(this.data()[1][0])) {
-    this.dataset.updateColumn(0, function (value) {
-      if (this.view.labelMapping[value]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labelMapping[value]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
-    }.bind(this));
-  } else {
-    this.dataset.updateRow(0, function (value) {
-      if (this.view.labelMapping[value]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(this.view.labelMapping[value]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
-    }.bind(this));
-  }
+  mapLabels(this);
+
   return this;
 };
 
+function mapLabels(datavizInstance) {
+  // Write labels
+  if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+    datavizInstance.dataset.updateColumn(0, function (value) {
+      if (datavizInstance.config.labelMapping[value]) {
+        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
+      }
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
+    }.bind(datavizInstance));
+  } else {
+    datavizInstance.dataset.updateRow(0, function (value) {
+      if (datavizInstance.config.labelMapping[value]) {
+        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
+      }
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
+    }.bind(datavizInstance));
+  }
+}
+
 Dataviz.prototype.library = function (str) {
-  if (!arguments.length) return this.view['library'];
-  this.view['library'] = str ? String(str) : null;
+  if (!arguments.length) return this.config['library'];
+  this.config['library'] = str ? String(str) : null;
   return this;
 };
 
 Dataviz.prototype.message = function () {
-  var loader;
   if (this.view._rendered) {
     this.destroy();
   }
   if (this.el()) {
     this.el().innerHTML = '';
-    var message = Dataviz.libraries['default'].message;
+    var message = Dataviz.libraries.default.message;
     if (message.render) {
       message.render.apply(this, arguments);
     }
@@ -31776,79 +31871,93 @@ Dataviz.prototype.message = function () {
 };
 
 Dataviz.prototype.notes = function (str) {
-  if (!arguments.length) return this.view['notes'];
-  this.view['notes'] = str ? String(str) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.notes() is deprecated. Use: new KeenDataviz({ notes: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.notes;
+  this.config.notes = str ? String(str) : null;
   return this;
 };
 
 Dataviz.prototype.prepare = function () {
-  var self = this,
-      loader;
+  var datavizInstance = this;
 
   if (!this.el()) {
-    throw 'A DOM element is required. Check out the .el() method.';
+    throw this.config.container + ' not found. A DOM parent element is required to mount the chart.';
     return;
   }
 
   domReady(function () {
-    if (self.view._rendered) {
-      self.destroy();
+    if (datavizInstance.view._rendered) {
+      datavizInstance.destroy();
     }
-    if (self.el()) {
-      self.el().innerHTML = '';
-      loader = Dataviz.libraries['default'].spinner;
+    if (datavizInstance.el()) {
+      datavizInstance.el().innerHTML = '';
+      var loader = Dataviz.libraries.default.spinner;
       if (loader.render) {
-        loader.render.call(self);
+        loader.render.call(datavizInstance);
       }
-      self.view._prepared = true;
+      datavizInstance.view._prepared = true;
     }
   });
+
   return this;
 };
 
 Dataviz.prototype.render = function () {
-  var self = this,
-      loader = Dataviz.libraries['default'].spinner,
-      library = this.library(),
-      type = this.type(),
-      element = this.el();
+  var rawData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
 
-  if (!this.el()) {
-    this.message('A DOM element is required. Check out the .el() method.');
-    throw 'A DOM element is required. Check out the .el() method.';
-    return;
+  var datavizInstance = this;
+  if (rawData) {
+    return datavizInstance.data(rawData).render();
+  }
+  if (Object.keys(this.config.labelMapping).length > 0) {
+    mapLabels(datavizInstance);
+  }
+  if (!!this.config.labels && Object.keys(this.config.labels).length > 0) {
+    setLabels(datavizInstance);
+  }
+  if (!!this.config.sortGroups) {
+    sortGroups(datavizInstance);
+  }
+  if (!!this.config.sortIntervals) {
+    sortIntervals(datavizInstance);
   }
 
-  if (!this.type()) {
-    this.message('A chart type is required. Check out the .type() method.');
-    throw 'A chart type is required. Check out the .type() method.';
+  var loader = Dataviz.libraries.default.spinner;
+  var library = this.config.library;
+  var type = this.config.type;
+  var containerElement = this.el();
+
+  if (!containerElement || containerElement === undefined) {
+    var msg = this.config.container + ' not found. A DOM parent element is required to mount the chart.';
+    console.error(msg);
+    throw msg;
     return;
   }
 
   domReady(function () {
-    if (self.view._prepared && loader.destroy) {
-      loader.destroy.apply(self, arguments);
+    if (datavizInstance.view._prepared && loader.destroy) {
+      loader.destroy.apply(datavizInstance, arguments);
     }
-    self.el().innerHTML = '';
+    containerElement.innerHTML = '';
 
     if (Dataviz.libraries[library] === 'undefined') {
       // Error: Unregistered library
-      self.message('Incorrect library');
-      throw 'Incorrect library';
+      var _msg = 'Incorrect library';
+      datavizInstance.message(_msg);
+      throw _msg;
       return;
     } else {
       if (typeof Dataviz.libraries[library][type] === 'undefined') {
-        self.message('Incorrect chart type');
-        throw 'Incorrect chart type';
+        var _msg2 = 'Incorrect chart type';
+        datavizInstance.message(_msg2);
+        throw _msg2;
         return;
       } else {
-        buildDomWrapper(self.el(), {
-          notes: self.notes(),
-          theme: self.theme(),
-          title: self['title']()
-        });
-        Dataviz.libraries[library][type].render.call(self);
-        self.view._rendered = true;
+        buildDomWrapper(containerElement, datavizInstance.config);
+        Dataviz.libraries[library][type].render.call(datavizInstance);
+        datavizInstance.view._rendered = true;
       }
     }
   });
@@ -31856,57 +31965,86 @@ Dataviz.prototype.render = function () {
 };
 
 Dataviz.prototype.sortGroups = function (str) {
-  if (!arguments.length) return this.view.sortGroups;
-  this.view.sortGroups = str ? String(str) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.sortGroups() is deprecated. Use: new KeenDataviz({ sortGroups: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.sortGroups;
+  this.config.sortGroups = str ? String(str) : null;
 
+  sortGroups(this, str);
+
+  return this;
+};
+
+function sortGroups(datavizInstance) {
   // Sort groups
-  if (this.view.sortGroups && this.data().length > 1) {
-    if ((0, _assertDateString2.default)(this.data()[1][0])) {
-      this.dataset.sortColumns(this.view.sortGroups, this.dataset.getColumnSum);
+  if (datavizInstance.config.sortGroups && datavizInstance.data().length > 1) {
+    if ((0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+      datavizInstance.dataset.sortColumns(datavizInstance.config.sortGroups, datavizInstance.dataset.getColumnSum);
     } else {
-      this.dataset.sortRows(this.view.sortGroups, this.dataset.getRowSum);
+      datavizInstance.dataset.sortRows(datavizInstance.config.sortGroups, datavizInstance.dataset.getRowSum);
     }
   }
-  return this;
-};
+}
 
 Dataviz.prototype.sortIntervals = function (str) {
-  if (!arguments.length) return this.view.sortIntervals;
-  this.view.sortIntervals = str ? String(str) : null;
-  if (this.view.sortIntervals) {
-    this.dataset.sortRows(this.view.sortIntervals);
+  if (this.config.showDeprecationWarnings) {
+    console.log('.sortIntervals() is deprecated. Use: new KeenDataviz({ sortIntervals: _your_value_here_ })');
   }
+  if (!arguments.length) return this.config.sortIntervals;
+  this.config.sortIntervals = str ? String(str) : null;
+
+  sortIntervals(this);
+
   return this;
 };
 
+function sortIntervals(datavizInstance) {
+  if (datavizInstance.config.sortIntervals) {
+    datavizInstance.dataset.sortRows(datavizInstance.config.sortIntervals);
+  }
+}
+
 Dataviz.prototype.stacked = function (bool) {
-  if (!arguments.length) return this.view['stacked'];
-  this.view['stacked'] = bool ? true : false;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.stacked() is deprecated. Use: new KeenDataviz({ stacked: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.stacked;
+  this.config.stacked = bool ? true : false;
   return this;
 };
 
 Dataviz.prototype.theme = function (str) {
-  if (!arguments.length) return this.view.theme;
-  this.view.theme = str ? String(str) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.theme() is deprecated. Use: new KeenDataviz({ theme: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.theme;
+  this.config.theme = str ? String(str) : null;
   return this;
 };
 
 Dataviz.prototype.title = function (str) {
-  if (!arguments.length) return this.view['title'];
-  this.view['title'] = str ? String(str) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.title() is deprecated. Use: new KeenDataviz({ title: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.title;
+  this.config.title = str ? String(str) : null;
   return this;
 };
 
 Dataviz.prototype.type = function (str) {
-  if (!arguments.length) return this.view['type'];
-  this.view['type'] = str ? convertChartTypes(str) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.type() is deprecated. Use: new KeenDataviz({ type: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.type;
+  this.config.type = str ? convertChartTypes(str) : null;
   return this;
 };
 
 Dataviz.prototype.update = function () {
-  var library = this.library(),
-      type = this.type(),
-      element = this.el();
+  var library = this.config.library;
+  var type = this.config.type;
+  var element = this.el();
   if (library && type && element && Dataviz.libraries[library][type].update) {
     Dataviz.libraries[library][type].update.apply(this, arguments);
   }
@@ -31914,8 +32052,9 @@ Dataviz.prototype.update = function () {
 };
 
 Dataviz.prototype.width = function (num) {
-  if (!arguments.length) return this.view['width'];
-  this.view['width'] = !isNaN(parseInt(num)) ? parseInt(num) : null;
+  if (this.config.showDeprecationWarnings) {
+    console.log('.width() is deprecated - use CSS classes');
+  }
   return this;
 };
 
@@ -31937,13 +32076,28 @@ Dataviz.prototype.initialize = function () {
 
 function buildDomWrapper(el, options) {
   var html = '';
-  html += '<div class="' + options.theme + '">';
-  if (options['title']) {
-    html += '<div class="' + options.theme + '-title">' + (0, _escapeHtml.escapeHtml)(options['title']) + '</div>';
+  var chart100percentWide = '';
+  if (options.legend.position === 'top' || options.legend.position === 'bottom') {
+    chart100percentWide = 'c3-chart-100-percent';
   }
-  html += '<div class="' + options.theme + '-stage"><div class="' + options.theme + '-rendering"></div></div>';
+
+  var container = '<div class="c3-chart ' + chart100percentWide + '"></div>';
+  var align = 'horizontal';
+  if (options.legend.position === 'left' || options.legend.position === 'right') {
+    align = 'vertical';
+  }
+  if (options.legend.position === 'top' || options.legend.position === 'left') {
+    container = '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>' + container;
+  } else {
+    container = container + '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>';
+  }
+  html += '<div class="' + options.theme + '">';
+  if (options.title) {
+    html += '<div class="' + options.theme + '-title">' + options.title + '</div>';
+  }
+  html += '<div class="' + options.theme + '-rendering ' + options.theme + '-rendering-' + align + '">' + container + '</div>';
   if (options.notes) {
-    html += '<div class="' + options.theme + '-notes">' + (0, _escapeHtml.escapeHtml)(options.notes) + '</div>';
+    html += '<div class="' + options.theme + '-notes">' + options.notes + '</div>';
   }
   html += '</div>';
   el.innerHTML = html;
@@ -32045,6 +32199,10 @@ Object.defineProperty(exports, 'Dataset', {
 var env = typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {};
 
 var extendKeenGlobalObject = exports.extendKeenGlobalObject = function extendKeenGlobalObject(env) {
+  env.KeenDataviz = _index.Dataviz;
+  env.KeenDataset = _index.Dataset;
+
+  // just for backward compatibility
   env.Keen = env.Keen || {};
   env.Keen.Dataset = _index.Dataset;
   env.Keen.Dataviz = _index.Dataviz;

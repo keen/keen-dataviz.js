@@ -40,14 +40,14 @@ describe('Dataviz', () => {
     });
 
     it('should set a hash of properties', () => {
-      dataviz1.attributes({ title: 'Updated Attributes', width: 600 });
-      expect(dataviz1.view.title).toEqual('Updated Attributes');
-      expect(dataviz1.view.width).toEqual(600);
+      dataviz1.attributes({ title: 'Updated Attributes', stacked: true });
+      expect(dataviz1.config.title).toEqual('Updated Attributes');
+      expect(dataviz1.config.stacked).toEqual(true);
     });
 
     it('should unset properties by passing null', () => {
-      dataviz1.attributes({ height: null });
-      expect(dataviz1.view.height).toBe(null);
+      dataviz1.attributes({ stacked: null });
+      expect(dataviz1.config.stacked).toBe(null);
     });
 
   });
@@ -57,23 +57,23 @@ describe('Dataviz', () => {
 
     it('should get the current color set', () => {
       expect(dataviz1.colors()).toBeInstanceOf(Array);
-      expect(dataviz1.colors()).toEqual(dataviz1.view.colors);
+      expect(dataviz1.colors()).toEqual(dataviz1.config.colors);
     });
 
     it('should set a new array of colors', () => {
       const array = ['red','green','blue'];
       dataviz1.colors(array);
-      expect(dataviz1.view.colors).toBeInstanceOf(Array);
-      expect(dataviz1.view.colors).toHaveLength(3);
-      expect(dataviz1.view.colors).toEqual(array);
+      expect(dataviz1.config.colors).toBeInstanceOf(Array);
+      expect(dataviz1.config.colors).toHaveLength(3);
+      expect(dataviz1.config.colors).toEqual(array);
     });
 
     it('should unset the colors set by passing null', () => {
       const array = ['red','green','blue'];
       dataviz1.colors(array);
       dataviz1.colors(null);
-      expect(dataviz1.view.colors).toBeInstanceOf(Array);
-      expect(dataviz1.view.colors).toHaveLength(0);
+      expect(dataviz1.config.colors).toBeInstanceOf(Array);
+      expect(dataviz1.config.colors).toHaveLength(0);
     });
 
   });
@@ -106,24 +106,24 @@ describe('Dataviz', () => {
     it('should set and get a hash of properties', () => {
       const hash = { 'A': '#aaa', 'B': '#bbb' };
       dataviz1.colorMapping(hash);
-      expect(dataviz1.view.colorMapping).toEqual(hash);
+      expect(dataviz1.config.colorMapping).toEqual(hash);
     });
 
     it('should unset a property by passing null', () => {
       const hash = { 'A': '#aaa', 'B': '#bbb' };
       dataviz1.colorMapping(hash);
-      expect(dataviz1.view.colorMapping.A).toEqual(hash.A);
+      expect(dataviz1.config.colorMapping.A).toEqual(hash.A);
       dataviz1.colorMapping({ 'A': null });
-      expect(dataviz1.view.colorMapping.A)
+      expect(dataviz1.config.colorMapping.A)
         .toBe(null);
     });
 
     it('should reset the configuration by passing null', () => {
       const hash = { 'A': '#aaa', 'B': '#bbb' };
       dataviz1.colorMapping(hash);
-      expect(dataviz1.view.colorMapping.A).toEqual(hash.A);
+      expect(dataviz1.config.colorMapping.A).toEqual(hash.A);
       dataviz1.colorMapping(null);
-      expect(dataviz1.view.colorMapping).toEqual({});
+      expect(dataviz1.config.colorMapping).toEqual({});
     });
 
   });
@@ -138,15 +138,15 @@ describe('Dataviz', () => {
     it('should set and get a new array of labels', () => {
       const array = ['A','B','C'];
       dataviz1.labels(array);
-      expect(dataviz1.view.labels).toEqual(array);
+      expect(dataviz1.config.labels).toEqual(array);
     });
 
     it('should unset the labels set by passing null', () => {
       const array = ['A','B','C'];
       dataviz1.labels(array);
       dataviz1.labels(null);
-      expect(dataviz1.view.labels).toBeInstanceOf(Array);
-      expect(dataviz1.view.labels).toHaveLength(0);
+      expect(dataviz1.config.labels).toBeInstanceOf(Array);
+      expect(dataviz1.config.labels).toHaveLength(0);
     });
 
     it('should rewrite the labels in a categorical Dataset instance', () => {
@@ -190,23 +190,23 @@ describe('Dataviz', () => {
     it('should set and get a hash of properties', () => {
       const hash = { '_a_': 'A', '_b_': 'B' };
       dataviz1.labelMapping(hash);
-      expect(dataviz1.view.labelMapping).toEqual(hash);
+      expect(dataviz1.config.labelMapping).toEqual(hash);
     });
 
     it('should unset a property by passing null', () => {
       const hash = { '_a_': 'A', '_b_': 'B' };
       dataviz1.labelMapping(hash);
-      expect(dataviz1.view.labelMapping._a_).toEqual('A');
+      expect(dataviz1.config.labelMapping._a_).toEqual('A');
       dataviz1.labelMapping({ '_a_': null });
-      expect(dataviz1.view.labelMapping._a_).toBe(null);
+      expect(dataviz1.config.labelMapping._a_).toBe(null);
     });
 
     it('should reset the configuration by passing null', () => {
       const hash = { _a_: 'A', _b_: 'B' };
       dataviz1.labelMapping(hash);
-      expect(dataviz1.view.labelMapping._a_).toEqual('A');
+      expect(dataviz1.config.labelMapping._a_).toEqual('A');
       dataviz1.labelMapping(null);
-      expect(dataviz1.view.labelMapping).toEqual({});
+      expect(dataviz1.config.labelMapping).toEqual({});
     });
 
     // TODO: re-activate
@@ -245,21 +245,6 @@ describe('Dataviz', () => {
 
   });
 
-  describe('.height()', () => {
-    it('should return undefined by default', () => {
-      expect(dataviz1.height()).toBe(undefined);
-    });
-    it('should set and get a new height', () => {
-      const height = 375;
-      dataviz1.height(height);
-      expect(dataviz1.view.height).toEqual(height);
-    });
-    it('should unset the height by passing null', () => {
-      dataviz1.height(null);
-      expect(dataviz1.view.height).toBe(null);
-    });
-  });
-
   describe('.notes()', () => {
 
     it('should return undefined by default', () => {
@@ -268,12 +253,12 @@ describe('Dataviz', () => {
 
     it('should set and get a new notes value', () => {
       dataviz1.notes('test');
-      expect(dataviz1.view.notes).toEqual('test');
+      expect(dataviz1.config.notes).toEqual('test');
     });
 
     it('should unset the notes by passing null', () => {
       dataviz1.notes(null);
-      expect(dataviz1.view.notes).toBe(null);
+      expect(dataviz1.config.notes).toBe(null);
     });
 
   });
@@ -287,31 +272,12 @@ describe('Dataviz', () => {
     it('should set and get a new title', () => {
       const title = 'New Title';
       dataviz1.title(title);
-      expect(dataviz1.view.title).toEqual(title);
+      expect(dataviz1.config.title).toEqual(title);
     });
 
     it('should unset the title by passing null', () => {
       dataviz1.title(null);
-      expect(dataviz1.view.title).toBe(null);
-    });
-
-  });
-
-  describe('.width()', () => {
-
-    it('should return undefined by default', () => {
-      expect(dataviz1.width()).toBe(undefined);
-    });
-
-    it('should set and get a new width', () => {
-      const width = 900;
-      dataviz1.width(width);
-      expect(dataviz1.view.width).toEqual(width);
-    });
-
-    it('should unset the width by passing null', () => {
-      dataviz1.width(null);
-      expect(dataviz1.view.width).toBe(null);
+      expect(dataviz1.config.title).toBe(null);
     });
 
   });
@@ -326,13 +292,13 @@ describe('Dataviz', () => {
     it('should set and get a new library', () => {
       const lib = 'nvd3';
       dataviz1.library(lib);
-      expect(dataviz1.view.library)
+      expect(dataviz1.config.library)
         .toEqual(lib);
     });
 
     it('should unset the library by passing null', () => {
       dataviz1.library(null);
-      expect(dataviz1.view.library)
+      expect(dataviz1.config.library)
         .toBe(null);
     });
 
@@ -348,13 +314,13 @@ describe('Dataviz', () => {
     it('should set and get a new theme', () => {
       const theme = 'custom';
       dataviz1.theme(theme);
-      expect(dataviz1.view.theme)
+      expect(dataviz1.config.theme)
         .toEqual(theme);
     });
 
     it('should unset the theme by passing null', () => {
       dataviz1.theme(null);
-      expect(dataviz1.view.theme)
+      expect(dataviz1.config.theme)
         .toBe(null);
     });
 
@@ -363,29 +329,13 @@ describe('Dataviz', () => {
   describe('.chartOptions()', () => {
 
     it('should set and get a hash of properties', () => {
-      const hash = { legend: { position: 'none' }, isStacked: true };
+      const hash = { legend: { position: 'none' }, stacked: true };
       dataviz1.chartOptions(hash);
-      expect(dataviz1.view.chartOptions.legend)
-        .toEqual(hash.legend);
-      expect(dataviz1.view.chartOptions.isStacked)
+      expect(dataviz1.config.legend)
+        .toMatchObject(hash.legend);
+      expect(dataviz1.config.stacked)
         .toEqual(true);
     });
-
-    it('should unset properties by passing null', () => {
-      const hash = { legend: { position: 'none' }, isStacked: true };
-      dataviz1.chartOptions(hash);
-      dataviz1.chartOptions({ legend: null });
-      expect(dataviz1.view.chartOptions.legend).toBe(null);
-    });
-
-    it('should reset the configuration by passing null', () => {
-      const hash = { legend: { position: 'none' }, isStacked: true };
-      dataviz1.chartOptions(hash);
-      dataviz1.chartOptions(null);
-      expect(dataviz1.view.chartOptions)
-        .toEqual({});
-    });
-
   });
 
   describe('.type()', () => {
@@ -396,11 +346,11 @@ describe('Dataviz', () => {
     it('should set and get a new chartType', () => {
       const chartType = 'magic-pie'
       dataviz1.type(chartType);
-      expect(dataviz1.view.type).toEqual(chartType);
+      expect(dataviz1.config.type).toEqual(chartType);
     });
     it('should unset properties by passing null', () => {
       dataviz1.type(null);
-      expect(dataviz1.view.type)
+      expect(dataviz1.config.type)
         .toBe(null);
     });
   });
@@ -415,13 +365,13 @@ describe('Dataviz', () => {
 
     it('should set and get a new indexBy property', () => {
       dataviz1.indexBy('timeframe.end');
-      expect(dataviz1.view.indexBy)
+      expect(dataviz1.config.indexBy)
         .toEqual('timeframe.end');
     });
 
     it('should revert the property to default value by passing null', () => {
       dataviz1.indexBy(null);
-      expect(dataviz1.view.indexBy)
+      expect(dataviz1.config.indexBy)
         .toEqual('timeframe.start');
     });
 
@@ -437,13 +387,13 @@ describe('Dataviz', () => {
 
     it('should set and get a new sortGroups property', () => {
       dataviz1.sortGroups('asc');
-      expect(dataviz1.view.sortGroups)
+      expect(dataviz1.config.sortGroups)
         .toEqual('asc');
     });
 
     it('should unset property by passing null', () => {
       dataviz1.sortGroups(null);
-      expect(dataviz1.view.sortGroups)
+      expect(dataviz1.config.sortGroups)
         .toBe(null);
     });
 
@@ -485,13 +435,13 @@ describe('Dataviz', () => {
 
     it('should set and get a new sortIntervals property', () => {
       dataviz1.sortIntervals('asc');
-      expect(dataviz1.view.sortIntervals)
+      expect(dataviz1.config.sortIntervals)
         .toEqual('asc');
     });
 
     it('should unset property by passing null', () => {
       dataviz1.sortIntervals(null);
-      expect(dataviz1.view.sortIntervals)
+      expect(dataviz1.config.sortIntervals)
         .toBe(null);
     });
 
@@ -520,14 +470,14 @@ describe('Dataviz', () => {
 
     it('should set `stacked` to true by passing true', () => {
       dataviz1.stacked(true);
-      expect(dataviz1.view.stacked)
+      expect(dataviz1.config.stacked)
         .toEqual(true);
     });
 
     it('should set `stacked` to false by passing null', () => {
       dataviz1.stacked(true);
       dataviz1.stacked(null);
-      expect(dataviz1.view.stacked)
+      expect(dataviz1.config.stacked)
         .toEqual(false);
     });
 

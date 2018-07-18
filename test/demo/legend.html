@@ -35,7 +35,6 @@
       showLoadingSpinner: true
     })
 ;
-//  .prepare();
 
 // Use keen-analysis.js to run a query
 // and pass the result into your chart:
@@ -57,33 +56,14 @@ const q2 = new Keen.Query('count', {
 client
   .run([q1]).then(function(res){
     // console.log(res);
-      // Handle the result
       chart
-      //  .data(res)
-
-    //  .labels(['aaaaa', 'bbbb','cccc'])
-  //  .data(res)
       .render(res);
-    //.render(res);
     })
     .catch(function(err){
       // Handle the error
       chart
         .message(err.message);
     });
-/*
-  .then(function(res){
-    // Handle the result
-    chart
-      .data(res)
-      .render();
-  })
-  .catch(function(err){
-    // Handle the error
-    chart
-      .message(err.message);
-  });
-  */
     </script>
 
   </body>
