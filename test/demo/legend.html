@@ -19,22 +19,35 @@
     <div id="container"></div>
 
     <script>
-    const chart = new Keen.Dataviz({
-      container: '#container',
-      title: 'New Customers per Week',
-      legend: {
-        label: {
-          textMaxLength: 101
-        }
-      },
-      labels: ['aaa'],
-      labelMapping: {
-      '2018-06-18T14:25:38.268Z': 'here'
-      },
-      type: 'area',
-      showLoadingSpinner: true
-    })
-;
+
+
+
+const chart = new Keen.Dataviz({
+  container: '#container', // required
+  showDeprecationWarnings: false,
+  legend: {
+    position: 'top'
+  }
+});
+
+const client = new Keen(demoConfig);
+
+// execute some query
+client
+  .query('count', {
+    event_collection: 'pageviews',
+    timeframe: 'this_160_days'
+  })
+  .then(results => {
+    // Handle results
+    chart.title('aaa').render(results);
+  })
+  .catch(err => {
+    // Handle errors
+  });
+
+
+/*
 
 // Use keen-analysis.js to run a query
 // and pass the result into your chart:
@@ -42,28 +55,57 @@ const client = new Keen(demoConfig);
 
 const q1 = new Keen.Query('count', {
   event_collection: 'pageviews',
-  timeframe: 'this_57_days',
-  interval: 'daily',
-  group_by: 'local_time_full'
+  timeframe: 'this_57_hours',
+  interval: 'hourly'
 });
 
 const q2 = new Keen.Query('count', {
   event_collection: 'pageviews',
-  timeframe: 'this_57_days',
-  interval: 'daily'
+  timeframe: 'this_57_hours',
+  interval: 'hourly'
 });
 
 client
   .run([q1]).then(function(res){
     // console.log(res);
-      chart
-      .render(res);
+
+    const chart = new Keen.Dataviz({
+      container: '#container',
+      title: 'New Customers per Week',
+      notes: 'Lorem ipsum',
+      legend: {
+        label: {
+          textMaxLength: 101
+        }
+      },
+      colors: ['#000', 'blue'],
+      labels: ['aaa'],
+      labelMapping: {
+      '2018-06-18T14:25:38.268Z': 'here'
+      },
+      type: 'area',
+      showLoadingSpinner: true,
+      results: res,
+      axis: {
+        x: {
+          localtime: true
+        }
+      }
+    })
+;
+  //   chart
+//   .render(res);
+
+
+
     })
     .catch(function(err){
       // Handle the error
       chart
         .message(err.message);
     });
+
+    */
     </script>
 
   </body>
