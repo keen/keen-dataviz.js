@@ -20,19 +20,22 @@
 
     <script>
     const chart = new Keen.Dataviz({
+      container: '#container',
       title: 'New Customers per Week',
       legend: {
         label: {
           textMaxLength: 101
         }
-      }
+      },
+      labels: ['aaa'],
+      labelMapping: {
+      '2018-06-18T14:25:38.268Z': 'here'
+      },
+      type: 'area',
+      showLoadingSpinner: true
     })
-  .el('#container')
-  .colors(['red', 'orange', 'green'])
-  .height(500)
-  .title('New Customers per Week')
-  // .type('metric')
-  .prepare();
+;
+//  .prepare();
 
 // Use keen-analysis.js to run a query
 // and pass the result into your chart:
@@ -40,26 +43,28 @@ const client = new Keen(demoConfig);
 
 const q1 = new Keen.Query('count', {
   event_collection: 'pageviews',
-  timeframe: 'this_17_days',
+  timeframe: 'this_57_days',
   interval: 'daily',
   group_by: 'local_time_full'
 });
 
 const q2 = new Keen.Query('count', {
   event_collection: 'pageviews',
-  timeframe: 'this_17_days',
+  timeframe: 'this_57_days',
   interval: 'daily'
 });
 
 client
   .run([q1]).then(function(res){
-    console.log(res);
+    // console.log(res);
       // Handle the result
       chart
-        .data(res)
-        // res
-        // .data(res[1])
-        .render();
+      //  .data(res)
+
+    //  .labels(['aaaaa', 'bbbb','cccc'])
+  //  .data(res)
+      .render(res);
+    //.render(res);
     })
     .catch(function(err){
       // Handle the error

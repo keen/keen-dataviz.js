@@ -77,7 +77,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
       // Use keen-analysis.js to run a query
       // and pass the result into your chart:
-      const client = new KeenAnalysis({
+      const client = new Keen({
         projectId: 'YOUR_PROJECT_ID',
         readKey: 'YOUR_READ_KEY'
       });
