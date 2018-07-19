@@ -264,8 +264,6 @@ const chart = new KeenDataviz({
 By default you can pass results with a configuration object
 
 ```javascript
-// By default you can pass results with Configuration objects
-
 const client = new KeenAnalysis({
   projectId: 'YOUR_PROJECT_ID',
   readKey: 'YOUR_READ_KEY'
@@ -279,10 +277,12 @@ client
   })
   .then(results => {
     // Handle results
+
     const chart = new KeenDataviz({
       container: '#some_container', // required
       results
     });
+
   })
   .catch(err => {
     // Handle errors
