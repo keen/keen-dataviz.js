@@ -19,7 +19,6 @@ const chart = new KeenDataviz({
   container: '#my-chart-div' // querySelector,
 
   // Optional:
-  type: 'area', // https://github.com/keen/keen-dataviz.js/blob/master/docs/README.md#chart-types
   title: 'New Customers per Week',
   showLoadingSpinner: true
 });
@@ -72,8 +71,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <script>
       const chart = new KeenDataviz({
         container: '#my-chart-div' // querySelector,
-        title: 'New Customers per Week',
-        type: 'area'
+        title: 'New Customers per Week'
       });
 
       // Use keen-analysis.js to run a query
@@ -108,7 +106,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
 ### Chart type
 
-Specify the visualization type. _Previously `.chartType()`)_. If no type is set, the library will set the best option when you pass an API response to [`.data()`](./docs/README.md#data).
+Specify the visualization type. **If no type is set, the library will automatically set the best option.**
 [Full list of chart types](./docs/README.md#chart-types).
 
 ```javascript
