@@ -2565,10 +2565,14 @@ var Dataviz = exports.Dataviz = function Dataviz() {
 
   var defaultOptions = {
     showDeprecationWarnings: true,
+    showLoadingSpinner: false,
+
     container: undefined, // querySelector of container, for example '#someDiv'
     containerElement: undefined, // HTML parent element for the chart
+
     // width: undefined, *deprecated* - use CSS
     // height: undefined, *deprecated* - use CSS
+
     title: undefined,
     notes: undefined,
     theme: 'keen-dataviz',
@@ -2583,7 +2587,8 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     library: 'default',
     sortGroups: undefined,
     sortIntervals: undefined,
-    showLoadingSpinner: false,
+
+    results: undefined, // raw data
 
     // C3 chartOptions
     type: undefined,
@@ -2651,6 +2656,10 @@ var Dataviz = exports.Dataviz = function Dataviz() {
 
   if (this.config.showLoadingSpinner) {
     this.prepare();
+  }
+
+  if (!!this.config.results) {
+    this.render(this.config.results);
   }
 };
 
@@ -2931,13 +2940,13 @@ Dataviz.prototype.prepare = function () {
 };
 
 Dataviz.prototype.render = function () {
-  var rawData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+  var results = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
 
   var datavizInstance = this;
-  if (rawData) {
-    return datavizInstance.data(rawData).render();
+  if (!!results) {
+    return datavizInstance.data(results).render();
   }
-  if (Object.keys(this.config.labelMapping).length > 0) {
+  if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0) {
     mapLabels(datavizInstance);
   }
   if (!!this.config.labels && Object.keys(this.config.labels).length > 0) {
