@@ -1,8 +1,8 @@
 # keen-dataviz.js
 
-The most advanced data visualization library for [Keen IO](https://keen.io).
+The most advanced data visualization library for [Keen Analytics](https://keen.io).
 
-## Install with NPM **Recommended**
+## Install with NPM
 
 ```ssh
 npm install keen-dataviz --save
