@@ -1,4 +1,34 @@
+<a name="3.0.0"></a>
+# 3.0.0
+* Construct a new Dataviz instance faster with Configuration Object
+```javascript
+const chart = new KeenDataviz({
+  // Required:
+  container: '#my-chart-div' // querySelector,
+
+  // Optional:
+  type: 'area', // https://github.com/keen/keen-dataviz.js/blob/master/docs/README.md#chart-types
+  title: 'New Customers per Week',
+  showLoadingSpinner: true
+});
+```
+* Width and height of the chart is now controlled by width and height of its parent HTML element. `width()` and `height()` methods are deprecated, use CSS of the container element.
+* We removed all of the style-related code from our JS files. Now you can rely fully on your custom CSS classes.
+* Legend: positioning, styles and pagination are now fully customizable
+
+#### Depracation warnings
+
+You can turn off deprecation warnings with
+
+```javascript
+const chart = new Keen.Dataviz({
+  container: '#container', // required
+  showDeprecationWarnings: false
+});
+```
+
 <a name="2.0.4"></a>
+### 2.0.4
 **UPDATED:**
 * Dependencies: D3 v5.4, C3 v0.6 (#101)
 
@@ -9,19 +39,22 @@
     const chart = new KeenDataviz();
 
 <a name="2.0.3"></a>
+### 2.0.3
 **FIXED:**
 * tests and build tools for custom builds
 
 <a name="2.0.2"></a>
+### 2.0.2
 **FIXED:**
 * c3/d3 are now externals (not bundled into our npm package) by default
 
 <a name="2.0.1"></a>
+### 2.0.1
 **FIXED:**
 * npm Dataviz import without css build tools
 
 <a name="2.0.0"></a>
-# Move from Gulp to Webpack & UMDs
+# 2.0.0 Move from Gulp to Webpack & UMDs
 
 **NEW:**
 * all JS /dist files are now bundled by Webpack 4.8.3 - UMD!
