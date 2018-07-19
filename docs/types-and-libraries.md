@@ -6,7 +6,7 @@
   'default' contains a mix of c3.js and custom view renderers
 */
 
-Dataviz.register('my-library', {
+KeenDataviz.register('my-library', {
   'my-chart-type': {
     render: function(){},
     destroy: function(){}
@@ -16,11 +16,10 @@ Dataviz.register('my-library', {
 });
 
 // Then use these libraries and types
-var chart = new Keen.Dataviz()
-  .library('my-library')
-  .type('my-chart-type')
-  .height(300)
-  .data({ result: 621 })
-  .render();
+const chart = new KeenDataviz({
+    type: 'my-chart-type',
+    library: 'my-library'
+  })
+  .render({ result: 621 });
 
 ```

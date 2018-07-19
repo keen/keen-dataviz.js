@@ -26,7 +26,7 @@ It's a table! Every Dataset output has a header row, and an index column. These 
 When it's time to jump off the path and visualize something a little more specialized or complex, Dataset is here to make this possible.
 
 ```javascript
-var chart = new Keen.Dataviz();
+const chart = new Keen.Dataviz();
 
 // Parses raw data into a new internal Dataset instance
 chart
@@ -62,7 +62,7 @@ chart
 ## Create a new Dataset instance
 
 ```javascript
-var ds = new Keen.Dataset();
+const ds = new Keen.Dataset();
 /*
 // New Dataset now looks like this:
 [

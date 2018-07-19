@@ -2,8 +2,7 @@
 
 The most advanced data visualization library for [Keen IO](https://keen.io).
 
-
-## Install
+## Install with NPM **Recommended**
 
 ```ssh
 npm install keen-dataviz --save
@@ -15,16 +14,18 @@ npm install keen-dataviz --save
 import KeenAnalysis from 'keen-analysis';
 import KeenDataviz from 'keen-dataviz';
 
-const chart = new KeenDataviz()
-  .el('#my-chart-div')
-  .colors(['red', 'orange', 'green'])
-  .height(500)
-  .title('New Customers per Week')
-  .type('area')
-  .prepare();
+const chart = new KeenDataviz({
+  // Required:
+  container: '#my-chart-div' // querySelector,
+
+  // Optional:
+  type: 'area', // https://github.com/keen/keen-dataviz.js/blob/master/docs/README.md#chart-types
+  title: 'New Customers per Week',
+  showLoadingSpinner: true
+});
 
 // Use keen-analysis.js to run a query
-// and pass the result into your chart:
+// pass the results into your chart:
 const client = new KeenAnalysis({
   projectId: 'YOUR_PROJECT_ID',
   readKey: 'YOUR_READ_KEY'
@@ -36,20 +37,19 @@ client
     timeframe: 'this_7_days',
     interval: 'daily'
   })
-  .then(function(res){
+  .then(results => {
     // Handle the result
     chart
-      .data(res)
-      .render();
+      .render(results);
   })
-  .catch(function(err){
+  .catch(error => {
     // Handle the error
     chart
-      .message(err.message);
+      .message(error.message);
   });
 ```
 
-## Install the library (CDN)
+## Install with CDN
 
 Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included.
 
@@ -58,11 +58,11 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-2.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@2"></script>
 
     <!-- Dataviz dependencies -->
-    <link href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.9.min.css" rel="stylesheet" />
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-2.0.9.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/keen-dataviz@3"></script>
   </head>
   <body>
     <!-- DOM Element -->
@@ -70,14 +70,11 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
     <!-- Create and Render -->
     <script>
-      const chart = new Keen.Dataviz()
-        .el('#my-chart-div')
-        .colors(['red', 'orange', 'green'])
-        .height(500)
-        .title('New Customers per Week')
-        .type('metric')
-        .prepare();
-
+      const chart = new KeenDataviz({
+        container: '#my-chart-div' // querySelector,
+        title: 'New Customers per Week',
+        type: 'area'
+      });
 
       // Use keen-analysis.js to run a query
       // and pass the result into your chart:
@@ -92,74 +89,320 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
           timeframe: 'this_14_days',
           interval: 'daily'
         })
-        .then(function(res){
+        .then(function(results){
           // Handle the result
           chart
-            .data(res)
-            .render();
+            .render(results);
         })
-        .catch(function(err){
+        .catch(function(error){
           // Handle the error
           chart
-            .message(err.message);
+            .message(error.message);
         });
     </script>
   </body>
 </html>
 ```
 
-## Create a Dataviz instance
+## Configuration
 
-Create a new `Dataviz` instance. This `chart` variable will be used throughout this guide as a reference to a `Dataviz` instance.
+### Chart type
+
+Specify the visualization type. _Previously `.chartType()`)_. If no type is set, the library will set the best option when you pass an API response to [`.data()`](./docs/README.md#data).
+[Full list of chart types](./docs/README.md#chart-types).
 
 ```javascript
-const chart = new KeenDataviz()
-  .el('#dom-selector')
-  .height(280)
-  .title('Signups this week')
-  .type('metric')
-  .prepare();
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  type: 'area'
+});
+```
 
-// Fetch data from the API:
-//  Imaginary callback ...
-chart
-  .data({ result: 621 })
-  .render();
+### Date Format
+
+Date formatting is possible by passing either a string or function to `dateFormat`. In either case, this value will be set as the `axis.x.tick.format` configuration property. As a built-in feature of C3.js, functions are used as an iterator, receiving the date for each interval in milliseconds.
+
+```javascript
+// Use a string template
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  dateFormat: '%Y-%m'
+});
+
+// .. or a function
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  dateFormat: function(ms){
+    const date = new Date(ms);
+    return date.getFullYear();
+  }
+});
+```
+
+**Date Localization:** Dates will be localized to the browser's timezone by default. This is generally desirable, but there are some instances where you may wish to retain the timezones that are returned by the API. You can [disable this behavior](http://c3js.org/reference.html#axis-x-localtime) in any C3.js-based visualization by setting `axis.x.localtime` to `false`:
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  dateFormat: function(ms){
+    const date = new Date(ms);
+    return date.getFullYear();
+  },
+  axis: {
+    x: {
+      localtime: false
+    }
+  }
+});
+```
+
+### C3 options
+
+All of the options are passed to C3. See [https://c3js.org/reference.html](https://c3js.org/reference.html#axis-rotated)
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+
+  // c3 options example
+  axis: {
+    x: {
+      localtime: false
+    }
+  },
+  transition: {
+    duration: 3000
+  },
+  zoom: {
+    enabled: true
+  },
+  grid: {
+    x: {
+      show: true
+    },
+    y: {
+      show: true
+    }
+  }
+});
+
+
+```
+
+### Legend
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+
+  // default values
+  legend: {
+    show: true,
+    position: 'right', // top, bottom, left, right
+    label: {
+      textMaxLength: 12
+    },
+    pagination: {
+      offset: 0, // start from
+      limit: 5 // items per page
+    },
+    tooltip: {
+      show: true,
+      pointer: true
+    }
+  }
+});
+```
+
+### Custom colors
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  colors: ['#1167c5', 'green', '#000000']
+});
+```
+
+### Color mapping
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  colorMapping: {
+    'some_label_1': '#c51111',
+    'some_label_2': '#11c53b'
+  }
+});
+```
+
+### Label mapping
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  labelMapping: {
+    'long_complex_key_name': 'Human readable label',
+  }
+});
+```
+
+### Custom labels for funnels
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  labels: [
+    'Step 1',
+    'Step 2',
+    'Step 3'
+  ]
+});
+```
+
+### Render results
+
+By default you can pass results with a configuration object
+
+```javascript
+// By default you can pass results with Configuration objects
+
+const client = new KeenAnalysis({
+  projectId: 'YOUR_PROJECT_ID',
+  readKey: 'YOUR_READ_KEY'
+});
+
+// execute some query
+client
+  .query('count', {
+    event_collection: 'pageviews',
+    timeframe: 'this_160_days'
+  })
+  .then(results => {
+    // Handle results
+    const chart = new KeenDataviz({
+      container: '#some_container', // required
+      results
+    });
+  })
+  .catch(err => {
+    // Handle errors
+  });
+```
+
+The same, but with render function:
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  showLoadingSpinner: true
+});
+
+const client = new KeenAnalysis({
+  projectId: 'YOUR_PROJECT_ID',
+  readKey: 'YOUR_READ_KEY'
+});
+
+// execute some query
+client
+  .query('count', {
+    event_collection: 'pageviews',
+    timeframe: 'this_160_days'
+  })
+  .then(results => {
+    // Handle results
+    chart.render(results);
+  })
+  .catch(err => {
+    // Handle errors
+  });
+```
+
+### Loading spinner animation (aka prepare())
+
+Long query response time? Use a loading spinner to let users know, that data is loading.
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  showLoadingSpinner: true
+});
+
+const client = new KeenAnalysis({
+  projectId: 'YOUR_PROJECT_ID',
+  readKey: 'YOUR_READ_KEY'
+});
+
+// execute some query
+client
+  .query('count', {
+    event_collection: 'pageviews',
+    timeframe: 'this_160_days'
+  })
+  .then(results => {
+    // Handle results
+    chart.render(results);
+  })
+  .catch(err => {
+    // Handle errors
+  });
+```
+
+### Sort groups
+
+Determine how groupBy results are sorted (`asc` for ascending, `desc` for descending).
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  sortGroups: 'asc'
+});
+```
+
+### Sort intervals
+
+Determine how interval results are sorted (`asc` for ascending, `desc` for descending).
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  sortIntervals: 'desc'
+});
+```
+
+### Stacked chart
+
+Create a stacked chart, used to break down and compare parts of a whole.
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  stacked: true
+});
+ ```
+
+### Depracation warnings
+
+You can turn off deprecation warnings with
+
+```javascript
+const chart = new Keen.Dataviz({
+  container: '#container', // required
+  showDeprecationWarnings: false
+});
 ```
 
 **Advanced usage:**
 
+* [Chart types](./docs/README.md#chart-types)
 * [Create custom cohort visualizations](https://github.com/keen/cohorts)
 * [Create and visualize custom Dataset instances](./docs/dataset/parsers.md#data-parsers)
 * [Create custom themes](./docs/themes.md#custom-themes)
-* [Create custom visualizations](./docs/types-and-libraries.md#custom-types-and-libraries)
-
-<a name="upgrading-from-keen-js"></a>
-**Upgrading from keen-js:**
-
-There are several breaking changes and deprecations from [keen-js](https://github.com/keen/keen-js).
-
-* **client.draw() is not part of this SDK – check out [keen-analysis.js](https://github.com/keen/keen-analysis.js) for fetching query results**
-* **Method removal:** the following methods are no longer necessary, and so they have been removed entirely:
-    * `.parseRequest()`: this is now handled by `.data()` (learn more)
-    * `.dataType()`
-    * `.adapter()`
-    * `.initialize()`
-* **Method deprecations:** the following method names have been changed, but are still available as aliases:
-    * `.parseRawData()` is now handled by `.data()`
-    * `.chartType()` is now `.type()` (new)
-    * `.error()` is now `.message()` (new)
-* **Internal architecture:** the internals for each `Dataviz` instance have changed dramatically. Please review the source if you have built something referencing these properties directly.
-* **Dataset:** the `Dataset` instance prototype and internal architecture have been heavily refactored:
-    * `.input()` has been removed, as instances no longer maintain the original raw input data
-    * `.output()` has been renamed to `.data()` (no alias)
-    * `Dataset.parser()` returns parsing functions for all standard API response types. These functions will correctly parse a given response and return a new Dataset instance. [Learn more about these parsers](./docs/dataset/parsers.md#data-parsers)
 
 <a name="additional-resources"></a>
 **Additional resources:**
 
-* [Contributing](#contributing) is awesome and we hope you do!
-* [Custom builds](#custom-builds) are encouraged as well - have fun!
+* [Dataviz Methods](./docs/README.md#prototype-methods)
+* [Upgrading from keen-js](./docs/upgrading-from-keen-js.md)
 
 <a name="support"></a>
 **Support:**
@@ -193,7 +436,7 @@ $ git clone https://github.com/keen/keen-dataviz.js.git && cd keen-dataviz.js
 # Install project dependencies
 $ npm install
 
-# Build project with webpack
+# Build project with Webpack
 $ npm run build
 
 # Build and launch to view demo page

@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <script src="./assets/faker.js"></script>
     <script src="keen-dataviz.js"></script>
-    <link rel="stylesheet" href="./keen-dataviz.css">
     <link rel="stylesheet" href="./assets/keen-dashboards.css">
+    <link rel="stylesheet" href="./keen-dataviz.css">
     <style>
     body {
       background: #f2f2f2;
@@ -64,6 +64,9 @@
         font-family: 'Helvetica Neue', Helvetica, sans-serif;
         font-size: 11px;
         padding: 5px 10px;
+      }
+      .keen-c3-legend{
+        zwidth:300px;
       }
     </style>
   </head>
@@ -579,7 +582,11 @@
         .el('#nested .chart-demo-metric')
         .type('metric')
         .title('High-fives today')
-        .prepare();
+        .prepare()
+        .call(function(){
+          this.dataset.matrix = metricData;
+        })
+        .render();
 
       window.table = new Dataviz()
         .el('.chart-demo-table')
@@ -605,58 +612,58 @@
         })
         .render();
 
-
-      setTimeout(function(){
-        window.metric.call(function(){
-          this.dataset.matrix = metricData;
-        }).render();
-      }, 1 * 1000);
-
       window.gauge = new Dataviz()
-        .height(160)
         .el('.chart-c3-gauge')
-        .title('Percentage of awesome')
+        .title('Percentage of awesome Gauge 1')
         .theme('custom-theme')
         .notes('Sample notes go down here')
         .type('gauge')
-        // .chartOptions({})
+        .chartOptions({})
         .call(function(){
           this.dataset.matrix = gaugeData;
         })
         .render();
 
-      window.gauge2 = new Dataviz()
-        .height(160)
-        .el('.chart-c3-gauge2')
-        .title('Percentage of awesome')
-        .notes('Sample notes go down here')
-        .type('gauge')
-        .chartOptions({
-          color: {
-            pattern: ['#fe6672', '#ff855c', '#73d483'],
-            threshold: {
-              values: [25, 50, 75]
-            }
+      window.gauge2 = new Dataviz({
+        container: '.chart-c3-gauge2',
+        title: 'Percentage of awesome Gauge 2',
+        notes: 'some gauge2 note 123',
+        type: 'gauge',
+        theme: 'custom-theme',
+        color: {
+          pattern: ['#fe6672', '#ff855c', '#73d483'],
+          threshold: {
+            values: [25, 50, 75]
           }
-        })
+        }
+      })
         .call(function(){
           this.dataset.matrix = gaugeData;
         })
         .render();
 
-      setInterval(function(){
+      const gaugeInterval = setInterval(function(){
         window.gauge2.call(function(){
           this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
         }).render();
       }, 1000);
 
-      window.donut = new Dataviz()
-        .height(300)
+      window.donut = new Dataviz({
+        legend: {
+          position: 'bottom',
+          show: true
+        }
+        })
         .el('.chart-c3-donut')
         .title('Mmmm, donuts...')
         .type('donut')
-        .chartOptions({})
-        .data(makeGroupedDataset())
+        .data(makeGroupedDataset()
+          /*{
+          result: [
+            {email: 'a@a', value: 100},
+            {email: 'b@b', value: 30}
+          ]
+        }*/)
         .sortGroups('desc')
         .render();
 
@@ -694,12 +701,19 @@
         })
         .render();
 
-      window.barMultiStacked = new Dataviz()
-        .height(300)
+      window.barMultiStacked = new Dataviz({
+        title: 'Bar Chart Multi Stacked',
+        type: 'bar',
+        stacked: true,
+        tooltip: {
+          format: {
+            title: function (d) { return 'Datax ' + d; },
+            value: function (value, ratio, id) {
+              return value*2;
+            }
+          }
+        }})
         .el('.chart-c3-bar-stacked')
-        .title('Bar Chart')
-        .type('bar')
-        .stacked(true)
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
@@ -754,10 +768,15 @@
         .sortGroups('desc')
         .render();
 
-      window.lineMulti = new Dataviz()
+      window.lineMulti = new Dataviz({
+        legend: {
+          position: 'bottom',
+          show: true
+        }
+        })
         .height(300)
         .el('.chart-c3-line-multi')
-        .title('Line Chart')
+        .title('Multi Line Chart')
         .type('linechart')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
@@ -767,7 +786,7 @@
       window.lineMultiStacked = new Dataviz()
         .height(300)
         .el('.chart-c3-line-stacked')
-        .title('Line Chart')
+        .title('Stacked Line Chart')
         .type('line')
         .stacked(true)
         .call(function(){
@@ -785,8 +804,15 @@
         })
         .render();
 
-      window.lineTimeMulti = new Dataviz()
-        .height(300)
+      window.lineTimeMulti = new Dataviz({
+        legend: {
+          position: 'top',
+          show: true,
+          pagination: {
+            limit: 3
+          }
+        }
+        })
         .el('.chart-c3-line-time-multi')
         .title('Line Chart')
         .type('line')
@@ -796,7 +822,6 @@
         .render();
 
       window.lineTimeMultiStacked = new Dataviz()
-        .height(300)
         .el('.chart-c3-line-time-stacked')
         .title('Line Chart')
         .type('linechart')
@@ -822,10 +847,18 @@
         .data(makeGroupedDataset())
         .render();
 
-      window.splineMulti = new Dataviz()
+      window.splineMulti = new Dataviz({
+        legend: {
+          position: 'left',
+          show: true,
+          label: {
+            textMaxLength: 20
+          }
+        }
+        })
         .height(300)
         .el('.chart-c3-spline-multi')
-        .title('Spline Chart')
+        .title('Multi Spline Chart')
         .type('spline')
         .call(function(){
           this.dataset.matrix = groupedMultiData;

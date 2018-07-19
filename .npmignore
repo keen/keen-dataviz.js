@@ -6,8 +6,14 @@
 .awspublish-keen-js
 
 bower.json
-gulpfile.js
 demo-config.js
+bower.json
+.babelrc
+test
+.travis.yml
+jest.config.js
+webpack.config.js
+.eslintrc
 
 CHANGELOG.md
 README.md

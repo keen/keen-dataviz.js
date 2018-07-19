@@ -14,15 +14,13 @@ Run the following commands to install and build this project:
 $ git clone https://github.com/keen/keen-dataviz.js.git && cd keen-dataviz.js
 
 # Install project dependencies
-$ npm install
+npm install
 
-# Build project with gulp
-# npm install -g gulp
-$ gulp
+# Start dev server
+npm start
 
-# Build and launch to view demo page
-$ gulp
-$ open http://localhost:9002/demo
+# Build
+npm run build
 ```
 
 ## Submitting a Pull Request
