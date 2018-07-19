@@ -27,7 +27,25 @@ const chart = new Keen.Dataviz({
   showDeprecationWarnings: false,
   legend: {
     position: 'top'
-  }
+  },  axis: {
+      x: {
+        localtime: false
+      }
+    },
+    transition: {
+      duration: 3000
+    },
+    zoom: {
+      enabled: true
+    },
+    grid: {
+      x: {
+        show: true
+      },
+      y: {
+        show: true
+      }
+    }
 });
 
 const client = new Keen(demoConfig);
@@ -36,11 +54,12 @@ const client = new Keen(demoConfig);
 client
   .query('count', {
     event_collection: 'pageviews',
-    timeframe: 'this_160_days'
+    timeframe: 'this_160_days',
+    interval: 'daily'
   })
   .then(results => {
     // Handle results
-    chart.title('aaa').render(results);
+    chart.render(results);
   })
   .catch(err => {
     // Handle errors

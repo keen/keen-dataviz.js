@@ -2,8 +2,7 @@
 
 The most advanced data visualization library for [Keen IO](https://keen.io).
 
-
-## Install
+## Install with NPM **Recommended**
 
 ```ssh
 npm install keen-dataviz --save
@@ -50,7 +49,7 @@ client
   });
 ```
 
-## Install the library (CDN)
+## Install with CDN
 
 Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included.
 
@@ -105,23 +104,6 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 </html>
 ```
 
-**Advanced usage:**
-
-* [Chart types](./docs/README.md#chart-types)
-* [Create custom cohort visualizations](https://github.com/keen/cohorts)
-* [Create and visualize custom Dataset instances](./docs/dataset/parsers.md#data-parsers)
-* [Create custom themes](./docs/themes.md#custom-themes)
-* [Create custom visualizations](./docs/types-and-libraries.md#custom-types-and-libraries)
-
-<a name="additional-resources"></a>
-**Additional resources:**
-
-* [Dataviz Methods](./docs/README.md#prototype-methods)
-* [Upgrading from keen-js](./docs/upgrading-from-keen-js.md)
-* [Contributing](#contributing) is awesome and we hope you do!
-* [Custom builds](#custom-builds) are encouraged as well - have fun!
-
-
 ## Configuration
 
 ### Chart type
@@ -173,11 +155,47 @@ const chart = new KeenDataviz({
   }
 });
 ```
+
+### C3 options
+
+All of the options are passed to C3. See [https://c3js.org/reference.html](https://c3js.org/reference.html#axis-rotated)
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+
+  // c3 options example
+  axis: {
+    x: {
+      localtime: false
+    }
+  },
+  transition: {
+    duration: 3000
+  },
+  zoom: {
+    enabled: true
+  },
+  grid: {
+    x: {
+      show: true
+    },
+    y: {
+      show: true
+    }
+  }
+});
+
+
+```
+
 ### Legend
 
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
+
+  // default values
   legend: {
     show: true,
     position: 'right', // top, bottom, left, right
@@ -372,6 +390,19 @@ const chart = new Keen.Dataviz({
   showDeprecationWarnings: false
 });
 ```
+
+**Advanced usage:**
+
+* [Chart types](./docs/README.md#chart-types)
+* [Create custom cohort visualizations](https://github.com/keen/cohorts)
+* [Create and visualize custom Dataset instances](./docs/dataset/parsers.md#data-parsers)
+* [Create custom themes](./docs/themes.md#custom-themes)
+
+<a name="additional-resources"></a>
+**Additional resources:**
+
+* [Dataviz Methods](./docs/README.md#prototype-methods)
+* [Upgrading from keen-js](./docs/upgrading-from-keen-js.md)
 
 <a name="support"></a>
 **Support:**
