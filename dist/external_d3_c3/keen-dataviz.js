@@ -2944,6 +2944,66 @@ Dataviz.prototype.render = function () {
 
   var datavizInstance = this;
   if (!!results) {
+    if (Array.isArray(results)) {
+      var timeframes = results.map(function (resultItem) {
+        return resultItem.query.timeframe;
+      });
+      timeframes.forEach(function (resultTimeframe) {
+        var foundDifferent = timeframes.find(function (timeframeItem) {
+          return timeframeItem !== resultTimeframe;
+        });
+        if (foundDifferent) {
+          var msg = 'Timeframes of the queries should be the same';
+          console.error(msg);
+          throw msg;
+        }
+      });
+      // first result is important to prepare X on the chart
+      return datavizInstance.data(results[0]).call(function () {
+        var getLabel = function getLabel(input) {
+          return input.query.event_collection + ' ' + input.query.analysis_type;
+        };
+        var label = getLabel(results[0]);
+        if (datavizInstance.config.labelMapping[label]) {
+          label = datavizInstance.config.labelMapping[label];
+        }
+        datavizInstance.config.labelMapping = _extends({
+          'Result': label
+        }, datavizInstance.config.labelMapping);
+        // this.dataset.appendColumn(label, ds2.selectColumn(1).slice(1));
+        var firstResultPassed = false;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = results[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var result = _step.value;
+
+            if (!firstResultPassed) {
+              firstResultPassed = true;
+              continue;
+            }
+            label = getLabel(result);;
+            var ds2 = _dataset.Dataset.parser('interval')(result);
+            datavizInstance.dataset.appendColumn(label, ds2.selectColumn(1).slice(1));
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }).render();
+    }
     return datavizInstance.data(results).render();
   }
   if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0) {

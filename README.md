@@ -11,8 +11,8 @@ npm install keen-dataviz --save
 ## Example
 
 ```javascript
-import KeenAnalysis from 'keen-analysis';
 import KeenDataviz from 'keen-dataviz';
+import KeenAnalysis from 'keen-analysis'; // API client
 
 const chart = new KeenDataviz({
   // Required:
@@ -23,15 +23,15 @@ const chart = new KeenDataviz({
   showLoadingSpinner: true
 });
 
-// Use keen-analysis.js to run a query
-// pass the results into your chart:
+// use keen-analysis.js to run a query
 const client = new KeenAnalysis({
   projectId: 'YOUR_PROJECT_ID',
   readKey: 'YOUR_READ_KEY'
 });
 
 client
-  .query('count', {
+  .query({
+    analysis_type: 'count',
     event_collection: 'pageviews',
     timeframe: 'this_7_days',
     interval: 'daily'
@@ -50,50 +50,50 @@ client
 
 ## Install with CDN
 
-Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js library, which itself requires D3.js. These dependencies are already included.
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries, already included in our bundle js file.
 
 ```html
 <html>
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@2"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-analysis@3"></script>
 
     <!-- Dataviz dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/keen-dataviz@3"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-dataviz@3"></script>
   </head>
   <body>
     <!-- DOM Element -->
-    <div id="my-chart-div"></div>
+    <div id="some_container"></div>
 
     <!-- Create and Render -->
     <script>
       const chart = new KeenDataviz({
-        container: '#my-chart-div' // querySelector,
+        container: '#some_container' // querySelector,
         title: 'New Customers per Week'
       });
 
       // Use keen-analysis.js to run a query
-      // and pass the result into your chart:
-      const client = new Keen({
+      const client = new KeenAnalysis({
         projectId: 'YOUR_PROJECT_ID',
         readKey: 'YOUR_READ_KEY'
       });
 
       client
-        .query('count', {
+        .query({
+          analysis_type: 'count',
           event_collection: 'pageviews',
           timeframe: 'this_14_days',
           interval: 'daily'
         })
         .then(function(results){
-          // Handle the result
+          // pass the result to the chart
           chart
             .render(results);
         })
         .catch(function(error){
-          // Handle the error
+          // on error
           chart
             .message(error.message);
         });
@@ -152,6 +152,49 @@ const chart = new KeenDataviz({
     }
   }
 });
+```
+
+### Multiple query results on one chart
+
+```javascript
+const client = new KeenAnalysis({
+  projectId: 'YOUR_PROJECT_ID',
+  readKey: 'YOUR_READ_KEY'
+});
+
+const queryPageviews = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_30_days',
+    interval: 'daily'
+  });
+
+const queryFormSubmissions = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'form_submissions',
+    timeframe: 'this_30_days',
+    interval: 'daily'
+  });
+
+client
+  .run([queryPageviews, queryFormSubmissions])
+  .then(results => {
+    const chart = new KeenDataviz({
+      container: '#some_container',
+      results,
+      // optional
+      labelMapping: {
+        'pageviews count': 'Pageviews',
+        'form_submissions count': 'Forms collected'
+      }
+    });
+  })
+  .catch(err => {
+    // Handle errors
+    console.error(err);
+  });
 ```
 
 ### C3 options
@@ -269,18 +312,16 @@ const client = new KeenAnalysis({
 
 // execute some query
 client
-  .query('count', {
+  .query({
+    analysis_type: 'count',
     event_collection: 'pageviews',
     timeframe: 'this_160_days'
   })
   .then(results => {
-    // Handle results
-
     const chart = new KeenDataviz({
       container: '#some_container', // required
       results
     });
-
   })
   .catch(err => {
     // Handle errors
@@ -302,9 +343,10 @@ const client = new KeenAnalysis({
 
 // execute some query
 client
-  .query('count', {
+  .query({
+    analysis_type: 'count',
     event_collection: 'pageviews',
-    timeframe: 'this_160_days'
+    timeframe: 'this_30_days'
   })
   .then(results => {
     // Handle results
@@ -332,7 +374,8 @@ const client = new KeenAnalysis({
 
 // execute some query
 client
-  .query('count', {
+  .query({
+    analysis_type: 'count',
     event_collection: 'pageviews',
     timeframe: 'this_160_days'
   })

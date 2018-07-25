@@ -2,13 +2,21 @@ import Dataviz, { Dataset } from '../../../lib/browser';
 
 describe('Dataviz', () => {
   let dataviz1;
+  let dataviz1NoConfig; // deprecated version of the lib, but still supported
+
+  const config = {
+    container: '#some_container',
+    type: 'area'
+  };
 
   beforeEach(() => {
-    dataviz1 = new Dataviz();
+    dataviz1 = new Dataviz(config);
+    dataviz1NoConfig = new Dataviz();
   });
 
   afterEach(() => {
     dataviz1 = null;
+    dataviz1NoConfig = null;
     Dataviz.visuals = [];
   });
 
@@ -27,8 +35,18 @@ describe('Dataviz', () => {
     });
 
     it('should be appended to Dataviz.visuals', () => {
-      expect(Dataviz.visuals.length).toBe(1);
+      expect(Dataviz.visuals.length).toBe(2);
       expect(Dataviz.visuals[0]).toBeInstanceOf(Dataviz);
+    });
+
+    it('should set config options', () => {
+      expect(dataviz1.config.type).toBe(config.type);
+      expect(dataviz1.config.container).toBe(config.container);
+    });
+
+    it('should set config options', () => {
+      expect(dataviz1.config.type).toBe(config.type);
+      expect(dataviz1.config.container).toBe(config.container);
     });
 
   });
@@ -340,18 +358,18 @@ describe('Dataviz', () => {
 
   describe('.type()', () => {
     it('should return undefined by default', () => {
-      expect(dataviz1.type())
+      expect(dataviz1NoConfig.type())
         .toBe(undefined);
     });
     it('should set and get a new chartType', () => {
       const chartType = 'magic-pie'
-      dataviz1.type(chartType);
-      expect(dataviz1.config.type).toEqual(chartType);
+      dataviz1NoConfig.type(chartType);
+      expect(dataviz1NoConfig.config.type).toEqual(chartType);
     });
     it('should unset properties by passing null', () => {
       dataviz1.type(null);
-      expect(dataviz1.config.type)
-        .toBe(null);
+      expect(dataviz1NoConfig.config.type)
+        .toBe(undefined);
     });
   });
 

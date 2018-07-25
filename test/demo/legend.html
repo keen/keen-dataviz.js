@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <script src="./assets/faker.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@2.1.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3"></script>
 
     <script src="keen-dataviz.js"></script>
     <script src="demo-config.js"></script>
@@ -16,14 +16,55 @@
     </style>
   </head>
   <body>
-    <div id="container"></div>
+    <div id="some_container"></div>
 
     <script>
+(() => {
+
+const client = new KeenAnalysis(demoConfig);
+
+const queryPageviews = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_30_days',
+    interval: 'daily'
+  });
+
+const queryFormSubmissions = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'form_submissions',
+    timeframe: 'this_30_days',
+    interval: 'daily'
+  });
+
+client
+  .run([queryPageviews, queryFormSubmissions])
+  .then(results => {
+    const chart = new KeenDataviz({
+      container: '#some_container',
+      results,
+      // optional
+      labelMapping: {
+        'pageviews count': 'Pageviews',
+        'form_submissions count': 'Forms collected'
+      }
+    });
+  })
+  .catch(err => {
+    // Handle errors
+    console.error(err);
+  });
+
+return;
 
 
+chart = new Keen.Dataviz({
+  container: '#some_container', // required
+  showLoadingSpinner: true,
 
-const chart = new Keen.Dataviz({
-  container: '#container', // required
+  /*
   showDeprecationWarnings: false,
   legend: {
     position: 'top'
@@ -32,9 +73,11 @@ const chart = new Keen.Dataviz({
         localtime: false
       }
     },
+
     transition: {
       duration: 3000
     },
+
     zoom: {
       enabled: true
     },
@@ -46,25 +89,8 @@ const chart = new Keen.Dataviz({
         show: true
       }
     }
+    */
 });
-
-const client = new Keen(demoConfig);
-
-// execute some query
-client
-  .query('count', {
-    event_collection: 'pageviews',
-    timeframe: 'this_160_days',
-    interval: 'daily'
-  })
-  .then(results => {
-    // Handle results
-    chart.render(results);
-  })
-  .catch(err => {
-    // Handle errors
-  });
-
 
 /*
 
