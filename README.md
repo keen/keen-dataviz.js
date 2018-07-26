@@ -197,6 +197,39 @@ client
   });
 ```
 
+### Refresh every 1 minute
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container',
+  clearOnRender: true, // clear c3
+  transition: {
+    duration: 0 // to avoid animation during re-render
+  }
+});
+
+const fetchResultsAndRender = () => {
+  client
+    .query({
+      analysis_type: 'count',
+      event_collection: 'pageviews',
+      timeframe: 'previous_60_minutes',
+      interval: 'minutely'
+    })
+    .then(results => {
+      chart.render(results);
+    });
+};
+
+const intervalTime = 60 * 1000; // every minute, because query interval is "minutely"
+
+setInterval( () => {
+  fetchResultsAndRender();
+}, intervalTime);
+
+fetchResultsAndRender(); // initial fetch and render
+```
+
 ### C3 options
 
 All of the options are passed to C3. See [https://c3js.org/reference.html](https://c3js.org/reference.html#axis-rotated)
@@ -205,7 +238,7 @@ All of the options are passed to C3. See [https://c3js.org/reference.html](https
 const chart = new KeenDataviz({
   container: '#some_container', // required
 
-  // c3 options example
+  // c3 options example, read more https://c3js.org/reference.html
   axis: {
     x: {
       localtime: false
@@ -224,10 +257,11 @@ const chart = new KeenDataviz({
     y: {
       show: true
     }
+  },
+  onrendered: () => {
+    // do something when the chart is ready... https://c3js.org/reference.html#onrendered
   }
 });
-
-
 ```
 
 ### Legend
@@ -354,6 +388,24 @@ client
   })
   .catch(err => {
     // Handle errors
+  });
+```
+
+### Render as a Promise
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  renderAsPromise: true
+});
+
+chart
+  .render(results)
+  .then({
+    // do something after rendering is complete
+  })
+  .catch(err => {
+    // handle render error
   });
 ```
 

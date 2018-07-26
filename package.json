@@ -38,7 +38,8 @@
   ],
   "dependencies": {
     "c3": "^0.6.2",
-    "d3": "^5.4.0"
+    "d3": "^5.4.0",
+    "promise-polyfill": "^8.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.2.0",

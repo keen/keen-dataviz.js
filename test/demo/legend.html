@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <script src="./assets/faker.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-tracking@3.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3.0.3"></script>
 
     <script src="keen-dataviz.js"></script>
     <script src="demo-config.js"></script>
@@ -20,10 +21,54 @@
 
     <script>
 (() => {
-
 const client = new KeenAnalysis(demoConfig);
 
-const queryPageviews = client
+const clientTracking = new KeenTracking(demoConfig);
+
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  renderAsPromise: true
+});
+
+client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'streamOfEvents',
+    timeframe: 'previous_60_minutes',
+    // interval: 'minutely'
+  })
+  .then(results => {
+    chart
+      .render(results)
+      .then(ch => {
+        console.log('render complete', ch);
+        // do something after rendering is complete
+      })
+      .catch(err => {
+        console.log('er', err);
+        // handle render error
+      });
+  });
+
+return;
+
+/*
+setInterval( () => {
+  clientTracking.recordEvent('streamOfEvents', {
+    randomValue: Math.random()
+  });
+}, 1000 + Math.round(Math.random() * 5000));
+*/
+
+
+
+
+/*
+*/
+
+return;
+
+client
   .query({
     analysis_type: 'count',
     event_collection: 'pageviews',
@@ -31,11 +76,25 @@ const queryPageviews = client
     interval: 'daily'
   });
 
+return;
+/*
+
+*/
+
+
+const queryPageviews = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_60_days',
+    interval: 'daily'
+  });
+
 const queryFormSubmissions = client
   .query({
     analysis_type: 'count',
     event_collection: 'form_submissions',
-    timeframe: 'this_30_days',
+    timeframe: 'this_60_days',
     interval: 'daily'
   });
 
@@ -49,7 +108,8 @@ client
       labelMapping: {
         'pageviews count': 'Pageviews',
         'form_submissions count': 'Forms collected'
-      }
+      },
+      clearOnRender: true
     });
   })
   .catch(err => {
@@ -58,7 +118,6 @@ client
   });
 
 return;
-
 
 chart = new Keen.Dataviz({
   container: '#some_container', // required
@@ -92,6 +151,7 @@ chart = new Keen.Dataviz({
     */
 });
 
+})();
 /*
 
 // Use keen-analysis.js to run a query
