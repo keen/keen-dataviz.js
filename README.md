@@ -473,6 +473,26 @@ const chart = new KeenDataviz({
 });
  ```
 
+ ### Extraction Table Columns Order
+
+ ```javascript
+ /*
+  dummy event model
+  {
+    user: {
+      email: 'john@doe.com'
+    },
+    favourite_fruit: 'Avocado'
+  }
+ */
+ const chart = new KeenDataviz({
+   container: '#some_container', // required
+   table: {
+     columns: ['favourite_fruit', 'user.email', 'keen.created_at'] // custom order of the columns
+   }
+ });
+```
+
 ### Depracation warnings
 
 You can turn off deprecation warnings with

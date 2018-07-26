@@ -19,7 +19,7 @@
   <body>
     <div id="some_container"></div>
 
-    <script>
+<script>
 (() => {
 const client = new KeenAnalysis(demoConfig);
 
@@ -27,17 +27,24 @@ const clientTracking = new KeenTracking(demoConfig);
 
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  renderAsPromise: true
+  renderAsPromise: true,
+  table: {
+    columns: ['randomValue', 'keen.id']
+  }
 });
 
 client
   .query({
-    analysis_type: 'count',
+    analysis_type: 'extraction',
     event_collection: 'streamOfEvents',
-    timeframe: 'previous_60_minutes',
+    timeframe: 'this_300_minutes',
+    cache: {
+      maxAge: 60 * 60 * 1000
+    }
     // interval: 'minutely'
   })
   .then(results => {
+    console.log(results);
     chart
       .render(results)
       .then(ch => {

@@ -103,6 +103,14 @@
   width: 100%;
 }
 
+.keen-dataviz .keen-dataviz-table th{
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
 .keen-dataviz .keen-dataviz-table th,
 .keen-dataviz .keen-dataviz-table td {
   border-collapse: collapse;
@@ -127,9 +135,7 @@
   background-color: var(--silver);
   color: var(--dark-gray);
 }
-.keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
-  xvisibility: hidden;
-}
+
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
   background: var(--white);
   border-bottom: 1px solid rgba(0,0,0,.15);
