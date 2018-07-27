@@ -258,9 +258,22 @@ const chart = new KeenDataviz({
       show: true
     }
   },
+  size: {
+    // https://c3js.org/reference.html#size-width
+    // It's better to control the size using the CSS of the container HTML element
+  },
   onrendered: () => {
     // do something when the chart is ready... https://c3js.org/reference.html#onrendered
   }
+});
+```
+
+### Hide the Title
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  showTitle: false
 });
 ```
 

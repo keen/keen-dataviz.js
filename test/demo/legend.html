@@ -17,6 +17,12 @@
     </style>
   </head>
   <body>
+    <style>
+    #some_container{
+      width:300px;
+      height: 300px;
+    }
+    </style>
     <div id="some_container"></div>
 
 <script>
@@ -28,20 +34,18 @@ const clientTracking = new KeenTracking(demoConfig);
 const chart = new KeenDataviz({
   container: '#some_container', // required
   renderAsPromise: true,
-  table: {
-    columns: ['randomValue', 'keen.id']
-  }
+  type: 'donut'
 });
 
 client
   .query({
-    analysis_type: 'extraction',
-    event_collection: 'streamOfEvents',
-    timeframe: 'this_300_minutes',
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_7_days',
     cache: {
       maxAge: 60 * 60 * 1000
-    }
-    // interval: 'minutely'
+    },
+    group_by: "time.local.minute"
   })
   .then(results => {
     console.log(results);

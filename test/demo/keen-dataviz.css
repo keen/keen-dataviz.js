@@ -187,6 +187,7 @@
           box-sizing: border-box;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: inherit;
 }
 
 .keen-dataviz .keen-dataviz-title {
@@ -226,6 +227,7 @@
 
 /* METRIC */
 .keen-dataviz-metric {
+  height: inherit;
   color: #FFFFFF;
   color: #FFFFFF;
   background: rgb(0, 187, 222);
@@ -260,6 +262,8 @@
           box-sizing: border-box;
   overflow: scroll;
   position: relative;
+
+  width: 100%;
 }
 .keen-dataviz .keen-dataviz-table table {
   background: #FFFFFF;
@@ -362,6 +366,7 @@
 }
 
 .keen-dataviz-rendering{
+  height: inherit;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
