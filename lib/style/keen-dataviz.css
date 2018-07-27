@@ -32,6 +32,7 @@
 .keen-dataviz {
   box-sizing: border-box;
   font-family: var(--font-family-primary);
+  height: inherit;
 }
 
 .keen-dataviz .keen-dataviz-title {
@@ -64,6 +65,7 @@
 
 /* METRIC */
 .keen-dataviz-metric {
+  height: inherit;
   color: var(--white);
   background: rgb(0, 187, 222);
   &-value {
@@ -94,6 +96,8 @@
   box-sizing: border-box;
   overflow: scroll;
   position: relative;
+
+  width: 100%;
 }
 .keen-dataviz .keen-dataviz-table table {
   background: var(--white);
@@ -101,6 +105,14 @@
   margin: 0;
   position: relative;
   width: 100%;
+}
+
+.keen-dataviz .keen-dataviz-table th{
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  cursor: pointer;
 }
 
 .keen-dataviz .keen-dataviz-table th,
@@ -127,9 +139,7 @@
   background-color: var(--silver);
   color: var(--dark-gray);
 }
-.keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
-  xvisibility: hidden;
-}
+
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
   background: var(--white);
   border-bottom: 1px solid rgba(0,0,0,.15);
@@ -176,6 +186,7 @@
 }
 
 .keen-dataviz-rendering{
+  height: inherit;
   display: flex;
   justify-content: center;
   flex-flow: row;

@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <script src="./assets/faker.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@2.1.2"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-tracking@3.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3.0.3"></script>
 
     <script src="keen-dataviz.js"></script>
     <script src="demo-config.js"></script>
@@ -16,14 +17,124 @@
     </style>
   </head>
   <body>
-    <div id="container"></div>
+    <style>
+    #some_container{
+      width:300px;
+      height: 300px;
+    }
+    </style>
+    <div id="some_container"></div>
 
-    <script>
+<script>
+(() => {
+const client = new KeenAnalysis(demoConfig);
+
+const clientTracking = new KeenTracking(demoConfig);
+
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  renderAsPromise: true,
+  type: 'donut'
+});
+
+client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_7_days',
+    cache: {
+      maxAge: 60 * 60 * 1000
+    },
+    group_by: "time.local.minute"
+  })
+  .then(results => {
+    console.log(results);
+    chart
+      .render(results)
+      .then(ch => {
+        console.log('render complete', ch);
+        // do something after rendering is complete
+      })
+      .catch(err => {
+        console.log('er', err);
+        // handle render error
+      });
+  });
+
+return;
+
+/*
+setInterval( () => {
+  clientTracking.recordEvent('streamOfEvents', {
+    randomValue: Math.random()
+  });
+}, 1000 + Math.round(Math.random() * 5000));
+*/
 
 
 
-const chart = new Keen.Dataviz({
-  container: '#container', // required
+
+/*
+*/
+
+return;
+
+client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_30_days',
+    interval: 'daily'
+  });
+
+return;
+/*
+
+*/
+
+
+const queryPageviews = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_60_days',
+    interval: 'daily'
+  });
+
+const queryFormSubmissions = client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'form_submissions',
+    timeframe: 'this_60_days',
+    interval: 'daily'
+  });
+
+client
+  .run([queryPageviews, queryFormSubmissions])
+  .then(results => {
+    const chart = new KeenDataviz({
+      container: '#some_container',
+      results,
+      // optional
+      labelMapping: {
+        'pageviews count': 'Pageviews',
+        'form_submissions count': 'Forms collected'
+      },
+      clearOnRender: true
+    });
+  })
+  .catch(err => {
+    // Handle errors
+    console.error(err);
+  });
+
+return;
+
+chart = new Keen.Dataviz({
+  container: '#some_container', // required
+  showLoadingSpinner: true,
+
+  /*
   showDeprecationWarnings: false,
   legend: {
     position: 'top'
@@ -32,9 +143,11 @@ const chart = new Keen.Dataviz({
         localtime: false
       }
     },
+
     transition: {
       duration: 3000
     },
+
     zoom: {
       enabled: true
     },
@@ -46,26 +159,10 @@ const chart = new Keen.Dataviz({
         show: true
       }
     }
+    */
 });
 
-const client = new Keen(demoConfig);
-
-// execute some query
-client
-  .query('count', {
-    event_collection: 'pageviews',
-    timeframe: 'this_160_days',
-    interval: 'daily'
-  })
-  .then(results => {
-    // Handle results
-    chart.render(results);
-  })
-  .catch(err => {
-    // Handle errors
-  });
-
-
+})();
 /*
 
 // Use keen-analysis.js to run a query
