@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -209,6 +209,54 @@ function extend(target) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(callback) {
+  var constructor = this.constructor;
+  return this.then(
+    function(value) {
+      return constructor.resolve(callback()).then(function() {
+        return value;
+      });
+    },
+    function(reason) {
+      return constructor.resolve(callback()).then(function() {
+        return constructor.reject(reason);
+      });
+    }
+  );
+});
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19981,7 +20029,7 @@ function defaultConstrain(transform, extent, translateExtent) {
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20018,7 +20066,7 @@ function testString(input) {
 }
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20037,7 +20085,7 @@ exports.default = function (len) {
 };
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20049,7 +20097,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.appendColumn = appendColumn;
 exports.appendRow = appendRow;
 
-var _createNullList = __webpack_require__(5);
+var _createNullList = __webpack_require__(7);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
@@ -20140,7 +20188,7 @@ function appendRow(str, input) {
 }
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20170,7 +20218,7 @@ function extendDeep(target) {
 }
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20193,7 +20241,7 @@ function stripHtmlTags(inputString) {
 }
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20304,7 +20352,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20315,41 +20363,41 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = undefined;
 
-var _append = __webpack_require__(6);
+var _append = __webpack_require__(8);
 
 var append = _interopRequireWildcard(_append);
 
-var _delete = __webpack_require__(30);
+var _delete = __webpack_require__(37);
 
 var del = _interopRequireWildcard(_delete);
 
-var _filter = __webpack_require__(29);
+var _filter = __webpack_require__(36);
 
 var filter = _interopRequireWildcard(_filter);
 
-var _insert = __webpack_require__(28);
+var _insert = __webpack_require__(35);
 
 var insert = _interopRequireWildcard(_insert);
 
-var _select = __webpack_require__(27);
+var _select = __webpack_require__(34);
 
 var select = _interopRequireWildcard(_select);
 
-var _sort = __webpack_require__(26);
+var _sort = __webpack_require__(33);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _update = __webpack_require__(25);
+var _update = __webpack_require__(32);
 
 var update = _interopRequireWildcard(_update);
 
-var _analyses = __webpack_require__(9);
+var _analyses = __webpack_require__(11);
 
 var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(2);
 
-var _parsers = __webpack_require__(24);
+var _parsers = __webpack_require__(31);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
@@ -20359,14 +20407,17 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 // Modifiers
 var Dataset = exports.Dataset = function Dataset() {
+  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
   if (this instanceof Dataset === false) {
-    return new Dataset();
+    return new Dataset(config);
   }
 
   this.matrix = [['Index']];
   this.meta = {
     type: undefined
   };
+  this.config = config;
 };
 
 // Utils
@@ -20425,7 +20476,244 @@ Dataset.parser = (0, _parsers2.default)(Dataset);
 exports.default = Dataset;
 
 /***/ }),
-/* 11 */
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(setImmediate) {/* harmony import */ var _finally__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+
+
+// Store setTimeout reference so promise-polyfill will be unaffected by
+// other code modifying setTimeout (like sinon.useFakeTimers())
+var setTimeoutFunc = setTimeout;
+
+function noop() {}
+
+// Polyfill for Function.prototype.bind
+function bind(fn, thisArg) {
+  return function() {
+    fn.apply(thisArg, arguments);
+  };
+}
+
+function Promise(fn) {
+  if (!(this instanceof Promise))
+    throw new TypeError('Promises must be constructed via new');
+  if (typeof fn !== 'function') throw new TypeError('not a function');
+  this._state = 0;
+  this._handled = false;
+  this._value = undefined;
+  this._deferreds = [];
+
+  doResolve(fn, this);
+}
+
+function handle(self, deferred) {
+  while (self._state === 3) {
+    self = self._value;
+  }
+  if (self._state === 0) {
+    self._deferreds.push(deferred);
+    return;
+  }
+  self._handled = true;
+  Promise._immediateFn(function() {
+    var cb = self._state === 1 ? deferred.onFulfilled : deferred.onRejected;
+    if (cb === null) {
+      (self._state === 1 ? resolve : reject)(deferred.promise, self._value);
+      return;
+    }
+    var ret;
+    try {
+      ret = cb(self._value);
+    } catch (e) {
+      reject(deferred.promise, e);
+      return;
+    }
+    resolve(deferred.promise, ret);
+  });
+}
+
+function resolve(self, newValue) {
+  try {
+    // Promise Resolution Procedure: https://github.com/promises-aplus/promises-spec#the-promise-resolution-procedure
+    if (newValue === self)
+      throw new TypeError('A promise cannot be resolved with itself.');
+    if (
+      newValue &&
+      (typeof newValue === 'object' || typeof newValue === 'function')
+    ) {
+      var then = newValue.then;
+      if (newValue instanceof Promise) {
+        self._state = 3;
+        self._value = newValue;
+        finale(self);
+        return;
+      } else if (typeof then === 'function') {
+        doResolve(bind(then, newValue), self);
+        return;
+      }
+    }
+    self._state = 1;
+    self._value = newValue;
+    finale(self);
+  } catch (e) {
+    reject(self, e);
+  }
+}
+
+function reject(self, newValue) {
+  self._state = 2;
+  self._value = newValue;
+  finale(self);
+}
+
+function finale(self) {
+  if (self._state === 2 && self._deferreds.length === 0) {
+    Promise._immediateFn(function() {
+      if (!self._handled) {
+        Promise._unhandledRejectionFn(self._value);
+      }
+    });
+  }
+
+  for (var i = 0, len = self._deferreds.length; i < len; i++) {
+    handle(self, self._deferreds[i]);
+  }
+  self._deferreds = null;
+}
+
+function Handler(onFulfilled, onRejected, promise) {
+  this.onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : null;
+  this.onRejected = typeof onRejected === 'function' ? onRejected : null;
+  this.promise = promise;
+}
+
+/**
+ * Take a potentially misbehaving resolver function and make sure
+ * onFulfilled and onRejected are only called once.
+ *
+ * Makes no guarantees about asynchrony.
+ */
+function doResolve(fn, self) {
+  var done = false;
+  try {
+    fn(
+      function(value) {
+        if (done) return;
+        done = true;
+        resolve(self, value);
+      },
+      function(reason) {
+        if (done) return;
+        done = true;
+        reject(self, reason);
+      }
+    );
+  } catch (ex) {
+    if (done) return;
+    done = true;
+    reject(self, ex);
+  }
+}
+
+Promise.prototype['catch'] = function(onRejected) {
+  return this.then(null, onRejected);
+};
+
+Promise.prototype.then = function(onFulfilled, onRejected) {
+  var prom = new this.constructor(noop);
+
+  handle(this, new Handler(onFulfilled, onRejected, prom));
+  return prom;
+};
+
+Promise.prototype['finally'] = _finally__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"];
+
+Promise.all = function(arr) {
+  return new Promise(function(resolve, reject) {
+    if (!arr || typeof arr.length === 'undefined')
+      throw new TypeError('Promise.all accepts an array');
+    var args = Array.prototype.slice.call(arr);
+    if (args.length === 0) return resolve([]);
+    var remaining = args.length;
+
+    function res(i, val) {
+      try {
+        if (val && (typeof val === 'object' || typeof val === 'function')) {
+          var then = val.then;
+          if (typeof then === 'function') {
+            then.call(
+              val,
+              function(val) {
+                res(i, val);
+              },
+              reject
+            );
+            return;
+          }
+        }
+        args[i] = val;
+        if (--remaining === 0) {
+          resolve(args);
+        }
+      } catch (ex) {
+        reject(ex);
+      }
+    }
+
+    for (var i = 0; i < args.length; i++) {
+      res(i, args[i]);
+    }
+  });
+};
+
+Promise.resolve = function(value) {
+  if (value && typeof value === 'object' && value.constructor === Promise) {
+    return value;
+  }
+
+  return new Promise(function(resolve) {
+    resolve(value);
+  });
+};
+
+Promise.reject = function(value) {
+  return new Promise(function(resolve, reject) {
+    reject(value);
+  });
+};
+
+Promise.race = function(values) {
+  return new Promise(function(resolve, reject) {
+    for (var i = 0, len = values.length; i < len; i++) {
+      values[i].then(resolve, reject);
+    }
+  });
+};
+
+// Use polyfill for setImmediate for performance gains
+Promise._immediateFn =
+  (typeof setImmediate === 'function' &&
+    function(fn) {
+      setImmediate(fn);
+    }) ||
+  function(fn) {
+    setTimeoutFunc(fn, 0);
+  };
+
+Promise._unhandledRejectionFn = function _unhandledRejectionFn(err) {
+  if (typeof console !== 'undefined' && console) {
+    console.warn('Possible Unhandled Promise Rejection:', err); // eslint-disable-line no-console
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Promise);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(27).setImmediate))
+
+/***/ }),
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20468,7 +20756,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20481,10 +20769,13 @@ Object.defineProperty(exports, "__esModule", {
 var _each = __webpack_require__(0);
 
 var defaults = {
-  height: undefined,
+  /*
+  DEPRECATED - use CSS styles
+   height: undefined,
   width: undefined,
   stickyHeader: false,
   stickyFooter: false
+  */
 };
 
 function _generateTableRows(dataset) {
@@ -20547,97 +20838,132 @@ function _generateTableRows(dataset) {
   return html;
 }
 
-exports.default = {
-  render: function render() {
-    var dataset = this.data();
-    var el = this.el();
-    var theme = this.theme();
+function _generateTableHeader(datavizInstance, dataset) {
+  var html = '';
+  var fieldNumber = -1;
+  var columnNames = datavizInstance.config.table && datavizInstance.config.table.columns || dataset[0];
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
 
-    var html = '';
-    var fixedHeader = void 0;
+  try {
+    for (var _iterator3 = columnNames[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      var colName = _step3.value;
 
-    var isEmpty = dataset.length === 1 && dataset[0].length === 0;
-    if (isEmpty) {
-      this.message('No data to display');
-      return;
+      fieldNumber += 1;
+      html += '<th fieldNumber="' + fieldNumber + '">' + colName + '</th>';
     }
-
-    // Open wrapper
-    html += '<div class="' + theme + '-table">';
-
-    // Static, scrollable table
-    html += '<table class="' + theme + '-table-dataset">';
-    html += '<thead>';
-    html += '<tr>';
-    var _iteratorNormalCompletion3 = true;
-    var _didIteratorError3 = false;
-    var _iteratorError3 = undefined;
-
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
     try {
-      for (var _iterator3 = dataset[0][Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-        var colName = _step3.value;
-
-        html += '<th>' + colName + '</th>';
+      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+        _iterator3.return();
       }
-    } catch (err) {
-      _didIteratorError3 = true;
-      _iteratorError3 = err;
     } finally {
-      try {
-        if (!_iteratorNormalCompletion3 && _iterator3.return) {
-          _iterator3.return();
-        }
-      } finally {
-        if (_didIteratorError3) {
-          throw _iteratorError3;
-        }
+      if (_didIteratorError3) {
+        throw _iteratorError3;
       }
     }
+  }
 
-    html += '</tr>';
-    html += '</thead>';
-    // Table data
-    html += '<tbody>';
-    html += _generateTableRows.call(this, dataset);
-    html += '</tbody>';
-    html += '</table>';
-    /*
-        // Fixed table (header)
-        html +=   `<table class="${theme}-table-fixed-header">`;
-        html +=     '<thead>';
-        html +=       '<tr>';
-        for (let colName of dataset[0]) {
-          html +=       `<th>${colName}</th>`;
+  return html;
+}
+
+var render = function render() {
+  var _this = this;
+
+  var dataset = this.dataset.matrix;
+
+  var el = this.el();
+  var theme = this.config.theme;
+  var datavizInstance = this;
+
+  var html = '';
+
+  var isEmpty = dataset.length === 1 && dataset[0].length === 0;
+  if (isEmpty) {
+    this.message('No data to display');
+    return;
+  }
+
+  // Open wrapper
+  html += '<div class="' + theme + '-table">';
+
+  // Static, scrollable table
+  html += '<table class="' + theme + '-table-dataset">';
+  html += '<thead>';
+  html += '<tr>';
+  html += _generateTableHeader(datavizInstance, dataset);
+  html += '</tr>';
+  html += '</thead>';
+  // Table data
+  html += '<tbody>';
+  html += _generateTableRows.call(this, dataset);
+  html += '</tbody>';
+  html += '</table>';
+  /* */
+  // Close wrapper
+  html += '</div>';
+
+  // Inject HTML string
+  el.querySelector('.' + theme + '-rendering').innerHTML = html;
+
+  el.querySelectorAll('.' + theme + '-rendering th').forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var sortOrder = event.target.getAttribute('order') || 'asc';
+      var fieldNumber = event.target.getAttribute('fieldNumber');
+      var checker = function checker(a, b) {
+        var sortOrderNumber = sortOrder === 'asc' ? 1 : -1;
+
+        if (typeof a[fieldNumber] === 'string') {
+          var nameA = a[fieldNumber].toUpperCase(); // ignore upper and lowercase
+          var nameB = b[fieldNumber].toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1 * sortOrderNumber;
+          }
+          if (nameA > nameB) {
+            return 1 * sortOrderNumber;
+          }
+
+          // names must be equal
+          return 0;
         }
-        html +=       '</tr>';
-        html +=     '</thead>';
-        html +=   '</table>';
-    */
-    // Close wrapper
-    html += '</div>';
+        return (a[fieldNumber] - b[fieldNumber]) * sortOrderNumber;
+      };
 
-    // Inject HTML string
-    el.querySelector('.' + theme + '-rendering').innerHTML = html;
+      if (sortOrder === 'asc') {
+        sortOrder = 'desc';
+      } else {
+        sortOrder = 'asc';
+      }
+      event.target.setAttribute('order', sortOrder);
 
-    fixedHeader = el.querySelector('.' + theme + '-table-fixed-header');
-    el.querySelector('.' + theme + '-table').onscroll = function (e) {
-      fixedHeader.style.top = e.target.scrollTop + 'px';
-    };
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    var el = this.el().querySelector('.' + this.theme() + '-table');
-    if (el && el.onscroll) {
-      el.onscroll = undefined;
-    }
+      var first = _this.dataset.matrix.shift();
+      _this.dataset.matrix.sort(checker);
+      _this.dataset.matrix.unshift(first);
+
+      el.querySelector('.' + theme + '-rendering tbody').innerHTML = _generateTableRows.call(_this, dataset);
+    });
+  });
+
+  if (this.config.onrendered) {
+    this.config.onrendered();
   }
 };
 
+var update = function update() {
+  // no special update handling
+  this.render();
+};
+
+var destroy = function destroy() {};
+
+exports.default = { render: render, update: update, destroy: destroy };
+
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20717,7 +21043,7 @@ function prettyNumber(input) {
 }
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20727,7 +21053,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _prettyNumber = __webpack_require__(13);
+var _prettyNumber = __webpack_require__(16);
 
 var _escapeHtml = __webpack_require__(1);
 
@@ -20770,9 +21096,10 @@ exports.default = {
     html += '</div>';
 
     this.el().innerHTML = html;
-    // valueEl = this.el().querySelector('.' + theme + '-metric-value');
-    // valueEl.style.paddingTop = ((height - this.el().offsetHeight) / 2) + 'px';
-    // this.el().querySelector('.' + theme + '-metric').style.height = height + 'px';
+
+    if (this.config.onrendered) {
+      this.config.onrendered();
+    }
   },
   update: function update() {
     // no special update handling
@@ -20784,7 +21111,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20833,7 +21160,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20878,7 +21205,7 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
 var _escapeHtml = __webpack_require__(1);
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21064,11 +21391,11 @@ exports.default = function (options) {
   }
 };
 
-var _d = __webpack_require__(3);
+var _d = __webpack_require__(5);
 
 var d3 = _interopRequireWildcard(_d);
 
-var _assertDateString = __webpack_require__(4);
+var _assertDateString = __webpack_require__(6);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
@@ -21077,7 +21404,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21116,7 +21443,7 @@ exports.default = function (startDate, endDate) {
 };
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* @license C3.js v0.6.2 | (c) C3 Team and other contributors | http://c3js.org/ */
@@ -22174,7 +22501,7 @@ exports.default = function (startDate, endDate) {
 
     function ChartInternal(api) {
         var $$ = this;
-        $$.d3 = window.d3 ? window.d3 :  true ? __webpack_require__(3) : undefined;
+        $$.d3 = window.d3 ? window.d3 :  true ? __webpack_require__(5) : undefined;
         $$.api = api;
         $$.config = $$.getDefaultConfig();
         $$.data = {};
@@ -30329,7 +30656,7 @@ exports.default = function (startDate, endDate) {
 
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30360,11 +30687,11 @@ exports.default = function (lib) {
   return defineC3();
 };
 
-var _c = __webpack_require__(19);
+var _c = __webpack_require__(22);
 
 var _c2 = _interopRequireDefault(_c);
 
-var _d = __webpack_require__(3);
+var _d = __webpack_require__(5);
 
 var _d2 = _interopRequireDefault(_d);
 
@@ -30372,37 +30699,37 @@ var _each = __webpack_require__(0);
 
 var _extend = __webpack_require__(2);
 
-var _extendDeep = __webpack_require__(7);
+var _extendDeep = __webpack_require__(9);
 
-var _assertDateString = __webpack_require__(4);
+var _assertDateString = __webpack_require__(6);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _defaultDateFormat = __webpack_require__(18);
+var _defaultDateFormat = __webpack_require__(21);
 
 var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
 
-var _paginatingLegend = __webpack_require__(17);
+var _paginatingLegend = __webpack_require__(20);
 
 var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
 
-var _tooltipContents = __webpack_require__(16);
+var _tooltipContents = __webpack_require__(19);
 
 var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
 
-var _message = __webpack_require__(15);
+var _message = __webpack_require__(18);
 
 var _message2 = _interopRequireDefault(_message);
 
-var _metric = __webpack_require__(14);
+var _metric = __webpack_require__(17);
 
 var _metric2 = _interopRequireDefault(_metric);
 
-var _table = __webpack_require__(12);
+var _table = __webpack_require__(15);
 
 var _table2 = _interopRequireDefault(_table);
 
-var _spinner = __webpack_require__(11);
+var _spinner = __webpack_require__(14);
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
@@ -30435,14 +30762,17 @@ function defineC3() {
         colors: _extends({}, this.config.colorMapping),
         columns: [],
         type: this.config.type.replace('horizontal-', '')
-      },
-      size: {
-        width: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart').offsetWidth,
-        height: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart').offsetHeight > 0 ? this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart').offsetHeight : undefined
       }
     };
 
-    return (0, _extendDeep.extendDeep)({}, this.config, ENFORCED_OPTIONS);
+    var DEFAULT_OPTIONS = {
+      size: {
+        width: this.el().offsetWidth,
+        height: this.el().offsetHeight > 0 ? this.el().offsetHeight : undefined
+      }
+    };
+
+    return (0, _extendDeep.extendDeep)({}, DEFAULT_OPTIONS, this.config, ENFORCED_OPTIONS);
   }
 
   (0, _each.each)(c3Types, function (type, index) {
@@ -30451,6 +30781,10 @@ function defineC3() {
         var _this = this;
 
         var options = getDefaultOptions.call(this);
+
+        if (!!this.config.clearOnRender && options.data.columns.length > 0) {
+          options.data.columns.splice(1);
+        }
 
         if (this.data()[0].length === 1 || this.data().length === 1) {
           this.message('No data to display');
@@ -30511,6 +30845,7 @@ function defineC3() {
             }
           }.bind(this));
         }
+        console.log(options);
 
         if (options.legend.show === true) {
           var c3options = _extends({}, options);
@@ -30603,7 +30938,7 @@ function bindResizeListener(fn) {
 }
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30623,13 +30958,13 @@ exports.default = function (data) {
   }
 };
 
-var _dataset = __webpack_require__(10);
+var _dataset = __webpack_require__(12);
 
 var _dataset2 = _interopRequireDefault(_dataset);
 
 var _extend = __webpack_require__(2);
 
-var _stripHtmlTags = __webpack_require__(8);
+var _stripHtmlTags = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30834,7 +31169,495 @@ function getDefaultType(parser) {
 }
 
 /***/ }),
-/* 22 */
+/* 25 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+      // Callback can either be a function or a string
+      if (typeof callback !== "function") {
+        callback = new Function("" + callback);
+      }
+      // Copy function arguments
+      var args = new Array(arguments.length - 1);
+      for (var i = 0; i < args.length; i++) {
+          args[i] = arguments[i + 1];
+      }
+      // Store and register the task
+      var task = { callback: callback, args: args };
+      tasksByHandle[nextHandle] = task;
+      registerImmediate(nextHandle);
+      return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+        case 0:
+            callback();
+            break;
+        case 1:
+            callback(args[0]);
+            break;
+        case 2:
+            callback(args[0], args[1]);
+            break;
+        case 3:
+            callback(args[0], args[1], args[2]);
+            break;
+        default:
+            callback.apply(undefined, args);
+            break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function(handle) {
+            process.nextTick(function () { runIfPresent(handle); });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function() {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function(event) {
+            if (event.source === global &&
+                typeof event.data === "string" &&
+                event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function(event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(25)))
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
+            (typeof self !== "undefined" && self) ||
+            window;
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(scope, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(26);
+// On some exotic environments, it's not clear which object `setimmediate` was
+// able to install onto.  Search each possibility in the same order as the
+// `setimmediate` library.
+exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
+                       (typeof global !== "undefined" && global.setImmediate) ||
+                       (this && this.setImmediate);
+exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
+                         (typeof global !== "undefined" && global.clearImmediate) ||
+                         (this && this.clearImmediate);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var _finally__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+
+
+
+var globalNS = (function() {
+  // the only reliable means to get the global object is
+  // `Function('return this')()`
+  // However, this causes CSP violations in Chrome apps.
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+  if (typeof window !== 'undefined') {
+    return window;
+  }
+  if (typeof global !== 'undefined') {
+    return global;
+  }
+  throw new Error('unable to locate global object');
+})();
+
+if (!globalNS.Promise) {
+  globalNS.Promise = _index__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"];
+} else if (!globalNS.Promise.prototype['finally']) {
+  globalNS.Promise.prototype['finally'] = _finally__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"];
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30849,7 +31672,7 @@ function valueAtDeepKey(obj, is, value) {
 }
 
 /***/ }),
-/* 23 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30883,7 +31706,7 @@ function flatten(ob) {
 };
 
 /***/ }),
-/* 24 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30896,9 +31719,9 @@ exports.default = initialize;
 
 var _each = __webpack_require__(0);
 
-var _flatten = __webpack_require__(23);
+var _flatten = __webpack_require__(30);
 
-var _object = __webpack_require__(22);
+var _object = __webpack_require__(29);
 
 var Dataset = void 0; /* injected */
 
@@ -31040,14 +31863,15 @@ function parseList() {
 }
 
 function parseExtraction() {
+  var config = this.config;
   return function (res) {
-    var dataset = new Dataset().type('extraction');
+    var datasetExtraction = new Dataset().type('extraction');
     // create header
 
     var _loop = function _loop(i) {
       var record = res.result[i];
       (0, _each.each)((0, _flatten.flatten)(record), function (value, key) {
-        dataset.set([key, String(i + 1)], value);
+        datasetExtraction.set([key, String(i + 1)], value);
       });
     };
 
@@ -31058,16 +31882,22 @@ function parseExtraction() {
     // get keys of the Object
     var names = Object.keys((0, _flatten.flatten)(res.result[0]));
 
-    for (var i = 1; i < res.result.length; i++) {
+    if (Dataset) {
+      if (config.table && config.table.columns) {
+        names = config.table.columns;
+      }
+    }
+
+    for (var i = 0; i < res.result.length; i++) {
       var record = [i + 1];
       for (var iNames = 0; iNames < names.length; iNames++) {
         record.push((0, _object.valueAtDeepKey)(res.result[i], names[iNames]));
       }
-      dataset.matrix[String(i + 1)] = record;
+      datasetExtraction.matrix[String(i + 1)] = record;
     }
 
-    dataset.deleteColumn(0);
-    return dataset;
+    datasetExtraction.deleteColumn(0);
+    return datasetExtraction;
   };
 }
 
@@ -31085,7 +31915,7 @@ var parsers = {
 };
 
 /***/ }),
-/* 25 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31099,11 +31929,11 @@ exports.updateRow = updateRow;
 
 var _each = __webpack_require__(0);
 
-var _createNullList = __webpack_require__(5);
+var _createNullList = __webpack_require__(7);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _append = __webpack_require__(6);
+var _append = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31184,7 +32014,7 @@ function updateRow(q, input) {
 }
 
 /***/ }),
-/* 26 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31198,7 +32028,7 @@ exports.sortRows = sortRows;
 
 var _each = __webpack_require__(0);
 
-var _analyses = __webpack_require__(9);
+var _analyses = __webpack_require__(11);
 
 var _analyses2 = _interopRequireDefault(_analyses);
 
@@ -31254,7 +32084,7 @@ function sortRows(str, comp) {
 }
 
 /***/ }),
-/* 27 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31291,7 +32121,7 @@ function selectRow(q) {
 }
 
 /***/ }),
-/* 28 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31305,11 +32135,11 @@ exports.insertRow = insertRow;
 
 var _each = __webpack_require__(0);
 
-var _createNullList = __webpack_require__(5);
+var _createNullList = __webpack_require__(7);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _append = __webpack_require__(6);
+var _append = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31393,7 +32223,7 @@ function insertRow(index, str, input) {
 }
 
 /***/ }),
-/* 29 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31443,7 +32273,7 @@ function filterRows(fn) {
 }
 
 /***/ }),
-/* 30 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31479,7 +32309,7 @@ function deleteRow(q) {
 }
 
 /***/ }),
-/* 31 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31496,7 +32326,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 // Utils
 
 
-var _dataset = __webpack_require__(10);
+var _dataset = __webpack_require__(12);
 
 Object.defineProperty(exports, 'Dataset', {
   enumerable: true,
@@ -31505,25 +32335,27 @@ Object.defineProperty(exports, 'Dataset', {
   }
 });
 
-var _data = __webpack_require__(21);
+__webpack_require__(28);
+
+var _data = __webpack_require__(24);
 
 var _data2 = _interopRequireDefault(_data);
 
 var _each = __webpack_require__(0);
 
-var _assertDateString = __webpack_require__(4);
+var _assertDateString = __webpack_require__(6);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _stripHtmlTags = __webpack_require__(8);
+var _stripHtmlTags = __webpack_require__(10);
 
 var _escapeHtml = __webpack_require__(1);
 
-var _libraries = __webpack_require__(20);
+var _libraries = __webpack_require__(23);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
-var _extendDeep = __webpack_require__(7);
+var _extendDeep = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31548,6 +32380,8 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     // height: undefined, *deprecated* - use CSS
 
     title: undefined,
+    showTitle: true,
+
     notes: undefined,
     theme: 'keen-dataviz',
 
@@ -31619,7 +32453,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     this.el(this.config.container);
   }
 
-  this.dataset = new _dataset.Dataset();
+  this.dataset = new _dataset.Dataset(this.config);
   this.view = {
     _prepared: false,
     _rendered: false,
@@ -31914,6 +32748,8 @@ Dataviz.prototype.prepare = function () {
 };
 
 Dataviz.prototype.render = function () {
+  var _this = this;
+
   var results = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
 
   var datavizInstance = this;
@@ -32005,6 +32841,20 @@ Dataviz.prototype.render = function () {
     return;
   }
 
+  var returnValue = datavizInstance;
+
+  if (datavizInstance.config.renderAsPromise) {
+    returnValue = new Promise(function (resolve, reject) {
+      var customCallback = _this.config.onrendered;
+      datavizInstance.config.onrendered = function () {
+        if (customCallback) {
+          customCallback();
+        }
+        resolve(datavizInstance);
+      };
+    });
+  }
+
   domReady(function () {
     if (datavizInstance.view._prepared && loader.destroy) {
       loader.destroy.apply(datavizInstance, arguments);
@@ -32030,7 +32880,8 @@ Dataviz.prototype.render = function () {
       }
     }
   });
-  return this;
+
+  return returnValue;
 };
 
 Dataviz.prototype.sortGroups = function (str) {
@@ -32161,7 +33012,7 @@ function buildDomWrapper(el, options) {
     container = container + '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>';
   }
   html += '<div class="' + options.theme + '">';
-  if (options.title) {
+  if (options.title && options.showTitle) {
     html += '<div class="' + options.theme + '-title">' + options.title + '</div>';
   }
   html += '<div class="' + options.theme + '-rendering ' + options.theme + '-rendering-' + align + '">' + container + '</div>';
@@ -32212,33 +33063,7 @@ function domReady(fn) {
 exports.default = Dataviz;
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 33 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32249,7 +33074,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = exports.Dataviz = exports.extendKeenGlobalObject = undefined;
 
-var _index = __webpack_require__(31);
+var _index = __webpack_require__(38);
 
 Object.defineProperty(exports, 'Dataviz', {
   enumerable: true,
@@ -32282,7 +33107,7 @@ if (true) {
 }
 
 exports.default = _index.Dataviz;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(32)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ })
 /******/ ]);
