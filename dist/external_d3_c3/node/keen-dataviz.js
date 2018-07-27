@@ -1787,10 +1787,15 @@ function defineC3() {
       }
     };
 
+    var height = this.el().offsetHeight;
+    if (this.config.showTitle) {
+      height -= this.el().querySelector('.keen-dataviz-title').offsetHeight;
+    }
+
     var DEFAULT_OPTIONS = {
       size: {
         width: this.el().offsetWidth,
-        height: this.el().offsetHeight > 0 ? this.el().offsetHeight : undefined
+        height: height > 0 ? height : undefined
       }
     };
 
@@ -1867,7 +1872,6 @@ function defineC3() {
             }
           }.bind(this));
         }
-        console.log(options);
 
         if (options.legend.show === true) {
           var c3options = _extends({}, options);
