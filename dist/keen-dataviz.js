@@ -30767,7 +30767,12 @@ function defineC3() {
 
     var height = this.el().offsetHeight;
     if (this.config.showTitle) {
-      height -= this.el().querySelector('.keen-dataviz-title').offsetHeight;
+      var titleElement = this.el().querySelector('.keen-dataviz-title');
+      if (titleElement) {
+        height -= titleElement.offsetHeight;
+      } else {
+        height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
+      }
     }
 
     var DEFAULT_OPTIONS = {
