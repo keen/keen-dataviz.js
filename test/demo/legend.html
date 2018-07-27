@@ -33,8 +33,7 @@ const clientTracking = new KeenTracking(demoConfig);
 
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  renderAsPromise: true,
-  type: 'donut'
+  renderAsPromise: true
 });
 
 client
@@ -45,7 +44,7 @@ client
     cache: {
       maxAge: 60 * 60 * 1000
     },
-    group_by: "time.local.minute"
+    interval: 'daily'
   })
   .then(results => {
     console.log(results);
