@@ -273,6 +273,30 @@
   position: relative;
   width: 100%;
 }
+.keen-dataviz .keen-dataviz-table table .table-pagination td {
+      background-color: #FFFFFF;
+      background-color: #FFFFFF;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination:hover td {
+      background-color: #FFFFFF;
+      background-color: #FFFFFF;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination a {
+      border: 1px solid #E7E7E7;
+      border: 1px solid #E7E7E7;
+      padding: 0.5em;
+      margin-right: 0.2em;
+      cursor: pointer;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination .active{
+      background: #4D4D4D;
+      background: #4D4D4D;
+      color: #FFFFFF;
+      color: #FFFFFF;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination .arrow{
+      font-weight:bold;
+    }
 
 .keen-dataviz .keen-dataviz-table th{
   background: white;

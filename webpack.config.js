@@ -9,6 +9,15 @@ if (process.env.EXTERNAL_D3_C3) {
 const fileName = 'keen-dataviz';
 const entry = ( process.env.TARGET !== 'node' ) ? './lib/browser.js' : './lib/server.js' ;
 
+let definePluginVars = {};
+if (process.env.NODE_ENV === 'development') {
+  const demoConfig = require('../demo-config');
+  definePluginVars = {
+    webpackKeenGlobals: JSON.stringify({ demoConfig })
+  };
+}
+definePluginVars.KEEN_GLOBAL_OBJECT = JSON.stringify(!process.env.EXTERNAL_D3_C3);
+
 module.exports = {
   entry,
 
@@ -67,10 +76,7 @@ module.exports = {
   // stats: 'verbose',
 
   plugins: [
-    new webpack.DefinePlugin({
-      KEEN_GLOBAL_OBJECT:
-        JSON.stringify(!process.env.EXTERNAL_D3_C3),
-    }),
+    new webpack.DefinePlugin(definePluginVars),
   ],
 
   mode: process.env.NODE_ENV,

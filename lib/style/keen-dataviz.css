@@ -105,6 +105,25 @@
   margin: 0;
   position: relative;
   width: 100%;
+
+  .table-pagination{
+    td, &:hover td {
+      background-color: var(--white);
+    }
+    a {
+      border: 1px solid var(--silver);
+      padding: 0.5em;
+      margin-right: 0.2em;
+      cursor: pointer;
+    }
+    .active{
+      background: var(--dark-gray);
+      color: var(--white);
+    }
+    .arrow{
+      font-weight:bold;
+    }
+  }
 }
 
 .keen-dataviz .keen-dataviz-table th{

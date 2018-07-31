@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <script src="./assets/faker.js"></script>
 
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-tracking@3.0.2"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-tracking@3.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3.0.3"></script>
 
     <script src="keen-dataviz.js"></script>
-    <script src="demo-config.js"></script>
     <link rel="stylesheet" href="./keen-dataviz.css">
     <link rel="stylesheet" href="./assets/keen-dashboards.css">
     <style>
@@ -19,26 +18,31 @@
   <body>
     <style>
     #some_container{
-      width:300px;
-      height: 300px;
+      width: 1000px;
+      height: 600px;
     }
     </style>
     <div id="some_container"></div>
 
 <script>
 (() => {
-const client = new KeenAnalysis(demoConfig);
+const client = new KeenAnalysis(keenGlobals.demoConfig);
 
-const clientTracking = new KeenTracking(demoConfig);
+const clientTracking = new KeenTracking(keenGlobals.demoConfig);
 
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  renderAsPromise: true
+  table: {
+    columns: ['keen.timestamp', 'local_time_full'],
+    pagination: {
+      limit: 30 // items per page
+    }
+  }
 });
 
 client
   .query({
-    analysis_type: 'count',
+    analysis_type: 'extraction',
     event_collection: 'pageviews',
     timeframe: 'this_7_days',
     cache: {
@@ -49,15 +53,7 @@ client
   .then(results => {
     console.log(results);
     chart
-      .render(results)
-      .then(ch => {
-        console.log('render complete', ch);
-        // do something after rendering is complete
-      })
-      .catch(err => {
-        console.log('er', err);
-        // handle render error
-      });
+      .render(results);
   });
 
 return;

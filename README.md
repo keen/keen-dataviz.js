@@ -506,6 +506,19 @@ const chart = new KeenDataviz({
  });
 ```
 
+### Extraction Table Pagination
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  table: {
+    pagination: {
+      limit: 10 // items per page
+    }
+  }
+});
+```
+
 ### Depracation warnings
 
 You can turn off deprecation warnings with
