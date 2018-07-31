@@ -519,6 +519,34 @@ const chart = new KeenDataviz({
 });
 ```
 
+### Custom data parser
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+});
+
+// dummy result
+const result = {
+  'clicks': [3, 14, 7, 22, 11, 55, 11, 22],
+  'views': [14, 58, 11, 32, 11, 23, 45, 66]
+};
+
+function customParser(data){
+    const ds = new KeenDataset();
+    Object.keys(data).forEach(dataKey => {
+      ds.appendColumn(dataKey);
+      data[dataKey].forEach((item, itemIndex) => {
+        ds.set([dataKey, itemIndex+1], item);
+      });
+    });
+    return ds;
+}
+
+chart
+  .render(customParser(result));
+```
+
 ### Depracation warnings
 
 You can turn off deprecation warnings with

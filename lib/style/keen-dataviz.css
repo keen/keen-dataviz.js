@@ -205,7 +205,7 @@
 }
 
 .keen-dataviz-rendering{
-  height: inherit;
+  xheight: inherit;
   display: flex;
   justify-content: center;
   flex-flow: row;
@@ -243,7 +243,8 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    margin: 1em 0;
+    padding: 1em 0;
+    height: 3.5em;
 
     &-pagination-left{
       order: 0;

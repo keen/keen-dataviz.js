@@ -18,7 +18,7 @@
   <body>
     <style>
     #some_container{
-      width: 1000px;
+      width: 1200px;
       height: 600px;
     }
     </style>
@@ -32,14 +32,80 @@ const clientTracking = new KeenTracking(keenGlobals.demoConfig);
 
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  table: {
-    columns: ['keen.timestamp', 'local_time_full'],
-    pagination: {
-      limit: 30 // items per page
-    }
-  }
+  type: 'area'
 });
 
+const result = {
+  'clicks': [3, 14, 7, 22, 11, 55, 11, 22],
+  'views': [14, 58, 11, 32, 11, 23, 45, 66]
+};
+
+function customParser(data){
+    const ds = new KeenDataset();
+    Object.keys(data).forEach(dataKey => {
+      ds.appendColumn(dataKey);
+      data[dataKey].forEach((item, itemIndex) => {
+        ds.set([dataKey, itemIndex+1], item);
+      });
+    });
+    return ds;
+}
+
+chart
+  .render(customParser(result));
+
+  return;
+client
+  .query({
+    analysis_type: 'count',
+    event_collection: 'pageviews',
+    timeframe: 'this_3_days',
+    cache: {
+      maxAge: 60 * 60 * 1000
+    },
+    interval: 'daily',
+    group_by: 'time.utc.hour'
+  })
+  .then(results => {
+    console.log(results);
+    chart
+      .render(results);
+  });
+
+
+
+/*
+
+chart
+  .render(customParser(result));
+
+
+
+const result = {
+  clicks: [3, 14, 7, 22, 11, 55, 11, 22],
+  views: [14, 58, 11, 32, 11, 23, 45, 66]
+};
+
+function customParser(data){
+    var ds = new KeenDataset();
+    Object.keys(data).forEach(dataKey => {
+      ds.appendColumn(dataKey);
+      data[dataKey].forEach((item, itemIndex) => {
+        ds.set([dataKey, itemIndex+1], item);
+      });
+    });
+    return ds;
+}
+
+chart
+  .render(customParser(result));
+*/
+
+
+
+return;
+
+/*
 client
   .query({
     analysis_type: 'extraction',
@@ -56,9 +122,7 @@ client
       .render(results);
   });
 
-return;
 
-/*
 setInterval( () => {
   clientTracking.recordEvent('streamOfEvents', {
     randomValue: Math.random()

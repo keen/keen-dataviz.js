@@ -31,15 +31,9 @@
       font-size: 16px;
       margin: 0 0 24px;
     }
-
-    /*.container {
-      margin: 0 auto;
-      max-width: 980px;
-    }*/
     .demo-chart {
       background: #fff;
       margin: 0 auto;
-      /*padding: 10px;*/
       width: 600px;
     }
     </style>
@@ -53,21 +47,24 @@
       .custom-theme-title {
         border-bottom: 1px solid #d7d7d7;
         border-radius: 5px 5px 0 0;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 16px;
         padding: 5px 10px;
       }
       .custom-theme-notes {
         background: #fbfbfb;
         border-radius: 0 0 5px 5px;
         border-top: 1px solid #d7d7d7;
-        font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 11px;
         padding: 5px 10px;
       }
-      .keen-c3-legend{
-        zwidth:300px;
+      .keen-ui-col-4{
       }
+      .keen-chart-container{
+        height: 280px;
+      }
+
+      .keen-chart-small-container{
+        height: 140px;
+      }
+
     </style>
   </head>
   <body onload="init()">
@@ -78,15 +75,15 @@
       <div class="keen-ui-row">
         <div class="keen-ui-col-4" id="nested">
           <h2>Metric</h2>
-          <div class="chart-demo-metric"></div>
+          <div class="chart-demo-metric keen-chart-small-container"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Message</h2>
-          <div class="chart-demo-message"></div>
+          <div class="chart-demo-message keen-chart-small-container"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Spinner</h2>
-          <div id="chart-demo-spinner"></div>
+          <div id="chart-demo-spinner" class="keen-chart-small-container"></div>
         </div>
       </div>
 
@@ -107,17 +104,16 @@
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
           <h2>Gauge</h2>
-          <div class="chart-c3-gauge"></div>
-          <hr>
-          <div class="chart-c3-gauge2"></div>
+          <div class="chart-c3-gauge keen-chart-small-container"></div>
+          <div class="chart-c3-gauge2 keen-chart-small-container"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Donut</h2>
-          <div class="chart-c3-donut"></div>
+          <div class="chart-c3-donut keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Pie</h2>
-          <div class="chart-c3-pie"></div>
+          <div class="chart-c3-pie keen-chart-container"></div>
         </div>
       </div>
 
@@ -128,26 +124,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-bar"></div>
+          <div class="chart-c3-bar keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-bar-multi"></div>
+          <div class="chart-c3-bar-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-bar-stacked"></div>
+          <div class="chart-c3-bar-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (yearly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-bar-time"></div>
+          <div class="chart-c3-bar-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-bar-time-multi"></div>
+          <div class="chart-c3-bar-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-bar-time-stacked"></div>
+          <div class="chart-c3-bar-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -157,26 +153,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-line"></div>
+          <div class="chart-c3-line keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-line-multi"></div>
+          <div class="chart-c3-line-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-line-stacked"></div>
+          <div class="chart-c3-line-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (daily)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-line-time"></div>
+          <div class="chart-c3-line-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-line-time-multi"></div>
+          <div class="chart-c3-line-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-line-time-stacked"></div>
+          <div class="chart-c3-line-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -187,26 +183,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-spline"></div>
+          <div class="chart-c3-spline keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-spline-multi"></div>
+          <div class="chart-c3-spline-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-spline-stacked"></div>
+          <div class="chart-c3-spline-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (hourly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-spline-time"></div>
+          <div class="chart-c3-spline-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-spline-time-multi"></div>
+          <div class="chart-c3-spline-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-spline-time-stacked"></div>
+          <div class="chart-c3-spline-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -218,26 +214,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area"></div>
+          <div class="chart-c3-area keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-multi"></div>
+          <div class="chart-c3-area-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-stacked"></div>
+          <div class="chart-c3-area-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (minutely)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-time"></div>
+          <div class="chart-c3-area-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-time-multi"></div>
+          <div class="chart-c3-area-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-time-stacked"></div>
+          <div class="chart-c3-area-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -247,26 +243,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline"></div>
+          <div class="chart-c3-area-spline keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-multi"></div>
+          <div class="chart-c3-area-spline-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-stacked"></div>
+          <div class="chart-c3-area-spline-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (secondly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-time"></div>
+          <div class="chart-c3-area-spline-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-time-multi"></div>
+          <div class="chart-c3-area-spline-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-time-stacked"></div>
+          <div class="chart-c3-area-spline-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -276,26 +272,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-step"></div>
+          <div class="chart-c3-area-step keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-step-multi"></div>
+          <div class="chart-c3-area-step-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-step-stacked"></div>
+          <div class="chart-c3-area-step-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-step-time"></div>
+          <div class="chart-c3-area-step-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-step-time-multi"></div>
+          <div class="chart-c3-area-step-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-step-time-stacked"></div>
+          <div class="chart-c3-area-step-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -305,26 +301,26 @@
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step"></div>
+          <div class="chart-c3-step keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-multi"></div>
+          <div class="chart-c3-step-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-stacked"></div>
+          <div class="chart-c3-step-stacked keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-time"></div>
+          <div class="chart-c3-step-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-time-multi"></div>
+          <div class="chart-c3-step-time-multi keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-time-stacked"></div>
+          <div class="chart-c3-step-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
@@ -336,26 +332,16 @@
     </div>
 
     <script>
-    // setTimeout(init, 500);
 
     function init(){
 
-      var RAND_DATA_MAX = 50;
+      const RAND_DATA_MAX = 10;
 
-      var metricData = [
-        [ 'Index', 'Value' ],
-        [ 'Result', 24502 ]
-      ];
+      const metricData = { result: 24501 };
 
-      var gaugeData = [
-        [ 'Index', 'Value' ],
-        [ 'Result', 79.1 ]
-      ];
-      // var gaugeData = [
-      //   [ 'Index' ]
-      // ];
+      const gaugeData = { result: 79 };
 
-      var groupedData = [
+      const groupedData = [
         [ 'Index', 'Result' ],
         [ faker.internet.url(), faker.internet.exampleEmail(), faker.internet.exampleEmail(), 189.98 ],
         [ faker.internet.url(), 135.83 ],
@@ -365,9 +351,9 @@
       ];
 
       function makeGroupedDataset(){
-        var ds = new Dataset();
-        var len = rand(0, RAND_DATA_MAX);
-        for (var i = 0; i < len; i++) {
+        const ds = new Dataset();
+        const len = rand(5, RAND_DATA_MAX);
+        for (let i = 0; i < len; i++) {
           ds.appendRow(faker.internet.email(), [faker.random.number()]);
         }
         ds.appendRow('null', [faker.random.number()]);
@@ -375,7 +361,7 @@
       }
 
       function makeGroupedIntervalDataset(){
-        var ds = new Dataset();
+        const ds = new Dataset();
         ds.matrix = [
           [ 'Index' ],
           [ '2015-12-01T10:56:00.000Z' ],
@@ -386,14 +372,14 @@
         ];
 
         // Add more rows
-        for (var i = 0; i < 25; i++) {
-          var val = i < 10 ? '0'+i : i;
+        for (let i = 0; i < 25; i++) {
+          let val = i < 10 ? '0'+i : i;
           ds.matrix.push([ '2015-12-01T11:' + val + ':00.000Z' ]);
         }
 
-        var len = ds.selectColumn(0).length;
-        for (var i = 0; i < RAND_DATA_MAX; i++) {
-          var newCol = gen(len-1);
+        let len = ds.selectColumn(0).length;
+        for (let i = 0; i < RAND_DATA_MAX; i++) {
+          let newCol = gen(len-1);
           if (i > 0) {
             ds.appendColumn(newCol[0], newCol.slice(1));
           }
@@ -405,7 +391,7 @@
         return ds;
       }
 
-      var groupedMultiData = [
+      const groupedMultiData = [
         [ 'Index', faker.internet.url(), faker.internet.url(), faker.internet.url()],
         [ 'A', 189.98, 322.43, 654.44 ],
         [ 'B', 135.83, 564.21, 622.12 ],
@@ -414,7 +400,7 @@
         [ 'E', 55.12, 212.44, 323.55  ]
       ];
 
-      var intervalData = [
+      const intervalData = [
         [ 'Index', 'Result' ],
         [ '2014-12-01T00:00:00.000Z', 189.98 ],
         [ '2015-01-01T00:00:00.000Z', 135.83 ],
@@ -423,7 +409,7 @@
         [ '2015-04-01T00:00:00.000Z', 55.12  ]
       ];
 
-      var intervalMultiData = [
+      const intervalMultiData = [
         [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2014-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
@@ -435,7 +421,7 @@
 
       // Yearly dataset
 
-      var intervalDataYearly = [
+      const intervalDataYearly = [
         [ 'Index', 'Result' ],
         [ '2011-01-01T00:00:00.000Z', 189.98 ],
         [ '2012-01-01T00:00:00.000Z', 135.83 ],
@@ -444,7 +430,7 @@
         [ '2015-01-01T00:00:00.000Z', 55.12  ]
       ];
 
-      var intervalMultiDataYearly = [
+      const intervalMultiDataYearly = [
         [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2012-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
@@ -455,7 +441,7 @@
 
       // Secondly dataset
 
-      var intervalDataSecondly = [
+      const intervalDataSecondly = [
         [ 'Index', 'Result' ],
         [ '2015-12-01T10:59:56.000Z', 189.98 ],
         [ '2015-12-01T10:59:57.000Z', 135.83 ],
@@ -464,7 +450,7 @@
         [ '2015-12-01T11:00:00.000Z', 55.12  ]
       ];
 
-      var intervalMultiDataSecondly = [
+      const intervalMultiDataSecondly = [
         [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:59:56.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T10:59:57.000Z', 135.83, 564.21, 622.12 ],
@@ -475,7 +461,7 @@
 
       // Minutely dataset
 
-      var intervalDataMinutely = [
+      const intervalDataMinutely = [
         [ 'Index', 'Result' ],
         [ '2015-12-01T10:56:00.000Z', 189.98 ],
         [ '2015-12-01T10:57:00.000Z', 135.83 ],
@@ -484,7 +470,7 @@
         [ '2015-12-01T11:00:00.000Z', 55.12  ]
       ];
 
-      var intervalMultiDataMinutely = [
+      const intervalMultiDataMinutely = [
         [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:56:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T10:57:00.000Z', 135.83, 564.21, 622.12 ],
@@ -496,7 +482,7 @@
 
       // Hourly dataset
 
-      var intervalDataHourly = [
+      const intervalDataHourly = [
         [ 'Index', 'Result' ],
         [ '2015-12-01T10:00:00.000Z', 189.98 ],
         [ '2015-12-01T11:00:00.000Z', 135.83 ],
@@ -505,7 +491,7 @@
         [ '2015-12-01T14:00:00.000Z', 55.12  ]
       ];
 
-      var intervalMultiDataHourly = [
+      const intervalMultiDataHourly = [
         [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T10:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-01T11:00:00.000Z', 135.83, 564.21, 622.12 ],
@@ -517,10 +503,7 @@
 
       // Daily dataset
 
-      // var intervalDataDaily = [
-      //   [ 'Index' ]
-      // ];
-      var intervalDataDaily = [
+      const intervalDataDaily = [
         [ 'Index', 'Result' ],
         [ '2015-12-01T00:00:00.000Z', 189.98 ],
         [ '2015-12-02T00:00:00.000Z', 135.83 ],
@@ -529,15 +512,7 @@
         [ '2015-12-05T00:00:00.000Z', 55.12  ]
       ];
 
-      // var intervalMultiDataDaily = [
-      //   [ 'Index' ],
-      //   [ '2015-12-01T00:00:00.000Z' ],
-      //   [ '2015-12-02T00:00:00.000Z' ],
-      //   [ '2015-12-03T00:00:00.000Z' ],
-      //   [ '2015-12-04T00:00:00.000Z' ],
-      //   [ '2015-12-05T00:00:00.000Z' ]
-      // ];
-      var intervalMultiDataDaily = [
+      const intervalMultiDataDaily = [
         [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
         [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
         [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12 ],
@@ -546,101 +521,71 @@
         [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55  ]
       ];
 
-      var tableData = [
-        [ 'Index', 'First', 'Second', 'Another', 'Fourth', 'Fifth', 'Last' ],
-        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
-        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
-        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
-        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
-        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ],
-        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
-        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
-        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
-        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
-        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ],
-        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44, 189.98, 322.43, 654.44 ],
-        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12, 189.98, 322.43, 654.44 ],
-        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11, 189.98, 322.43, 654.44 ],
-        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
-        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ]
-      ];
+      const tableData = {"result": [{"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 679, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 20, "week": 31, "year": 2018, "month": 7, "minute": 56, "quarter_of_year": 3}, "local": {"millisecond": 678, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 20, "week": 31, "year": 2018, "month": 7, "minute": 56, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:56:20.679Z", "created_at": "2018-07-30T14:56:22.374Z", "id": "5b5f27168a33a0000103946b"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "initial": "http://localhost:8080/auto-tracking.html", "full": "http://localhost:8080/auto-tracking.html"}, "local_time_full": "2018-07-30T14:56:20.678Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "89df49b5-9c05-444b-8b43-a99abbbee097"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 536, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 12, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}, "local": {"millisecond": 536, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 12, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:41:12.536Z", "created_at": "2018-07-30T14:41:13.358Z", "id": "5b5f23899c057400010c7a43"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "initial": "http://localhost:8080/auto-tracking.html", "full": "http://localhost:8080/auto-tracking.html"}, "local_time_full": "2018-07-30T14:41:12.536Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "89df49b5-9c05-444b-8b43-a99abbbee097"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 270, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 0, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}, "local": {"millisecond": 270, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 0, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:41:00.270Z", "created_at": "2018-07-30T14:41:00.570Z", "id": "5b5f237c187e570001f464fe"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "initial": "http://localhost:8080/auto-tracking.html", "full": "http://localhost:8080/auto-tracking.html"}, "local_time_full": "2018-07-30T14:41:00.270Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "849b44c6-d839-4ee4-b126-e37b170ad1ff"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 670, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 27, "week": 31, "year": 2018, "month": 7, "minute": 40, "quarter_of_year": 3}, "local": {"millisecond": 670, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 27, "week": 31, "year": 2018, "month": 7, "minute": 40, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:40:27.670Z", "created_at": "2018-07-30T14:40:28.220Z", "id": "5b5f235ce3b33700012f9823"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": null, "domain": null, "protocol": null, "anchor": null}, "initial": "", "full": ""}, "local_time_full": "2018-07-30T14:40:27.670Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "849b44c6-d839-4ee4-b126-e37b170ad1ff"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 754, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 49, "week": 31, "year": 2018, "month": 7, "minute": 39, "quarter_of_year": 3}, "local": {"millisecond": 754, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 49, "week": 31, "year": 2018, "month": 7, "minute": 39, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:39:49.754Z", "created_at": "2018-07-30T14:39:50.050Z", "id": "5b5f23368534f6000170ee2b"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": null, "domain": null, "protocol": null, "anchor": null}, "initial": "", "full": ""}, "local_time_full": "2018-07-30T14:39:49.754Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "849b44c6-d839-4ee4-b126-e37b170ad1ff"}}]};
 
-      window.spinner = new Dataviz()
-        .height(280)
-        .el('#chart-demo-spinner')
-        .type('spinner')
+      window.spinner = new KeenDataviz({
+          container: '#chart-demo-spinner',
+          type: 'spinner'
+        })
         .render();
 
-      window.message = new Dataviz()
-        .height(280)
-        .el('.chart-demo-message')
-        .type('message')
+      window.message = new KeenDataviz({
+          container: '.chart-demo-message',
+          type: 'message'
+        })
         .message('This is a manual message!');
 
-      window.metric = new Dataviz()
-        .height(280)
-        .el('#nested .chart-demo-metric')
-        .type('metric')
-        .title('High-fives today')
+      window.metric = new KeenDataviz({
+          container: '#nested .chart-demo-metric',
+          type: 'metric',
+          title: 'High-fives today'
+        })
         .prepare()
-        .call(function(){
-          this.dataset.matrix = metricData;
-        })
-        .render();
+        .render(metricData);
 
-      window.table = new Dataviz()
-        .el('.chart-demo-table')
-        // .theme('custom-theme')
-        .height(300)
-        .type('table')
-        .title('Basic table view')
-        .notes('Footnotes for this table')
-        .call(function(){
-          this.dataset.matrix = tableData;
-        })
-        .render();
-
-      var emptyTable = new Dataviz()
-        .el('.chart-demo-empty-table')
-        // .theme('custom-theme')
-        .height(300)
-        .type('table')
-        .title('Empty Basic Table View')
-        .notes('Footnotes for this table should appear even when empty')
-        .call(function(){
-          this.dataset.matrix = [[]];
-        })
-        .render();
-
-      window.gauge = new Dataviz()
-        .el('.chart-c3-gauge')
-        .title('Percentage of awesome Gauge 1')
-        .theme('custom-theme')
-        .notes('Sample notes go down here')
-        .type('gauge')
-        .chartOptions({})
-        .call(function(){
-          this.dataset.matrix = gaugeData;
-        })
-        .render();
-
-      window.gauge2 = new Dataviz({
-        container: '.chart-c3-gauge2',
-        title: 'Percentage of awesome Gauge 2',
-        notes: 'some gauge2 note 123',
-        type: 'gauge',
-        theme: 'custom-theme',
-        color: {
-          pattern: ['#fe6672', '#ff855c', '#73d483'],
-          threshold: {
-            values: [25, 50, 75]
+      window.table = new KeenDataviz({
+          container: '.chart-demo-table',
+          type: 'table',
+          title: 'Basic table view',
+          notes: 'Footnotes for this table',
+          table: {
+            columns: ['keen.timestamp', 'user_agent', 'tracked_by'],
+            pagination: {
+              limit: 3
+            }
           }
-        }
-      })
-        .call(function(){
-          this.dataset.matrix = gaugeData;
         })
-        .render();
+        .render(tableData);
+
+      const emptyTable = new KeenDataviz({
+          container: '.chart-demo-empty-table',
+          type: 'table'
+        })
+        .render({ result: [] });
+
+      window.gauge = new KeenDataviz({
+          container: '.chart-c3-gauge',
+          title: 'Percentage of awesome Gauge 1',
+          theme: 'custom-theme',
+          notes: 'Sample notes go down here',
+          type: 'gauge'
+        })
+        .render(gaugeData);
+
+      window.gauge2 = new KeenDataviz({
+          container: '.chart-c3-gauge2',
+          title: 'Percentage of awesome Gauge 2',
+          notes: 'some gauge2 note 123',
+          type: 'gauge',
+          theme: 'custom-theme',
+          color: {
+            pattern: ['#fe6672', '#ff855c', '#73d483'],
+            threshold: {
+              values: [25, 50, 75]
+            }
+          }
+        })
+        .render(gaugeData);
 
       const gaugeInterval = setInterval(function(){
         window.gauge2.call(function(){
@@ -648,60 +593,67 @@
         }).render();
       }, 1000);
 
-      window.donut = new Dataviz({
-        legend: {
-          position: 'bottom',
-          show: true
-        }
+      window.donut = new KeenDataviz({
+          container: '.chart-c3-donut',
+          title: 'Mmmm, donuts...',
+          type: 'donut',
+          legend: {
+            position: 'bottom',
+            show: true,
+            label: {
+              textMaxLength: 100
+            }
+          },
+          sortGroups: 'desc'
         })
-        .el('.chart-c3-donut')
-        .title('Mmmm, donuts...')
-        .type('donut')
-        .data(makeGroupedDataset()
-          /*{
+        .render({
           result: [
-            {email: 'a@a', value: 100},
-            {email: 'b@b', value: 30}
+            {email: 'andrew@js.ninja', value: 100},
+            {email: 'eve@hawai.travel', value: 50}
           ]
-        }*/)
-        .sortGroups('desc')
-        .render();
+        });
 
-      window.pie = new Dataviz()
-        .height(300)
-        .el('.chart-c3-pie')
-        .title('Mmmm, pie...')
-        .type('piechart')
-        .call(function(){
-          this.dataset.matrix = groupedData;
+      window.pie = new KeenDataviz({
+          container: '.chart-c3-pie',
+          title: 'Mmmm, pie...',
+          type: 'pie'
         })
-        .render();
+        .render({
+          result: [
+            {some_key: 'john', result: 4},
+            {some_key: 'jack', result: 14},
+            {some_key: 'rob', result: 20},
+            {some_key: 'mary', result: 5},
+            {some_key: 'tod', result: 24}
+          ]});
 
 
       // -------------------------
       // BAR
       // -------------------------
 
-      window.bar = new Dataviz()
-        .height(300)
-        .el('.chart-c3-bar')
-        .title('Bar Chart')
-        .type('horizontal-bar')
+      window.bar = new KeenDataviz({
+          container: '.chart-c3-bar',
+          title: 'Bar Chart Horizontal',
+          type: 'horizontal-bar',
+          sortGroups: 'desc',
+          legend: false
+        })
         .data(makeGroupedDataset())
-        .sortGroups('desc')
         .render();
 
-      window.barMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-bar-multi')
-        .title('Bar Chart')
-        .type('barchart')
+      window.barMulti = new KeenDataviz({
+          container: '.chart-c3-bar-multi',
+          title: 'Bar Chart',
+          type: 'bar'
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.barMultiStacked = new Dataviz({
+      window.barMultiStacked = new KeenDataviz({
+        container: '.chart-c3-bar-stacked',
         title: 'Bar Chart Multi Stacked',
         type: 'bar',
         stacked: true,
@@ -713,38 +665,37 @@
             }
           }
         }})
-        .el('.chart-c3-bar-stacked')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.barTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-bar-time')
-        .title('Bar Chart')
-        .type('barchart')
+      window.barTime = new KeenDataviz({
+          container: '.chart-c3-bar-time',
+          title: 'Bar Chart',
+          type: 'bar'
+        })
         .call(function(){
           this.dataset.matrix = intervalDataYearly;
         })
         .render();
 
-      window.barTimeMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-bar-time-multi')
-        .title('Bar Chart')
-        .type('bar')
+      window.barTimeMulti = new KeenDataviz({
+          container: '.chart-c3-bar-time-multi',
+          title: 'Bar Chart Multi',
+          type: 'bar'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiDataYearly;
         })
         .render();
 
-      window.barTimeMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-bar-time-stacked')
-        .title('Bar Chart')
-        .type('barchart')
-        .stacked(true)
+      window.barTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-bar-time-stacked',
+        title: 'Bar Chart Multi Stacked',
+        type: 'bar',
+        stacked: true
+      })
         .call(function(){
           this.dataset.matrix = intervalMultiDataYearly;
         })
@@ -759,75 +710,71 @@
       // LINE
       // -------------------------
 
-      window.line = new Dataviz()
-        .height(300)
-        .el('.chart-c3-line')
-        .title('Line Chart')
-        .type('line')
+      window.line = new KeenDataviz({
+          container: '.chart-c3-line',
+          title: 'Line Chart',
+          type: 'line'
+        })
         .data(makeGroupedDataset())
-        .sortGroups('desc')
         .render();
 
-      window.lineMulti = new Dataviz({
-        legend: {
-          position: 'bottom',
-          show: true
-        }
+      window.lineMulti = new KeenDataviz({
+          container: '.chart-c3-line-multi',
+          legend: {
+            position: 'bottom',
+            show: true
+          },
+          title: 'Multi Line Chart',
+          type: 'line'
         })
-        .height(300)
-        .el('.chart-c3-line-multi')
-        .title('Multi Line Chart')
-        .type('linechart')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.lineMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-line-stacked')
-        .title('Stacked Line Chart')
-        .type('line')
-        .stacked(true)
+      window.lineMultiStacked = new KeenDataviz({
+          container: '.chart-c3-line-stacked',
+          title: 'Stacked Line Chart',
+          type: 'line',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.lineTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-line-time')
-        .title('Line Chart')
-        .type('linechart')
+      window.lineTime = new KeenDataviz({
+          container:'.chart-c3-line-time',
+          title: 'Line Chart',
+          type: 'line'
+        })
         .call(function(){
           this.dataset.matrix = intervalDataDaily;
         })
         .render();
 
-      window.lineTimeMulti = new Dataviz({
-        legend: {
-          position: 'top',
-          show: true,
-          pagination: {
-            limit: 3
+      window.lineTimeMulti = new KeenDataviz({
+          container: '.chart-c3-line-time-multi',
+          title: 'Line Chart',
+          type: 'line',
+          legend: {
+            position: 'top',
+            show: true,
+            pagination: {
+              limit: 3
+            }
           }
-        }
         })
-        .el('.chart-c3-line-time-multi')
-        .title('Line Chart')
-        .type('line')
-        .stacked(false)
         .data(makeGroupedIntervalDataset())
-        .sortGroups('desc')
         .render();
 
-      window.lineTimeMultiStacked = new Dataviz()
-        .el('.chart-c3-line-time-stacked')
-        .title('Line Chart')
-        .type('linechart')
-        .stacked(true)
+      window.lineTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-line-time-stacked',
+          title: 'Line Chart Multi Stacked',
+          type: 'line',
+          stacked: true
+        })
         .data(makeGroupedIntervalDataset())
-        .sortGroups('desc')
         .render();
 
       // -------------------------
@@ -839,69 +786,68 @@
       // SPLINE
       // -------------------------
 
-      window.spline = new Dataviz()
-        .height(300)
-        .el('.chart-c3-spline')
-        .title('Spline Chart')
-        .type('spline')
+      window.spline = new KeenDataviz({
+          container: '.chart-c3-spline',
+          title: 'Spline Chart',
+          type: 'spline'
+        })
         .data(makeGroupedDataset())
         .render();
 
-      window.splineMulti = new Dataviz({
-        legend: {
-          position: 'left',
-          show: true,
-          label: {
-            textMaxLength: 20
+      window.splineMulti = new KeenDataviz({
+          container: '.chart-c3-spline-multi',
+          title: 'Multi Spline Chart',
+          type: 'spline',
+          legend: {
+            position: 'left',
+            show: true,
+            label: {
+              textMaxLength: 20
+            }
           }
-        }
         })
-        .height(300)
-        .el('.chart-c3-spline-multi')
-        .title('Multi Spline Chart')
-        .type('spline')
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.splineMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-spline-stacked')
-        .title('Spline Chart')
-        .type('spline')
-        .stacked(true)
+      window.splineMultiStacked = new KeenDataviz({
+          container: '.chart-c3-spline-stacked',
+          title: 'Spline Chart mutli stacked',
+          type: 'spline',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.splineTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-spline-time')
-        .title('Spline Chart')
-        .type('spline')
+      window.splineTime = new KeenDataviz({
+          container: '.chart-c3-spline-time',
+          title: 'Spline Chart',
+          type: 'spline'
+        })
         .call(function(){
           this.dataset.matrix = intervalDataHourly;
         })
         .render();
 
-      window.splineTimeMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-spline-time-multi')
-        .title('Spline Chart')
-        .type('spline')
+      window.splineTimeMulti = new KeenDataviz({
+          container: '.chart-c3-spline-time-multi',
+          title: 'Spline Chart',
+          type: 'spline'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiDataHourly;
         })
         .render();
 
-      window.splineTimeMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-spline-time-stacked')
-        .title('Spline Chart')
-        .type('spline')
-        .stacked(true)
+      window.splineTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-spline-time-stacked',
+          title: 'Spline Chart multi stacked',
+          stacked: true,
+          type: 'spline'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiDataHourly;
         })
@@ -917,59 +863,59 @@
       // AREA
       // -------------------------
 
-      window.area = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area')
-        .title('Area Chart')
-        .type('area')
+      window.area = new KeenDataviz({
+          container: '.chart-c3-area',
+          title: 'Area Chart',
+          type: 'area'
+        })
         .data(makeGroupedDataset())
         .render();
 
-      window.areaMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-multi')
-        .title('Area Chart')
-        .type('areachart')
+      window.areaMulti = new KeenDataviz({
+          container: '.chart-c3-area-multi',
+          title: 'Area Chart',
+          type: 'area'
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.areaMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-stacked')
-        .title('Area Chart')
-        .type('area')
-        .stacked(true)
+      window.areaMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-stacked',
+          title: 'Area Chart stacked',
+          type: 'area',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.areaTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-time')
-        .title('Area Chart')
-        .type('areachart')
+      window.areaTime = new KeenDataviz({
+          container: '.chart-c3-area-time',
+          title: 'Area Chart',
+          type: 'area'
+        })
         .call(function(){
           this.dataset.matrix = intervalDataMinutely;
         })
         .render();
 
-      window.areaTimeMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-time-multi')
-        .title('Area Chart')
-        .type('area')
+      window.areaTimeMulti = new KeenDataviz({
+          container: '.chart-c3-area-time-multi',
+          title: 'Area Chart mutli',
+          type: 'area'
+        })
         .data(makeGroupedIntervalDataset())
         .render();
 
-      window.areaTimeMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-time-stacked')
-        .title('Area Chart')
-        .type('areachart')
-        .stacked(true)
+      window.areaTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-time-stacked',
+          title: 'Area Chart mutli stacked',
+          type: 'area',
+          stacked: true
+        })
         .data(makeGroupedIntervalDataset())
         .render();
 
@@ -983,61 +929,61 @@
       // AREA-SPLINE
       // -------------------------
 
-      window.areaSpline = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-spline')
-        .title('Area-Spline Chart')
-        .type('area-spline')
+      window.areaSpline = new KeenDataviz({
+          container: '.chart-c3-area-spline',
+          title: 'Area-Spline Chart',
+          type: 'area-spline',
+        })
         .data(makeGroupedDataset())
         .render();
 
-      window.areaSplineMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-spline-multi')
-        .title('Area-Spline Chart')
-        .type('area-spline')
+      window.areaSplineMulti = new KeenDataviz({
+          container: '.chart-c3-area-spline-multi',
+          title: 'Area-Spline Chart',
+          type: 'area-spline',
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.areaSplineMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-spline-stacked')
-        .title('Area-Spline Chart')
-        .type('area-spline')
-        .stacked(true)
+      window.areaSplineMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-spline-stacked',
+          title: 'Area-Spline Chart stacked',
+          type: 'area-spline',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.areaSplineTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-spline-time')
-        .title('Area-Spline Chart')
-        .type('area-spline')
+      window.areaSplineTime = new KeenDataviz({
+          container: '.chart-c3-area-spline-time',
+          title: 'Area-Spline Chart',
+          type: 'area-spline'
+        })
         .call(function(){
           this.dataset.matrix = intervalDataSecondly;
         })
         .render();
 
-      window.areaSplineTimeMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-spline-time-multi')
-        .title('Area-Spline Chart')
-        .type('area-spline')
+      window.areaSplineTimeMulti = new KeenDataviz({
+          container: '.chart-c3-area-spline-time-multi',
+          title: 'Area-Spline Chart multi stacked',
+          type: 'area-spline'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiDataSecondly;
         })
         .render();
 
-      window.areaSplineTimeMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-spline-time-stacked')
-        .title('Area-Spline Chart')
-        .type('area-spline')
-        .stacked(true)
+      window.areaSplineTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-spline-time-stacked',
+          title: 'Area-Spline Chart multi stacked',
+          stacked: true,
+          type: 'area-spline'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiDataSecondly;
         })
@@ -1053,61 +999,61 @@
       // AREA-STEP
       // -------------------------
 
-      window.areaStep = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-step')
-        .title('Area-Step Chart')
-        .type('area-step')
+      window.areaStep = new KeenDataviz({
+          container: '.chart-c3-area-step',
+          title: 'Area-Step Chart multi',
+          type: 'area-step',
+        })
         .data(makeGroupedDataset())
         .render();
 
-      window.areaStepMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-step-multi')
-        .title('Area-Step Chart')
-        .type('area-step')
+      window.areaStepMulti = new KeenDataviz({
+          container: '.chart-c3-area-step-multi',
+          title: 'Area-Step Chart multi',
+          type: 'area-step',
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.areaStepMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-step-stacked')
-        .title('Area-Step Chart')
-        .type('area-step')
-        .stacked(true)
+      window.areaStepMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-step-stacked',
+          title: 'Area-Step Chart multi stack',
+          type: 'area-step',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.areaStepTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-step-time')
-        .title('Area-Step Chart')
-        .type('area-step')
+      window.areaStepTime = new KeenDataviz({
+          container: '.chart-c3-area-step-time',
+          title: 'Area-Step Chart',
+          type: 'area-step'
+        })
         .call(function(){
           this.dataset.matrix = intervalData;
         })
         .render();
 
-      window.areaStepTimeMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-step-time-multi')
-        .title('Area-Step Chart')
-        .type('area-step')
+      window.areaStepTimeMulti = new KeenDataviz({
+          container: '.chart-c3-area-step-time-multi',
+          title: 'Area-Step Chart multi',
+          type: 'area-step'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiData;
         })
         .render();
 
-      window.areaStepTimeMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-area-step-time-stacked')
-        .title('Area-Step Chart')
-        .type('area-step')
-        .stacked(true)
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-step-time-stacked',
+          title: 'Area-Step Chart multi stacked',
+          type: 'area-step',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiData;
         })
@@ -1122,61 +1068,61 @@
       // STEP
       // -------------------------
 
-      window.step = new Dataviz()
-        .height(300)
-        .el('.chart-c3-step')
-        .title('Step Chart')
-        .type('step')
+      window.step = new KeenDataviz({
+          container: '.chart-c3-step',
+          title: 'Step Chart',
+          type: 'step'
+        })
         .data(makeGroupedDataset())
         .render();
 
-      window.stepMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-step-multi')
-        .title('Step Chart')
-        .type('step')
+      window.stepMulti = new KeenDataviz({
+          container: '.chart-c3-step-multi',
+          title: 'Step Chart Multi',
+          type: 'step'
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.stepMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-step-stacked')
-        .title('Step Chart')
-        .type('step')
-        .stacked(true)
+      window.stepMultiStacked = new KeenDataviz({
+          container: '.chart-c3-step-stacked',
+          title: 'Step Chart',
+          type: 'step',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
         .render();
 
-      window.stepTime = new Dataviz()
-        .height(300)
-        .el('.chart-c3-step-time')
-        .title('Step Chart')
-        .type('step')
+      window.stepTime = new KeenDataviz({
+          container: '.chart-c3-step-time',
+          title: 'Step Chart',
+          type: 'step'
+        })
         .call(function(){
           this.dataset.matrix = intervalData;
         })
         .render();
 
-      window.stepTimeMulti = new Dataviz()
-        .height(300)
-        .el('.chart-c3-step-time-multi')
-        .title('Step Chart')
-        .type('step')
+      window.stepTimeMulti = new KeenDataviz({
+          container: '.chart-c3-step-time-multi',
+          title: 'Step Chart mutli',
+          type: 'step'
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiData;
         })
         .render();
 
-      window.areaStepTimeMultiStacked = new Dataviz()
-        .height(300)
-        .el('.chart-c3-step-time-stacked')
-        .title('Step Chart')
-        .type('step')
-        .stacked(true)
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-step-time-stacked',
+          title: 'Step Chart Multi Stacked',
+          type: 'step',
+          stacked: true
+        })
         .call(function(){
           this.dataset.matrix = intervalMultiData;
         })
@@ -1191,8 +1137,8 @@
         return Math.floor((Math.random() * b) + a);
       }
       function gen(n){
-        var arr = [ faker.internet.exampleEmail() ];
-        for (var i = 0; i < n; i++) {
+        const arr = [ faker.internet.exampleEmail() ];
+        for (let i = 0; i < n; i++) {
           arr.push(rand(0, 1000));
         }
         return arr;

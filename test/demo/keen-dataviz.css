@@ -390,7 +390,7 @@
 }
 
 .keen-dataviz-rendering{
-  height: inherit;
+  xheight: inherit;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -445,7 +445,8 @@
     -ms-flex-pack: center;
         justify-content: center;
     width: 100%;
-    margin: 1em 0;
+    padding: 1em 0;
+    height: 3.5em;
   }
 .keen-c3-legend-horizontal-pagination-left{
       -ms-flex-order: 0;
