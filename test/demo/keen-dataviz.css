@@ -330,10 +330,10 @@
   -o-transition: background-color 0.1s, color 0.05s;
   transition: background-color 0.1s, color 0.05s;
 }
-.keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
+.keen-dataviz .keen-dataviz-table .table-data-row:nth-child(even) td{
   background-color: #F3F5F6;
 }
-.keen-dataviz .keen-dataviz-table tr:hover td {
+.keen-dataviz .keen-dataviz-table .table-data-row:hover td{
   background-color: #E7E7E7;
   background-color: #E7E7E7;
   color: #4D4D4D;
