@@ -273,6 +273,30 @@
   position: relative;
   width: 100%;
 }
+.keen-dataviz .keen-dataviz-table table .table-pagination td {
+      background-color: #FFFFFF;
+      background-color: #FFFFFF;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination:hover td {
+      background-color: #FFFFFF;
+      background-color: #FFFFFF;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination a {
+      border: 1px solid #E7E7E7;
+      border: 1px solid #E7E7E7;
+      padding: 0.5em;
+      margin-right: 0.2em;
+      cursor: pointer;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination .active{
+      background: #4D4D4D;
+      background: #4D4D4D;
+      color: #FFFFFF;
+      color: #FFFFFF;
+    }
+.keen-dataviz .keen-dataviz-table table .table-pagination .arrow{
+      font-weight:bold;
+    }
 
 .keen-dataviz .keen-dataviz-table th{
   background: white;
@@ -306,10 +330,10 @@
   -o-transition: background-color 0.1s, color 0.05s;
   transition: background-color 0.1s, color 0.05s;
 }
-.keen-dataviz .keen-dataviz-table tr:nth-child(even) td {
+.keen-dataviz .keen-dataviz-table .table-data-row:nth-child(even) td{
   background-color: #F3F5F6;
 }
-.keen-dataviz .keen-dataviz-table tr:hover td {
+.keen-dataviz .keen-dataviz-table .table-data-row:hover td{
   background-color: #E7E7E7;
   background-color: #E7E7E7;
   color: #4D4D4D;
@@ -366,7 +390,7 @@
 }
 
 .keen-dataviz-rendering{
-  height: inherit;
+  xheight: inherit;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -421,7 +445,8 @@
     -ms-flex-pack: center;
         justify-content: center;
     width: 100%;
-    margin: 1em 0;
+    padding: 1em 0;
+    height: 3.5em;
   }
 .keen-c3-legend-horizontal-pagination-left{
       -ms-flex-order: 0;
