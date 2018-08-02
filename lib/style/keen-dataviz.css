@@ -324,7 +324,7 @@
     &-color-sample{
       display: inline-block;
       width: 1em;
-      height: 1em;
+      height: 100%;
       margin-right: 0.5em;
       pointer-events: none;
     }
