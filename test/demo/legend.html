@@ -21,6 +21,7 @@
       width: 1200px;
       height: 600px;
     }
+
     </style>
     <div id="some_container"></div>
 
@@ -30,29 +31,20 @@ const client = new KeenAnalysis(keenGlobals.demoConfig);
 
 const clientTracking = new KeenTracking(keenGlobals.demoConfig);
 
+const results = {
+  result: [
+    {some_key: 'john', result: 4},
+    {some_key: 'jack', result: 14},
+    {some_key: 'rob', result: 20},
+    {some_key: 'mary', result: 5},
+    {some_key: 'tod', result: 24}
+  ]};
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  type: 'area'
+  type: 'pie',
+  results
 });
 
-const result = {
-  'clicks': [3, 14, 7, 22, 11, 55, 11, 22],
-  'views': [14, 58, 11, 32, 11, 23, 45, 66]
-};
-
-function customParser(data){
-    const ds = new KeenDataset();
-    Object.keys(data).forEach(dataKey => {
-      ds.appendColumn(dataKey);
-      data[dataKey].forEach((item, itemIndex) => {
-        ds.set([dataKey, itemIndex+1], item);
-      });
-    });
-    return ds;
-}
-
-chart
-  .render(customParser(result));
 
   return;
 client
