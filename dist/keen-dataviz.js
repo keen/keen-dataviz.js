@@ -21144,11 +21144,11 @@ exports.default = {
 
     html += '<div class="' + theme + '">';
     html += '<div class="' + theme + '-metric keen-dataviz-box" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
-    html += '<div class="' + theme + '-metric-value">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
+    html += '<span><div class="' + theme + '-metric-value">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
     if (title) {
       html += '<div class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</div>';
     }
-    html += '</div>';
+    html += '</span></div>';
     html += '</div>';
 
     this.el().innerHTML = html;
