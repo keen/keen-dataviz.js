@@ -1,8 +1,8 @@
 @import "../../node_modules/c3/c3.css";
 
 :root {
-  --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
   --font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
 
   --white:      #FFFFFF;
   --black:      #1A1A1A;
@@ -37,7 +37,6 @@
 
 .keen-dataviz .keen-dataviz-title {
   color: var(--dark-gray);
-  margin-bottom: 0.3em;
 }
 
 .keen-dataviz .keen-dataviz-stage {
@@ -243,8 +242,7 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
-    padding: 1em 0;
-    height: 3.5em;
+    padding: 0.5em 0;
 
     &-pagination-left{
       order: 0;
