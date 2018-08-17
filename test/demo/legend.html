@@ -41,22 +41,27 @@ const results = {
   ]};
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  type: 'pie',
-  results
+  // type: 'pie',
+  // results
+  grid: {
+    x: {
+      show: true
+    },
+    y: {
+      show: true
+    }
+  }
 });
 
-
-  return;
 client
   .query({
     analysis_type: 'count',
     event_collection: 'pageviews',
-    timeframe: 'this_3_days',
+    timeframe: 'this_13_days',
     cache: {
       maxAge: 60 * 60 * 1000
     },
-    interval: 'daily',
-    group_by: 'time.utc.hour'
+    interval: 'daily'
   })
   .then(results => {
     console.log(results);

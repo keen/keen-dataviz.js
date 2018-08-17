@@ -14,9 +14,17 @@ npm install keen-dataviz --save
 import KeenDataviz from 'keen-dataviz';
 import KeenAnalysis from 'keen-analysis'; // API client
 
+import 'keen-dataviz/dist/keen-dataviz.css';
+/*
+  Webpack users: to include CSS files in your project - install
+  https://github.com/webpack-contrib/css-loader
+  https://github.com/webpack-contrib/style-loader
+  Here's an example: https://github.com/keen/keen-dataviz-webpack-boilerplate
+*/
+
 const chart = new KeenDataviz({
   // Required:
-  container: '#my-chart-div' // querySelector,
+  container: '#my-chart-div', // querySelector
 
   // Optional:
   title: 'New Customers per Week',
@@ -48,6 +56,10 @@ client
   });
 ```
 
+## Webpack boilerplate
+
+[https://github.com/keen/keen-dataviz-webpack-boilerplate](https://github.com/keen/keen-dataviz-webpack-boilerplate)
+
 ## Install with CDN
 
 Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries, already included in our bundle js file.
@@ -70,7 +82,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
     <!-- Create and Render -->
     <script>
       const chart = new KeenDataviz({
-        container: '#some_container' // querySelector,
+        container: '#some_container', // querySelector
         title: 'New Customers per Week'
       });
 
@@ -101,6 +113,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
   </body>
 </html>
 ```
+
+---
 
 ## Configuration
 
