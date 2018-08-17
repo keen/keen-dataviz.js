@@ -1769,13 +1769,13 @@ exports.default = function (lib) {
   return defineC3();
 };
 
-var _c = __webpack_require__(22);
-
-var _c2 = _interopRequireDefault(_c);
-
 var _d = __webpack_require__(9);
 
 var _d2 = _interopRequireDefault(_d);
+
+var _c = __webpack_require__(22);
+
+var _c2 = _interopRequireDefault(_c);
 
 var _each = __webpack_require__(0);
 
@@ -1856,6 +1856,7 @@ function defineC3() {
         height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
       }
     }
+
     if (this.config.notes) {
       var notesElement = this.el().querySelector('.keen-dataviz-notes');
       if (notesElement) {

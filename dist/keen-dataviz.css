@@ -193,7 +193,6 @@
 .keen-dataviz .keen-dataviz-title {
   color: #4D4D4D;
   color: #4D4D4D;
-  margin-bottom: 0.3em;
 }
 
 .keen-dataviz .keen-dataviz-stage {
@@ -445,8 +444,7 @@
     -ms-flex-pack: center;
         justify-content: center;
     width: 100%;
-    padding: 1em 0;
-    height: 3.5em;
+    padding: 0.5em 0;
   }
 .keen-c3-legend-horizontal-pagination-left{
       -ms-flex-order: 0;
