@@ -37,6 +37,7 @@
 
 .keen-dataviz .keen-dataviz-title {
   color: var(--dark-gray);
+  padding-bottom: 0.8em;
 }
 
 .keen-dataviz .keen-dataviz-stage {
