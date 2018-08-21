@@ -3400,7 +3400,7 @@ Dataviz.prototype.render = function () {
       });
       timeframes.forEach(function (resultTimeframe) {
         var foundDifferent = timeframes.find(function (timeframeItem) {
-          return timeframeItem !== resultTimeframe;
+          return JSON.stringify(timeframeItem) !== JSON.stringify(resultTimeframe);
         });
         if (foundDifferent) {
           var msg = 'Timeframes of the queries should be the same';
