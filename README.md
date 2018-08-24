@@ -203,6 +203,7 @@ client
         'pageviews count': 'Pageviews',
         'form_submissions count': 'Forms collected'
       }
+      // or labelMapping RegExp
     });
   })
   .catch(err => {
@@ -345,6 +346,18 @@ const chart = new KeenDataviz({
   labelMapping: {
     'long_complex_key_name': 'Human readable label',
   }
+});
+```
+
+### Label mapping RegExp
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  labelMappingRegExp: [
+    [/anytext/, 'Purchases'],
+    [/lorem ipsum/gi, 'Visits']
+  ]
 });
 ```
 

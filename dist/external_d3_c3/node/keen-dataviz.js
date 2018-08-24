@@ -3026,6 +3026,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     indexBy: 'timeframe.start',
     labels: [],
     labelMapping: {},
+    labelMappingRegExp: undefined,
     library: 'default',
     sortGroups: undefined,
     sortIntervals: undefined,
@@ -3314,21 +3315,37 @@ Dataviz.prototype.labelMapping = function (obj) {
   return this;
 };
 
+function mapLabelsExec(_ref) {
+  var datavizInstance = _ref.datavizInstance,
+      value = _ref.value;
+
+  if (datavizInstance.config.labelMappingRegExp) {
+    var valueAfterMatching = value;
+    datavizInstance.config.labelMappingRegExp.forEach(function (regExpAndLabel) {
+      if (regExpAndLabel.length > 1) {
+        var regExpObj = regExpAndLabel[0];
+        if (regExpObj.test(value)) {
+          valueAfterMatching = regExpAndLabel[1];
+        }
+      }
+    });
+    return (0, _stripHtmlTags.stripHtmlTags)(valueAfterMatching);
+  }
+  if (datavizInstance.config.labelMapping[value]) {
+    return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
+  }
+  return (0, _stripHtmlTags.stripHtmlTags)(value);
+}
+
 function mapLabels(datavizInstance) {
   // Write labels
   if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
     datavizInstance.dataset.updateColumn(0, function (value) {
-      if (datavizInstance.config.labelMapping[value]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
+      return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
     }.bind(datavizInstance));
   } else {
     datavizInstance.dataset.updateRow(0, function (value) {
-      if (datavizInstance.config.labelMapping[value]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
+      return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
     }.bind(datavizInstance));
   }
 }
@@ -3417,10 +3434,7 @@ Dataviz.prototype.render = function () {
         if (datavizInstance.config.labelMapping[label]) {
           label = datavizInstance.config.labelMapping[label];
         }
-        datavizInstance.config.labelMapping = _extends({
-          'Result': label
-        }, datavizInstance.config.labelMapping);
-        // this.dataset.appendColumn(label, ds2.selectColumn(1).slice(1));
+        _this.dataset.deleteColumn(1);
         var firstResultPassed = false;
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
@@ -3430,10 +3444,6 @@ Dataviz.prototype.render = function () {
           for (var _iterator = results[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var result = _step.value;
 
-            if (!firstResultPassed) {
-              firstResultPassed = true;
-              continue;
-            }
             label = getLabel(result);;
             var ds2 = _dataset.Dataset.parser('interval')(result);
             datavizInstance.dataset.appendColumn(label, ds2.selectColumn(1).slice(1));
@@ -3456,7 +3466,7 @@ Dataviz.prototype.render = function () {
     }
     return datavizInstance.data(results).render();
   }
-  if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0) {
+  if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0 || !!this.config.labelMappingRegExp && this.config.labelMappingRegExp.length > 0) {
     mapLabels(datavizInstance);
   }
   if (!!this.config.labels && Object.keys(this.config.labels).length > 0) {

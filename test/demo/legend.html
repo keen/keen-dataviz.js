@@ -47,6 +47,10 @@ const chart = new KeenDataviz({
     'user_action count': 'Actions',
     'purchases count': 'Purchases'
   },
+  labelMappingRegExp: [
+    [/anytext/, 'Purchases'],
+    [/hases co/gi, 'Visits']
+  ],
   title: 'Actions and Purchases'
 });
 
