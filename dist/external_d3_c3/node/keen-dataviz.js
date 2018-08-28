@@ -1156,7 +1156,9 @@ var render = function render() {
 
   var isEmpty = dataset.length === 1 && dataset[0].length === 0;
   if (isEmpty) {
-    this.message('No data to display');
+    var msg = 'No data to display';
+    var mappedMsg = this.config.errorMapping[msg] || msg;
+    this.message(mappedMsg);
     return;
   }
 
@@ -1893,7 +1895,9 @@ function defineC3() {
         }
 
         if (this.data()[0].length === 1 || this.data().length === 1) {
-          this.message('No data to display');
+          var msg = 'No data to display';
+          var mappedMsg = this.config.errorMapping[msg] || msg;
+          this.message(mappedMsg);
           return;
         }
 
@@ -3027,6 +3031,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     labels: [],
     labelMapping: {},
     labelMappingRegExp: undefined,
+    errorMapping: {},
     library: 'default',
     sortGroups: undefined,
     sortIntervals: undefined,
@@ -3520,7 +3525,8 @@ Dataviz.prototype.render = function () {
     } else {
       if (typeof Dataviz.libraries[library][type] === 'undefined') {
         var _msg2 = 'Incorrect chart type';
-        datavizInstance.message(_msg2);
+        var mappedMsg = this.config.errorMapping[_msg2] || _msg2;
+        datavizInstance.message(mappedMsg);
         throw _msg2;
         return;
       } else {
