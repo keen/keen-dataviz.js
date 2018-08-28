@@ -361,6 +361,17 @@ const chart = new KeenDataviz({
 });
 ```
 
+### Error mapping
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  errorMapping: {
+    'No data to display': 'my custom message 123'
+  }
+});
+```
+
 ### Custom labels for funnels
 
 ```javascript

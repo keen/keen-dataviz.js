@@ -43,6 +43,7 @@ const chart = new KeenDataviz({
   container: '#some_container', // required
   // type: 'pie',
   // results
+  /*
   labelMapping: {
     'user_action count': 'Actions',
     'purchases count': 'Purchases'
@@ -52,6 +53,11 @@ const chart = new KeenDataviz({
     [/hases co/gi, 'Visits']
   ],
   title: 'Actions and Purchases'
+  */
+  errorMapping: {
+    'No data to display': 'my custom message 123'
+  },
+  title: 'aaaa'
 });
 
 const client = new KeenAnalysis({
@@ -61,15 +67,16 @@ const client = new KeenAnalysis({
 
 const countUserActions = client
   .query({
-    analysis_type: 'count',
+    analysis_type: 'extraction',
     event_collection: 'user_action',
     timeframe: {
-      start: '2014-02-02T00:00:00.000-00:00',
-      end: '2014-04-01T00:00:00.000-00:00'
+      start: '2018-02-02T00:00:00.000-00:00',
+      end: '2018-04-01T00:00:00.000-00:00'
     },
-		interval: 'weekly'
-  });
+	//	interval: 'weekly'
 
+  });
+/*
 const countPurchases = client
   .query({
     analysis_type: 'count',
@@ -80,11 +87,10 @@ const countPurchases = client
     },
 		interval: 'weekly'
   });
-
+*/
 // Use keen-analysis.js to run a query
 // and pass the result into your chart:
-client
-  .run([countUserActions, countPurchases])
+countUserActions
   .then(function(res) {
     // Handle the result
     chart
@@ -92,6 +98,7 @@ client
   })
   .catch(function(err) {
     // Handle the error
+    console.log(err);
     chart
       .message(err.message);
   });
