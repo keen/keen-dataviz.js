@@ -37,7 +37,7 @@
     "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
   "dependencies": {
-    "c3": "^0.6.6",
+    "c3": "^0.6.7",
     "d3": "^5.4.0",
     "promise-polyfill": "^8.0.0"
   },

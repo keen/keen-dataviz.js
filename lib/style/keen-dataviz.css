@@ -33,6 +33,10 @@
   box-sizing: border-box;
   font-family: var(--font-family-primary);
   height: inherit;
+
+  .partial-interval-indicator{
+    fill: #bdbdbd;
+  }
 }
 
 .keen-dataviz .keen-dataviz-title {

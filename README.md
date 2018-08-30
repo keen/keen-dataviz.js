@@ -288,7 +288,7 @@ const chart = new KeenDataviz({
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  showTitle: false
+  title: false
 });
 ```
 
@@ -584,6 +584,17 @@ function customParser(data){
 chart
   .render(customParser(result));
 ```
+
+### Partial interval visual indicator
+
+By default, it's enabled for all charts with relative time frames starting with this_
+eg. this_x_hours.
+To hide it, use a configuration property:
+
+```javascript
+partialIntervalIndicator: false
+```
+
 
 ### Depracation warnings
 
