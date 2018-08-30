@@ -1815,6 +1815,8 @@ var _spinner2 = _interopRequireDefault(_spinner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 ;
 
 function defineC3() {
@@ -1967,6 +1969,20 @@ function defineC3() {
             options.size.width = this.el().querySelector('.c3-chart').offsetWidth;
           }
           options.legend.show = false;
+        }
+
+        var chartTypesWithPartialIntervalIndicator = ['area', 'area-spline', 'area-step', 'line', 'spline', 'step'];
+
+        if (options.partialIntervalIndicator && options.partialIntervalIndicator.show && chartTypesWithPartialIntervalIndicator.indexOf(options.type) > -1) {
+          var results = options.data.columns && options.data.columns[0];
+          if (results && results.length > 1) {
+            var partialResultsRegion = {
+              axis: 'x',
+              start: new Date(results[results.length - 2]),
+              class: options.partialIntervalIndicator.className
+            };
+            options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
+          }
         }
 
         if (options.legend.show === true) {
@@ -2211,7 +2227,7 @@ function parseResponse(response) {
   }
 
   // Set title from saved query body, or create a default title
-  if (!this.config.title) {
+  if (this.config.title === undefined) {
     if (meta.display_name) {
       title = meta.display_name;
     } else {
@@ -2961,8 +2977,6 @@ exports.Dataset = exports.Dataviz = undefined;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-// Utils
-
 
 var _dataset = __webpack_require__(10);
 
@@ -2997,8 +3011,14 @@ var _extendDeep = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+// Utils
+
+
 // Constructor
 var Dataviz = exports.Dataviz = function Dataviz() {
+  var _defaultOptions;
+
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   if (this instanceof Dataviz === false) {
@@ -3007,7 +3027,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
 
   var datavizInstance = this;
 
-  var defaultOptions = {
+  var defaultOptions = (_defaultOptions = {
     showDeprecationWarnings: true,
     showLoadingSpinner: false,
 
@@ -3084,7 +3104,16 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     transition: {
       // duration: 0
     }
-  };
+  }, _defineProperty(_defaultOptions, 'data', {
+    selection: {
+      enabled: true,
+      draggable: true,
+      multiple: true
+    }
+  }), _defineProperty(_defaultOptions, 'partialIntervalIndicator', {
+    show: undefined,
+    className: 'partial-interval-indicator'
+  }), _defaultOptions);
 
   this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
 
@@ -3416,6 +3445,11 @@ Dataviz.prototype.render = function () {
 
   var datavizInstance = this;
   if (!!results) {
+    var firstResult = results[0] || results;
+    if (firstResult.query && firstResult.query.interval && firstResult.query.timeframe && firstResult.query.timeframe.indexOf('this_') > -1 && this.config.partialIntervalIndicator && this.config.partialIntervalIndicator.show === undefined) {
+      this.config.partialIntervalIndicator.show = true;
+    }
+
     if (Array.isArray(results)) {
       var timeframes = results.map(function (resultItem) {
         return resultItem.query.timeframe;
@@ -3469,6 +3503,7 @@ Dataviz.prototype.render = function () {
         }
       }).render();
     }
+
     return datavizInstance.data(results).render();
   }
   if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0 || !!this.config.labelMappingRegExp && this.config.labelMappingRegExp.length > 0) {

@@ -21504,7 +21504,7 @@ exports.default = function (startDate, endDate) {
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* @license C3.js v0.6.6 | (c) C3 Team and other contributors | http://c3js.org/ */
+/* @license C3.js v0.6.7 | (c) C3 Team and other contributors | http://c3js.org/ */
 (function (global, factory) {
      true ? module.exports = factory() :
     undefined;
@@ -21983,6 +21983,7 @@ exports.default = function (startDate, endDate) {
         eventRectsMultiple: 'c3-event-rects-multiple',
         zoomRect: 'c3-zoom-rect',
         brush: 'c3-brush',
+        dragZoom: 'c3-drag-zoom',
         focused: 'c3-focused',
         defocused: 'c3-defocused',
         region: 'c3-region',
@@ -22513,7 +22514,7 @@ exports.default = function (startDate, endDate) {
     };
 
     var c3 = {
-        version: "0.6.6",
+        version: "0.6.7",
         chart: {
             fn: Chart.prototype,
             internal: {
@@ -22744,6 +22745,9 @@ exports.default = function (startDate, endDate) {
 
         if ($$.initPie) {
             $$.initPie();
+        }
+        if ($$.initDragZoom) {
+            $$.initDragZoom();
         }
         if ($$.initSubchart) {
             $$.initSubchart();
@@ -26970,6 +26974,8 @@ exports.default = function (startDate, endDate) {
             resize_auto: true,
             zoom_enabled: false,
             zoom_initialRange: undefined,
+            zoom_type: 'scroll',
+            zoom_disableDefaultBehavior: false,
             zoom_privileged: false,
             zoom_rescale: false,
             zoom_onzoom: function zoom_onzoom() {},
@@ -30934,6 +30940,10 @@ exports.default = function (startDate, endDate) {
             startEvent;
 
         $$.zoom = d3.zoom().on("start", function () {
+            if (config.zoom_type !== 'scroll') {
+                return;
+            }
+
             var e = d3.event.sourceEvent;
             if (e && e.type === "brush") {
                 return;
@@ -30941,12 +30951,23 @@ exports.default = function (startDate, endDate) {
             startEvent = e;
             config.zoom_onzoomstart.call($$.api, e);
         }).on("zoom", function () {
+            if (config.zoom_type !== 'scroll') {
+                return;
+            }
+
             var e = d3.event.sourceEvent;
             if (e && e.type === "brush") {
                 return;
             }
-            $$.redrawForZoom.call($$);
+
+            $$.redrawForZoom();
+
+            config.zoom_onzoom.call($$.api, $$.x.orgDomain());
         }).on('end', function () {
+            if (config.zoom_type !== 'scroll') {
+                return;
+            }
+
             var e = d3.event.sourceEvent;
             if (e && e.type === "brush") {
                 return;
@@ -30980,6 +31001,51 @@ exports.default = function (startDate, endDate) {
         return $$.d3.zoomIdentity.scale($$.width / (s[1] - s[0])).translate(-s[0], 0);
     };
 
+    ChartInternal.prototype.initDragZoom = function () {
+        var $$ = this;
+        var d3 = $$.d3;
+        var config = $$.config;
+        var context = $$.context = $$.svg;
+        var brushXPos = $$.margin.left + 20.5;
+        var brushYPos = $$.margin.top + 0.5;
+
+        if (!(config.zoom_type === 'drag' && config.zoom_enabled)) {
+            return;
+        }
+
+        var getZoomedDomain = function getZoomedDomain(selection) {
+            return selection && selection.map(function (x) {
+                return $$.x.invert(x);
+            });
+        };
+
+        var brush = $$.dragZoomBrush = d3.brushX().on("start", function () {
+            $$.api.unzoom();
+
+            $$.svg.select("." + CLASS.dragZoom).classed("disabled", false);
+
+            config.zoom_onzoomstart.call($$.api, d3.event.sourceEvent);
+        }).on("brush", function () {
+            config.zoom_onzoom.call($$.api, getZoomedDomain(d3.event.selection));
+        }).on("end", function () {
+            if (d3.event.selection == null) {
+                return;
+            }
+
+            var zoomedDomain = getZoomedDomain(d3.event.selection);
+
+            if (!config.zoom_disableDefaultBehavior) {
+                $$.api.zoom(zoomedDomain);
+            }
+
+            $$.svg.select("." + CLASS.dragZoom).classed("disabled", true);
+
+            config.zoom_onzoomend.call($$.api, zoomedDomain);
+        });
+
+        context.append("g").classed(CLASS.dragZoom, true).attr("clip-path", $$.clipPath).attr("transform", "translate(" + brushXPos + "," + brushYPos + ")").call(brush);
+    };
+
     ChartInternal.prototype.getZoomDomain = function () {
         var $$ = this,
             config = $$.config,
@@ -31003,9 +31069,14 @@ exports.default = function (startDate, endDate) {
 
         zoom.update();
 
+        if (config.zoom_disableDefaultBehavior) {
+            return;
+        }
+
         if ($$.isCategorized() && x.orgDomain()[0] === $$.orgXDomain[0]) {
             x.domain([$$.orgXDomain[0] - 1e-10, x.orgDomain()[1]]);
         }
+
         $$.redraw({
             withTransition: false,
             withY: config.zoom_rescale,
@@ -31013,10 +31084,10 @@ exports.default = function (startDate, endDate) {
             withEventRect: false,
             withDimension: false
         });
+
         if (d3.event.sourceEvent && d3.event.sourceEvent.type === 'mousemove') {
             $$.cancelClick = true;
         }
-        config.zoom_onzoom.call($$.api, x.orgDomain());
     };
 
     return c3;
@@ -31103,6 +31174,8 @@ var _spinner = __webpack_require__(14);
 var _spinner2 = _interopRequireDefault(_spinner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 ;
 
@@ -31256,6 +31329,20 @@ function defineC3() {
             options.size.width = this.el().querySelector('.c3-chart').offsetWidth;
           }
           options.legend.show = false;
+        }
+
+        var chartTypesWithPartialIntervalIndicator = ['area', 'area-spline', 'area-step', 'line', 'spline', 'step'];
+
+        if (options.partialIntervalIndicator && options.partialIntervalIndicator.show && chartTypesWithPartialIntervalIndicator.indexOf(options.type) > -1) {
+          var results = options.data.columns && options.data.columns[0];
+          if (results && results.length > 1) {
+            var partialResultsRegion = {
+              axis: 'x',
+              start: new Date(results[results.length - 2]),
+              class: options.partialIntervalIndicator.className
+            };
+            options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
+          }
         }
 
         if (options.legend.show === true) {
@@ -31500,7 +31587,7 @@ function parseResponse(response) {
   }
 
   // Set title from saved query body, or create a default title
-  if (!this.config.title) {
+  if (this.config.title === undefined) {
     if (meta.display_name) {
       title = meta.display_name;
     } else {
@@ -32738,8 +32825,6 @@ exports.Dataset = exports.Dataviz = undefined;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-// Utils
-
 
 var _dataset = __webpack_require__(12);
 
@@ -32774,8 +32859,14 @@ var _extendDeep = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+// Utils
+
+
 // Constructor
 var Dataviz = exports.Dataviz = function Dataviz() {
+  var _defaultOptions;
+
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   if (this instanceof Dataviz === false) {
@@ -32784,7 +32875,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
 
   var datavizInstance = this;
 
-  var defaultOptions = {
+  var defaultOptions = (_defaultOptions = {
     showDeprecationWarnings: true,
     showLoadingSpinner: false,
 
@@ -32861,7 +32952,16 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     transition: {
       // duration: 0
     }
-  };
+  }, _defineProperty(_defaultOptions, 'data', {
+    selection: {
+      enabled: true,
+      draggable: true,
+      multiple: true
+    }
+  }), _defineProperty(_defaultOptions, 'partialIntervalIndicator', {
+    show: undefined,
+    className: 'partial-interval-indicator'
+  }), _defaultOptions);
 
   this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
 
@@ -33193,6 +33293,11 @@ Dataviz.prototype.render = function () {
 
   var datavizInstance = this;
   if (!!results) {
+    var firstResult = results[0] || results;
+    if (firstResult.query && firstResult.query.interval && firstResult.query.timeframe && firstResult.query.timeframe.indexOf('this_') > -1 && this.config.partialIntervalIndicator && this.config.partialIntervalIndicator.show === undefined) {
+      this.config.partialIntervalIndicator.show = true;
+    }
+
     if (Array.isArray(results)) {
       var timeframes = results.map(function (resultItem) {
         return resultItem.query.timeframe;
@@ -33246,6 +33351,7 @@ Dataviz.prototype.render = function () {
         }
       }).render();
     }
+
     return datavizInstance.data(results).render();
   }
   if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0 || !!this.config.labelMappingRegExp && this.config.labelMappingRegExp.length > 0) {
