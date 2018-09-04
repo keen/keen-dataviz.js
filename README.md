@@ -156,10 +156,6 @@ const chart = new KeenDataviz({
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  dateFormat: function(ms){
-    const date = new Date(ms);
-    return date.getFullYear();
-  },
   axis: {
     x: {
       localtime: false
