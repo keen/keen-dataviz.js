@@ -368,6 +368,15 @@ const chart = new KeenDataviz({
 });
 ```
 
+### Hide error messages
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  showErrorMessages: false
+});
+```
+
 ### Custom labels for funnels
 
 ```javascript

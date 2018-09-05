@@ -71,8 +71,15 @@ setInterval( () => {
 const q1= client.query({
   analysis_type: 'count',
   event_collection: 'streamOfEvents',
-  timeframe: 'this_30_hours',
-  group_by: 'time.utc.hour'
+  timeframe: 'this_1_hours',
+  group_by: 'time.utc.hour',
+  /*
+  filters: [
+    {property_name: 'aaa',
+  operator: 'exists',
+property_value: true}
+  ]
+  */
 //  interval: 'hourly'
 });
 const q2= client.query({
@@ -88,7 +95,8 @@ q1.then(function(res) {
     // type: 'pie',
     // results
     // partialIntervalIndicator: false
-    // title: false
+//   title: false,
+  showErrorMessages: false
   });
 
     chart
