@@ -1158,7 +1158,9 @@ var render = function render() {
   if (isEmpty) {
     var msg = 'No data to display';
     var mappedMsg = this.config.errorMapping[msg] || msg;
-    this.message(mappedMsg);
+    if (this.config.showErrorMessages) {
+      this.message(mappedMsg);
+    }
     return;
   }
 
@@ -1430,9 +1432,16 @@ exports.default = {
 
     msg.innerHTML = (0, _escapeHtml.escapeHtml)(text) || '';
     inner.appendChild(msg);
-    outer.appendChild(titleContainer);
+
+    if (this.config.title && this.config.showTitle) {
+      outer.appendChild(titleContainer);
+    }
+
     outer.appendChild(inner);
-    outer.appendChild(notesContainer);
+
+    if (this.config.notes) {
+      outer.appendChild(notesContainer);
+    }
 
     this.el().innerHTML = '';
     this.el().appendChild(outer);
@@ -1899,7 +1908,9 @@ function defineC3() {
         if (this.data()[0].length === 1 || this.data().length === 1) {
           var msg = 'No data to display';
           var mappedMsg = this.config.errorMapping[msg] || msg;
-          this.message(mappedMsg);
+          if (this.config.showErrorMessages) {
+            this.message(mappedMsg);
+          }
           return;
         }
 
@@ -3052,6 +3063,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     labelMapping: {},
     labelMappingRegExp: undefined,
     errorMapping: {},
+    showErrorMessages: true,
     library: 'default',
     sortGroups: undefined,
     sortIntervals: undefined,
