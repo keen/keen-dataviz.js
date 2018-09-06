@@ -3463,7 +3463,7 @@ Dataviz.prototype.render = function () {
   var datavizInstance = this;
   if (!!results) {
     var firstResult = results[0] || results;
-    if (firstResult.query && firstResult.query.interval && firstResult.query.timeframe && firstResult.query.timeframe.indexOf('this_') > -1 && this.config.partialIntervalIndicator && this.config.partialIntervalIndicator.show === undefined) {
+    if (firstResult.query && firstResult.query.interval && firstResult.query.timeframe && firstResult.query.timeframe === 'string' && firstResult.query.timeframe.indexOf('this_') > -1 && this.config.partialIntervalIndicator && this.config.partialIntervalIndicator.show === undefined) {
       this.config.partialIntervalIndicator.show = true;
     }
 
