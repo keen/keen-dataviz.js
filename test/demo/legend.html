@@ -71,7 +71,14 @@ setInterval( () => {
 const q1= client.query({
   analysis_type: 'count',
   event_collection: 'streamOfEvents',
-  timeframe: 'this_33_hours',
+  timeframe: 'previous_33_hours',
+
+xtimeframe: {
+  start: "2018-08-01T00:00:00.000Z",
+  end: "2018-09-05T00:00:00.000Z"
+},
+
+
   group_by: 'time.utc.hour',
   /*
   filters: [
@@ -92,12 +99,12 @@ const q2= client.query({
 q1.then(function(res) {
   chart = new KeenDataviz({
     container: '#some_container', // required
-     type: 'areachart',
-        prefix: '$',
+     type: 'area',
+      //  prefix: '$',
     // results
     // partialIntervalIndicator: false
 //   title: false,
-  showErrorMessages: false
+//  showErrorMessages: false
   });
 
     chart
