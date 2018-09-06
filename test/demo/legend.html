@@ -71,7 +71,7 @@ setInterval( () => {
 const q1= client.query({
   analysis_type: 'count',
   event_collection: 'streamOfEvents',
-  timeframe: 'this_1_hours',
+  timeframe: 'this_33_hours',
   group_by: 'time.utc.hour',
   /*
   filters: [
@@ -80,19 +80,20 @@ const q1= client.query({
 property_value: true}
   ]
   */
-//  interval: 'hourly'
+  interval: 'hourly'
 });
 const q2= client.query({
   analysis_type: 'count',
   event_collection: 'pageviews',
-  timeframe: 'this_30_hours',
+  timeframe: 'this_130_hours',
   interval: 'hourly'
 });
 
 q1.then(function(res) {
   chart = new KeenDataviz({
     container: '#some_container', // required
-    // type: 'pie',
+     type: 'areachart',
+        prefix: '$',
     // results
     // partialIntervalIndicator: false
 //   title: false,
