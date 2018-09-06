@@ -32977,6 +32977,11 @@ var Dataviz = exports.Dataviz = function Dataviz() {
 
   this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
 
+  if (this.config.type) {
+    // backward compatibility with v2016... areachart -> area
+    this.config.type = convertChartTypes(this.config.type);
+  }
+
   // get DOM node by query
   if (this.config.container) {
     this.el(this.config.container);
