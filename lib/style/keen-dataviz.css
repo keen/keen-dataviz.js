@@ -274,6 +274,16 @@
     order: 2;
   }
 
+  &-bottom &-label-overlay{
+    top: 0;
+    margin-top: -2.7em;
+    .overlay-pointer {
+      top: 2.4em;
+      transform: rotate(180deg);
+      border-color: transparent transparent #f0f0f0 transparent;
+    }
+  }
+
   &-vertical{
     flex-direction: column;
     .keen-c3-legend-pagination-icons
@@ -406,5 +416,5 @@
   position: absolute;
   word-wrap: break-word;
   pointer-events: none;
-  z-index: 22;
+  z-index: 222;
 }

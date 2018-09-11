@@ -18,8 +18,9 @@
   <body>
     <style>
     #some_container{
-      width: 1200px;
-      height: 600px;
+      width: 500px;
+      height: 300px;
+      overflow: hidden;
     }
 
     </style>
@@ -57,7 +58,7 @@ const countPurchases = client
     },
 		interval: 'weekly'
   });
-*/
+
 
 setInterval( () => {
   clientTracking.recordEvent('streamOfEvents', {
@@ -65,13 +66,15 @@ setInterval( () => {
   });
 }, 1000 + Math.round(Math.random() * 5000));
 
+*/
+
 // Use keen-analysis.js to run a query
 // and pass the result into your chart:
 
 const q1= client.query({
   analysis_type: 'count',
   event_collection: 'streamOfEvents',
-  timeframe: 'previous_33_hours',
+  timeframe: 'previous_7_days',
 
 xtimeframe: {
   start: "2018-08-01T00:00:00.000Z",
@@ -92,18 +95,34 @@ property_value: true}
 const q2= client.query({
   analysis_type: 'count',
   event_collection: 'pageviews',
-  timeframe: 'this_130_hours',
+  timeframe: 'previous_7_days',
   interval: 'hourly'
 });
 
-q1.then(function(res) {
+client.run([q1, q2]).then(function(res) {
   chart = new KeenDataviz({
     container: '#some_container', // required
      type: 'area',
+
+     legend: {
+    show: true,
+    position: 'top', // top, bottom, left, right
+    label: {
+      textMaxLength: 12
+    },
+    pagination: {
+      offset: 0, // start from
+      limit: 5 // items per page
+    },
+    tooltip: {
+      show: true,
+      pointer: true
+    }
+  }
       //  prefix: '$',
     // results
     // partialIntervalIndicator: false
-//   title: false,
+// ,  title: false,
 //  showErrorMessages: false
   });
 
