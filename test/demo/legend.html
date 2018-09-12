@@ -18,7 +18,7 @@
   <body>
     <style>
     #some_container{
-      width: 500px;
+      width: 100%;
       height: 300px;
       overflow: hidden;
     }
@@ -73,61 +73,90 @@ setInterval( () => {
 
 const q1= client.query({
   analysis_type: 'count',
-  event_collection: 'streamOfEvents',
-  timeframe: 'previous_7_days',
-
-xtimeframe: {
-  start: "2018-08-01T00:00:00.000Z",
-  end: "2018-09-05T00:00:00.000Z"
-},
-
-
-  group_by: 'time.utc.hour',
+  event_collection: 'clicks',
+  timeframe: 'this_15_days',
   /*
   filters: [
     {property_name: 'aaa',
   operator: 'exists',
 property_value: true}
   ]
-  */
-  interval: 'hourly'
+,
+*/
+group_by: 'time.utc.minute',
+
+//  interval: 'daily'
 });
+
+/*
 const q2= client.query({
   analysis_type: 'count',
-  event_collection: 'pageviews',
-  timeframe: 'previous_7_days',
-  interval: 'hourly'
+  event_collection: 'clicks',
+  timeframe: 'this_14_days',
+  interval: 'daily'
 });
 
-client.run([q1, q2]).then(function(res) {
+const q3= client.query({
+  analysis_type: 'count',
+  event_collection: 'pageviews',
+  timeframe: 'this_14_days',
+  interval: 'daily'
+});
+*/
+q1.then(function(res) {
+
+const results = {
+  Index: []
+};
+let i = 0;
+const placeHolders = [];
+
+if (res.result) {
+  res.result.forEach(row => {
+    let key;
+    Object.keys(row).forEach(rowKey => {
+      if (rowKey !== 'result') {
+        key = rowKey;
+      }
+    });
+    results.Index.push(row[key]);
+    i++;
+    let rowName = 'Result' + i + '__tooltip_ignore_name_field__';
+    results[rowName] = placeHolders.concat();
+    results[rowName].push(row.result);
+    placeHolders.push(null);
+  });
+}
+
+
+function customParser(data){
+    const ds = new KeenDataset();
+    Object.keys(data).forEach(dataKey => {
+      ds.appendColumn(dataKey);
+      data[dataKey].forEach((item, itemIndex) => {
+        ds.set([dataKey, itemIndex+1], item);
+      });
+    });
+    return ds;
+}
+
   chart = new KeenDataviz({
     container: '#some_container', // required
-     type: 'area',
+    type: 'bar',
 
-     legend: {
-    show: true,
-    position: 'top', // top, bottom, left, right
-    label: {
-      textMaxLength: 12
+    results: customParser(results),
+
+    stacked: true,
+    colors: [null, '#aec7e8', '#eaeaea', '#1f77b4', '#aec7e8', '#eaeaea'],
+
+    legend: {
+      show: false,
+      tooltip: {
+        show: false
+      },
     },
-    pagination: {
-      offset: 0, // start from
-      limit: 5 // items per page
-    },
-    tooltip: {
-      show: true,
-      pointer: true
-    }
-  }
-      //  prefix: '$',
-    // results
-    // partialIntervalIndicator: false
-// ,  title: false,
-//  showErrorMessages: false
   });
 
-    chart
-      .render(res);
 
   })
   .catch(function(err) {

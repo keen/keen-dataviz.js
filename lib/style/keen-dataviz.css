@@ -59,12 +59,11 @@
   text-align: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height:8em;
   flex-flow: row wrap;
   justify-content: space-around;
   padding: 1em 0;
-  min-height: 8em;
+  min-height: 4em;
+  height: inherit;
 }
 
 /* METRIC */

@@ -308,6 +308,43 @@ const chart = new KeenDataviz({
     tooltip: {
       show: true,
       pointer: true
+    },
+
+    // sort: (columns) => { return columns; } // custom sorting function
+  }
+});
+```
+
+### Legend sort
+
+Default method of sorting is by column name ASC. You can use your own sorting function
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+
+  // default values
+  legend: {
+    show: true,
+    position: 'right', // top, bottom, left, right
+
+    sort: function (columns) {
+      const columnsSorted = [];
+      columns.forEach(column => {
+        if (column[0] !== 'x') {
+          let sumOfValues = column.slice(1).reduce((acc = 0, item) => {
+            return acc + item;
+          });
+          columnsSorted.push({ columnName: column[0], columnSum: sumOfValues});
+        }
+      });
+
+      // let's sort by SUM, DESC
+      columnsSorted.sort(function(a, b) {
+        return b.columnSum - a.columnSum;
+      });
+
+      return columnsSorted.map(item => item.columnName);
     }
   }
 });

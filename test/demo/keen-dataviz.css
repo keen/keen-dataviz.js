@@ -273,15 +273,13 @@
   display: flex;
   -ms-flex-align: center;
       align-items: center;
-  -ms-flex-pack: center;
-      justify-content: center;
-  min-height:8em;
   -ms-flex-flow: row wrap;
       flex-flow: row wrap;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   padding: 1em 0;
-  min-height: 8em;
+  min-height: 4em;
+  height: inherit;
 }
 
 /* METRIC */
