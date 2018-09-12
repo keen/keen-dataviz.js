@@ -1490,7 +1490,9 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
     var bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
     if (value) {
       text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
-      text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + (0, _escapeHtml.escapeHtml)(name) + "</td>";
+      if (name.indexOf('__tooltip_ignore_name_field__') === -1) {
+        text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + (0, _escapeHtml.escapeHtml)(name) + "</td>";
+      }
       text += "<td class='value'>" + (0, _escapeHtml.escapeHtml)(value) + "</td>";
       text += "</tr>";
     }
@@ -1529,9 +1531,27 @@ exports.default = function (options) {
     total: 0
   }, legendConfig.pagination);
 
-  for (var i = 0; i < cols.length; i++) {
-    if (cols[i][0] !== 'x' && !(0, _assertDateString2.default)(cols[i][1])) {
-      columns.push(cols[i][0]);
+  if (options.legend.sort) {
+    columns = options.legend.sort(cols);
+
+    // update column order in the data, so tooltip will be the same order
+    var columnsSorted = [];
+    var dataColumnsSorted = [];
+    if (cols[0][0] === 'x') {
+      dataColumnsSorted.push(cols[0]);
+    }
+    columns.forEach(function (column) {
+      var columnData = options.data.columns.find(function (item) {
+        return item[0] === column;
+      });
+      dataColumnsSorted.push(columnData);
+    });
+    options.data.columns = dataColumnsSorted;
+  } else {
+    for (var i = 0; i < cols.length; i++) {
+      if (cols[i][0] !== 'x' && !(0, _assertDateString2.default)(cols[i][1])) {
+        columns.push(cols[i][0]);
+      }
     }
   }
 
@@ -1875,15 +1895,6 @@ function defineC3() {
       }
     }
 
-    if (this.config.legend && this.config.legend.show && (this.config.legend.position === 'top' || this.config.legend.position === 'bottom')) {
-      var legendElement = this.el().querySelector('.keen-c3-legend');
-      if (legendElement) {
-        height -= legendElement.offsetHeight;
-      } else {
-        height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
-      }
-    }
-
     var DEFAULT_OPTIONS = {
       size: {
         width: this.el().querySelector('.c3-chart').offsetWidth,
@@ -1996,13 +2007,9 @@ function defineC3() {
           }
         }
 
-        if (options.legend.show === true) {
-          var c3options = _extends({}, options);
-          // Apply custom color handling
-          c3options.data.color = c3CustomDataMapping.bind(this);
-
+        if (!(options.tooltip && options.tooltip.show === false) && (options.legend.show === true || options.legend && options.legend.tooltip && options.legend.tooltip.show)) {
           // Apply custom tooltip
-          c3options.tooltip = {
+          options.tooltip = {
             contents: _tooltipContents2.default,
             format: {
               title: this.config.tooltip.format.title,
@@ -2015,12 +2022,26 @@ function defineC3() {
               }
             }
           };
+        }
+
+        if (options.legend.show === true) {
+          var c3options = _extends({}, options);
+          // Apply custom color handling
+          c3options.data.color = c3CustomDataMapping.bind(this);
 
           c3options.legend.show = false; // hide default c3 legend
 
           // Render artifacts
           this.view._artifacts['c3'] = _c2.default.generate(c3options);
           _paginatingLegend2.default.call(this, options);
+
+          if (options.legend.position === 'top' || options.legend.position === 'bottom') {
+            var _legendElement = this.el().querySelector('.keen-c3-legend');
+            if (_legendElement) {
+              c3options.size.height -= _legendElement.offsetHeight;
+              this.view._artifacts['c3'].resize({ height: c3options.size.height });
+            }
+          }
         } else {
           this.view._artifacts['c3'] = _c2.default.generate(options);
         }
@@ -3087,7 +3108,8 @@ var Dataviz = exports.Dataviz = function Dataviz() {
       tooltip: {
         show: true,
         pointer: true
-      }
+      },
+      sort: undefined
     },
 
     axis: {},
@@ -3143,6 +3165,20 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     this.config.legend = _extends({}, options, {
       show: false
     });
+  }
+
+  if (options.color && options.color.pattern) {
+    // to match c3 options
+    this.config.colors = options.color.pattern;
+  }
+
+  if (this.config.legend && this.config.legend.tooltip && this.config.legend.tooltip.show === false && this.config.tooltip.show === undefined) {
+    this.config.tooltip = { show: false };
+  }
+
+  if (options.color && options.color.pattern) {
+    // to match c3 options
+    this.config.colors = options.color.pattern;
   }
 
   this.dataset = new _dataset.Dataset(this.config);

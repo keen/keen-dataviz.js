@@ -273,15 +273,13 @@
   display: flex;
   -ms-flex-align: center;
       align-items: center;
-  -ms-flex-pack: center;
-      justify-content: center;
-  min-height:8em;
   -ms-flex-flow: row wrap;
       flex-flow: row wrap;
   -ms-flex-pack: distribute;
       justify-content: space-around;
   padding: 1em 0;
-  min-height: 8em;
+  min-height: 4em;
+  height: inherit;
 }
 
 /* METRIC */
@@ -534,6 +532,17 @@
     -ms-flex-order: 2;
         order: 2;
   }
+.keen-c3-legend-bottom .keen-c3-legend-label-overlay{
+    top: 0;
+    margin-top: -2.7em;
+  }
+.keen-c3-legend-bottom .keen-c3-legend-label-overlay .overlay-pointer {
+      top: 2.4em;
+      -webkit-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+              transform: rotate(180deg);
+      border-color: transparent transparent #f0f0f0 transparent;
+    }
 .keen-c3-legend-vertical{
     -ms-flex-direction: column;
         flex-direction: column;
@@ -668,5 +677,5 @@
   position: absolute;
   word-wrap: break-word;
   pointer-events: none;
-  z-index: 22;
+  z-index: 222;
 }
