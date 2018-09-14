@@ -39,6 +39,7 @@
   "dependencies": {
     "c3": "^0.6.7",
     "d3": "^5.4.0",
+    "moment-timezone": "^0.5.21",
     "promise-polyfill": "^8.0.0"
   },
   "devDependencies": {
@@ -59,7 +60,6 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^22.4.3",
     "jest-environment-jsdom-c3": "^2.0.0",
-    "moment": "^2.10.6",
     "nock": "^9.2.6",
     "postcss": "^6.0.21",
     "postcss-cli": "^5.0.0",
