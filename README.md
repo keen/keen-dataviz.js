@@ -1,6 +1,6 @@
 # keen-dataviz.js
 
-The most advanced data visualization library for [Keen Analytics](https://keen.io).
+A JavaScript data visualization library for [Keen](https://keen.io).
 
 ## Install with NPM
 
@@ -62,7 +62,7 @@ client
 
 ## Install with CDN
 
-Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries, already included in our bundle js file.
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries, already included in our bundled js file.
 
 ```html
 <html>

@@ -36,6 +36,25 @@
     "Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)",
     "Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"
   ],
+  "homepage": "https://keen.io",
+  "keywords": [
+    "d3",
+    "c3",
+    "Analytics",
+    "Stats",
+    "Statistics",
+    "Visualization",
+    "Visualizations",
+    "Data Visualization",
+    "Chart",
+    "Charts",
+    "Charting",
+    "Svg",
+    "Dataviz",
+    "Plots",
+    "Graphs",
+    "Funnels"
+  ],
   "dependencies": {
     "c3": "^0.6.7",
     "d3": "^5.4.0",
