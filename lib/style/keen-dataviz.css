@@ -32,7 +32,7 @@
 .keen-dataviz {
   box-sizing: border-box;
   font-family: var(--font-family-primary);
-  height: inherit;
+  height: 100%;;
 
   .partial-interval-indicator{
     fill: #bdbdbd;
@@ -208,7 +208,6 @@
 }
 
 .keen-dataviz-rendering{
-  xheight: inherit;
   display: flex;
   justify-content: center;
   flex-flow: row;
@@ -216,7 +215,6 @@
 
   .c3-chart{
     display: flex;
-    flex-grow: 2;
     align-self: center;
     order: 1;
   }
@@ -236,7 +234,6 @@
   display: flex;
   position: relative;
   top: 0;
-  flex-grow: 1;
   box-sizing: border-box;
 
   &-horizontal{
@@ -311,7 +308,7 @@
     justify-content: flex-start;
     align-content: flex-start;
     .legend-item{
-      width: 100%;
+      width: 8em;
     }
   }
 
@@ -319,6 +316,7 @@
     display: flex;
     flex-direction: row;
     .legend-item{
+      width: 6em;
       margin: 0 0.25em;
     }
   }
@@ -330,6 +328,7 @@
     padding: 0.2em;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 0.8em;
     > * {
       vertical-align: middle;
     }
