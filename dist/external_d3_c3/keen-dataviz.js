@@ -18780,7 +18780,6 @@ exports.default = function (options) {
     if (pagination.total > pagination.limit) {
       renderPaginationComponent.call(datavizInstance);
     }
-    chart.resize();
   }
 
   function renderLegendComponent() {
@@ -18826,6 +18825,11 @@ exports.default = function (options) {
         chart.toggle(legendItem.chartPartId);
       });
     });
+
+    if (options.callback) {
+      options.callback();
+      options.callback = null;
+    }
   }
 
   function renderPaginationComponent() {
@@ -19063,7 +19067,17 @@ function defineC3() {
       }
     };
 
-    var height = this.el().offsetHeight;
+    var renderingElement = this.el();
+    //      .querySelector('.' + this.config.theme + '-rendering');
+
+    var height = renderingElement.offsetHeight;
+
+    var getPaddings = function getPaddings(element, paddingName) {
+      return parseInt(window.getComputedStyle(element)['padding' + paddingName].replace('px', ''));
+    };
+
+    height -= getPaddings(renderingElement, 'Top') + getPaddings(renderingElement, 'Bottom');
+
     if (this.config.showTitle) {
       var titleElement = this.el().querySelector('.keen-dataviz-title');
       if (titleElement) {
@@ -19082,9 +19096,11 @@ function defineC3() {
       }
     }
 
+    var width = this.el().querySelector('.c3-chart').offsetWidth - (getPaddings(renderingElement, 'Left') + getPaddings(renderingElement, 'Right'));
+
     var DEFAULT_OPTIONS = {
       size: {
-        width: this.el().querySelector('.c3-chart').offsetWidth,
+        width: width,
         height: height > 0 ? height : undefined
       }
     };
@@ -19220,15 +19236,21 @@ function defineC3() {
 
           // Render artifacts
           this.view._artifacts['c3'] = _c2.default.generate(c3options);
-          _paginatingLegend2.default.call(this, options);
-
-          if (options.legend.position === 'top' || options.legend.position === 'bottom') {
-            var _legendElement = this.el().querySelector('.keen-c3-legend');
-            if (_legendElement) {
-              c3options.size.height -= _legendElement.offsetHeight;
-              this.view._artifacts['c3'].resize({ height: c3options.size.height });
-            }
-          }
+          _paginatingLegend2.default.call(this, _extends({}, options, { callback: function callback() {
+              var legendElement = _this.el().querySelector('.keen-c3-legend');
+              if (legendElement) {
+                if (options.legend.position === 'top' || options.legend.position === 'bottom') {
+                  c3options.size.height -= legendElement.offsetHeight;
+                  _this.view._artifacts['c3'].resize({ height: c3options.size.height });
+                } else {
+                  if (c3options.size.width === 0) {
+                    c3options.size.width = _this.el().offsetWidth;
+                  }
+                  c3options.size.width -= legendElement.offsetWidth;
+                  _this.view._artifacts['c3'].resize({ width: c3options.size.width });
+                }
+              }
+            } }));
         } else {
           this.view._artifacts['c3'] = _c2.default.generate(options);
         }
@@ -20795,7 +20817,9 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     size: {
       // control it with CSS of .c3-chart
     },
-    padding: {},
+    padding: {
+      top: 15
+    },
     point: {
       focus: {
         expand: {
