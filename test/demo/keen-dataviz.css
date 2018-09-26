@@ -243,7 +243,7 @@
           box-sizing: border-box;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  height: inherit;
+  height: 100%;
 }
 .keen-dataviz .partial-interval-indicator{
     fill: #bdbdbd;
@@ -447,7 +447,6 @@
 }
 
 .keen-dataviz-rendering{
-  xheight: inherit;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -461,8 +460,6 @@
 .keen-dataviz-rendering .c3-chart{
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-positive: 2;
-        flex-grow: 2;
     -ms-flex-item-align: center;
         align-self: center;
     -ms-flex-order: 1;
@@ -486,8 +483,6 @@
   display: flex;
   position: relative;
   top: 0;
-  -ms-flex-positive: 1;
-      flex-grow: 1;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -578,7 +573,7 @@
         align-content: flex-start;
   }
 .keen-c3-legend-vertical-items .legend-item{
-      width: 100%;
+      width: 8em;
     }
 .keen-c3-legend-horizontal-items{
     display: -ms-flexbox;
@@ -587,6 +582,7 @@
         flex-direction: row;
   }
 .keen-c3-legend-horizontal-items .legend-item{
+      width: 6em;
       margin: 0 0.25em;
     }
 .keen-c3-legend .legend-item{
@@ -598,6 +594,7 @@
     white-space: nowrap;
     -o-text-overflow: ellipsis;
        text-overflow: ellipsis;
+    font-size: 0.8em;
   }
 .keen-c3-legend .legend-item > * {
       vertical-align: middle;
