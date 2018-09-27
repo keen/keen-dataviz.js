@@ -19250,7 +19250,6 @@ function defineC3() {
                     c3options.size.width = _this.el().offsetWidth - getPaddings(_this.el(), 'Left') - getPaddings(_this.el(), 'Right');
                   }
                   c3options.size.width -= legendElement.offsetWidth;
-                  console.log(_this.config.container, _this.el().offsetWidth, c3options.size.width, 'legend width', legendElement.offsetWidth);
                   _this.view._artifacts['c3'].resize({ width: c3options.size.width });
                 }
               }

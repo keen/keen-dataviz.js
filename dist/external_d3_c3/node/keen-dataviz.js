@@ -19050,6 +19050,10 @@ function defineC3() {
   // Horizontal variant types
   'horizontal-area', 'horizontal-area-spline', 'horizontal-area-step', 'horizontal-bar', 'horizontal-line', 'horizontal-step', 'horizontal-spline'];
 
+  var getPaddings = function getPaddings(element, paddingName) {
+    return parseInt(window.getComputedStyle(element)['padding' + paddingName].replace('px', ''));
+  };
+
   function getDefaultOptions() {
     var ENFORCED_OPTIONS = {
       bindto: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'),
@@ -19067,10 +19071,6 @@ function defineC3() {
     //      .querySelector('.' + this.config.theme + '-rendering');
 
     var height = renderingElement.offsetHeight;
-
-    var getPaddings = function getPaddings(element, paddingName) {
-      return parseInt(window.getComputedStyle(element)['padding' + paddingName].replace('px', ''));
-    };
 
     height -= getPaddings(renderingElement, 'Top') + getPaddings(renderingElement, 'Bottom');
 
@@ -19093,6 +19093,9 @@ function defineC3() {
     }
 
     var width = this.el().querySelector('.c3-chart').offsetWidth - (getPaddings(renderingElement, 'Left') + getPaddings(renderingElement, 'Right'));
+    if (width < 0) {
+      width = 0;
+    }
 
     var DEFAULT_OPTIONS = {
       size: {
@@ -19240,7 +19243,7 @@ function defineC3() {
                   _this.view._artifacts['c3'].resize({ height: c3options.size.height });
                 } else {
                   if (c3options.size.width === 0) {
-                    c3options.size.width = _this.el().offsetWidth;
+                    c3options.size.width = _this.el().offsetWidth - getPaddings(_this.el(), 'Left') - getPaddings(_this.el(), 'Right');
                   }
                   c3options.size.width -= legendElement.offsetWidth;
                   _this.view._artifacts['c3'].resize({ width: c3options.size.width });
