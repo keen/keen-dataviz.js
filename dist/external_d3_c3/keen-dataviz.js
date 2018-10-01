@@ -18780,6 +18780,9 @@ exports.default = function (options) {
     if (pagination.total > pagination.limit) {
       renderPaginationComponent.call(datavizInstance);
     }
+    if (options.onPaginated) {
+      options.onPaginated();
+    }
   }
 
   function renderLegendComponent() {
@@ -18826,9 +18829,9 @@ exports.default = function (options) {
       });
     });
 
-    if (options.callback) {
-      options.callback();
-      options.callback = null;
+    if (options.onLegendRendered) {
+      options.onLegendRendered();
+      options.onLegendRendered = null;
     }
   }
 
@@ -19239,7 +19242,7 @@ function defineC3() {
 
           // Render artifacts
           this.view._artifacts['c3'] = _c2.default.generate(c3options);
-          _paginatingLegend2.default.call(this, _extends({}, options, { callback: function callback() {
+          _paginatingLegend2.default.call(this, _extends({}, options, { onLegendRendered: function onLegendRendered() {
               var legendElement = _this.el().querySelector('.keen-c3-legend');
               if (legendElement) {
                 if (options.legend.position === 'top' || options.legend.position === 'bottom') {
@@ -19253,7 +19256,11 @@ function defineC3() {
                   _this.view._artifacts['c3'].resize({ width: c3options.size.width });
                 }
               }
-            } }));
+            },
+            onPaginated: function onPaginated() {
+              _this.view._artifacts['c3'].flush();
+            }
+          }));
         } else {
           this.view._artifacts['c3'] = _c2.default.generate(options);
         }
