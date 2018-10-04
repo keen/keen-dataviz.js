@@ -21135,11 +21135,22 @@ function mapLabelsExec(_ref) {
 
 function mapLabels(datavizInstance) {
   // Write labels
-  if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+  if (!datavizInstance.config.labelMappingDimension) {
+    // if not defined use deprecated auto-detecting
+    if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+      datavizInstance.config.labelMappingDimension = 'row';
+    } else {
+      datavizInstance.config.labelMappingDimension = 'column';
+    }
+  }
+
+  if (datavizInstance.config.labelMappingDimension === 'row' || datavizInstance.config.labelMappingDimension === 'both') {
     datavizInstance.dataset.updateColumn(0, function (value) {
       return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
     }.bind(datavizInstance));
-  } else {
+  }
+
+  if (datavizInstance.config.labelMappingDimension === 'column' || datavizInstance.config.labelMappingDimension === 'both') {
     datavizInstance.dataset.updateRow(0, function (value) {
       return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
     }.bind(datavizInstance));
