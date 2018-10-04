@@ -76,6 +76,9 @@ const q1= client.query({
   analysis_type: 'count',
   event_collection: 'logins',
   timeframe: 'this_3_months',
+
+ sortGroups: 'desc',
+  group_by: 'geo_information.city'
   /*
   filters: [
     {property_name: 'aaa',
@@ -83,13 +86,17 @@ const q1= client.query({
 property_value: true}
   ]
 ,
+
+group_by: 'geo_information.city',
+
+timezone: 'UTC',
 */
- group_by: 'geo_information.city',
- interval: 'monthly',
- timezone: 'UTC',
- cache: {
-   maxAge: 1000 * 60 * 60 * 24
- }
+,
+cache: {
+  maxAge: 1000 * 60 * 60 * 24
+}
+
+
 });
 
 /*
@@ -106,21 +113,42 @@ const q3= client.query({
   timeframe: 'this_14_days',
   interval: 'daily'
 });
-*/
-q1.then(function(res) {
 
+,
+
+legend:{
+  position: 'right'
+}
+*/
+const char1= new KeenDataviz({
+  container: '#some_container', // required
+  type: 'table',
+  labelMapping: {
+    'Index': 'Date of purchase',
+    'Result': 'Number of avocados',
+    'null': 'Not set'
+  },
+  sortGroups: 'desc',
+  labelMappingDimension: 'both' 
+
+});
+
+q1.then(function(res) {
+  char1.data(res)
+        .render();
+/*
   chart = new KeenDataviz({
     container: '#some_container', // required
-    type: 'area',
+    type: 'table',
+    labelMapping: {
+      'Index': 'Date of purchase',
+      'Result': 'Number of avocados'
+    },
 
-    results: res,
-
-    legend:{
-      position: 'right'
-    }
+    results: res
 
   });
-
+*/
 
   })
   .catch(function(err) {

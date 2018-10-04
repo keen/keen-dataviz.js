@@ -394,6 +394,18 @@ const chart = new KeenDataviz({
 });
 ```
 
+### Label mapping dimensions: Column, Row, Both
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  labelMapping: {
+    'long_complex_key_name': 'Human readable label',
+  },
+  labelMappingDimension: 'column' // column, row, both
+});
+```
+
 ### Error mapping
 
 ```javascript
