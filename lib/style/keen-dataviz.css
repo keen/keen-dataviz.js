@@ -189,22 +189,58 @@
 
 
 /* C3 CUSTOMIZATIONS */
-.keen-dataviz .c3 svg,
-.keen-dataviz .c3-tooltip-container {
-}
-.keen-dataviz .c3-tooltip-container th {
-  max-width: 50%;
-  word-wrap: break-word;
-  color: var(--white);
-  background: var(--black);
-}
-.keen-dataviz .c3-tooltip-container td {
-  max-width: 50%;
-  word-wrap: break-word;
-}
-.keen-dataviz .c3-tooltip-container td.name span {
-}
-.keen-dataviz .c3-chart-arc text {
+.keen-dataviz {
+  .c3-axis-y{
+    path {
+       display: none;
+    }
+
+    .tick line{
+      display: none;
+    }
+  }
+
+  .tick line, path.domain{
+    stroke-opacity: 0.2;
+  }
+
+  .c3-ygrid{
+    stroke-dasharray: none;
+    stroke-opacity: 0.1;
+  }
+
+  .c3-tooltip {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding:  0.2em;
+    border-radius: 0.2em;
+    box-shadow: none;
+    border-collapse: separate;
+
+    th {
+      text-align: center;
+    }
+
+    table, th, tr, td {
+      border: none;
+      background: none;
+      font-size: 0.9em;
+    }
+  }
+
+  .c3-tooltip-container {
+    th {
+      max-width: 50%;
+      word-wrap: break-word;
+      color: var(--black);
+      background: none;
+      font-weight: normal;
+    },
+
+    td {
+      max-width: 50%;
+      word-wrap: break-word;
+    }
+  }
 }
 
 .keen-dataviz-rendering{
@@ -338,6 +374,7 @@
       height: 100%;
       margin-right: 0.5em;
       pointer-events: none;
+      flex: none;
     }
     &-text{
       pointer-events: none;

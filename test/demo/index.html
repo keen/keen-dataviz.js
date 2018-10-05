@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./keen-dataviz.css">
     <style>
     body {
-      background: #f2f2f2;
       padding: 20px;
     }
     h1, h2, h3 {
@@ -38,6 +37,16 @@
     }
     </style>
     <style>
+
+
+    /* !!! */
+
+
+
+
+
+
+
       .custom-theme {
         background: #fff;
         border: 1px solid #d7d7d7;
@@ -707,13 +716,16 @@
 
 
       // -------------------------
-      // LINE
+      // LINE !!!
       // -------------------------
 
       window.line = new KeenDataviz({
           container: '.chart-c3-line',
           title: 'Line Chart',
-          type: 'line'
+          type: 'line',
+
+
+
         })
         .data(makeGroupedDataset())
         .render();
