@@ -45043,9 +45043,16 @@ exports.default = function (startDate, endDate) {
         // decide closest point and return
         return $$.findClosest(candidates, pos);
     };
+    ChartInternal.prototype.horizontalDistance = function(data, pos) {
+    var $$ = this,
+        config = $$.config,
+        xIndex = config.axis_rotated ? 1 : 0,
+        x = $$.x(data.x);
+         return Math.abs(x - pos[xIndex]);
+};
     ChartInternal.prototype.findClosest = function (values, pos) {
         var $$ = this,
-            minDist = $$.config.point_sensitivity,
+            minDist = Infinity,
             closest;
 
         // find mouseovering bar
@@ -45062,7 +45069,7 @@ exports.default = function (startDate, endDate) {
         values.filter(function (v) {
             return v && !$$.isBarType(v.id);
         }).forEach(function (v) {
-            var d = $$.dist(v, pos);
+            var d = $$.horizontalDistance(v, pos);
             if (d < minDist) {
                 minDist = d;
                 closest = v;
@@ -48569,6 +48576,8 @@ function defineC3() {
               class: options.partialIntervalIndicator.className
             };
             options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
+
+            var findMin = results;
           }
         }
 
@@ -48673,7 +48682,7 @@ function c3CustomTooltipFiltering(value, ratio, id, index) {
 }
 
 function bindResizeListener(fn) {
-  if ('undefined' === typeof window) return;
+  if (typeof window === 'undefined') return;
   window.onresize = window.resize = function () {};
   if (window.addEventListener) {
     window.addEventListener('resize', fn, true);
@@ -50208,6 +50217,10 @@ var Dataviz = exports.Dataviz = function Dataviz() {
       enabled: true,
       draggable: true,
       multiple: true
+    }
+  }), _defineProperty(_defaultOptions, 'grid', {
+    y: {
+      show: true
     }
   }), _defineProperty(_defaultOptions, 'partialIntervalIndicator', {
     show: undefined,

@@ -19209,6 +19209,8 @@ function defineC3() {
               class: options.partialIntervalIndicator.className
             };
             options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
+
+            var findMin = results;
           }
         }
 
@@ -19313,7 +19315,7 @@ function c3CustomTooltipFiltering(value, ratio, id, index) {
 }
 
 function bindResizeListener(fn) {
-  if ('undefined' === typeof window) return;
+  if (typeof window === 'undefined') return;
   window.onresize = window.resize = function () {};
   if (window.addEventListener) {
     window.addEventListener('resize', fn, true);
@@ -20360,6 +20362,10 @@ var Dataviz = exports.Dataviz = function Dataviz() {
       enabled: true,
       draggable: true,
       multiple: true
+    }
+  }), _defineProperty(_defaultOptions, 'grid', {
+    y: {
+      show: true
     }
   }), _defineProperty(_defaultOptions, 'partialIntervalIndicator', {
     show: undefined,
