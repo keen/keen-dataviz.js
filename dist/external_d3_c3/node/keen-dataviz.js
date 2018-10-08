@@ -19209,8 +19209,6 @@ function defineC3() {
               class: options.partialIntervalIndicator.className
             };
             options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
-
-            var findMin = results;
           }
         }
 
