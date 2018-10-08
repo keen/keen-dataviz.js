@@ -439,8 +439,11 @@
     stroke-dasharray: none;
     stroke-opacity: 0.1;
   }
+.keen-dataviz .c3-ygrids :nth-child(even) {
+    display: none;
+  }
 .keen-dataviz .c3-tooltip {
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     padding:  0.2em;
     border-radius: 0.2em;
     -webkit-box-shadow: none;

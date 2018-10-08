@@ -209,8 +209,12 @@
     stroke-opacity: 0.1;
   }
 
+  .c3-ygrids :nth-child(even) {
+    display: none;
+  }
+
   .c3-tooltip {
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     padding:  0.2em;
     border-radius: 0.2em;
     box-shadow: none;
