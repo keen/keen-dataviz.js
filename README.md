@@ -69,11 +69,11 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
   <head>
     <meta charset="utf-8">
     <!-- Use keen-analysis.js to fetch query results -->
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-analysis@3.0"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-analysis@3"></script>
 
     <!-- Dataviz dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.css" rel="stylesheet" />
-    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-dataviz@3.0/dist/keen-dataviz.min.js"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.js"></script>
   </head>
   <body>
     <!-- DOM Element -->
