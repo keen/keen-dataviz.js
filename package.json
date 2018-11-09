@@ -18,8 +18,7 @@
     "build:node": "TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p",
     "profile": "webpack --profile --json > stats.json",
     "analyze": "webpack-bundle-analyzer stats.json /dist",
-    "preversion": "npm run build",
-    "version": "git add .",
+    "version": "npm run build && git add .",
     "postversion": "git push && git push --tags",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch"

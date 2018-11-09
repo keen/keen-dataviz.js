@@ -47,6 +47,7 @@ let chart = new KeenDataviz({
   // results
 });
 
+window.chart = chart;
 
 /*
 const countPurchases = client
@@ -77,8 +78,6 @@ const q1= client.query({
   event_collection: 'logins',
   timeframe: 'this_3_months',
 
- sortGroups: 'desc',
-  group_by: 'geo_information.city'
   /*
   filters: [
     {property_name: 'aaa',
@@ -91,6 +90,8 @@ group_by: 'geo_information.city',
 
 timezone: 'UTC',
 */
+
+interval: 'daily'
 ,
 cache: {
   maxAge: 1000 * 60 * 60 * 24
@@ -122,14 +123,7 @@ legend:{
 */
 const char1= new KeenDataviz({
   container: '#some_container', // required
-  type: 'table',
-  labelMapping: {
-    'Index': 'Date of purchase',
-    'Result': 'Number of avocados',
-    'null': 'Not set'
-  },
-  sortGroups: 'desc',
-  labelMappingDimension: 'both'
+  type: 'area'
 
 });
 
