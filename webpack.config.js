@@ -87,6 +87,11 @@ module.exports = {
     inline: true,
     hot: false,
     watchContentBase: true,
+    disableHostCheck: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+    },
   },
 
   externals: !process.env.EXTERNAL_D3_C3 ? {} : {
