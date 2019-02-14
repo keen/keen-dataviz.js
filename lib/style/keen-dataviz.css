@@ -53,18 +53,23 @@
     text-align: center;
     display: flex;
     align-items: center;
-    flex-flow: row wrap;
+    flex-flow: row;
     justify-content: space-around;
+    flex-direction: column;
     padding: 1em 0;
     min-height: 4em;
     height: inherit;
   }
 
+  .reverse {
+    flex-direction: column-reverse;
+  }
+
   /* METRIC */
   &-metric {
     height: inherit;
-    color: var(--white);
-    background: rgb(0, 187, 222);
+    color: var(--black);
+    background: var(--silver);
     &-value {
       font-size: 4.3em;
       font-weight: 700;
@@ -75,6 +80,35 @@
       font-weight: 200;
       width: 100%;
     }
+    &-green {
+      color: var(--green);
+      font-size: 2em;
+    }
+    &-red {
+      color: var(--red);
+      font-size: 2em;
+    }
+  }
+
+  .-green-arrow {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid var(--green);
+    position: relative;
+    top: 22px;
+    left: -20px;
+  }
+  .-red-arrow {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--red);
+    position: relative;
+    top: 25px;
+    left: -20px;
   }
 
   /* MESSAGE */
