@@ -28,6 +28,18 @@ Types like "bar" and "line" support [axis rotation](http://c3js.org/samples/axes
 ### Custom (built by us):
 
 * metric
+
+Will display results and if `previousResults` are set, show the difference between them.
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container',
+    type: 'metric',
+    results,
+    previousResults
+  })
+```
+
 * message
 
 ## Prototype methods

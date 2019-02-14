@@ -61,19 +61,24 @@
     height: inherit;
   }
 
-  .reverse {
+  .metric-comparison {
     flex-direction: column-reverse;
+    color: var(--black);
+    background: #f9f9f9;
   }
 
   /* METRIC */
   &-metric {
     height: inherit;
-    color: var(--black);
-    background: var(--silver);
+    color: var(--white);
+    background: rgb(0, 187, 222);
     &-value {
       font-size: 4.3em;
       font-weight: 700;
       width: 100%;
+      &-smaller {
+        font-size: 3em;
+      }
     }
     &-title {
       font-size: 2em;
@@ -90,25 +95,25 @@
     }
   }
 
-  .-green-arrow {
+  .arrow-green {
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid var(--green);
     position: relative;
-    top: 22px;
-    left: -20px;
+    top: 0.7em;
+    left: -0.6em;
   }
-  .-red-arrow {
+  .arrow-red {
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 8px solid var(--red);
     position: relative;
-    top: 25px;
-    left: -20px;
+    top: 0.8em;
+    left: -0.6em;
   }
 
   /* MESSAGE */
