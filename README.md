@@ -639,7 +639,7 @@ chart
   .render(customParser(result));
 ```
 
-### Parsing values of each column in Table
+### Mapping values of a table column
 
 ```javascript
 const chart = new KeenDataviz({
@@ -648,7 +648,7 @@ const chart = new KeenDataviz({
     table: {
       mapValues: {
         'keen.timestamp': (value) => {
-          return value;
+          return value.toUpperCase();
         }
       }
     }
