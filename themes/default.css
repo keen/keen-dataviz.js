@@ -1,5 +1,5 @@
 .demo-theme-default {
-  background: #f2f2f2;
+  background: #fbfbfb;
 }
 .demo-theme-default h1 {
   color: #282828;
@@ -9,4 +9,9 @@
 }
 .demo-theme-default h3 {
   color: #555;
+}
+
+.keen-ui-col-4,
+.keen-ui-col-8 {
+  padding: 1% 3%;
 }

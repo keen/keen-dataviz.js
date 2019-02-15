@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Keen Dataviz Demo | Keen IO</title>
+    <title>Keen Dataviz Demo | Keen</title>
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/737368/747986/css/fonts.css" />
     <link rel="stylesheet" href="./assets/keen-dashboards.css" />
     <link rel="stylesheet" href="./assets/demo-styles.css" />
 
-    <link rel="stylesheet" href="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.2.0.min.css">
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.2.0.min.js"></script>
-    <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.2.0.min.js"></script>
+    <!-- Dataviz dependencies -->
+    <link href="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.css" rel="stylesheet" />
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.js"></script>
 
     <script src="./assets/faker.js"></script>
 
@@ -38,86 +38,73 @@
       <div class="keen-ui-row">
         <div class="keen-ui-col-8">
           <h2>Line Chart</h2>
-          <div class="chart-c3-line-time-multi"></div>
+          <div class="chart-c3-line-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Gauge</h2>
-          <div class="chart-c3-gauge"></div>
+          <div class="chart-c3-gauge chart-standard-height"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-8">
           <h2>Area Chart</h2>
-          <div class="chart-c3-area-time-multi"></div>
+          <div class="chart-c3-area-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4" id="nested">
           <h2>Metric</h2>
-          <div class="chart-demo-metric"></div>
+          <div class="chart-demo-metric chart-standard-height"></div>
         </div>
       </div>
-
-
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-8">
           <h2>Spline Chart</h2>
-          <div class="chart-c3-spline-time-multi"></div>
+          <div class="chart-c3-spline-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Donut Chart</h2>
-          <div class="chart-c3-donut"></div>
+          <div class="chart-c3-donut chart-standard-height"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-8">
           <h2>Step Chart</h2>
-          <div class="chart-c3-step-time-multi"></div>
+          <div class="chart-c3-step-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Pie Chart</h2>
-          <div class="chart-c3-pie"></div>
+          <div class="chart-c3-pie chart-standard-height"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-8">
           <h2>Area-Spline Chart</h2>
-          <div class="chart-c3-area-spline-time-multi"></div>
+          <div class="chart-c3-area-spline-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Bar Chart</h2>
-          <div class="chart-c3-bar-multi"></div>
+          <div class="chart-c3-bar-multi chart-standard-height"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-8">
           <h2>Area-Step Chart</h2>
-          <div class="chart-c3-area-step-time-multi"></div>
+          <div class="chart-c3-area-step-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
           <h2>Horizontal Bar Chart</h2>
-          <div class="chart-c3-bar-stacked"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-6">
-          <h2>Message</h2>
-          <div class="chart-demo-message"></div>
-        </div>
-        <div class="keen-ui-col-6">
-          <h2>Spinner</h2>
-          <div id="chart-demo-spinner"></div>
+          <div class="chart-c3-bar-stacked chart-standard-height"></div>
         </div>
       </div>
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <h2>Table</h2>
-          <div class="chart-demo-table"></div>
+          <div class="chart-demo-table chart-standard-height"></div>
         </div>
       </div>
 
@@ -335,18 +322,6 @@
         [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12, 189.98, 322.43, 654.44 ],
         [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ]
       ];
-
-      window.spinner = new Dataviz()
-        .height(280)
-        .el('#chart-demo-spinner')
-        .type('spinner')
-        .render();
-
-      window.message = new Dataviz()
-        .height(280)
-        .el('.chart-demo-message')
-        .type('message')
-        .message('This is a manual message!');
 
       window.metric = new Dataviz()
         .height(280)

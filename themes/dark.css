@@ -50,6 +50,7 @@
 .demo-theme-dark .keen-dataviz .keen-dataviz-table th {
   border-bottom: medium none;
   color: #fff;
+  background: #000;
   font-weight: 200;
 }
 .demo-theme-dark .keen-dataviz .keen-dataviz-table td {
@@ -106,4 +107,20 @@
   background-color: #282828;
   border-left: 1px dotted #808080;
   color: #fff;
+}
+
+.demo-theme-dark .keen-dataviz{
+  color: #ddd;
+}
+
+.demo-theme-dark .keen-dataviz .c3-tooltip {
+  border: 0;
+  box-shadow: none;
+  background-color: #000;
+}
+.demo-theme-dark .keen-c3-legend-label-overlay{
+  color: #000;
+}
+.demo-theme-dark .keen-dataviz .c3-tooltip-container th {
+  color:#fff;
 }

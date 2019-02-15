@@ -306,10 +306,6 @@
   color: #4D4D4D;
 }
 
-.keen-dataviz .keen-dataviz-table .keen-dataviz-table-dataset thead {
-  visibility: hidden;
-}
-
 .keen-dataviz .keen-dataviz-table .keen-dataviz-table-fixed-header {
   background: #FFFFFF;
   border-bottom: 1px solid rgba(0,0,0,.15);
@@ -1315,4 +1311,8 @@
   font-weight: 200;
   line-height: 20px;
   padding: 20px 0 0;
+}
+
+.chart-standard-height{
+  height:300px;
 }
