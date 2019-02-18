@@ -54,7 +54,7 @@
     display: flex;
     align-items: center;
     flex-flow: row;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
     padding: 1em 0;
     min-height: 4em;
