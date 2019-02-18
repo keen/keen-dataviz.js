@@ -35,8 +35,8 @@
         align-items: center;
     -ms-flex-flow: row;
         flex-flow: row;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+    -ms-flex-pack: center;
+        justify-content: center;
     -ms-flex-direction: column;
         flex-direction: column;
     padding: 1em 0;
