@@ -86,6 +86,13 @@
           <h2>Metric</h2>
           <div class="chart-demo-metric keen-chart-small-container"></div>
         </div>
+        <div class="keen-ui-col-4" id="nested">
+          <h2>Metric with previous results</h2>
+          <div class="chart-demo-metric-previous-results keen-chart-small-container"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
         <div class="keen-ui-col-4">
           <h2>Message</h2>
           <div class="chart-demo-message keen-chart-small-container"></div>
@@ -348,6 +355,9 @@
 
       const metricData = { result: 24501 };
 
+      const results = { result: 24501 };
+      const previousResults = { result: 20000 };
+
       const gaugeData = { result: 79 };
 
       const groupedData = [
@@ -551,6 +561,14 @@
         })
         .prepare()
         .render(metricData);
+
+      window.metric = new KeenDataviz({
+          container: '#nested .chart-demo-metric-previous-results',
+          type: 'metric',
+          title: 'High-fives today',
+          results,
+          previousResults
+        })
 
       window.table = new KeenDataviz({
           container: '.chart-demo-table',

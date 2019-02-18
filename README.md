@@ -639,6 +639,22 @@ chart
   .render(customParser(result));
 ```
 
+### Mapping values of a table column
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container',
+    type: 'table',
+    table: {
+      mapValues: {
+        'keen.timestamp': (value) => {
+          return value.toUpperCase();
+        }
+      }
+    }
+  })
+```
+
 ### Partial interval visual indicator
 
 By default, it's enabled for all charts with relative time frames starting with this_
