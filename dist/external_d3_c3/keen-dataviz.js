@@ -17891,6 +17891,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _momentTimezone = __webpack_require__(141);
@@ -17940,6 +17942,15 @@ function _generateTableRows(datavizInstance, dataset) {
     pages = Math.ceil((dataset.length - 1) / config.limit);
   }
 
+  var columnsArray = datavizInstance.config.table.columns ? datavizInstance.config.table.columns : datavizInstance.dataset.matrix[0];
+
+  var checkArray = {};
+  var mapValues = datavizInstance.config.table.mapValues;
+
+  for (var key in mapValues) {
+    checkArray[columnsArray.indexOf(key)] = key;
+  }
+
   // var london     = newYork.clone().tz("Europe/London");
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
@@ -17955,12 +17966,21 @@ function _generateTableRows(datavizInstance, dataset) {
       var _iteratorError2 = undefined;
 
       try {
-        for (var _iterator2 = row[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var rowCol = _step2.value;
+        for (var _iterator2 = row.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _ref = _step2.value;
+
+          var _ref2 = _slicedToArray(_ref, 2);
+
+          var index = _ref2[0];
+          var rowCol = _ref2[1];
 
           if (datavizInstance.config.timezone && rowCol instanceof Date) {
             var dateTimeTimezoned = _momentTimezone2.default.tz(rowCol, "UTC").clone().tz(datavizInstance.config.timezone);
             html += '<td>' + dateTimeTimezoned.toString() + '</td>';
+            continue;
+          }
+          if (checkArray[index]) {
+            html += '<td>' + mapValues[checkArray[index]](rowCol) + '</td>';
             continue;
           }
           html += '<td>' + rowCol + '</td>';
@@ -18266,6 +18286,21 @@ exports.default = {
     var suffix = '';
     var formattedNum = void 0;
     var valueEl = void 0;
+    var flexDifferenceStyle = '';
+    var resultDifference = '';
+    var differenceStyle = '';
+    var smallerValue = '';
+    var _config = this.config,
+        results = _config.results,
+        previousResults = _config.previousResults;
+
+    if (results && previousResults) {
+      flexDifferenceStyle = previousResults ? ' metric-comparison' : '';
+      smallerValue = previousResults && title ? '-smaller' : '';
+      resultDifference = results.result - previousResults.result;
+      differenceStyle = resultDifference > 0 ? '-green' : '-red';
+      resultDifference = Math.abs(resultDifference);
+    }
 
     if (typeof this.data()[1][1] === 'number') {
       value = this.data()[1][1];
@@ -18274,6 +18309,9 @@ exports.default = {
     formattedNum = value;
     if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(value))) {
       formattedNum = (0, _prettyNumber.prettyNumber)(value);
+      if (results && previousResults) {
+        resultDifference = (0, _prettyNumber.prettyNumber)(resultDifference);
+      }
     }
 
     if (opts['prefix']) {
@@ -18282,14 +18320,16 @@ exports.default = {
     if (opts['suffix']) {
       suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
     }
-
     html += '<div class="' + theme + '">';
-    html += '<div class="' + theme + '-metric keen-dataviz-box" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
-    html += '<span><div class="' + theme + '-metric-value">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
+    html += '<div class="' + theme + '-metric keen-dataviz-box' + flexDifferenceStyle + '" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
+    if (results && previousResults) {
+      html += '<div class="' + theme + '-metric' + differenceStyle + '"><div class="arrow' + differenceStyle + '"> </div>' + (0, _escapeHtml.escapeHtml)(resultDifference) + '</div>';
+    }
+    html += '<div class="' + theme + '-metric-value' + smallerValue + '">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
     if (title) {
       html += '<div class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</div>';
     }
-    html += '</span></div>';
+    html += '</div>';
     html += '</div>';
 
     this.el().innerHTML = html;
@@ -19317,7 +19357,7 @@ function getDefaultType(parser) {
 /* 151 */
 /***/ (function(module) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.0.30","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.12","d3":"^5.4.0","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.1.0","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.12","d3":"^5.4.0","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
 
 /***/ }),
 /* 152 */
@@ -20146,7 +20186,7 @@ var Dataviz = exports.Dataviz = function Dataviz() {
   }), _defineProperty(_defaultOptions, 'partialIntervalIndicator', {
     show: undefined,
     className: 'partial-interval-indicator'
-  }), _defineProperty(_defaultOptions, 'timezone', 'UTC'), _defaultOptions);
+  }), _defineProperty(_defaultOptions, 'timezone', 'UTC'), _defineProperty(_defaultOptions, 'table', {}), _defaultOptions);
 
   this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
 
