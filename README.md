@@ -643,7 +643,7 @@ chart
 
 ```javascript
 const chart = new KeenDataviz({
-    container: '#some_container',
+    container: '#some_container', // required
     type: 'table',
     table: {
       mapValues: {
@@ -651,6 +651,17 @@ const chart = new KeenDataviz({
           return value.toUpperCase();
         }
       }
+    }
+  })
+```
+
+### Chart render only when visible
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container', // required
+    chart: {
+      renderOnVisible: true
     }
   })
 ```
