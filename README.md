@@ -660,9 +660,7 @@ const chart = new KeenDataviz({
 ```javascript
 const chart = new KeenDataviz({
     container: '#some_container', // required
-    chart: {
-      renderOnVisible: true
-    }
+    renderOnVisible: true
   })
 ```
 
