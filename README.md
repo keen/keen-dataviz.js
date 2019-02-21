@@ -643,7 +643,7 @@ chart
 
 ```javascript
 const chart = new KeenDataviz({
-    container: '#some_container',
+    container: '#some_container', // required
     type: 'table',
     table: {
       mapValues: {
@@ -652,6 +652,15 @@ const chart = new KeenDataviz({
         }
       }
     }
+  })
+```
+
+### Chart render only when visible
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container', // required
+    renderOnVisible: true
   })
 ```
 
