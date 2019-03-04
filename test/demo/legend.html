@@ -47,6 +47,28 @@ let chart = new KeenDataviz({
   // results
 });
 
+/*
+clientTracking.recordEvent({
+  collection: 'abc',
+  event: {
+    z: 1,
+    aaa: '<img src=x onerror=alert(51)>',
+    x: 333
+  }
+});
+*/
+
+client.query({
+  analysis_type: 'extraction',
+  event_collection: 'abc',
+  timeframe: 'this_20_minutes'
+}).then(results => {
+  chart.render(results);
+});
+
+
+return ;
+
 window.chart = chart;
 
 /*
