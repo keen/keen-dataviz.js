@@ -24539,14 +24539,18 @@ function testString(input) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.stripHtmlTags = stripHtmlTags;
+/**
+ * Strip html tags from string
+ *
+ * @param  {string} string The string to strip
+ * @return {string}
+ * @public
+ */
 
-exports.default = function (len) {
-  var list = [];
-  for (var i = 0; i < len; i++) {
-    list.push(null);
-  }
-  return list;
-};
+function stripHtmlTags(inputString) {
+  return inputString.replace(/(<([^>]+)>)/ig, '');
+}
 
 /***/ }),
 /* 7 */
@@ -24558,10 +24562,29 @@ exports.default = function (len) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+exports.default = function (len) {
+  var list = [];
+  for (var i = 0; i < len; i++) {
+    list.push(null);
+  }
+  return list;
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.appendColumn = appendColumn;
 exports.appendRow = appendRow;
 
-var _createNullList = __webpack_require__(6);
+var _createNullList = __webpack_require__(7);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
@@ -24652,7 +24675,7 @@ function appendRow(str, input) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24758,7 +24781,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24864,7 +24887,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24977,7 +25000,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25040,7 +25063,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25111,7 +25134,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25193,7 +25216,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25254,7 +25277,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25315,7 +25338,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25416,7 +25439,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25570,7 +25593,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js language configuration
@@ -25692,7 +25715,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25753,7 +25776,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25814,7 +25837,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25908,7 +25931,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -26005,7 +26028,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26130,7 +26153,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26195,7 +26218,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26265,7 +26288,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26384,7 +26407,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26454,7 +26477,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26546,7 +26569,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26678,7 +26701,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26740,7 +26763,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26812,7 +26835,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26903,7 +26926,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27017,7 +27040,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27131,7 +27154,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27202,7 +27225,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27378,7 +27401,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27537,7 +27560,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27611,7 +27634,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27674,7 +27697,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27775,7 +27798,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27960,7 +27983,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28038,7 +28061,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28102,7 +28125,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28170,7 +28193,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28299,7 +28322,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28426,7 +28449,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28489,7 +28512,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28579,7 +28602,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28669,7 +28692,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28795,7 +28818,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28860,7 +28883,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28956,7 +28979,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29019,7 +29042,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29104,7 +29127,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29189,7 +29212,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29352,7 +29375,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29459,7 +29482,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29543,7 +29566,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29636,7 +29659,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29703,7 +29726,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29818,7 +29841,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29918,7 +29941,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30039,7 +30062,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30112,7 +30135,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30251,7 +30274,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30341,7 +30364,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30425,7 +30448,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30554,7 +30577,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30667,7 +30690,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30757,7 +30780,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30849,7 +30872,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30934,7 +30957,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31029,7 +31052,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31101,7 +31124,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31236,7 +31259,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31321,7 +31344,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31419,7 +31442,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31532,7 +31555,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31689,7 +31712,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31816,7 +31839,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31916,7 +31939,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32043,7 +32066,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32169,7 +32192,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32249,7 +32272,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32328,7 +32351,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32406,7 +32429,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32487,7 +32510,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32564,7 +32587,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32650,7 +32673,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32713,7 +32736,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32825,7 +32848,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32934,7 +32957,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33003,7 +33026,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33086,7 +33109,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33172,7 +33195,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33267,7 +33290,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33362,7 +33385,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33436,7 +33459,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33506,7 +33529,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33571,7 +33594,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33641,7 +33664,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33711,7 +33734,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33777,7 +33800,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33847,7 +33870,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33950,7 +33973,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34052,7 +34075,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34131,7 +34154,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34210,7 +34233,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34289,7 +34312,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34352,7 +34375,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34435,7 +34458,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34501,7 +34524,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34683,7 +34706,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34774,7 +34797,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34928,7 +34951,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35039,7 +35062,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35161,7 +35184,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35283,7 +35306,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35344,7 +35367,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35437,7 +35460,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35572,7 +35595,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35680,7 +35703,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35742,7 +35765,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35849,7 +35872,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35911,7 +35934,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36036,7 +36059,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36098,7 +36121,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36160,7 +36183,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36298,7 +36321,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36374,7 +36397,7 @@ function appendRow(str, input) {
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36401,29 +36424,6 @@ function extendDeep(target) {
     });
   }
   return target;
-}
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.stripHtmlTags = stripHtmlTags;
-/**
- * Strip html tags from string
- *
- * @param  {string} string The string to strip
- * @return {string}
- * @public
- */
-
-function stripHtmlTags(inputString) {
-  return inputString.replace(/(<([^>]+)>)/ig, '');
 }
 
 /***/ }),
@@ -47249,7 +47249,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = undefined;
 
-var _append = __webpack_require__(7);
+var _append = __webpack_require__(8);
 
 var append = _interopRequireWildcard(_append);
 
@@ -47415,252 +47415,252 @@ module.exports = {"version":"2018e","zones":["Africa/Abidjan|LMT GMT|g.8 0|01|-2
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 130,
-	"./af.js": 130,
-	"./ar": 129,
-	"./ar-dz": 128,
-	"./ar-dz.js": 128,
-	"./ar-kw": 127,
-	"./ar-kw.js": 127,
-	"./ar-ly": 126,
-	"./ar-ly.js": 126,
-	"./ar-ma": 125,
-	"./ar-ma.js": 125,
-	"./ar-sa": 124,
-	"./ar-sa.js": 124,
-	"./ar-tn": 123,
-	"./ar-tn.js": 123,
-	"./ar.js": 129,
-	"./az": 122,
-	"./az.js": 122,
-	"./be": 121,
-	"./be.js": 121,
-	"./bg": 120,
-	"./bg.js": 120,
-	"./bm": 119,
-	"./bm.js": 119,
-	"./bn": 118,
-	"./bn.js": 118,
-	"./bo": 117,
-	"./bo.js": 117,
-	"./br": 116,
-	"./br.js": 116,
-	"./bs": 115,
-	"./bs.js": 115,
-	"./ca": 114,
-	"./ca.js": 114,
-	"./cs": 113,
-	"./cs.js": 113,
-	"./cv": 112,
-	"./cv.js": 112,
-	"./cy": 111,
-	"./cy.js": 111,
-	"./da": 110,
-	"./da.js": 110,
-	"./de": 109,
-	"./de-at": 108,
-	"./de-at.js": 108,
-	"./de-ch": 107,
-	"./de-ch.js": 107,
-	"./de.js": 109,
-	"./dv": 106,
-	"./dv.js": 106,
-	"./el": 105,
-	"./el.js": 105,
-	"./en-au": 104,
-	"./en-au.js": 104,
-	"./en-ca": 103,
-	"./en-ca.js": 103,
-	"./en-gb": 102,
-	"./en-gb.js": 102,
-	"./en-ie": 101,
-	"./en-ie.js": 101,
-	"./en-il": 100,
-	"./en-il.js": 100,
-	"./en-nz": 99,
-	"./en-nz.js": 99,
-	"./eo": 98,
-	"./eo.js": 98,
-	"./es": 97,
-	"./es-do": 96,
-	"./es-do.js": 96,
-	"./es-us": 95,
-	"./es-us.js": 95,
-	"./es.js": 97,
-	"./et": 94,
-	"./et.js": 94,
-	"./eu": 93,
-	"./eu.js": 93,
-	"./fa": 92,
-	"./fa.js": 92,
-	"./fi": 91,
-	"./fi.js": 91,
-	"./fo": 90,
-	"./fo.js": 90,
-	"./fr": 89,
-	"./fr-ca": 88,
-	"./fr-ca.js": 88,
-	"./fr-ch": 87,
-	"./fr-ch.js": 87,
-	"./fr.js": 89,
-	"./fy": 86,
-	"./fy.js": 86,
-	"./gd": 85,
-	"./gd.js": 85,
-	"./gl": 84,
-	"./gl.js": 84,
-	"./gom-latn": 83,
-	"./gom-latn.js": 83,
-	"./gu": 82,
-	"./gu.js": 82,
-	"./he": 81,
-	"./he.js": 81,
-	"./hi": 80,
-	"./hi.js": 80,
-	"./hr": 79,
-	"./hr.js": 79,
-	"./hu": 78,
-	"./hu.js": 78,
-	"./hy-am": 77,
-	"./hy-am.js": 77,
-	"./id": 76,
-	"./id.js": 76,
-	"./is": 75,
-	"./is.js": 75,
-	"./it": 74,
-	"./it.js": 74,
-	"./ja": 73,
-	"./ja.js": 73,
-	"./jv": 72,
-	"./jv.js": 72,
-	"./ka": 71,
-	"./ka.js": 71,
-	"./kk": 70,
-	"./kk.js": 70,
-	"./km": 69,
-	"./km.js": 69,
-	"./kn": 68,
-	"./kn.js": 68,
-	"./ko": 67,
-	"./ko.js": 67,
-	"./ky": 66,
-	"./ky.js": 66,
-	"./lb": 65,
-	"./lb.js": 65,
-	"./lo": 64,
-	"./lo.js": 64,
-	"./lt": 63,
-	"./lt.js": 63,
-	"./lv": 62,
-	"./lv.js": 62,
-	"./me": 61,
-	"./me.js": 61,
-	"./mi": 60,
-	"./mi.js": 60,
-	"./mk": 59,
-	"./mk.js": 59,
-	"./ml": 58,
-	"./ml.js": 58,
-	"./mn": 57,
-	"./mn.js": 57,
-	"./mr": 56,
-	"./mr.js": 56,
-	"./ms": 55,
-	"./ms-my": 54,
-	"./ms-my.js": 54,
-	"./ms.js": 55,
-	"./mt": 53,
-	"./mt.js": 53,
-	"./my": 52,
-	"./my.js": 52,
-	"./nb": 51,
-	"./nb.js": 51,
-	"./ne": 50,
-	"./ne.js": 50,
-	"./nl": 49,
-	"./nl-be": 48,
-	"./nl-be.js": 48,
-	"./nl.js": 49,
-	"./nn": 47,
-	"./nn.js": 47,
-	"./pa-in": 46,
-	"./pa-in.js": 46,
-	"./pl": 45,
-	"./pl.js": 45,
-	"./pt": 44,
-	"./pt-br": 43,
-	"./pt-br.js": 43,
-	"./pt.js": 44,
-	"./ro": 42,
-	"./ro.js": 42,
-	"./ru": 41,
-	"./ru.js": 41,
-	"./sd": 40,
-	"./sd.js": 40,
-	"./se": 39,
-	"./se.js": 39,
-	"./si": 38,
-	"./si.js": 38,
-	"./sk": 37,
-	"./sk.js": 37,
-	"./sl": 36,
-	"./sl.js": 36,
-	"./sq": 35,
-	"./sq.js": 35,
-	"./sr": 34,
-	"./sr-cyrl": 33,
-	"./sr-cyrl.js": 33,
-	"./sr.js": 34,
-	"./ss": 32,
-	"./ss.js": 32,
-	"./sv": 31,
-	"./sv.js": 31,
-	"./sw": 30,
-	"./sw.js": 30,
-	"./ta": 29,
-	"./ta.js": 29,
-	"./te": 28,
-	"./te.js": 28,
-	"./tet": 27,
-	"./tet.js": 27,
-	"./tg": 26,
-	"./tg.js": 26,
-	"./th": 25,
-	"./th.js": 25,
-	"./tl-ph": 24,
-	"./tl-ph.js": 24,
-	"./tlh": 23,
-	"./tlh.js": 23,
-	"./tr": 22,
-	"./tr.js": 22,
-	"./tzl": 21,
-	"./tzl.js": 21,
-	"./tzm": 20,
-	"./tzm-latn": 19,
-	"./tzm-latn.js": 19,
-	"./tzm.js": 20,
-	"./ug-cn": 18,
-	"./ug-cn.js": 18,
-	"./uk": 17,
-	"./uk.js": 17,
-	"./ur": 16,
-	"./ur.js": 16,
-	"./uz": 15,
-	"./uz-latn": 14,
-	"./uz-latn.js": 14,
-	"./uz.js": 15,
-	"./vi": 13,
-	"./vi.js": 13,
-	"./x-pseudo": 12,
-	"./x-pseudo.js": 12,
-	"./yo": 11,
-	"./yo.js": 11,
-	"./zh-cn": 10,
-	"./zh-cn.js": 10,
-	"./zh-hk": 9,
-	"./zh-hk.js": 9,
-	"./zh-tw": 8,
-	"./zh-tw.js": 8
+	"./af": 131,
+	"./af.js": 131,
+	"./ar": 130,
+	"./ar-dz": 129,
+	"./ar-dz.js": 129,
+	"./ar-kw": 128,
+	"./ar-kw.js": 128,
+	"./ar-ly": 127,
+	"./ar-ly.js": 127,
+	"./ar-ma": 126,
+	"./ar-ma.js": 126,
+	"./ar-sa": 125,
+	"./ar-sa.js": 125,
+	"./ar-tn": 124,
+	"./ar-tn.js": 124,
+	"./ar.js": 130,
+	"./az": 123,
+	"./az.js": 123,
+	"./be": 122,
+	"./be.js": 122,
+	"./bg": 121,
+	"./bg.js": 121,
+	"./bm": 120,
+	"./bm.js": 120,
+	"./bn": 119,
+	"./bn.js": 119,
+	"./bo": 118,
+	"./bo.js": 118,
+	"./br": 117,
+	"./br.js": 117,
+	"./bs": 116,
+	"./bs.js": 116,
+	"./ca": 115,
+	"./ca.js": 115,
+	"./cs": 114,
+	"./cs.js": 114,
+	"./cv": 113,
+	"./cv.js": 113,
+	"./cy": 112,
+	"./cy.js": 112,
+	"./da": 111,
+	"./da.js": 111,
+	"./de": 110,
+	"./de-at": 109,
+	"./de-at.js": 109,
+	"./de-ch": 108,
+	"./de-ch.js": 108,
+	"./de.js": 110,
+	"./dv": 107,
+	"./dv.js": 107,
+	"./el": 106,
+	"./el.js": 106,
+	"./en-au": 105,
+	"./en-au.js": 105,
+	"./en-ca": 104,
+	"./en-ca.js": 104,
+	"./en-gb": 103,
+	"./en-gb.js": 103,
+	"./en-ie": 102,
+	"./en-ie.js": 102,
+	"./en-il": 101,
+	"./en-il.js": 101,
+	"./en-nz": 100,
+	"./en-nz.js": 100,
+	"./eo": 99,
+	"./eo.js": 99,
+	"./es": 98,
+	"./es-do": 97,
+	"./es-do.js": 97,
+	"./es-us": 96,
+	"./es-us.js": 96,
+	"./es.js": 98,
+	"./et": 95,
+	"./et.js": 95,
+	"./eu": 94,
+	"./eu.js": 94,
+	"./fa": 93,
+	"./fa.js": 93,
+	"./fi": 92,
+	"./fi.js": 92,
+	"./fo": 91,
+	"./fo.js": 91,
+	"./fr": 90,
+	"./fr-ca": 89,
+	"./fr-ca.js": 89,
+	"./fr-ch": 88,
+	"./fr-ch.js": 88,
+	"./fr.js": 90,
+	"./fy": 87,
+	"./fy.js": 87,
+	"./gd": 86,
+	"./gd.js": 86,
+	"./gl": 85,
+	"./gl.js": 85,
+	"./gom-latn": 84,
+	"./gom-latn.js": 84,
+	"./gu": 83,
+	"./gu.js": 83,
+	"./he": 82,
+	"./he.js": 82,
+	"./hi": 81,
+	"./hi.js": 81,
+	"./hr": 80,
+	"./hr.js": 80,
+	"./hu": 79,
+	"./hu.js": 79,
+	"./hy-am": 78,
+	"./hy-am.js": 78,
+	"./id": 77,
+	"./id.js": 77,
+	"./is": 76,
+	"./is.js": 76,
+	"./it": 75,
+	"./it.js": 75,
+	"./ja": 74,
+	"./ja.js": 74,
+	"./jv": 73,
+	"./jv.js": 73,
+	"./ka": 72,
+	"./ka.js": 72,
+	"./kk": 71,
+	"./kk.js": 71,
+	"./km": 70,
+	"./km.js": 70,
+	"./kn": 69,
+	"./kn.js": 69,
+	"./ko": 68,
+	"./ko.js": 68,
+	"./ky": 67,
+	"./ky.js": 67,
+	"./lb": 66,
+	"./lb.js": 66,
+	"./lo": 65,
+	"./lo.js": 65,
+	"./lt": 64,
+	"./lt.js": 64,
+	"./lv": 63,
+	"./lv.js": 63,
+	"./me": 62,
+	"./me.js": 62,
+	"./mi": 61,
+	"./mi.js": 61,
+	"./mk": 60,
+	"./mk.js": 60,
+	"./ml": 59,
+	"./ml.js": 59,
+	"./mn": 58,
+	"./mn.js": 58,
+	"./mr": 57,
+	"./mr.js": 57,
+	"./ms": 56,
+	"./ms-my": 55,
+	"./ms-my.js": 55,
+	"./ms.js": 56,
+	"./mt": 54,
+	"./mt.js": 54,
+	"./my": 53,
+	"./my.js": 53,
+	"./nb": 52,
+	"./nb.js": 52,
+	"./ne": 51,
+	"./ne.js": 51,
+	"./nl": 50,
+	"./nl-be": 49,
+	"./nl-be.js": 49,
+	"./nl.js": 50,
+	"./nn": 48,
+	"./nn.js": 48,
+	"./pa-in": 47,
+	"./pa-in.js": 47,
+	"./pl": 46,
+	"./pl.js": 46,
+	"./pt": 45,
+	"./pt-br": 44,
+	"./pt-br.js": 44,
+	"./pt.js": 45,
+	"./ro": 43,
+	"./ro.js": 43,
+	"./ru": 42,
+	"./ru.js": 42,
+	"./sd": 41,
+	"./sd.js": 41,
+	"./se": 40,
+	"./se.js": 40,
+	"./si": 39,
+	"./si.js": 39,
+	"./sk": 38,
+	"./sk.js": 38,
+	"./sl": 37,
+	"./sl.js": 37,
+	"./sq": 36,
+	"./sq.js": 36,
+	"./sr": 35,
+	"./sr-cyrl": 34,
+	"./sr-cyrl.js": 34,
+	"./sr.js": 35,
+	"./ss": 33,
+	"./ss.js": 33,
+	"./sv": 32,
+	"./sv.js": 32,
+	"./sw": 31,
+	"./sw.js": 31,
+	"./ta": 30,
+	"./ta.js": 30,
+	"./te": 29,
+	"./te.js": 29,
+	"./tet": 28,
+	"./tet.js": 28,
+	"./tg": 27,
+	"./tg.js": 27,
+	"./th": 26,
+	"./th.js": 26,
+	"./tl-ph": 25,
+	"./tl-ph.js": 25,
+	"./tlh": 24,
+	"./tlh.js": 24,
+	"./tr": 23,
+	"./tr.js": 23,
+	"./tzl": 22,
+	"./tzl.js": 22,
+	"./tzm": 21,
+	"./tzm-latn": 20,
+	"./tzm-latn.js": 20,
+	"./tzm.js": 21,
+	"./ug-cn": 19,
+	"./ug-cn.js": 19,
+	"./uk": 18,
+	"./uk.js": 18,
+	"./ur": 17,
+	"./ur.js": 17,
+	"./uz": 16,
+	"./uz-latn": 15,
+	"./uz-latn.js": 15,
+	"./uz.js": 16,
+	"./vi": 14,
+	"./vi.js": 14,
+	"./x-pseudo": 13,
+	"./x-pseudo.js": 13,
+	"./yo": 12,
+	"./yo.js": 12,
+	"./zh-cn": 11,
+	"./zh-cn.js": 11,
+	"./zh-hk": 10,
+	"./zh-hk.js": 10,
+	"./zh-tw": 9,
+	"./zh-tw.js": 9
 };
 
 
@@ -48362,6 +48362,10 @@ var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
 
 var _each = __webpack_require__(1);
 
+var _stripHtmlTags = __webpack_require__(6);
+
+var _escapeHtml = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var defaults = {
@@ -48440,11 +48444,12 @@ function _generateTableRows(datavizInstance, dataset) {
             html += '<td>' + dateTimeTimezoned.toString() + '</td>';
             continue;
           }
+          var rowColEscaped = (0, _escapeHtml.escapeHtml)(rowCol);
           if (checkArray[index]) {
-            html += '<td>' + mapValues[checkArray[index]](rowCol) + '</td>';
+            html += '<td>' + mapValues[checkArray[index]](rowColEscaped) + '</td>';
             continue;
           }
-          html += '<td>' + rowCol + '</td>';
+          html += '<td>' + rowColEscaped + '</td>';
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -48511,8 +48516,9 @@ function _generateTableHeader(datavizInstance, dataset) {
     for (var _iterator3 = columnNames[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
       var colName = _step3.value;
 
+      var colNameEscaped = (0, _escapeHtml.escapeHtml)(colName);
       fieldNumber += 1;
-      html += '<th fieldNumber="' + fieldNumber + '">' + colName + '</th>';
+      html += '<th fieldNumber="' + fieldNumber + '">' + colNameEscaped + '</th>';
     }
   } catch (err) {
     _didIteratorError3 = true;
@@ -49253,7 +49259,7 @@ var _each = __webpack_require__(1);
 
 var _extend = __webpack_require__(3);
 
-var _extendDeep = __webpack_require__(131);
+var _extendDeep = __webpack_require__(132);
 
 var _assertDateString = __webpack_require__(5);
 
@@ -49606,7 +49612,7 @@ var _dataset2 = _interopRequireDefault(_dataset);
 
 var _extend = __webpack_require__(3);
 
-var _stripHtmlTags = __webpack_require__(132);
+var _stripHtmlTags = __webpack_require__(6);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49818,7 +49824,7 @@ function getDefaultType(parser) {
 /* 151 */
 /***/ (function(module) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.2.2","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.12","d3":"^5.4.0","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.2.3","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.12","d3":"^5.4.0","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
 
 /***/ }),
 /* 152 */
@@ -50093,11 +50099,11 @@ exports.updateRow = updateRow;
 
 var _each = __webpack_require__(1);
 
-var _createNullList = __webpack_require__(6);
+var _createNullList = __webpack_require__(7);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _append = __webpack_require__(7);
+var _append = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50299,11 +50305,11 @@ exports.insertRow = insertRow;
 
 var _each = __webpack_require__(1);
 
-var _createNullList = __webpack_require__(6);
+var _createNullList = __webpack_require__(7);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _append = __webpack_require__(7);
+var _append = __webpack_require__(8);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50519,7 +50525,7 @@ var _assertDateString = __webpack_require__(5);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _stripHtmlTags = __webpack_require__(132);
+var _stripHtmlTags = __webpack_require__(6);
 
 var _escapeHtml = __webpack_require__(2);
 
@@ -50527,7 +50533,7 @@ var _libraries = __webpack_require__(149);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
-var _extendDeep = __webpack_require__(131);
+var _extendDeep = __webpack_require__(132);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
