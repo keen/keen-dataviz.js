@@ -42,6 +42,47 @@ const chart = new KeenDataviz({
 
 * message
 
+* funnel
+
+* horizontal-funnel
+
+For each funnel default configuration is set like in an example below:
+
+```javascript
+  funnel: {
+    lines: true, // change placement of the steps labels and visibility of the lines
+    resultValues: true, // show and hide results
+    percents: false, // show and hide percents
+    hover: true, // show and hide hover effect
+    spacesBetweenElements: false, // show and hide spaces between elements
+    percentsCounting: 'relative', // 'relative' - count percents for each step in relation to previous one
+                                  // 'absolute' - count percents for each step in relation to the first step
+    percentsDecimals: 0, // percents decimals amount displayed
+  }
+```
+
+* funnel-3d
+
+* horizontal-funnel-3d
+
+3d versions of funnels have the same options, with small changes:
+
+```javascript
+  funnel: {
+    spacesBetweenElements: false, // N/A
+    //for funnel-3d:
+    effect3d: 'both-sides' // 'both-sides' - showing shades on both sides
+                           // 'left' - showing shades on left side
+                           // 'right' - showing shades on right side
+
+    //for horizontal-funnel-3d:
+    effect3d: 'both-sides' // 'both-sides' - showing shades on top and bottom
+                           // 'top' - showing shades on top
+                           // 'right' - showing shades on bottom
+  }
+```
+
+
 ## Prototype methods
 
 ### .call(function)
