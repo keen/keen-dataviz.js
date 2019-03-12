@@ -125,20 +125,20 @@
 
   /* FUNNEL */
   .text-label {
-      fill: #000;
+      fill: var(--black);
     }
 
   .text-main {
-      fill: #fff;
+      fill: var(--white);
       font-size: 1.5em;
     }
 
   .text-second {
-      fill: #fff;
+      fill: var(--white);
     }
 
   .chart-lines {
-      stroke: #d7d7d7;
+      stroke: var(--silver);
     }
 
   /* TABLE */
