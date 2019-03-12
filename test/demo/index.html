@@ -35,23 +35,6 @@
       margin: 0 auto;
       width: 600px;
     }
-
-    .text-label {
-      fill: #000;
-    }
-
-    .text-main {
-      fill: #fff;
-      font-size: 1.5em;
-    }
-
-    .text-second {
-      fill: #fff;
-    }
-
-    .chart-lines {
-      stroke: #d7d7d7;
-    }
     </style>
     <style>
 
@@ -680,7 +663,9 @@
             'invite_teammate': 'Invite teammate'
           },
           funnel: {
-            percents: true,
+            percents: {
+              show: true,
+            }
           }
         })
         .render(funnelData);
@@ -697,7 +682,9 @@
           },
           funnel: {
             lines: false,
-            percents: true,
+            percents: {
+              show: true,
+            },
             resultValues: false
           }
         })
@@ -726,9 +713,11 @@
           },
           funnel: {
             lines: false,
-            percents: true,
+            percents: {
+              show: true,
+              decimals: 1,
+            },
             resultValues: false,
-            percentsDecimals: 1
           }
         })
         .render(horizontalFunnelData3d);

@@ -52,12 +52,14 @@ For each funnel default configuration is set like in an example below:
   funnel: {
     lines: true, // change placement of the steps labels and visibility of the lines
     resultValues: true, // show and hide results
-    percents: false, // show and hide percents
+    percents: {
+      show: false, // show and hide percents
+      counting: 'relative', // 'relative' - count percents for each step in relation to previous one
+                            // 'absolute' - count percents for each step in relation to the first step
+      decimals: 0, // percents decimals amount displayed
+    }
     hover: true, // show and hide hover effect
     spacesBetweenElements: false, // show and hide spaces between elements
-    percentsCounting: 'relative', // 'relative' - count percents for each step in relation to previous one
-                                  // 'absolute' - count percents for each step in relation to the first step
-    percentsDecimals: 0, // percents decimals amount displayed
   }
 ```
 
