@@ -42,6 +42,51 @@ const chart = new KeenDataviz({
 
 * message
 
+* funnel
+
+* horizontal-funnel
+
+Default configuration values:
+
+```javascript
+  funnel: {
+    lines: true, // separate each step with a line
+    resultValues: true, // show or hide results
+    percents: {
+      show: false, // show and hide percents
+      countingMethod: 'absolute', // 'absolute' - use the value of the first step to calculate the percentage change
+                                  // 'relative' - use the value of the previous step to calculate the percentage change
+      decimals: 0, // the number of decimal digits visible
+    }
+    hover: true, // show or hide hover effect
+    marginBetweenElements: false, // show or hide spaces between elements
+  }
+```
+
+3D funnels have similar options, with a small change:
+
+* funnel-3d
+
+```javascript
+  funnel: {
+    marginBetweenElements: false, // N/A
+    effect3d: 'both-sides' // 'both-sides' - showing shades on both sides
+                           // 'left' - showing shades on left side
+                           // 'right' - showing shades on right side
+  }
+```
+
+* horizontal-funnel-3d
+
+```javascript
+  funnel: {
+    marginBetweenElements: false, // N/A
+    effect3d: 'both-sides' // 'both-sides' - showing shades on top and bottom
+                           // 'top' - showing shades on top
+                           // 'right' - showing shades on bottom
+  }
+```
+
 ## Prototype methods
 
 ### .call(function)
