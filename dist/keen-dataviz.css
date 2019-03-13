@@ -343,7 +343,24 @@
     font-size: 1.5em;
     width:100%;
   }
-
+/* FUNNEL */
+.keen-dataviz .text-label {
+      fill: #1A1A1A;
+      fill: #1A1A1A;
+    }
+.keen-dataviz .text-main {
+      fill: #FFFFFF;
+      fill: #FFFFFF;
+      font-size: 1.5em;
+    }
+.keen-dataviz .text-second {
+      fill: #FFFFFF;
+      fill: #FFFFFF;
+    }
+.keen-dataviz .chart-lines {
+      stroke: #E7E7E7;
+      stroke: #E7E7E7;
+    }
 /* TABLE */
 .keen-dataviz-table {
     border-bottom: 1px solid #E7E7E7;
