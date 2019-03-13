@@ -46,44 +46,46 @@ const chart = new KeenDataviz({
 
 * horizontal-funnel
 
-For each funnel default configuration is set like in an example below:
+Default configuration values:
 
 ```javascript
   funnel: {
-    lines: true, // change placement of the steps labels and visibility of the lines
-    resultValues: true, // show and hide results
+    lines: true, // separate each step with a line
+    resultValues: true, // show or hide results
     percents: {
       show: false, // show and hide percents
-      counting: 'relative', // 'relative' - count percents for each step in relation to previous one
-                            // 'absolute' - count percents for each step in relation to the first step
-      decimals: 0, // percents decimals amount displayed
+      countingMethod: 'absolute', // 'absolute' - use the value of the first step to calculate the percentage change
+                                  // 'relative' - use the value of the previous step to calculate the percentage change
+      decimals: 0, // the number of decimal digits visible
     }
-    hover: true, // show and hide hover effect
-    spacesBetweenElements: false, // show and hide spaces between elements
+    hover: true, // show or hide hover effect
+    marginBetweenElements: false, // show or hide spaces between elements
   }
 ```
 
+3D funnels have similar options, with a small change:
+
 * funnel-3d
-
-* horizontal-funnel-3d
-
-3d versions of funnels have the same options, with small changes:
 
 ```javascript
   funnel: {
-    spacesBetweenElements: false, // N/A
-    //for funnel-3d:
+    marginBetweenElements: false, // N/A
     effect3d: 'both-sides' // 'both-sides' - showing shades on both sides
                            // 'left' - showing shades on left side
                            // 'right' - showing shades on right side
+  }
+```
 
-    //for horizontal-funnel-3d:
+* horizontal-funnel-3d
+
+```javascript
+  funnel: {
+    marginBetweenElements: false, // N/A
     effect3d: 'both-sides' // 'both-sides' - showing shades on top and bottom
                            // 'top' - showing shades on top
                            // 'right' - showing shades on bottom
   }
 ```
-
 
 ## Prototype methods
 
