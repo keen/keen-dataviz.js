@@ -171,9 +171,17 @@
         return "#"+RR+GG+BB;
       }
 
-      const darkColors = lightColors.map((d) => {
-        return shadeColor(d, -30);
-      });
+      // const darkColors = lightColors.map((d) => {
+      //   return shadeColor(d, -30);
+      // });
+      
+      const darkColors = [
+        "#00829b", "#b1474f", "#a67b3d", "#606095", "#b25d40", "#009082", 
+        "#3f6ea5", "#50945b", "#8c5482", "#006b7f", "#96353d", "#8e652d", 
+        "#4a4a7f", "#974930", "#00776b", "#2e5a8c", "#3c7e47", "#78406e", 
+        "#1b8ea4", "#b25a61", "#ac854f", "#6c6c9d", "#b26c54", "#1a9c8f", 
+        "#507aaa", "#5e9c69", "#97618e"]
+      
       let themeSelection = '';
       let colors = lightColors;
       var themeSelector = document.getElementById('dataviz-theme-selector');
@@ -471,7 +479,7 @@
         notes: 'Sample notes go down here',
         type: 'gauge',
         renderOnVisible: true,
-        colors: colors
+        colors
       })
       .call(function(){
         this.dataset.matrix = gaugeData;
