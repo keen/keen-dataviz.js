@@ -124,3 +124,10 @@
 .demo-theme-dark .keen-dataviz .c3-tooltip-container th {
   color:#fff;
 }
+.demo-theme-dark .keen-dataviz .text-label {
+  fill: #fff;
+}
+
+.demo-theme-dark .keen-dataviz .chart-lines {
+  stroke: rgba(255,255,255,.2)
+}

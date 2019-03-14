@@ -36,13 +36,42 @@
       <h1>Dataviz Examples</h1>
 
       <div class="keen-ui-row">
-        <div class="keen-ui-col-8">
+        <div class="keen-ui-col-12">
           <h2>Line Chart</h2>
           <div class="chart-c3-line-time-multi chart-standard-height"></div>
         </div>
-        <div class="keen-ui-col-4">
-          <h2>Gauge</h2>
-          <div class="chart-c3-gauge chart-standard-height"></div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Metric</h2>
+          <div class="chart-demo-metric chart-standard-height"></div>
+        </div>
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Metric with previous values</h2>
+          <div class="chart-demo-metric-previous-results chart-standard-height"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
+          <h2>Funnel</h2>
+          <div class="chart-funnel chart-standard-height"></div>
+        </div>
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Funnel 3D</h2>
+          <div class="chart-funnel-3d chart-standard-height"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
+          <h2>Horizontal funnel</h2>
+          <div class="chart-horizontal-funnel chart-standard-height"></div>
+        </div>
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Horizontal funnel 3D</h2>
+          <div class="chart-horizontal-funnel-3d chart-standard-height"></div>
         </div>
       </div>
 
@@ -51,9 +80,9 @@
           <h2>Area Chart</h2>
           <div class="chart-c3-area-time-multi chart-standard-height"></div>
         </div>
-        <div class="keen-ui-col-4" id="nested">
-          <h2>Metric</h2>
-          <div class="chart-demo-metric chart-standard-height"></div>
+        <div class="keen-ui-col-4">
+          <h2>Gauge</h2>
+          <div class="chart-c3-gauge chart-standard-height"></div>
         </div>
       </div>
 
@@ -124,6 +153,9 @@
         [ 'Index', 'Value' ],
         [ 'Result', 24502 ]
       ];
+
+      const results = { result: 24501 };
+      const previousResults = { result: 20000 };
 
       var gaugeData = [
         [ 'Index', 'Value' ],
@@ -323,12 +355,58 @@
         [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55, 189.98, 322.43, 654.44  ]
       ];
 
+      const funnelData = {
+          result: [ 98730, 67680, 22150, 9090 ],
+          steps: [
+              { event_collection: "create_account" },
+              { event_collection: "complete_profile" },
+              { event_collection: "create_project" },
+              { event_collection: "invite_teammate" }
+          ]
+      };
+      const funnelData3d = {
+          result: [ 1000, 800, 600, 400, 300 ],
+          steps: [
+              { event_collection: "started_video" },
+              { event_collection: "twenty_five_percent" },
+              { event_collection: "fifty_percent" },
+              { event_collection: "seventy_five_percent" },
+              { event_collection: "finish_video" }
+          ]
+      };
+      const horizontalFunnelData = {
+          result: [ 23654, 15289, 10430, 5380 ],
+          steps: [
+              { event_collection: "purchased_device" },
+              { event_collection: "activated_device" },
+              { event_collection: "first_session" },
+              { event_collection: "invite_friend" }
+          ]
+      };
+      const horizontalFunnelData3d = {
+          result: [ 10000, 7000, 5500, 3500 ],
+          steps: [
+              { event_collection: "site_visits" },
+              { event_collection: "seen_ads" },
+              { event_collection: "clicked_ads" },
+              { event_collection: "purchased_product" }
+          ]
+      };
+
       window.metric = new Dataviz()
         .height(280)
         .el('#nested .chart-demo-metric')
         .type('metric')
         .title('High-fives today')
         .prepare();
+
+      window.metricPreviousResults = new KeenDataviz({
+        container: '#nested .chart-demo-metric-previous-results',
+        type: 'metric',
+        title: 'High-fives today',
+        results,
+        previousResults
+      });
 
       window.table = new Dataviz()
         .el('.chart-demo-table')
@@ -411,6 +489,82 @@
       // END BAR
       // -------------------------
 
+      // -------------------------
+      // FUNNELS
+      // -------------------------
+
+      window.funnel = new KeenDataviz({
+          container: '.chart-funnel',
+          type: 'funnel',
+          title: 'User actions',
+          labelMapping: {
+            'create_account': 'Create account',
+            'complete_profile': 'Complete profile',
+            'create_project': 'Create project',
+            'invite_teammate': 'Invite teammate'
+          },
+          funnel: {
+            percents: {
+              show: true,
+            }
+          }
+        })
+        .render(funnelData);
+
+      window.funnel = new KeenDataviz({
+          container: '.chart-funnel-3d',
+          type: 'funnel-3d',
+          title: 'Film views',
+          labelMapping: {
+            'started_video': 'Started video',
+            'twenty_five_percent': '25 percent',
+            'fifty_percent': '50 percent',
+            'seventy_five_percent': '75 percent',
+            'finish_video': 'Finished video'
+          },
+          funnel: {
+            lines: false,
+            percents: {
+              show: true,
+            },
+            resultValues: false
+          }
+        })
+        .render(funnelData3d);
+
+      window.funnel = new KeenDataviz({
+          container: '.chart-horizontal-funnel',
+          type: 'horizontal-funnel',
+          title: 'Purchases',
+          labelMapping: {
+            'purchased_device': 'Purchased Device',
+            'activated_device': 'Activated Device',
+            'first_session': 'First Session',
+            'invite_friend': 'Invite Friend'
+          }
+        })
+        .render(horizontalFunnelData);
+        
+      window.funnel = new KeenDataviz({
+          container: '.chart-horizontal-funnel-3d',
+          type: 'horizontal-funnel-3d',
+          title: 'Actions and purchases',
+          labelMapping: {
+            'site_visits': 'Site visits',
+            'seen_ads': 'Seen ads',
+            'clicked_ads': 'Clicked ads',
+            'purchased_product': 'Purchased product'
+          },
+          funnel: {
+            lines: false,
+            percents: {
+              show: true,
+              decimals: 1,
+            },
+            resultValues: false,
+          }
+        })
+        .render(horizontalFunnelData3d);
 
       // -------------------------
       // LINE
