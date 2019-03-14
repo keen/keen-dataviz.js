@@ -59,7 +59,7 @@ Default configuration values:
       decimals: 0, // the number of decimal digits visible
     }
     hover: true, // show or hide hover effect
-    marginBetweenElements: false, // show or hide spaces between elements
+    marginBetweenSteps: false, // show or hide spaces between elements
   }
 ```
 
@@ -69,7 +69,7 @@ Default configuration values:
 
 ```javascript
   funnel: {
-    marginBetweenElements: false, // N/A
+    marginBetweenSteps: false, // N/A
     effect3d: 'both-sides' // 'both-sides' - showing shades on both sides
                            // 'left' - showing shades on left side
                            // 'right' - showing shades on right side
@@ -80,7 +80,7 @@ Default configuration values:
 
 ```javascript
   funnel: {
-    marginBetweenElements: false, // N/A
+    marginBetweenSteps: false, // N/A
     effect3d: 'both-sides' // 'both-sides' - showing shades on top and bottom
                            // 'top' - showing shades on top
                            // 'right' - showing shades on bottom
