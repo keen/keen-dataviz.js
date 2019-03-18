@@ -140,6 +140,29 @@
   .chart-lines {
       stroke: var(--silver);
     }
+  
+  /* AREA SPLINE WITH METRICS */
+  &.relative {
+    position: relative;
+  }
+
+  .current-count {
+    text-align: center;
+  }
+
+  .percent-difference {
+    position: absolute;
+    top: 0;
+    right: 0.5em;
+    font-size: 80%;
+  }
+
+  .arrow-green,
+  .arrow-red {
+    left: -1em;
+    border-width: 5px;
+  }
+
 
   /* TABLE */
   &-table {
