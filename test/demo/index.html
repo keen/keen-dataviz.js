@@ -161,27 +161,39 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-bar keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-bar-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-bar-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-bar-percent keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (yearly)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-bar-time keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-bar-time-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-bar-time-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-bar-time-percent keen-chart-container"></div>
         </div>
       </div>
 
@@ -804,7 +816,7 @@
       window.barMulti = new KeenDataviz({
           container: '.chart-c3-bar-multi',
           title: 'Bar Chart',
-          type: 'bar'
+          type: 'horizontal-bar'
         })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
@@ -814,8 +826,26 @@
       window.barMultiStacked = new KeenDataviz({
         container: '.chart-c3-bar-stacked',
         title: 'Bar Chart Multi Stacked',
-        type: 'bar',
+        type: 'horizontal-bar',
         stacked: true,
+        tooltip: {
+          format: {
+            title: function (d) { return 'Datax ' + d; },
+            value: function (value, ratio, id) {
+              return value*2;
+            }
+          }
+        }})
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.barMultiPercent = new KeenDataviz({
+        container: '.chart-c3-bar-percent',
+        title: 'Bar Chart Multi Stacked',
+        type: 'horizontal-bar',
+        stacking: 'percent',
         tooltip: {
           format: {
             title: function (d) { return 'Datax ' + d; },
@@ -854,6 +884,17 @@
         title: 'Bar Chart Multi Stacked',
         type: 'bar',
         stacked: true
+      })
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataYearly;
+        })
+        .render();
+
+      window.barTimeMultiPercent = new KeenDataviz({
+        container: '.chart-c3-bar-time-percent',
+        title: 'Bar Chart Multi 100% Percent',
+        type: 'bar',
+        stacking: 'percent'
       })
         .call(function(){
           this.dataset.matrix = intervalMultiDataYearly;

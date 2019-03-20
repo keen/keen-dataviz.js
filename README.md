@@ -574,7 +574,8 @@ Create a stacked chart, used to break down and compare parts of a whole.
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  stacked: true
+  stacking: 'normal' // 'normal' - stacked chart
+                     // 'percent' - 100% stacked chart
 });
  ```
 
