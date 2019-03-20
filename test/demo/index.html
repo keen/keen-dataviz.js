@@ -263,27 +263,37 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-percent keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries (minutely)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-time keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-time-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-time-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-time-percent keen-chart-container"></div>
         </div>
       </div>
 
@@ -292,56 +302,80 @@
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-stacked keen-chart-container"></div>
         </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-spline-percent keen-chart-container"></div>
+        </div>
       </div>
+      
 
       <h3>Timeseries (secondly)</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-time keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-time-multi keen-chart-container"></div>
-        </div>
-        <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-time-stacked keen-chart-container"></div>
         </div>
       </div>
 
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-spline-time-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-spline-time-percent keen-chart-container"></div>
+        </div>
+      </div>
 
       <h2>Area-Step chart</h2>
 
       <h3>Categorical</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-step keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-step-percent keen-chart-container"></div>
         </div>
       </div>
 
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-time keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-time-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-time-stacked keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-area-step-time-percent keen-chart-container"></div>
         </div>
       </div>
 
@@ -828,14 +862,7 @@
         title: 'Bar Chart Multi Stacked',
         type: 'horizontal-bar',
         stacked: true,
-        tooltip: {
-          format: {
-            title: function (d) { return 'Datax ' + d; },
-            value: function (value, ratio, id) {
-              return value*2;
-            }
-          }
-        }})
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
@@ -843,17 +870,10 @@
 
       window.barMultiPercent = new KeenDataviz({
         container: '.chart-c3-bar-percent',
-        title: 'Bar Chart Multi Stacked',
+        title: 'Bar Chart Multi Stacked 100%',
         type: 'horizontal-bar',
         stacking: 'percent',
-        tooltip: {
-          format: {
-            title: function (d) { return 'Datax ' + d; },
-            value: function (value, ratio, id) {
-              return value*2;
-            }
-          }
-        }})
+        })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
         })
@@ -892,7 +912,7 @@
 
       window.barTimeMultiPercent = new KeenDataviz({
         container: '.chart-c3-bar-time-percent',
-        title: 'Bar Chart Multi 100% Percent',
+        title: 'Bar Chart Multi Stacked 100%',
         type: 'bar',
         stacking: 'percent'
       })
@@ -1095,6 +1115,17 @@
         })
         .render();
 
+        window.areaMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-percent',
+          title: 'Area Chart Stacked 100%',
+          type: 'area',
+          stacking: 'percent'
+        })
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
       window.areaTime = new KeenDataviz({
           container: '.chart-c3-area-time',
           title: 'Area Chart',
@@ -1115,9 +1146,18 @@
 
       window.areaTimeMultiStacked = new KeenDataviz({
           container: '.chart-c3-area-time-stacked',
-          title: 'Area Chart mutli stacked',
+          title: 'Area Chart multi stacked',
           type: 'area',
-          stacked: true
+          stacked: true,
+        })
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+        window.areaTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-time-percent',
+          title: 'Area Chart multi stacked 100%',
+          type: 'area',
+          stacking: 'percent',
         })
         .data(makeGroupedIntervalDataset())
         .render();
@@ -1161,6 +1201,17 @@
         })
         .render();
 
+      window.areaSplineMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-spline-percent',
+          title: 'Area-Spline Chart stacked 100%',
+          type: 'area-spline',
+          stacking: 'percent'
+        })
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
       window.areaSplineTime = new KeenDataviz({
           container: '.chart-c3-area-spline-time',
           title: 'Area-Spline Chart',
@@ -1186,6 +1237,16 @@
           title: 'Area-Spline Chart multi stacked',
           stacked: true,
           type: 'area-spline'
+        })
+        .call(function(){
+          this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+      window.areaSplineTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-spline-time-percent',
+          title: 'Area-Spline Chart multi stacked 100%',
+          type: 'area-spline',
+          stacking: 'percent',
         })
         .call(function(){
           this.dataset.matrix = intervalMultiDataSecondly;
@@ -1222,9 +1283,20 @@
 
       window.areaStepMultiStacked = new KeenDataviz({
           container: '.chart-c3-area-step-stacked',
-          title: 'Area-Step Chart multi stack',
+          title: 'Area-Step Chart multi stacked',
           type: 'area-step',
           stacked: true
+        })
+        .call(function(){
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+      
+      window.areaStepMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-step-percent',
+          title: 'Area-Step Chart multi stacked 100%',
+          type: 'area-step',
+          stacking: 'percent'
         })
         .call(function(){
           this.dataset.matrix = groupedMultiData;
@@ -1256,6 +1328,17 @@
           title: 'Area-Step Chart multi stacked',
           type: 'area-step',
           stacked: true
+        })
+        .call(function(){
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-step-time-percent',
+          title: 'Area-Step Chart multi stacked 100%',
+          type: 'area-step',
+          stacking: 'percent'
         })
         .call(function(){
           this.dataset.matrix = intervalMultiData;
