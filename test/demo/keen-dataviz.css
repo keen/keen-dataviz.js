@@ -387,11 +387,16 @@
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center;
       font-size: 80%;
     }
 .keen-dataviz-metric-combo .arrow-green,
     .keen-dataviz-metric-combo .arrow-red {
-      left: -1em;
+      margin-right: 0.25rem;
+      position: static;
       border-width: 5px;
     }
 /* TABLE */

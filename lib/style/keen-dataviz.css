@@ -168,12 +168,15 @@
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
+      display: flex;
+      align-items: center;
       font-size: 80%;
     }
   
     .arrow-green,
     .arrow-red {
-      left: -1em;
+      margin-right: 0.25rem;
+      position: static;
       border-width: 5px;
     }
   }

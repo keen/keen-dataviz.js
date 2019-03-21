@@ -40,7 +40,7 @@ const chart = new KeenDataviz({
   })
 ```
 
-* combo chart
+* metric combo
 
 This type combines `metric` and `area-spline` type of charts
 
