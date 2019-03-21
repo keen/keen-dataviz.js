@@ -1,6 +1,6 @@
 :root {
-  --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
   --font-family-secondary: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-family-primary: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', var(--font-family-secondary);
 
   --white:      #FFFFFF;
   --black:      #1A1A1A;
@@ -141,28 +141,46 @@
       stroke: var(--silver);
     }
   
-  /* AREA SPLINE WITH METRICS */
-  &.relative {
+  /* METRIC COMBO */
+  &-metric-combo {
+    width: 270px;
+    height: 120px;
     position: relative;
-  }
 
-  .current-count {
-    text-align: center;
-  }
+    .c3-chart {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .metric-combo-data {
+      width: 100%;
+      position: absolute;
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-  .percent-difference {
-    position: absolute;
-    top: 0;
-    right: 0.5em;
-    font-size: 80%;
-  }
+    .keen-dataviz-title,
+    .current-count {
+      width: 100%;
+    }
 
-  .arrow-green,
-  .arrow-red {
-    left: -1em;
-    border-width: 5px;
+    .current-count {
+      text-align: center;
+    }
+  
+    .percent-difference {
+      position: absolute;
+      top: 0;
+      right: 0.5em;
+      font-size: 80%;
+    }
+  
+    .arrow-green,
+    .arrow-red {
+      left: -1em;
+      border-width: 5px;
+    }
   }
-
 
   /* TABLE */
   &-table {

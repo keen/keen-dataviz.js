@@ -305,7 +305,7 @@
       </div>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-area-spline-metrics keen-chart-container"></div>
+          <div class="chart-metric-combo keen-chart-container"></div>
         </div>
       </div>
 
@@ -612,7 +612,7 @@
           ]
       };
 
-      const areaSplineWithMetricsData = {
+      const metricComboChartData = {
         previous: previousResults,
         current: results,
         interval: intervalQuery
@@ -1164,20 +1164,22 @@
         })
         .render();
 
-        window.areaSplineWithMetrics = new KeenDataviz({
-          container: '.chart-c3-area-spline-metrics',
-          title: 'Area-Spline Chart with metrics',
-          type: 'area-spline',
-          showMetrics: true,
-          previousQuery: areaSplineWithMetricsData.previous,
-          currentQuery: areaSplineWithMetricsData.current,
-          results: areaSplineWithMetricsData.interval,
+        window.metricComboChart = new KeenDataviz({
+          container: '.chart-metric-combo',
+          title: 'Metric Combo',
+          type: 'metric-combo',
+          metricResults: {
+            previous: metricComboChartData.previous,
+            current: metricComboChartData.current,
+          },
+          results: metricComboChartData.interval,
           tooltip: {
-          format: {
-            title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            format: {
+              title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
             }
           }
-        });
+        })
+        .render();
 
       // -------------------------
       // END AREA-SPLINE
