@@ -361,6 +361,44 @@
       stroke: #E7E7E7;
       stroke: #E7E7E7;
     }
+/* METRIC COMBO */
+.keen-dataviz-metric-combo {
+    width: 270px;
+    height: 120px;
+    position: relative;
+  }
+.keen-dataviz-metric-combo .metric-combo-data {
+      width: calc(100% - 1rem);
+      position: absolute;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+      padding: 0.5rem;
+    }
+.keen-dataviz-metric-combo .keen-dataviz-title,
+    .keen-dataviz-metric-combo .current-count {
+      width: 100%;
+    }
+.keen-dataviz-metric-combo .current-count {
+      text-align: center;
+    }
+.keen-dataviz-metric-combo .percent-difference {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+          align-items: center;
+      font-size: 80%;
+    }
+.keen-dataviz-metric-combo .arrow-green,
+    .keen-dataviz-metric-combo .arrow-red {
+      margin-right: 0.25rem;
+      position: static;
+      border-width: 5px;
+    }
 /* TABLE */
 .keen-dataviz-table {
     border-bottom: 1px solid #E7E7E7;
