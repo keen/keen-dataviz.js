@@ -334,6 +334,7 @@
     }
   }
   &-rendering{
+    height: 100%;
     display: flex;
     justify-content: center;
     flex-flow: row;
@@ -343,6 +344,7 @@
       display: flex;
       align-self: center;
       order: 1;
+      flex: 1;
     }
 
     .c3-chart-100-percent{
@@ -430,7 +432,7 @@
 
   &-vertical-items{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;

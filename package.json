@@ -58,7 +58,7 @@
     "Funnels"
   ],
   "dependencies": {
-    "c3": "^0.6.12",
+    "c3": "^0.6.13",
     "d3": "^5.4.0",
     "moment-timezone": "^0.5.21",
     "promise-polyfill": "^8.0.0"
