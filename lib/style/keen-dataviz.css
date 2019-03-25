@@ -155,6 +155,10 @@
       padding: 0.5rem;
     }
 
+    .c3-chart {
+      height: 120px;
+    }
+
     .keen-dataviz-title,
     .current-count {
       width: 100%;
@@ -334,7 +338,6 @@
     }
   }
   &-rendering{
-    height: 100%;
     display: flex;
     justify-content: center;
     flex-flow: row;
