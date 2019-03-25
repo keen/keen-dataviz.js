@@ -40,6 +40,22 @@ const chart = new KeenDataviz({
   })
 ```
 
+* metric combo
+
+This type combines `metric` and `area-spline` type of charts
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container',
+    type: 'metric-combo',
+    metricResults: { // data required for metrics
+      previous,
+      current,
+    },
+    results // data required for area-spline
+  })
+```
+
 * message
 
 * funnel
