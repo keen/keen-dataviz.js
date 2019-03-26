@@ -368,16 +368,22 @@
     position: relative;
   }
 .keen-dataviz-metric-combo .metric-combo-data {
-      width: calc(100% - 1rem);
+      width: 100%;
+      padding: 0.5rem;
       position: absolute;
+      z-index: 1;
       display: -ms-flexbox;
       display: flex;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-      padding: 0.5rem;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
     }
 .keen-dataviz-metric-combo .c3-chart {
       height: 120px;
+    }
+.keen-dataviz-metric-combo .c3-lines {
+      display: none;
     }
 .keen-dataviz-metric-combo .keen-dataviz-title,
     .keen-dataviz-metric-combo .current-count {
