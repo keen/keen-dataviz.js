@@ -148,15 +148,21 @@
     position: relative;
 
     .metric-combo-data {
-      width: calc(100% - 1rem);
+      width: 100%;
+      padding: 0.5rem;
       position: absolute;
+      z-index: 1;
       display: flex;
       flex-wrap: wrap;
-      padding: 0.5rem;
+      box-sizing: border-box;
     }
 
     .c3-chart {
       height: 120px;
+    }
+
+    .c3-lines {
+      display: none;
     }
 
     .keen-dataviz-title,
