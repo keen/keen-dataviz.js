@@ -369,9 +369,10 @@
   }
 .keen-dataviz-metric-combo .metric-combo-data {
       width: 100%;
+      height: 100%;
       padding: 0.5rem;
       position: absolute;
-      z-index: 1;
+      z-index: -1;
       display: -ms-flexbox;
       display: flex;
       -ms-flex-wrap: wrap;
@@ -390,6 +391,9 @@
       width: 100%;
     }
 .keen-dataviz-metric-combo .current-count {
+      margin-top: auto;
+      margin-bottom: auto;
+      font-size: 2rem;
       text-align: center;
     }
 .keen-dataviz-metric-combo .percent-difference {
