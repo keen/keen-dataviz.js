@@ -56,13 +56,17 @@ client
   });
 ```
 
+## React Component
+
+https://github.com/keen/keen-react-charts
+
 ## Webpack boilerplate
 
-[https://github.com/keen/keen-dataviz-webpack-boilerplate](https://github.com/keen/keen-dataviz-webpack-boilerplate)
+https://github.com/keen/keen-dataviz-webpack-boilerplate
 
 ## Install with CDN
 
-Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries, already included in our bundled js file.
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries (already included in our bundled js file).
 
 ```html
 <html>
