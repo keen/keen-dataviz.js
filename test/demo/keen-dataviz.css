@@ -793,11 +793,3 @@
     pointer-events: none;
     z-index: 222;
   }
-
-.keen-dataviz-range .c3-area-Min {
-    display: none;
-}
-
-.keen-dataviz-range .c3-bars-Min {
-    display: none;
-}
