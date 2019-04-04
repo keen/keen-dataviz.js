@@ -2,7 +2,7 @@
   "name": "keen-dataviz",
   "description": "Data Visualization SDK for Keen IO",
   "license": "MIT",
-  "version": "3.5.3",
+  "version": "3.5.4",
   "main": "dist/external_d3_c3/node/keen-dataviz.js",
   "browser": "dist/external_d3_c3/keen-dataviz.js",
   "style": "dist/keen-dataviz.css",
