@@ -66,7 +66,8 @@ https://github.com/keen/keen-dataviz-webpack-boilerplate
 
 ## Install with CDN
 
-Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project. Visualizations are powered by the C3.js and D3.js libraries (already included in our bundled js file).
+Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project.
+[![](https://data.jsdelivr.com/v1/package/npm/mobile-detect/badge)](https://www.jsdelivr.com/package/npm/keen-dataviz)
 
 ```html
 <html>
