@@ -2,14 +2,14 @@
 
 A JavaScript data visualization library for [Keen](https://keen.io).
 
-<a href="https://keen.io/docs/visualize/common-chart-examples/"><img src="https://img.shields.io/github/release/keen/keen-dataviz.js.svg?style=flat-square&maxAge=600" alt=""></a>
-<a href="https://github.com/badges/shields/graphs/contributors" alt="Contributors"><img src="https://img.shields.io/github/contributors/badges/shields.svg" /></a>
-<a href="https://github.com/badges/shields/pulse" alt="Activity">
-<img src="https://img.shields.io/github/commit-activity/m/badges/shields.svg" /></a>
+<a href="https://keen.io/"><img src="https://img.shields.io/github/release/keen/keen-dataviz.js.svg?style=flat-square&maxAge=600" alt=""></a>
+<a href="https://github.com/keen/keen-dataviz.js/graphs/contributors" alt="Contributors"><img src="https://img.shields.io/github/contributors/keen/keen-dataviz.js.svg" /></a>
+<a href="https://github.com/keen/keen-dataviz.js/pulse" alt="Activity"><img src="https://img.shields.io/github/last-commit/keen/keen-dataviz.js.svg" /></a>
+![](https://img.shields.io/github/license/keen/keen-dataviz.js.svg)
 <a href="http://slack.keen.io/"><img src="https://img.shields.io/badge/slack-keen-orange.svg?style=flat-square&maxAge=3600" alt="Slack"></a>
+<a href="https://www.jsdelivr.com/package/npm/keen-dataviz"><img src="https://data.jsdelivr.com/v1/package/npm/keen-dataviz/badge" alt=""></a>
+<a href="https://www.npmjs.com/package/keen-dataviz"><img src="https://img.shields.io/npm/dm/keen-dataviz.svg" alt=""></a>
 
-[![NPM](https://nodei.co/npm/keen-dataviz.png)](https://nodei.co/npm/keen-dataviz/)
- 
 ## Install with NPM
 
 ```ssh
@@ -75,8 +75,6 @@ https://github.com/keen/keen-dataviz-webpack-boilerplate
 ## Install with CDN
 
 Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen-dataviz.css) within your page or project.
-
-[![](https://data.jsdelivr.com/v1/package/npm/keen-dataviz/badge)](https://www.jsdelivr.com/package/npm/keen-dataviz)
 
 ```html
 <html>
