@@ -178,6 +178,12 @@
         </div>
       </div>
 
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <div class="chart-c3-bar-range keen-chart-container"></div>
+        </div>
+      </div>
+
       <h3>Timeseries (yearly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -194,6 +200,12 @@
         </div>
         <div class="keen-ui-col-6">
           <div class="chart-c3-bar-time-percent keen-chart-container"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <div class="chart-c3-bar-time-range keen-chart-container"></div>
         </div>
       </div>
 
@@ -296,6 +308,11 @@
           <div class="chart-c3-area-time-percent keen-chart-container"></div>
         </div>
       </div>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <div class="chart-c3-area-time-range keen-chart-container"></div>
+        </div>
+      </div>
 
 
       <h2>Area-Spline chart</h2>
@@ -339,6 +356,12 @@
         </div>
       </div>
 
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <div class="chart-c3-area-spline-time-range keen-chart-container"></div>
+        </div>
+      </div>
+
       <h2>Area-Step chart</h2>
 
       <h3>Categorical</h3>
@@ -376,6 +399,12 @@
         </div>
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-time-percent keen-chart-container"></div>
+        </div>
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <div class="chart-c3-area-step-time-range keen-chart-container"></div>
         </div>
       </div>
 
@@ -493,6 +522,15 @@
         [ 'C', 124.56, 611.23, 432.11 ],
         [ 'D', 117.22, 434.37, 488.12 ],
         [ 'E', 55.12, 212.44, 323.55  ]
+      ];
+
+      const rangeData = [
+        [ 'Index', faker.internet.url(), faker.internet.url(),],
+        [ 'A',  322.43, 189.98,],
+        [ 'B',  564.21, 135.83,],
+        [ 'C',  611.23, 124.56,],
+        [ 'D',  434.37, 117.22,],
+        [ 'E',  212.44, 55.12,],
       ];
 
       const intervalData = [
@@ -895,6 +933,16 @@
         })
         .render();
 
+      window.barMultiPercent = new KeenDataviz({
+        container: '.chart-c3-bar-range',
+        title: 'Bar Chart Range',
+        type: 'horizontal-bar-range',
+        })
+        .call(function(){
+          this.dataset.matrix = rangeData;
+        })
+        .render();
+
       window.barTime = new KeenDataviz({
           container: '.chart-c3-bar-time',
           title: 'Bar Chart',
@@ -934,6 +982,16 @@
       })
         .call(function(){
           this.dataset.matrix = intervalMultiDataYearly;
+        })
+        .render();
+
+      window.barTimeMultiPercent = new KeenDataviz({
+        container: '.chart-c3-bar-time-range',
+        title: 'Bar Chart Range',
+        type: 'bar-range',
+      })
+        .call(function(){
+          this.dataset.matrix = rangeData;
         })
         .render();
 
@@ -1178,6 +1236,16 @@
         .data(makeGroupedIntervalDataset())
         .render();
 
+      window.areaTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-time-range',
+          title: 'Area Chart Range',
+          type: 'area-range',
+        })
+        .call(function(){
+          this.dataset.matrix = rangeData;
+        })
+        .render();
+
       // -------------------------
       // END AREA
       // -------------------------
@@ -1266,6 +1334,16 @@
         })
         .call(function(){
           this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+
+      window.areaSplineTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-spline-time-range',
+          title: 'Area-Range-Spline Chart',
+          type: 'area-range-spline',
+        })
+        .call(function(){
+          this.dataset.matrix = rangeData;
         })
         .render();
 
@@ -1375,6 +1453,16 @@
         })
         .call(function(){
           this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-area-step-time-range',
+          title: 'Area-Range-Step Chart',
+          type: 'area-range-step',
+        })
+        .call(function(){
+          this.dataset.matrix = rangeData;
         })
         .render();
 
