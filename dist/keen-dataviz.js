@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 169);
+/******/ 	return __webpack_require__(__webpack_require__.s = 171);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -24684,11 +24684,11 @@ function stripHtmlTags(inputString) {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* @license C3.js v0.6.13 | (c) C3 Team and other contributors | http://c3js.org/ */
+/* @license C3.js v0.6.12 | (c) C3 Team and other contributors | http://c3js.org/ */
 (function (global, factory) {
    true ? module.exports = factory() :
   undefined;
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -24735,18 +24735,12 @@ function stripHtmlTags(inputString) {
     $$.axes = {};
   }
 
-  /**
-   * The Chart class
-   *
-   * The methods of this class is the public APIs of the chart object.
-   */
-
   function Chart(config) {
-    this.internal = new ChartInternal(this);
-    this.internal.loadConfig(config);
-    this.internal.beforeInit(config);
-    this.internal.init();
-    this.internal.afterInit(config); // bind "this" to nested API
+    var $$ = this.internal = new ChartInternal(this);
+    $$.loadConfig(config);
+    $$.beforeInit(config);
+    $$.init();
+    $$.afterInit(config); // bind "this" to nested API
 
     (function bindThis(fn, target, argThis) {
       Object.keys(fn).forEach(function (key) {
@@ -25838,7 +25832,7 @@ function stripHtmlTags(inputString) {
   };
 
   var c3 = {
-    version: "0.6.13",
+    version: "0.6.12",
     chart: {
       fn: Chart.prototype,
       internal: {
@@ -26719,9 +26713,7 @@ function stripHtmlTags(inputString) {
     $$.svg.selectAll(['#' + $$.clipId, '#' + $$.clipIdForGrid]).select('rect').attr('width', $$.width).attr('height', $$.height);
     $$.svg.select('#' + $$.clipIdForXAxis).select('rect').attr('x', $$.getXAxisClipX.bind($$)).attr('y', $$.getXAxisClipY.bind($$)).attr('width', $$.getXAxisClipWidth.bind($$)).attr('height', $$.getXAxisClipHeight.bind($$));
     $$.svg.select('#' + $$.clipIdForYAxis).select('rect').attr('x', $$.getYAxisClipX.bind($$)).attr('y', $$.getYAxisClipY.bind($$)).attr('width', $$.getYAxisClipWidth.bind($$)).attr('height', $$.getYAxisClipHeight.bind($$));
-    $$.svg.select('#' + $$.clipIdForSubchart).select('rect').attr('width', $$.width).attr('height', brush.size() ? brush.attr('height') : 0); // MEMO: parent div's height will be bigger than svg when <!DOCTYPE html>
-
-    $$.selectChart.style('max-height', $$.currentHeight + "px");
+    $$.svg.select('#' + $$.clipIdForSubchart).select('rect').attr('width', $$.width).attr('height', brush.size() ? brush.attr('height') : 0);
   };
 
   ChartInternal.prototype.updateDimension = function (withoutAxis) {
@@ -34380,8 +34372,7 @@ function stripHtmlTags(inputString) {
   };
 
   ChartInternal.prototype.getParentHeight = function () {
-    var h = this.selectChart.style('height');
-    return h.indexOf('px') > 0 ? +h.replace('px', '') : 0;
+    return this.getParentRectValue('height');
   };
 
   ChartInternal.prototype.getSvgLeft = function (withoutRecompute) {
@@ -35386,7 +35377,7 @@ function stripHtmlTags(inputString) {
 
   return c3;
 
-}));
+})));
 
 
 /***/ }),
@@ -47390,27 +47381,27 @@ var _append = __webpack_require__(11);
 
 var append = _interopRequireWildcard(_append);
 
-var _delete = __webpack_require__(166);
+var _delete = __webpack_require__(168);
 
 var del = _interopRequireWildcard(_delete);
 
-var _filter = __webpack_require__(165);
+var _filter = __webpack_require__(167);
 
 var filter = _interopRequireWildcard(_filter);
 
-var _insert = __webpack_require__(164);
+var _insert = __webpack_require__(166);
 
 var insert = _interopRequireWildcard(_insert);
 
-var _select = __webpack_require__(163);
+var _select = __webpack_require__(165);
 
 var select = _interopRequireWildcard(_select);
 
-var _sort = __webpack_require__(162);
+var _sort = __webpack_require__(164);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _update = __webpack_require__(161);
+var _update = __webpack_require__(163);
 
 var update = _interopRequireWildcard(_update);
 
@@ -47420,7 +47411,7 @@ var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(6);
 
-var _parsers = __webpack_require__(160);
+var _parsers = __webpack_require__(162);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
@@ -50145,6 +50136,72 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.calculateSumForPercents = calculateSumForPercents;
+exports.calculatePercents = calculatePercents;
+function calculateSumForPercents(matrix) {
+  var sumArray = [];
+  matrix.slice(1).forEach(function (d, i) {
+    d.forEach(function (e) {
+      if (typeof e === 'number') {
+        if (!sumArray[i]) {
+          sumArray[i] = e;
+          return sumArray[i];
+        }
+        sumArray[i] += e;
+      }
+      return sumArray[i];
+    });
+  });
+  return sumArray;
+}
+
+function calculatePercents(matrix, sumArray) {
+  var newValues = matrix.slice(1).map(function (d, i) {
+    return d.map(function (e) {
+      if (typeof e === 'number') {
+        return e / sumArray[i] * 100;
+      }
+      return e;
+    });
+  });
+  return newValues;
+}
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = calculateRange;
+function calculateRange(matrix) {
+  var newValues = matrix.slice(1).map(function (d) {
+    return d.map(function (e, i) {
+      if (typeof e === 'number') {
+        if (i === 1) {
+          return e - d[i + 1];
+        }
+      }
+      return e;
+    });
+  });
+  return newValues;
+}
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
   var text = void 0;
@@ -50183,7 +50240,7 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
 var _escapeHtml = __webpack_require__(4);
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50407,7 +50464,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 154 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50446,7 +50503,7 @@ exports.default = function (startDate, endDate) {
 };
 
 /***/ }),
-/* 155 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50538,17 +50595,23 @@ var _assertDateString = __webpack_require__(7);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _defaultDateFormat = __webpack_require__(154);
+var _defaultDateFormat = __webpack_require__(156);
 
 var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
 
-var _paginatingLegend = __webpack_require__(153);
+var _paginatingLegend = __webpack_require__(155);
 
 var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
 
-var _tooltipContents = __webpack_require__(152);
+var _tooltipContents = __webpack_require__(154);
 
 var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
+
+var _calculateRange = __webpack_require__(153);
+
+var _calculateRange2 = _interopRequireDefault(_calculateRange);
+
+var _calculatePercents = __webpack_require__(152);
 
 var _message = __webpack_require__(151);
 
@@ -50677,11 +50740,11 @@ function defineC3() {
         var options = getDefaultOptions.call(this);
 
         // 100% for charts
-        var sumArray = calculateSumForPercents(this.dataset.matrix);
+        var sumArray = (0, _calculatePercents.calculateSumForPercents)(this.dataset.matrix);
         var oldMatrix = [];
         if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
           oldMatrix = this.dataset.matrix;
-          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray(calculatePercents(this.dataset.matrix, sumArray)));
+          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculatePercents.calculatePercents)(this.dataset.matrix, sumArray)));
           options.axis = {
             y: {
               padding: {
@@ -50694,6 +50757,11 @@ function defineC3() {
               }
             }
           };
+        }
+
+        // range charts
+        if (options.range) {
+          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculateRange2.default)(this.dataset.matrix)));
         }
 
         if (!!this.config.clearOnRender && options.data.columns.length > 0) {
@@ -50806,12 +50874,24 @@ function defineC3() {
                   if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
                     valueFormatted = parseFloat((valueFormatted / 100 * sumArray[index]).toFixed(2));
                   }
+                  // Restore value from range calculation for range charts
+                  if (options.range) {
+                    if (id === 'Max') {
+                      valueFormatted += _this.dataset.matrix[index + 1][2];
+                    }
+                  }
                   return valueFormatted;
                 }
                 // Restore value from percents calculation for stacking 100% charts
                 if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
                   valueFormatted = (valueFormatted / 100 * sumArray[index]).toFixed(2);
                   return parseFloat(valueFormatted);
+                }
+                // Restore value from range calculation for range charts
+                if (options.range) {
+                  if (id === 'Max') {
+                    valueFormatted += _this.dataset.matrix[index + 1][2];
+                  }
                 }
                 return valueFormatted;
               }
@@ -50913,37 +50993,8 @@ function bindResizeListener(fn) {
   }
 }
 
-function calculateSumForPercents(matrix) {
-  var sumArray = [];
-  matrix.slice(1).forEach(function (d, i) {
-    d.forEach(function (e) {
-      if (typeof e === 'number') {
-        if (!sumArray[i]) {
-          sumArray[i] = e;
-          return sumArray[i];
-        }
-        sumArray[i] += e;
-      }
-      return sumArray[i];
-    });
-  });
-  return sumArray;
-}
-
-function calculatePercents(matrix, sumArray) {
-  var newValues = matrix.slice(1).map(function (d, i) {
-    return d.map(function (e) {
-      if (typeof e === 'number') {
-        return e / sumArray[i] * 100;
-      }
-      return e;
-    });
-  });
-  return newValues;
-}
-
 /***/ }),
-/* 156 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51178,13 +51229,13 @@ function getDefaultType(parser) {
 }
 
 /***/ }),
-/* 157 */
+/* 159 */
 /***/ (function(module) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.5.4","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.13","d3":"^5.4.0","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.6.0","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.13","d3":"^5.4.0","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
 
 /***/ }),
-/* 158 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51199,7 +51250,7 @@ function valueAtDeepKey(obj, is, value) {
 }
 
 /***/ }),
-/* 159 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51233,7 +51284,7 @@ function flatten(ob) {
 };
 
 /***/ }),
-/* 160 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51246,9 +51297,9 @@ exports.default = initialize;
 
 var _each = __webpack_require__(1);
 
-var _flatten = __webpack_require__(159);
+var _flatten = __webpack_require__(161);
 
-var _object = __webpack_require__(158);
+var _object = __webpack_require__(160);
 
 var Dataset = void 0; /* injected */
 
@@ -51442,7 +51493,7 @@ var parsers = {
 };
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51541,7 +51592,7 @@ function updateRow(q, input) {
 }
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51611,7 +51662,7 @@ function sortRows(str, comp) {
 }
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51648,7 +51699,7 @@ function selectRow(q) {
 }
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51750,7 +51801,7 @@ function insertRow(index, str, input) {
 }
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51800,7 +51851,7 @@ function filterRows(fn) {
 }
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51836,7 +51887,7 @@ function deleteRow(q) {
 }
 
 /***/ }),
-/* 167 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51868,11 +51919,11 @@ var _c = __webpack_require__(9);
 
 var _c2 = _interopRequireDefault(_c);
 
-var _package = __webpack_require__(157);
+var _package = __webpack_require__(159);
 
 var _package2 = _interopRequireDefault(_package);
 
-var _data = __webpack_require__(156);
+var _data = __webpack_require__(158);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -51886,7 +51937,7 @@ var _stripHtmlTags = __webpack_require__(8);
 
 var _escapeHtml = __webpack_require__(4);
 
-var _libraries = __webpack_require__(155);
+var _libraries = __webpack_require__(157);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
@@ -52021,13 +52072,23 @@ var Dataviz = exports.Dataviz = function Dataviz() {
     marginBetweenElements: false,
     hover: true,
     effect3d: 'both-sides'
-  }), _defineProperty(_defaultOptions, 'react', false), _defaultOptions);
+  }), _defineProperty(_defaultOptions, 'react', false), _defineProperty(_defaultOptions, 'range', false), _defaultOptions);
 
   this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
 
   if (this.config.type) {
     // backward compatibility with v2016... areachart -> area
     this.config.type = convertChartTypes(this.config.type);
+  }
+
+  // overwriting options for range chart
+  if (this.config.type.includes('-range')) {
+    this.config.range = true;
+    this.config.type = this.config.type.replace('-range', '');
+    this.config.legend.show = false;
+    this.config.stacking = 'normal';
+    this.config.labels = ['Max', 'Min'];
+    this.config.colors = [this.config.colors[0], this.config.colors[0]];
   }
 
   // overwriting stacked when stacking added
@@ -52673,11 +52734,14 @@ Dataviz.version = _package2.default.version;
 function buildDomWrapper(el, options) {
   var html = '';
   var chart100percentWide = '';
+  var rangeChart = '';
   if (options.legend.position === 'top' || options.legend.position === 'bottom') {
     chart100percentWide = 'c3-chart-100-percent';
   }
-
-  var container = '<div class="c3-chart ' + chart100percentWide + '"></div>';
+  if (options.range) {
+    rangeChart = 'keen-dataviz-range';
+  }
+  var container = '<div class="c3-chart ' + chart100percentWide + ' ' + rangeChart + '"></div>';
   var align = 'horizontal';
   if (options.legend.position === 'left' || options.legend.position === 'right') {
     align = 'vertical';
@@ -52745,7 +52809,7 @@ function domReady(fn) {
 exports.default = Dataviz;
 
 /***/ }),
-/* 168 */
+/* 170 */
 /***/ (function(module, exports) {
 
 var g;
@@ -52771,7 +52835,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 169 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52782,7 +52846,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = exports.Dataviz = exports.keenGlobals = exports.extendKeenGlobalObject = undefined;
 
-var _index = __webpack_require__(167);
+var _index = __webpack_require__(169);
 
 Object.defineProperty(exports, 'Dataviz', {
   enumerable: true,
@@ -52820,7 +52884,7 @@ if (typeof webpackKeenGlobals !== 'undefined') {
 }
 
 exports.default = _index.Dataviz;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(168)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(170)))
 
 /***/ })
 /******/ ]);
