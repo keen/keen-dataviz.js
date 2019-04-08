@@ -2,7 +2,7 @@
 
 A JavaScript data visualization library for [Keen](https://keen.io).
 
-<a href="https://www.chartjs.org/docs/latest/getting-started/installation.html"><img src="https://img.shields.io/github/release/keen/keen-dataviz.js.svg?style=flat-square&maxAge=600" alt=""></a>
+<a href="https://keen.io/docs/visualize/common-chart-examples/"><img src="https://img.shields.io/github/release/keen/keen-dataviz.js.svg?style=flat-square&maxAge=600" alt=""></a>
 <a href="https://github.com/badges/shields/graphs/contributors" alt="Contributors"><img src="https://img.shields.io/github/contributors/badges/shields.svg" /></a>
 <a href="https://github.com/badges/shields/pulse" alt="Activity">
 <img src="https://img.shields.io/github/commit-activity/m/badges/shields.svg" /></a>
