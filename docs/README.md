@@ -27,12 +27,20 @@ Types like "bar" and "line" support [axis rotation](http://c3js.org/samples/axes
 
 ### Custom (built by us):
 
+* metric
 * bar-range
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container',
+    type: 'bar-range',
+    results: [result1Minimum, result2Maximum]
+  })
+```
+
 * horizontal-bar-range
 * area-range
 * area-range-step
 * area-range-spline
-* metric
 
 If `previousResults` is set, the metric will show the difference between the current result and the previous one.
 
