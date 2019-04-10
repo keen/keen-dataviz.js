@@ -90,15 +90,21 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
   <body>
     <!-- DOM Element -->
     <div id="some_container"></div>
+    
+    <style>
+      #some_container {
+        width: 400px;
+        height: 250px;
+      }
+    </style>
 
     <!-- Create and Render -->
     <script>
       const chart = new KeenDataviz({
-        container: '#some_container', // querySelector
+        container: '#some_container',
         title: 'New Customers per Week'
       });
 
-      // Use keen-analysis.js to run a query
       const client = new KeenAnalysis({
         projectId: 'YOUR_PROJECT_ID',
         readKey: 'YOUR_READ_KEY'
