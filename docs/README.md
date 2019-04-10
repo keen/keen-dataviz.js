@@ -33,7 +33,7 @@ Types like "bar" and "line" support [axis rotation](http://c3js.org/samples/axes
 const chart = new KeenDataviz({
     container: '#some_container',
     type: 'bar-range',
-    results: [result1Minimum, result2Maximum]
+    results: [result1Maximum, result2Minimum]
   })
 ```
 
