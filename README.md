@@ -139,7 +139,9 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 ### Chart type
 
 Specify the visualization type. **If no type is set, the library will automatically set the best option.**
-[Full list of chart types](./docs/README.md#chart-types).
+The most popular chart types: https://keen.io/docs/visualize/common-chart-examples/
+
+[Full list of chart types](./docs/README.md#chart-types)
 
 ```javascript
 const chart = new KeenDataviz({
