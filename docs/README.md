@@ -41,6 +41,7 @@ const chart = new KeenDataviz({
 * area-range
 * area-range-step
 * area-range-spline
+* sparkline
 
 If `previousResults` is set, the metric will show the difference between the current result and the previous one.
 
