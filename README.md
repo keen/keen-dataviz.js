@@ -16,9 +16,11 @@ A JavaScript data visualization library for [Keen](https://keen.io).
 npm install keen-dataviz --save
 ```
 
-## Live Demo
+## Live Demos
 
-https://keen.io/docs/visualize/common-chart-examples/
+[Chart types](https://keen.io/docs/visualize/common-chart-examples/)
+
+[Themes and Palettes](http://keen.github.io/keen-dataviz.js/)
 
 ## Example
 
