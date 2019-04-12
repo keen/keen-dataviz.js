@@ -798,7 +798,8 @@
             'activated_device': 'Activated Device',
             'first_session': 'First Session',
             'invite_friend': 'Invite Friend'
-          }
+          },
+          palette: 'autocollector'
         })
         .render(horizontalFunnelData);
 
@@ -875,7 +876,8 @@
       window.pie = new KeenDataviz({
           container: '.chart-c3-pie',
           title: 'Mmmm, pie...',
-          type: 'pie'
+          type: 'pie',
+          palette: 'autocollector'
         })
         .render({
           result: [
@@ -896,7 +898,8 @@
           title: 'Bar Chart Horizontal',
           type: 'horizontal-bar',
           sortGroups: 'desc',
-          legend: false
+          legend: false,
+          palette: 'autocollector'
         })
         .data(makeGroupedDataset())
         .render();

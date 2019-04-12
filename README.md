@@ -5,7 +5,7 @@ A JavaScript data visualization library for [Keen](https://keen.io).
 <a href="https://keen.io/"><img src="https://img.shields.io/github/release/keen/keen-dataviz.js.svg?style=flat-square&maxAge=600" alt=""></a>
 <a href="https://github.com/keen/keen-dataviz.js/graphs/contributors" alt="Contributors"><img src="https://img.shields.io/github/contributors/keen/keen-dataviz.js.svg" /></a>
 <a href="https://github.com/keen/keen-dataviz.js/pulse" alt="Activity"><img src="https://img.shields.io/github/last-commit/keen/keen-dataviz.js.svg" /></a>
-![](https://img.shields.io/github/license/keen/keen-dataviz.js.svg)
+<a href="#" alt="License"><img src="https://img.shields.io/github/license/keen/keen-dataviz.js.svg" /></a>
 <a href="http://slack.keen.io/"><img src="https://img.shields.io/badge/slack-keen-orange.svg?style=flat-square&maxAge=3600" alt="Slack"></a>
 <a href="https://www.jsdelivr.com/package/npm/keen-dataviz"><img src="https://data.jsdelivr.com/v1/package/npm/keen-dataviz/badge" alt=""></a>
 <a href="https://www.npmjs.com/package/keen-dataviz"><img src="https://img.shields.io/npm/dm/keen-dataviz.svg" alt=""></a>
@@ -16,6 +16,10 @@ A JavaScript data visualization library for [Keen](https://keen.io).
 npm install keen-dataviz --save
 ```
 
+## Live Demo
+
+https://keen.io/docs/visualize/common-chart-examples/
+
 ## Example
 
 ```javascript
@@ -24,7 +28,7 @@ import KeenAnalysis from 'keen-analysis'; // API client
 
 import 'keen-dataviz/dist/keen-dataviz.css';
 /*
-  Webpack users: to include CSS files in your project - install
+  Webpack users: to include CSS files in your project please install
   https://github.com/webpack-contrib/css-loader
   https://github.com/webpack-contrib/style-loader
   Here's an example: https://github.com/keen/keen-dataviz-webpack-boilerplate
@@ -35,8 +39,7 @@ const chart = new KeenDataviz({
   container: '#my-chart-div', // querySelector
 
   // Optional:
-  title: 'New Customers per Week',
-  showLoadingSpinner: true
+  title: 'New Customers per Week'
 });
 
 // use keen-analysis.js to run a query
@@ -53,12 +56,10 @@ client
     interval: 'daily'
   })
   .then(results => {
-    // Handle the result
     chart
       .render(results);
   })
   .catch(error => {
-    // Handle the error
     chart
       .message(error.message);
   });
@@ -80,10 +81,7 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- Use keen-analysis.js to fetch query results -->
     <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-analysis@3"></script>
-
-    <!-- Dataviz dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.css" rel="stylesheet" />
     <script crossorigin src="https://cdn.jsdelivr.net/npm/keen-dataviz@3/dist/keen-dataviz.min.js"></script>
   </head>
@@ -118,12 +116,10 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
           interval: 'daily'
         })
         .then(function(results){
-          // pass the result to the chart
           chart
             .render(results);
         })
         .catch(function(error){
-          // on error
           chart
             .message(error.message);
         });
@@ -139,9 +135,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 ### Chart type
 
 Specify the visualization type. **If no type is set, the library will automatically set the best option.**
-The most popular chart types: https://keen.io/docs/visualize/common-chart-examples/
 
-[Full list of chart types](./docs/README.md#chart-types)
+[Full list of the supported chart types](./docs/README.md#chart-types)
 
 ```javascript
 const chart = new KeenDataviz({
@@ -379,13 +374,22 @@ const chart = new KeenDataviz({
 });
 ```
 
+### Color Palettes
+
+```javascript
+const chart = new KeenDataviz({
+  container: '#some_container', // required
+  palette: 'autocollector' // autocollector | modern
+});
+```
+
 ### Color mapping
 
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
   colorMapping: {
-    'some_label_1': '#c51111',
+    'some_label_1': '#c51111', // column - color
     'some_label_2': '#11c53b'
   }
 });
