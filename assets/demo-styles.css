@@ -23,11 +23,23 @@ h3 {
   background: #FFF;
   border-radius: 0 0 2px 2px;
   padding: 5px 10px 0;
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 0px;
-  width: 200px;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  z-index: 9999;
+  border: 1px solid #ececec;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.1);
+  border-radius: 0 0 0.3rem 0.3rem;
 }
+
+#theme-selector .selector-container{
+  flex: 1;
+  padding: 0.5rem;
+}
+
 #theme-selector label {
   display: block;
 }
