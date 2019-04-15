@@ -381,7 +381,7 @@ const chart = new KeenDataviz({
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  palette: 'autocollector' // autocollector | modern
+  palette: 'autocollector' // autocollector | modern | dracula
 });
 ```
 
