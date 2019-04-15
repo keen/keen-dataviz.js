@@ -20,7 +20,7 @@ npm install keen-dataviz --save
 
 [Chart types](https://keen.io/docs/visualize/common-chart-examples/)
 
-[Themes and Palettes](http://keen.github.io/keen-dataviz.js/)
+[Themes and Color Palettes](http://keen.github.io/keen-dataviz.js/)
 
 ## Example
 
