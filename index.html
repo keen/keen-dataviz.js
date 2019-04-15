@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Keen Dataviz Demo | Keen</title>
+    <title>Keen Dataviz Themes | Keen</title>
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/737368/747986/css/fonts.css" />
-    <link rel="stylesheet" href="./assets/keen-dashboards.css" />
     <link rel="stylesheet" href="./assets/demo-styles.css" />
 
     <!-- Dataviz dependencies -->
@@ -47,7 +46,7 @@
     </div>
 
     <div class="container">
-      <h1>Dataviz Examples</h1>
+      <h1>Keen-Dataviz Themes</h1>
 
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
@@ -95,8 +94,8 @@
           <div class="chart-c3-area-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
-          <h2>Gauge</h2>
-          <div class="chart-c3-gauge chart-standard-height"></div>
+          <h2>Donut Chart</h2>
+          <div class="chart-c3-donut chart-standard-height"></div>
         </div>
       </div>
 
@@ -106,8 +105,8 @@
           <div class="chart-c3-spline-time-multi chart-standard-height"></div>
         </div>
         <div class="keen-ui-col-4">
-          <h2>Donut Chart</h2>
-          <div class="chart-c3-donut chart-standard-height"></div>
+          <h2>Gauge</h2>
+          <div class="chart-c3-gauge chart-standard-height"></div>
         </div>
       </div>
 
@@ -221,7 +220,7 @@
 
       var gaugeData = [
         [ 'Index', 'Value' ],
-        [ 'Result', 79.1 ]
+        [ 'Result', 77.5 ]
       ];
 
       var groupedData = [
@@ -507,7 +506,6 @@
         container: '.chart-demo-table',
         type: 'table',
         title: 'Basic table view',
-        notes: 'Footnotes for this table',
         palette,
       })
       .call(function(){
@@ -518,9 +516,7 @@
       window.gauge = new KeenDataviz({
         container: '.chart-c3-gauge',
         title: 'Percentage of awesome',
-        notes: 'Sample notes go down here',
         type: 'gauge',
-        renderOnVisible: true,
         colors,
         palette,
       })
@@ -555,7 +551,7 @@
 
       window.barMulti = new KeenDataviz({
         container: '.chart-c3-bar-multi',
-        title: 'Bar Chart',
+        title: false,
         type: 'bar',
         colors,
         palette,
@@ -567,7 +563,7 @@
 
       window.barMultiStacked = new KeenDataviz({
         container: '.chart-c3-bar-stacked',
-        title: 'Bar Chart',
+        title: false,
         type: 'horizontal-bar',
         colors,
         palette,
@@ -672,7 +668,7 @@
 
       window.lineTimeMulti = new KeenDataviz({
         container: '.chart-c3-line-time-multi',
-        title: 'Line Chart',
+        title: false,
         type: 'line',
         stacked: false,
         sortGroups: 'desc',
@@ -687,7 +683,7 @@
 
       window.splineTimeMulti = new KeenDataviz({
         container: '.chart-c3-spline-time-multi',
-        title: 'Spline Chart',
+        title: false,
         type: 'spline',
         colors,
         palette,
@@ -703,7 +699,7 @@
 
       window.areaTimeMulti = new KeenDataviz({
         container: '.chart-c3-area-time-multi',
-        title: 'Area Chart',
+        title: false,
         type: 'area',
         colors,
         palette,
@@ -717,7 +713,7 @@
 
       window.areaSplineTimeMulti = new KeenDataviz({
         container: '.chart-c3-area-spline-time-multi',
-        title: 'Area-Spline Chart',
+        title: false,
         type: 'area-spline',
         colors,
         palette,
@@ -733,7 +729,7 @@
 
       window.areaStepTimeMulti = new KeenDataviz({
         container: '.chart-c3-area-step-time-multi',
-        title: 'Area-Step Chart',
+        title: false,
         type: 'area-step',
         colors,
         palette,
@@ -749,7 +745,7 @@
 
       window.stepTimeMulti = new KeenDataviz({
         container: '.chart-c3-step-time-multi',
-        title: 'Step Chart',
+        title: false,
         type: 'step',
         colors,
         palette,

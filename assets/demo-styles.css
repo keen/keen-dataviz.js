@@ -1,22 +1,28 @@
 body {
   margin: 0;
-  padding: 20px;
+  padding: 2rem;
 }
+
 h1, h2, h3, label, select {
   font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
 h1 {
-  font-weight: 200;
   margin: 0;
 }
+
 h2 {
-  font-size: 21px;
-  margin: 48px 0 24px;
+  margin: 0;
+  font-size: 1.2rem;
   text-transform: uppercase;
 }
+
 h3 {
-  font-size: 16px;
-  margin: 0 0 24px;
+  margin: 0 ;
+}
+
+.selector-container label{
+  margin-bottom: 0.3rem;
 }
 
 #theme-selector {
@@ -43,8 +49,109 @@ h3 {
 #theme-selector label {
   display: block;
 }
+
 #theme-selector select {
   display: block;
   height: 32px;
   width: 100%;
 }
+
+/*! Tiles */
+
+.keen-ui-col-1, .keen-ui-col-2,
+.keen-ui-col-3, .keen-ui-col-4,
+.keen-ui-col-5, .keen-ui-col-6,
+.keen-ui-col-7, .keen-ui-col-8,
+.keen-ui-col-9, .keen-ui-col-10,
+.keen-ui-col-11, .keen-ui-col-12 {
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+@media (min-width: 52em) {
+  .keen-ui-col-1, .keen-ui-col-2,
+  .keen-ui-col-3, .keen-ui-col-4,
+  .keen-ui-col-5, .keen-ui-col-6,
+  .keen-ui-col-7, .keen-ui-col-8,
+  .keen-ui-col-9, .keen-ui-col-10,
+  .keen-ui-col-11, .keen-ui-col-12 {
+    float: left;
+  }
+
+  /*! Grid units */
+  .keen-ui-col-1 {
+    width: 8.33333%;
+  }
+  .keen-ui-col-2 {
+    width: 16.66667%;
+  }
+  .keen-ui-col-3 {
+    width: 25%;
+  }
+  .keen-ui-col-4 {
+    width: 33.33333%;
+  }
+  .keen-ui-col-5 {
+    width: 41.66667%;
+  }
+  .keen-ui-col-6 {
+    width: 50%;
+  }
+  .keen-ui-col-7 {
+    width: 58.33333%;
+  }
+  .keen-ui-col-8 {
+    width: 66.66667%;
+  }
+  .keen-ui-col-9 {
+    width: 75%;
+  }
+  .keen-ui-col-10 {
+    width: 83.33333%;
+  }
+  .keen-ui-col-11 {
+    width: 91.66667%;
+  }
+  .keen-ui-col-12 {
+    width: 100%;
+  }
+
+  /*! Grid offset units */
+  .keen-ui-col-offset-1 {
+    margin-left: 8.33333%;
+  }
+  .keen-ui-col-offset-2 {
+    margin-left: 16.66667%;
+  }
+  .keen-ui-col-offset-3 {
+    margin-left: 25%;
+  }
+  .keen-ui-col-offset-4 {
+    margin-left: 33.33333%;
+  }
+  .keen-ui-col-offset-5 {
+    margin-left: 41.66667%;
+  }
+  .keen-ui-col-offset-6 {
+    margin-left: 50%;
+  }
+  .keen-ui-col-offset-7 {
+    margin-left: 58.33333%;
+  }
+  .keen-ui-col-offset-8 {
+    margin-left: 66.66667%;
+  }
+  .keen-ui-col-offset-9 {
+    margin-left: 75%;
+  }
+  .keen-ui-col-offset-10 {
+    margin-left: 83.33333%;
+  }
+  .keen-ui-col-offset-11 {
+    margin-left: 91.66667%;
+  }
+
+  /*! No offsets > 4 grid units */
+}
+
+

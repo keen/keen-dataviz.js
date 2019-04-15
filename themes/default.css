@@ -1,5 +1,5 @@
 .demo-theme-default {
-  background: #fbfbfb;
+  background: #fff;
 }
 .demo-theme-default h1 {
   color: #282828;
@@ -11,10 +11,16 @@
   color: #555;
 }
 
+.keen-ui-col-12,
 .keen-ui-col-4,
 .keen-ui-col-8,
 .keen-ui-col-6 {
-  padding: 1% 3%;
+  padding: 5%;
+  border: 1px solid #fbfbfb;
+}
+
+.chart-standard-height{
+  height: 300px;
 }
 
 .chart-funnel,

@@ -1,5 +1,5 @@
 .demo-theme-dashboard {
-  background: #f2f2f2;
+  background: #fdfdfd;
 }
 .demo-theme-dashboard h1 {
   color: #333;
@@ -19,8 +19,8 @@
 .demo-theme-dashboard .keen-dataviz {
   background: #fff;
   border: 1px solid #e7e7e7;
-  border-radius: 2px;
   box-sizing: border-box;
+  border-radius: 0.5rem;
 }
 .demo-theme-dashboard .keen-dataviz-title {
   border-bottom: 1px solid #e7e7e7;
@@ -48,4 +48,11 @@
 
 .demo-theme-dashboard .keen-dataviz .keen-spinner-indicator {
   border-top-color: rgba(0, 187, 222, .4);
+}
+
+.demo-theme-dashboard .keen-ui-col-12,
+.demo-theme-dashboard .keen-ui-col-4,
+.demo-theme-dashboard .keen-ui-col-8,
+.demo-theme-dashboard .keen-ui-col-6 {
+  border: 0;
 }

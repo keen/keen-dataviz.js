@@ -127,12 +127,12 @@
 .demo-theme-dark .keen-dataviz .text-label,
 .demo-theme-dark .keen-dataviz .text-main,
 .demo-theme-dark .keen-dataviz .text-second{
-  fill: rgba(255,255,255,.7);
+  fill: rgba(255,255,255,.9);
 }
 
 .demo-theme-dark .keen-dataviz .keen-dataviz-metric-value,
 .demo-theme-dark .keen-dataviz .keen-dataviz-metric-title {
-  color: rgba(255,255,255,.7);
+  color: rgba(255,255,255,.9);
 }
 
 .demo-theme-dark .keen-dataviz .metric-comparison > .keen-dataviz-metric-title {
@@ -156,4 +156,11 @@
 }
 .demo-theme-dark .keen-dataviz .arrow-green {
   border-bottom: 8px solid rgb(80, 148, 91);
+}
+
+.demo-theme-dark .keen-ui-col-12,
+.demo-theme-dark .keen-ui-col-4,
+.demo-theme-dark .keen-ui-col-8,
+.demo-theme-dark .keen-ui-col-6 {
+  border: 0;
 }
