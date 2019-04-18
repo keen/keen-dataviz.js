@@ -1017,7 +1017,8 @@
       window.sparkline = new KeenDataviz({
           container: '.chart-c3-sparkline',
           title: 'Sparkline Chart',
-          type: 'line-sparkline',
+          type: 'line',
+          sparkline: true
         })
         .data(makeGroupedDataset())
         .render();

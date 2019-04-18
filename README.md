@@ -603,6 +603,17 @@ const chart = new KeenDataviz({
 });
  ```
 
+ ### Sparkline chart
+
+ Create chart without axis, grid and legend
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container', // required
+    sparkline: true
+  })
+```
+
  ### Extraction Table Columns Order
 
  ```javascript
