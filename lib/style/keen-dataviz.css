@@ -466,10 +466,7 @@
   .legend-item{
     display: flex;
     cursor: pointer;
-    overflow: hidden;
     padding: 0.2em;
-    white-space: nowrap;
-    text-overflow: ellipsis;
     font-size: 0.8em;
     > * {
       vertical-align: middle;
@@ -484,6 +481,10 @@
     }
     &-text{
       pointer-events: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: left;
     }
   }
 
