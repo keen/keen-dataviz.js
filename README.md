@@ -381,7 +381,7 @@ const chart = new KeenDataviz({
 ```javascript
 const chart = new KeenDataviz({
   container: '#some_container', // required
-  palette: 'autocollector' // autocollector | modern
+  palette: 'autocollector' // autocollector | modern | dracula
 });
 ```
 
@@ -604,6 +604,17 @@ const chart = new KeenDataviz({
                      // 'percent' - 100% stacked chart
 });
  ```
+
+ ### Sparkline chart
+
+ Create chart without axis, grid and legend
+
+```javascript
+const chart = new KeenDataviz({
+    container: '#some_container', // required
+    sparkline: true
+  })
+```
 
  ### Extraction Table Columns Order
 

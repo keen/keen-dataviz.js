@@ -213,14 +213,21 @@
       <h2>Line chart</h2>
 
       <h3>Categorical</h3>
+
       <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
+          <div class="chart-c3-sparkline keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6">
           <div class="chart-c3-line keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+      </div>
+
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-line-multi keen-chart-container"></div>
         </div>
-        <div class="keen-ui-col-4">
+        <div class="keen-ui-col-6">
           <div class="chart-c3-line-stacked keen-chart-container"></div>
         </div>
       </div>
@@ -1006,6 +1013,15 @@
       // -------------------------
       // LINE !!!
       // -------------------------
+
+      window.sparkline = new KeenDataviz({
+          container: '.chart-c3-sparkline',
+          title: 'Sparkline Chart',
+          type: 'line',
+          sparkline: true
+        })
+        .data(makeGroupedDataset())
+        .render();
 
       window.line = new KeenDataviz({
           container: '.chart-c3-line',
