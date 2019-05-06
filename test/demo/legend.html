@@ -45,6 +45,28 @@ let chart = new KeenDataviz({
   container: '#some_container', // required
   // type: 'pie',
   // results
+  labelMapping: {
+    'Argentina': 'Human readable label',
+  },
+  labelMappingDimension: 'column',
+
+  legend: {
+    show: true,
+    position: 'right', // top, bottom, left, right
+    label: {
+      textMaxLength: 33
+    },
+    pagination: {
+      offset: 0, // start from
+      limit: 5 // items per page
+    },
+    tooltip: {
+      show: true,
+      pointer: true
+    },
+
+    // sort: (columns) => { return columns; } // custom sorting function
+  }
 });
 
 /*
@@ -59,9 +81,11 @@ clientTracking.recordEvent({
 */
 
 client.query({
-  analysis_type: 'extraction',
-  event_collection: 'abc',
-  timeframe: 'this_20_minutes'
+  analysis_type: 'count',
+  event_collection: 'purchases',
+  timeframe: 'this_20_months',
+  interval: 'monthly',
+  group_by: 'geo_information.country'
 }).then(results => {
   chart.render(results);
 });
