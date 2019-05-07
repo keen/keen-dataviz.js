@@ -705,11 +705,7 @@
     display: -ms-flexbox;
     display: flex;
     cursor: pointer;
-    overflow: hidden;
     padding: 0.2em;
-    white-space: nowrap;
-    -o-text-overflow: ellipsis;
-       text-overflow: ellipsis;
     font-size: 0.8em;
   }
 .keen-c3-legend .legend-item > * {
@@ -726,6 +722,11 @@
     }
 .keen-c3-legend .legend-item-text{
       pointer-events: none;
+      overflow: hidden;
+      white-space: nowrap;
+      -o-text-overflow: ellipsis;
+         text-overflow: ellipsis;
+      text-align: left;
     }
 .keen-c3-legend-label-overlay .overlay-pointer {
     border-color: transparent transparent #FFFFFF transparent;
