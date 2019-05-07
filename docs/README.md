@@ -178,3 +178,17 @@ Display a message for a visualization. _Previously `.error()`)_.
 ```javascript
 chart.message('Oops, an error occured!');
 ```
+
+### .exportImage(node, quality, bgcolor)
+
+Download chart as PNG/JPEG image
+
+```javascript
+// method by default generates PNG image
+chart.exportImage(this.config.containerElement);
+
+// if quality provided then JPEG is generated
+// quality - a number between 0 to 1 indicating image quality (quality = 0 generates PNG image)
+// bgcolor - a string value for background color, any valid CSS color value (defaults to '#fff')
+chart.exportImage(this.config.containerElement, 1, 'blue');
+```
