@@ -460,9 +460,6 @@
   &-vertical-items{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
     .legend-item{
       width: 8em;
     }
@@ -488,7 +485,7 @@
     &-color-sample{
       display: inline-block;
       width: 1em;
-      height: 100%;
+      height: 1em;
       margin-right: 0.5em;
       pointer-events: none;
       flex: none;
