@@ -723,7 +723,7 @@
 .keen-c3-legend .legend-item-color-sample{
       display: inline-block;
       width: 1em;
-      height: 100%;
+      height: 1em;
       margin-right: 0.5em;
       pointer-events: none;
       -ms-flex: none;
