@@ -89,6 +89,7 @@ Default configuration values:
     }
     hover: true, // show or hide hover effect
     marginBetweenSteps: false, // show or hide spaces between elements
+    minimalSize: false, // minimal size of the last step
   }
 ```
 
