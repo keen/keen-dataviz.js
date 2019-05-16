@@ -713,7 +713,7 @@ partialIntervalIndicator: false
 ```
 
 
-### Depracation warnings
+### Deprecation warnings
 
 You can turn off deprecation warnings with
 
@@ -721,6 +721,24 @@ You can turn off deprecation warnings with
 const chart = new Keen.Dataviz({
   container: '#container', // required
   showDeprecationWarnings: false
+});
+```
+
+### Download results
+
+You can add button to enable download results from chart.
+
+```javascript
+const chart = new Keen.Dataviz({
+  container: '#container', // required
+  ui: {
+    buttons: {
+      download: {
+        label: 'Download as a JPG file', // optional - by default it's just "Download"
+        type: 'jpg',  // optional - by default it's 'json', supported types ['jpg', 'jpeg', 'png', 'csv', 'json']
+      }
+    }
+  }
 });
 ```
 
