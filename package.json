@@ -19,7 +19,7 @@
     "profile": "webpack --profile --json > stats.json",
     "analyze": "webpack-bundle-analyzer stats.json /dist",
     "version": "npm run build && git add .",
-    "postversion": "git push && git push --tags",
+    "postversion": "git push && git push --tags && npm publish",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch"
   },
