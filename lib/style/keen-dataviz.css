@@ -61,6 +61,20 @@
     height: inherit;
   }
 
+  &-button {
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    border-color: #d6d6d6;
+    cursor: pointer;
+    transition: background-color 300ms ease;
+
+    &:hover {
+      background-color: var(--silver);
+    }
+  }
+
   .metric-comparison {
     flex-direction: column-reverse;
     color: var(--black);
@@ -446,9 +460,6 @@
   &-vertical-items{
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
     .legend-item{
       width: 8em;
     }
@@ -474,7 +485,7 @@
     &-color-sample{
       display: inline-block;
       width: 1em;
-      height: 100%;
+      height: 1em;
       margin-right: 0.5em;
       pointer-events: none;
       flex: none;
