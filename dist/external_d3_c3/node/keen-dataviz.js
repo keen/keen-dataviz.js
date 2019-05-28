@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("d3"), require("c3")) : factory(root["d3"], root["c3"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(global, function(__WEBPACK_EXTERNAL_MODULE__1__, __WEBPACK_EXTERNAL_MODULE__8__) {
+})(global, function(__WEBPACK_EXTERNAL_MODULE__1__, __WEBPACK_EXTERNAL_MODULE__7__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -377,38 +377,12 @@ function testString(input) {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.stripHtmlTags = stripHtmlTags;
-/**
- * Strip html tags from string
- *
- * @param  {string} string The string to strip
- * @return {string}
- * @public
- */
-
-function stripHtmlTags(inputString) {
-  if (typeof inputString !== 'string') {
-    return inputString;
-  }
-  return inputString.replace(/(<([^>]+)>)/ig, '');
-}
+module.exports = __WEBPACK_EXTERNAL_MODULE__7__;
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__8__;
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -427,7 +401,7 @@ exports.default = function (len) {
 };
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -439,7 +413,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.appendColumn = appendColumn;
 exports.appendRow = appendRow;
 
-var _createNullList = __webpack_require__(9);
+var _createNullList = __webpack_require__(8);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
@@ -530,7 +504,7 @@ function appendRow(str, input) {
 }
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -569,7 +543,7 @@ function exportImage(obj) {
 }
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -613,7 +587,7 @@ function renderDownloadButton() {
 };
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -640,6 +614,32 @@ function extendDeep(target) {
     });
   }
   return target;
+}
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stripHtmlTags = stripHtmlTags;
+/**
+ * Strip html tags from string
+ *
+ * @param  {string} string The string to strip
+ * @return {string}
+ * @public
+ */
+
+function stripHtmlTags(inputString) {
+  if (typeof inputString !== 'string') {
+    return inputString;
+  }
+  return inputString.replace(/(<([^>]+)>)/ig, '');
 }
 
 /***/ }),
@@ -765,7 +765,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = undefined;
 
-var _append = __webpack_require__(10);
+var _append = __webpack_require__(9);
 
 var append = _interopRequireWildcard(_append);
 
@@ -1251,7 +1251,7 @@ Object.defineProperty(exports, "__esModule", {
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint-env browser */
 
 
-var _c = __webpack_require__(8);
+var _c = __webpack_require__(7);
 
 var _c2 = _interopRequireDefault(_c);
 
@@ -2522,23 +2522,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // import moment from 'moment-timezone';
-
-var _each = __webpack_require__(0);
-
-var _stripHtmlTags = __webpack_require__(7);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _escapeHtml = __webpack_require__(3);
-
-var defaults = {
-  /*
-  DEPRECATED - use CSS styles
-   height: undefined,
-  width: undefined,
-  stickyHeader: false,
-  stickyFooter: false
-  */
-};
 
 var currentPage = void 0;
 function _generateTableRows(datavizInstance, dataset) {
@@ -2571,14 +2557,15 @@ function _generateTableRows(datavizInstance, dataset) {
 
   var columnsArray = datavizInstance.config.table.columns ? datavizInstance.config.table.columns : datavizInstance.dataset.matrix[0];
 
-  var checkArray = {};
-  var mapValues = datavizInstance.config.table.mapValues;
+  var colNamesToMap = {};
+  var _datavizInstance$conf = datavizInstance.config.table,
+      mapValues = _datavizInstance$conf.mapValues,
+      mapDates = _datavizInstance$conf.mapDates;
 
   for (var key in mapValues) {
-    checkArray[columnsArray.indexOf(key)] = key;
+    colNamesToMap[columnsArray.indexOf(key)] = key;
   }
 
-  // var london     = newYork.clone().tz("Europe/London");
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -2599,25 +2586,18 @@ function _generateTableRows(datavizInstance, dataset) {
           var _ref2 = _slicedToArray(_ref, 2);
 
           var index = _ref2[0];
-          var rowCol = _ref2[1];
+          var rowColValue = _ref2[1];
 
-          if (datavizInstance.config.timezone && rowCol instanceof Date) {
-            var dateTimeTimezoned = '';
-            /*
-            moment
-              .tz(rowCol, "UTC")
-              .clone()
-              .tz(datavizInstance.config.timezone);
-              */
-            html += '<td>' + dateTimeTimezoned.toString() + '</td>';
+          if (mapDates && rowColValue instanceof Date) {
+            rowColValue = mapDates(rowColValue);
+          }
+
+          var rowColValueEscaped = (0, _escapeHtml.escapeHtml)(rowColValue);
+          if (colNamesToMap[index]) {
+            html += '<td>' + mapValues[colNamesToMap[index]](rowColValueEscaped) + '</td>';
             continue;
           }
-          var rowColEscaped = (0, _escapeHtml.escapeHtml)(rowCol);
-          if (checkArray[index]) {
-            html += '<td>' + mapValues[checkArray[index]](rowColEscaped) + '</td>';
-            continue;
-          }
-          html += '<td>' + rowColEscaped + '</td>';
+          html += '<td>' + rowColValueEscaped + '</td>';
         }
       } catch (err) {
         _didIteratorError2 = true;
@@ -3701,7 +3681,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = downloadResults;
 
-var _exportSvg = __webpack_require__(11);
+var _exportSvg = __webpack_require__(10);
 
 var _exportSvg2 = _interopRequireDefault(_exportSvg);
 
@@ -3787,7 +3767,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _escapeHtml = __webpack_require__(3);
 
-var _renderDownloadBtn = __webpack_require__(12);
+var _renderDownloadBtn = __webpack_require__(11);
 
 var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
 
@@ -4300,7 +4280,7 @@ exports.default = function (lib) {
   return defineC3();
 };
 
-var _c = __webpack_require__(8);
+var _c = __webpack_require__(7);
 
 var _c2 = _interopRequireDefault(_c);
 
@@ -4308,7 +4288,7 @@ var _each = __webpack_require__(0);
 
 var _extend = __webpack_require__(5);
 
-var _extendDeep = __webpack_require__(13);
+var _extendDeep = __webpack_require__(12);
 
 var _assertDateString = __webpack_require__(6);
 
@@ -4465,18 +4445,20 @@ function defineC3() {
         if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
           oldMatrix = this.dataset.matrix;
           this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculatePercents.calculatePercents)(this.dataset.matrix, sumArray)));
-          options.axis = {
-            y: {
-              padding: {
-                top: 0
-              },
-              tick: {
-                format: function format(d) {
-                  return d + '%';
+          if (!options.sparkline) {
+            options.axis = {
+              y: {
+                padding: {
+                  top: 0
+                },
+                tick: {
+                  format: function format(d) {
+                    return d + '%';
+                  }
                 }
               }
-            }
-          };
+            };
+          }
         }
 
         // range charts
@@ -4749,7 +4731,7 @@ var _dataset2 = _interopRequireDefault(_dataset);
 
 var _extend = __webpack_require__(5);
 
-var _stripHtmlTags = __webpack_require__(7);
+var _stripHtmlTags = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4961,7 +4943,7 @@ function getDefaultType(parser) {
 /* 40 */
 /***/ (function(module) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.10.1","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.13","d3":"^5.4.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","moment-timezone":"^0.5.21","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.10.2","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.13","d3":"^5.4.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^2.11.1","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
 
 /***/ }),
 /* 41 */
@@ -5248,11 +5230,11 @@ exports.updateRow = updateRow;
 
 var _each = __webpack_require__(0);
 
-var _createNullList = __webpack_require__(9);
+var _createNullList = __webpack_require__(8);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _append = __webpack_require__(10);
+var _append = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5454,11 +5436,11 @@ exports.insertRow = insertRow;
 
 var _each = __webpack_require__(0);
 
-var _createNullList = __webpack_require__(9);
+var _createNullList = __webpack_require__(8);
 
 var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _append = __webpack_require__(10);
+var _append = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5656,7 +5638,7 @@ var _d = __webpack_require__(1);
 
 var d3 = _interopRequireWildcard(_d);
 
-var _c = __webpack_require__(8);
+var _c = __webpack_require__(7);
 
 var _c2 = _interopRequireDefault(_c);
 
@@ -5674,7 +5656,7 @@ var _assertDateString = __webpack_require__(6);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _stripHtmlTags = __webpack_require__(7);
+var _stripHtmlTags = __webpack_require__(13);
 
 var _escapeHtml = __webpack_require__(3);
 
@@ -5682,13 +5664,13 @@ var _libraries = __webpack_require__(38);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
-var _extendDeep = __webpack_require__(13);
+var _extendDeep = __webpack_require__(12);
 
-var _exportSvg = __webpack_require__(11);
+var _exportSvg = __webpack_require__(10);
 
 var _exportSvg2 = _interopRequireDefault(_exportSvg);
 
-var _renderDownloadBtn = __webpack_require__(12);
+var _renderDownloadBtn = __webpack_require__(11);
 
 var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
 
