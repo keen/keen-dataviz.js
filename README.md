@@ -742,6 +742,18 @@ const chart = new Keen.Dataviz({
 });
 ```
 
+### Save charts as JPG/PNG files
+
+```javascript
+// method by default generates PNG image
+chart.exportImage();
+
+// if quality provided then JPEG is generated
+// quality - a number between 0 to 1 indicating image quality (quality = 0 generates PNG image)
+// bgcolor - a string value for background color, any valid CSS color value (defaults to '#fff')
+chart.exportImage({ quality: 1, bgcolor: 'blue' });
+```
+
 **Advanced usage:**
 
 * [Chart types](./docs/README.md#chart-types)
