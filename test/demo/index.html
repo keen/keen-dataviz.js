@@ -35,6 +35,36 @@
       margin: 0 auto;
       width: 600px;
     }
+
+    .tabs {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .tab {
+      border: 1px solid #eee;
+      width: 100%;
+      text-align: center;
+      padding: 20px 0;
+      background: #f9f9f9;
+      cursor: pointer;
+    }
+
+    .tab:hover {
+      background: hsl(0, 0%, 90%)
+    }
+
+    .tab-panel {
+      display: none;
+      padding: 10px;
+      border: 1px solid #eee;
+    }
+    .active {
+      background: hsl(0, 0%, 90%)
+    }
     </style>
     <style>
 
@@ -76,89 +106,21 @@
 
     </style>
   </head>
-  <body onload="init()">
-    <div class="container">
+  <body>
+    <h1>Dataviz Examples</h1>
 
-      <h1>Dataviz Examples</h1>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-4" id="nested">
-          <h2>Metric</h2>
-          <div class="chart-demo-metric keen-chart-small-container"></div>
-        </div>
-        <div class="keen-ui-col-4" id="nested">
-          <h2>Metric with previous results</h2>
-          <div class="chart-demo-metric-previous-results keen-chart-small-container"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
-          <h2>Message</h2>
-          <div class="chart-demo-message keen-chart-small-container"></div>
-        </div>
-        <div class="keen-ui-col-4">
-          <h2>Spinner</h2>
-          <div id="chart-demo-spinner" class="keen-chart-small-container"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-12">
-          <h2>Table</h2>
-          <div class="chart-demo-table"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-12">
-          <h2>Empty Table</h2>
-          <div class="chart-demo-empty-table"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-6" id="nested">
-          <h2>Funnel</h2>
-          <div class="chart-demo-funnel keen-chart-container"></div>
-        </div>
-        <div class="keen-ui-col-6" id="nested">
-          <h2>Funnel 3D</h2>
-          <div class="chart-demo-funnel-3d keen-chart-container"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-6" id="nested">
-          <h2>Horizontal funnel</h2>
-          <div class="chart-demo-horizontal-funnel keen-chart-container"></div>
-        </div>
-        <div class="keen-ui-col-6" id="nested">
-          <h2>Horizontal funnel 3D</h2>
-          <div class="chart-demo-horizontal-funnel-3d keen-chart-container"></div>
-        </div>
-      </div>
-
-      <div class="keen-ui-row">
-        <div class="keen-ui-col-4">
-          <h2>Gauge</h2>
-          <div class="chart-c3-gauge keen-chart-small-container"></div>
-          <div class="chart-c3-gauge2 keen-chart-small-container"></div>
-        </div>
-        <div class="keen-ui-col-4">
-          <h2>Donut</h2>
-          <div class="chart-c3-donut keen-chart-container"></div>
-        </div>
-        <div class="keen-ui-col-4">
-          <h2>Pie</h2>
-          <div class="chart-c3-pie keen-chart-container"></div>
-        </div>
-      </div>
-
-
-
+    <div class="tabs">
+      <div class="tab" id="bar-tab" onclick="changeTab('bar')">Bar charts</div>
+      <div class="tab" id="line-tab" onclick="changeTab('line')">Line, Spline and Step charts</div>
+      <div class="tab" id="area-tab" onclick="changeTab('area')">Area charts</div>
+      <div class="tab" id="pie-tab" onclick="changeTab('pie')">Pie, Donut and Gauge charts</div>
+      <div class="tab" id="funnel-tab" onclick="changeTab('funnel')">Funnel charts</div>
+      <div class="tab" id="custom-tab" onclick="changeTab('custom')">Custom charts</div>
+    </div>
+    
+    <div id="bar-panel" class="tab-panel active-panel">
       <h2>Bar chart</h2>
-
+    
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -168,7 +130,7 @@
           <div class="chart-c3-bar-multi keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-bar-stacked keen-chart-container"></div>
@@ -177,13 +139,13 @@
           <div class="chart-c3-bar-percent keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-bar-range keen-chart-container"></div>
         </div>
       </div>
-
+    
       <h3>Timeseries (yearly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -193,7 +155,7 @@
           <div class="chart-c3-bar-time-multi keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-bar-time-stacked keen-chart-container"></div>
@@ -202,18 +164,18 @@
           <div class="chart-c3-bar-time-percent keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-bar-time-range keen-chart-container"></div>
         </div>
       </div>
-
-
+    </div>
+    <div id="line-panel" class="tab-panel">
       <h2>Line chart</h2>
-
+    
       <h3>Categorical</h3>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-sparkline keen-chart-container"></div>
@@ -222,7 +184,7 @@
           <div class="chart-c3-line keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-line-multi keen-chart-container"></div>
@@ -231,7 +193,7 @@
           <div class="chart-c3-line-stacked keen-chart-container"></div>
         </div>
       </div>
-
+    
       <h3>Timeseries (daily)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -244,11 +206,9 @@
           <div class="chart-c3-line-time-stacked keen-chart-container"></div>
         </div>
       </div>
-
-
-
+    
       <h2>Spline chart</h2>
-
+    
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -261,7 +221,7 @@
           <div class="chart-c3-spline-stacked keen-chart-container"></div>
         </div>
       </div>
-
+    
       <h3>Timeseries (hourly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -274,12 +234,38 @@
           <div class="chart-c3-spline-time-stacked keen-chart-container"></div>
         </div>
       </div>
-
-
-
-
+    
+      <h2>Step chart</h2>
+    
+      <h3>Categorical</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-multi keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-stacked keen-chart-container"></div>
+        </div>
+      </div>
+    
+      <h3>Timeseries</h3>
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-time keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-time-multi keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-4">
+          <div class="chart-c3-step-time-stacked keen-chart-container"></div>
+        </div>
+      </div>
+    </div>
+    <div id="area-panel" class="tab-panel">
       <h2>Area chart</h2>
-
+    
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -297,7 +283,7 @@
           <div class="chart-c3-area-percent keen-chart-container"></div>
         </div>
       </div>
-
+    
       <h3>Timeseries (minutely)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -320,10 +306,10 @@
           <div class="chart-c3-area-time-range keen-chart-container"></div>
         </div>
       </div>
-
-
+    
+    
       <h2>Area-Spline chart</h2>
-
+    
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -333,7 +319,7 @@
           <div class="chart-c3-area-spline-multi keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-stacked keen-chart-container"></div>
@@ -342,8 +328,8 @@
           <div class="chart-c3-area-spline-percent keen-chart-container"></div>
         </div>
       </div>
-      
-
+    
+    
       <h3>Timeseries (secondly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -353,7 +339,7 @@
           <div class="chart-c3-area-spline-time-multi keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-time-stacked keen-chart-container"></div>
@@ -362,15 +348,15 @@
           <div class="chart-c3-area-spline-time-percent keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-area-spline-time-range keen-chart-container"></div>
         </div>
       </div>
-
+    
       <h2>Area-Step chart</h2>
-
+    
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -380,7 +366,7 @@
           <div class="chart-c3-area-step-multi keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-stacked keen-chart-container"></div>
@@ -389,7 +375,7 @@
           <div class="chart-c3-area-step-percent keen-chart-container"></div>
         </div>
       </div>
-
+    
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -399,7 +385,7 @@
           <div class="chart-c3-area-step-time-multi keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-time-stacked keen-chart-container"></div>
@@ -408,60 +394,949 @@
           <div class="chart-c3-area-step-time-percent keen-chart-container"></div>
         </div>
       </div>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-area-step-time-range keen-chart-container"></div>
         </div>
       </div>
-
-
-      <h2>Step chart</h2>
-
-      <h3>Categorical</h3>
+    </div>
+    <div id="pie-panel" class="tab-panel">
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step keen-chart-container"></div>
+          <h2>Gauge</h2>
+          <div class="chart-c3-gauge keen-chart-small-container"></div>
+          <div class="chart-c3-gauge2 keen-chart-small-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-multi keen-chart-container"></div>
+          <h2>Donut</h2>
+          <div class="chart-c3-donut keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-stacked keen-chart-container"></div>
+          <h2>Pie</h2>
+          <div class="chart-c3-pie keen-chart-container"></div>
         </div>
       </div>
-
-      <h3>Timeseries</h3>
+    </div>
+    <div id="funnel-panel" class="tab-panel">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Funnel</h2>
+          <div class="chart-demo-funnel keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Funnel 3D</h2>
+          <div class="chart-demo-funnel-3d keen-chart-container"></div>
+        </div>
+      </div>
+    
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Horizontal funnel</h2>
+          <div class="chart-demo-horizontal-funnel keen-chart-container"></div>
+        </div>
+        <div class="keen-ui-col-6" id="nested">
+          <h2>Horizontal funnel 3D</h2>
+          <div class="chart-demo-horizontal-funnel-3d keen-chart-container"></div>
+        </div>
+      </div>
+    </div>
+    <div id="custom-panel" class="tab-panel">
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-4" id="nested">
+          <h2>Metric</h2>
+          <div class="chart-demo-metric keen-chart-small-container"></div>
+        </div>
+        <div class="keen-ui-col-4" id="nested">
+          <h2>Metric with previous results</h2>
+          <div class="chart-demo-metric-previous-results keen-chart-small-container"></div>
+        </div>
+      </div>
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-time keen-chart-container"></div>
+          <h2>Message</h2>
+          <div class="chart-demo-message keen-chart-small-container"></div>
         </div>
         <div class="keen-ui-col-4">
-          <div class="chart-c3-step-time-multi keen-chart-container"></div>
-        </div>
-        <div class="keen-ui-col-4">
-          <div class="chart-c3-step-time-stacked keen-chart-container"></div>
+          <h2>Spinner</h2>
+          <div id="chart-demo-spinner" class="keen-chart-small-container"></div>
         </div>
       </div>
-
+    
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <h2>Table</h2>
+          <div class="chart-demo-table"></div>
+        </div>
+      </div>
+    
+      <div class="keen-ui-row">
+        <div class="keen-ui-col-12">
+          <h2>Empty Table</h2>
+          <div class="chart-demo-empty-table"></div>
+        </div>
+      </div>
+    
       <h2>Combo charts</h2>
-
+    
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
           <div class="chart-metric-combo keen-chart-container"></div>
         </div>
       </div>
-
-
-
-
-
-
     </div>
 
     <script>
 
-    function init(){
+    function barLoad() {
+        window.bar = new KeenDataviz({
+          container: '.chart-c3-bar',
+          title: 'Bar Chart Horizontal',
+          type: 'horizontal-bar',
+          sortGroups: 'desc',
+          legend: false,
+          palette: 'autocollector',
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.barMulti = new KeenDataviz({
+          container: '.chart-c3-bar-multi',
+          title: 'Bar Chart',
+          type: 'horizontal-bar',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.barMultiStacked = new KeenDataviz({
+          container: '.chart-c3-bar-stacked',
+          title: 'Bar Chart Multi Stacked',
+          type: 'horizontal-bar',
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.barMultiPercent = new KeenDataviz({
+          container: '.chart-c3-bar-percent',
+          title: 'Bar Chart Multi Stacked 100%',
+          type: 'horizontal-bar',
+          stacking: 'percent',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.barMultiPercent = new KeenDataviz({
+          container: '.chart-c3-bar-range',
+          title: 'Bar Chart Range',
+          type: 'horizontal-bar-range',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = rangeData;
+          })
+          .render();
+
+        window.barTime = new KeenDataviz({
+          container: '.chart-c3-bar-time',
+          title: 'Bar Chart',
+          type: 'bar',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = intervalDataYearly;
+          })
+          .render();
+
+        window.barTimeMulti = new KeenDataviz({
+          container: '.chart-c3-bar-time-multi',
+          title: 'Bar Chart Multi',
+          type: 'bar',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = intervalMultiDataYearly;
+          })
+          .render();
+
+        window.barTimeMultiStacked = new KeenDataviz({
+          container: '.chart-c3-bar-time-stacked',
+          title: 'Bar Chart Multi Stacked',
+          type: 'bar',
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = intervalMultiDataYearly;
+          })
+          .render();
+
+        window.barTimeMultiPercent = new KeenDataviz({
+          container: '.chart-c3-bar-time-percent',
+          title: 'Bar Chart Multi Stacked 100%',
+          type: 'bar',
+          stacking: 'percent',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = intervalMultiDataYearly;
+          })
+          .render();
+
+        window.barTimeMultiPercent = new KeenDataviz({
+          container: '.chart-c3-bar-time-range',
+          title: 'Bar Chart Range',
+          type: 'bar-range',
+          renderOnVisible: true
+        })
+          .call(function () {
+            this.dataset.matrix = rangeData;
+          })
+          .render();
+
+      }
+
+    function lineLoad() {
+      window.sparkline = new KeenDataviz({
+        container: '.chart-c3-sparkline',
+        title: 'Sparkline Chart',
+        type: 'line',
+        sparkline: true,
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.line = new KeenDataviz({
+        container: '.chart-c3-line',
+        title: 'Line Chart',
+        type: 'line',
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.lineMulti = new KeenDataviz({
+        container: '.chart-c3-line-multi',
+        legend: {
+          position: 'bottom',
+          show: true
+        },
+        title: 'Multi Line Chart',
+        type: 'line',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.lineMultiStacked = new KeenDataviz({
+        container: '.chart-c3-line-stacked',
+        title: 'Stacked Line Chart',
+        type: 'line',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.lineTime = new KeenDataviz({
+        container: '.chart-c3-line-time',
+        title: 'Line Chart',
+        type: 'line',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalDataDaily;
+        })
+        .render();
+
+      window.lineTimeMulti = new KeenDataviz({
+        container: '.chart-c3-line-time-multi',
+        title: 'Line Chart',
+        type: 'line',
+        legend: {
+          position: 'top',
+          show: true,
+          pagination: {
+            limit: 3
+          }
+        },
+        renderOnVisible: true
+      })
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      window.lineTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-line-time-stacked',
+        title: 'Line Chart Multi Stacked',
+        type: 'line',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      window.spline = new KeenDataviz({
+        container: '.chart-c3-spline',
+        title: 'Spline Chart',
+        type: 'spline',
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.splineMulti = new KeenDataviz({
+        container: '.chart-c3-spline-multi',
+        title: 'Multi Spline Chart',
+        type: 'spline',
+        legend: {
+          position: 'left',
+          show: true,
+          label: {
+            textMaxLength: 20
+          }
+        },
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.splineMultiStacked = new KeenDataviz({
+        container: '.chart-c3-spline-stacked',
+        title: 'Spline Chart mutli stacked',
+        type: 'spline',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.splineTime = new KeenDataviz({
+        container: '.chart-c3-spline-time',
+        title: 'Spline Chart',
+        type: 'spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalDataHourly;
+        })
+        .render();
+
+      window.splineTimeMulti = new KeenDataviz({
+        container: '.chart-c3-spline-time-multi',
+        title: 'Spline Chart',
+        type: 'spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiDataHourly;
+        })
+        .render();
+
+      window.splineTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-spline-time-stacked',
+        title: 'Spline Chart multi stacked',
+        stacked: true,
+        type: 'spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiDataHourly;
+        })
+        .render();
+
+      window.step = new KeenDataviz({
+        container: '.chart-c3-step',
+        title: 'Step Chart',
+        type: 'step',
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.stepMulti = new KeenDataviz({
+        container: '.chart-c3-step-multi',
+        title: 'Step Chart Multi',
+        type: 'step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.stepMultiStacked = new KeenDataviz({
+        container: '.chart-c3-step-stacked',
+        title: 'Step Chart',
+        type: 'step',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.stepTime = new KeenDataviz({
+        container: '.chart-c3-step-time',
+        title: 'Step Chart',
+        type: 'step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalData;
+        })
+        .render();
+
+      window.stepTimeMulti = new KeenDataviz({
+        container: '.chart-c3-step-time-multi',
+        title: 'Step Chart mutli',
+        type: 'step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-step-time-stacked',
+        title: 'Step Chart Multi Stacked',
+        type: 'step',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+    }
+
+    function areaLoad() {
+      window.area = new KeenDataviz({
+        container: '.chart-c3-area',
+        title: 'Area Chart',
+        type: 'area',
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.areaMulti = new KeenDataviz({
+        container: '.chart-c3-area-multi',
+        title: 'Area Chart',
+        type: 'area',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-stacked',
+        title: 'Area Chart stacked',
+        type: 'area',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-percent',
+        title: 'Area Chart Stacked 100%',
+        type: 'area',
+        stacking: 'percent',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaTime = new KeenDataviz({
+        container: '.chart-c3-area-time',
+        title: 'Area Chart',
+        type: 'area',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalDataMinutely;
+        })
+        .render();
+
+      window.areaTimeMulti = new KeenDataviz({
+        container: '.chart-c3-area-time-multi',
+        title: 'Area Chart mutli',
+        type: 'area',
+        renderOnVisible: true
+      })
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      window.areaTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-time-stacked',
+        title: 'Area Chart multi stacked',
+        type: 'area',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      window.areaTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-time-percent',
+        title: 'Area Chart multi stacked 100%',
+        type: 'area',
+        stacking: 'percent',
+        renderOnVisible: true
+      })
+        .data(makeGroupedIntervalDataset())
+        .render();
+
+      window.areaTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-time-range',
+        title: 'Area Chart Range',
+        type: 'area-range',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = rangeData;
+        })
+        .render();
+
+      window.areaSpline = new KeenDataviz({
+        container: '.chart-c3-area-spline',
+        title: 'Area-Spline Chart',
+        type: 'area-spline',
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.areaSplineMulti = new KeenDataviz({
+        container: '.chart-c3-area-spline-multi',
+        title: 'Area-Spline Chart',
+        type: 'area-spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaSplineMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-spline-stacked',
+        title: 'Area-Spline Chart stacked',
+        type: 'area-spline',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaSplineMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-spline-percent',
+        title: 'Area-Spline Chart stacked 100%',
+        type: 'area-spline',
+        stacking: 'percent',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaSplineTime = new KeenDataviz({
+        container: '.chart-c3-area-spline-time',
+        title: 'Area-Spline Chart',
+        type: 'area-spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalDataSecondly;
+        })
+        .render();
+
+      window.areaSplineTimeMulti = new KeenDataviz({
+        container: '.chart-c3-area-spline-time-multi',
+        title: 'Area-Spline Chart multi stacked',
+        type: 'area-spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+
+      window.areaSplineTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-spline-time-stacked',
+        title: 'Area-Spline Chart multi stacked',
+        stacked: true,
+        type: 'area-spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+      window.areaSplineTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-spline-time-percent',
+        title: 'Area-Spline Chart multi stacked 100%',
+        type: 'area-spline',
+        stacking: 'percent',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiDataSecondly;
+        })
+        .render();
+
+      window.areaSplineTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-spline-time-range',
+        title: 'Area-Range-Spline Chart',
+        type: 'area-range-spline',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = rangeData;
+        })
+        .render();
+
+      window.areaStep = new KeenDataviz({
+        container: '.chart-c3-area-step',
+        title: 'Area-Step Chart multi',
+        type: 'area-step',
+        renderOnVisible: true
+      })
+        .data(makeGroupedDataset())
+        .render();
+
+      window.areaStepMulti = new KeenDataviz({
+        container: '.chart-c3-area-step-multi',
+        title: 'Area-Step Chart multi',
+        type: 'area-step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaStepMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-step-stacked',
+        title: 'Area-Step Chart multi stacked',
+        type: 'area-step',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaStepMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-step-percent',
+        title: 'Area-Step Chart multi stacked 100%',
+        type: 'area-step',
+        stacking: 'percent',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = groupedMultiData;
+        })
+        .render();
+
+      window.areaStepTime = new KeenDataviz({
+        container: '.chart-c3-area-step-time',
+        title: 'Area-Step Chart',
+        type: 'area-step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalData;
+        })
+        .render();
+
+      window.areaStepTimeMulti = new KeenDataviz({
+        container: '.chart-c3-area-step-time-multi',
+        title: 'Area-Step Chart multi',
+        type: 'area-step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-step-time-stacked',
+        title: 'Area-Step Chart multi stacked',
+        type: 'area-step',
+        stacked: true,
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-step-time-percent',
+        title: 'Area-Step Chart multi stacked 100%',
+        type: 'area-step',
+        stacking: 'percent',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = intervalMultiData;
+        })
+        .render();
+
+      window.areaStepTimeMultiStacked = new KeenDataviz({
+        container: '.chart-c3-area-step-time-range',
+        title: 'Area-Range-Step Chart',
+        type: 'area-range-step',
+        renderOnVisible: true
+      })
+        .call(function () {
+          this.dataset.matrix = rangeData;
+        })
+        .render();
+    }
+
+    function pieLoad() {
+      window.gauge = new KeenDataviz({
+        container: '.chart-c3-gauge',
+        title: 'Percentage of awesome Gauge 1',
+        theme: 'custom-theme',
+        notes: 'Sample notes go down here',
+        type: 'gauge'
+      })
+        .render(gaugeData);
+
+      window.gauge2 = new KeenDataviz({
+        container: '.chart-c3-gauge2',
+        title: 'Percentage of awesome Gauge 2',
+        notes: 'some gauge2 note 123',
+        type: 'gauge',
+        theme: 'custom-theme',
+        color: {
+          pattern: ['#fe6672', '#ff855c', '#73d483'],
+          threshold: {
+            values: [25, 50, 75]
+          }
+        }
+      })
+        .render(gaugeData);
+
+      const gaugeInterval = setInterval(function () {
+        window.gauge2.call(function () {
+          this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
+        }).render();
+      }, 1000);
+
+      window.donut = new KeenDataviz({
+        container: '.chart-c3-donut',
+        title: 'Mmmm, donuts...',
+        type: 'donut',
+        legend: {
+          position: 'bottom',
+          show: true,
+          label: {
+            textMaxLength: 100
+          }
+        },
+        sortGroups: 'desc'
+      })
+        .render({
+          result: [
+            { email: 'andrew@js.ninja', value: 100 },
+            { email: 'eve@hawai.travel', value: 50 }
+          ]
+        });
+
+      window.pie = new KeenDataviz({
+        container: '.chart-c3-pie',
+        title: 'Mmmm, pie...',
+        type: 'pie',
+        palette: 'autocollector'
+      })
+        .render({
+          result: [
+            { some_key: 'john', result: 4 },
+            { some_key: 'jack', result: 14 },
+            { some_key: 'rob', result: 20 },
+            { some_key: 'mary', result: 5 },
+            { some_key: 'tod', result: 24 }
+          ]
+        });
+
+    }
+
+    function funnelLoad() {
+      window.funnel = new KeenDataviz({
+        container: '.chart-demo-funnel',
+        type: 'funnel',
+        labelMapping: {
+          'create_account': 'Create account',
+          'complete_profile': 'Complete profile',
+          'create_project': 'Create project',
+          'invite_teammate': 'Invite teammate'
+        },
+        funnel: {
+          percents: {
+            show: true,
+          }
+        }
+      })
+        .render(funnelData);
+
+      window.funnel = new KeenDataviz({
+        container: '.chart-demo-funnel-3d',
+        type: 'funnel-3d',
+        labelMapping: {
+          'started_video': 'Started video',
+          'twenty_five_percent': '25 percent',
+          'fifty_percent': '50 percent',
+          'seventy_five_percent': '75 percent',
+          'finish_video': 'Finished video'
+        },
+        funnel: {
+          lines: false,
+          percents: {
+            show: true,
+          },
+          resultValues: false
+        }
+      })
+        .render(funnelData3d);
+
+      window.funnel = new KeenDataviz({
+        container: '.chart-demo-horizontal-funnel',
+        type: 'horizontal-funnel',
+        labelMapping: {
+          'purchased_device': 'Purchased Device',
+          'activated_device': 'Activated Device',
+          'first_session': 'First Session',
+          'invite_friend': 'Invite Friend'
+        },
+        palette: 'autocollector'
+      })
+        .render(horizontalFunnelData);
+
+      window.funnel = new KeenDataviz({
+        container: '.chart-demo-horizontal-funnel-3d',
+        type: 'horizontal-funnel-3d',
+        labelMapping: {
+          'site_visits': 'Site visits',
+          'seen_ads': 'Seen ads',
+          'clicked_ads': 'Clicked ads',
+          'purchased_product': 'Purchased product'
+        },
+        funnel: {
+          lines: false,
+          percents: {
+            show: true,
+            decimals: 1,
+          },
+          resultValues: false,
+        }
+      })
+        .render(horizontalFunnelData3d);
+
+    }
+
+    function customLoad() {
+        window.spinner = new KeenDataviz({
+          container: '#chart-demo-spinner',
+          type: 'spinner'
+        })
+          .render();
+
+        window.message = new KeenDataviz({
+          container: '.chart-demo-message',
+          type: 'message'
+        })
+          .message('This is a manual message!');
+
+        window.metric = new KeenDataviz({
+          container: '#nested .chart-demo-metric',
+          type: 'metric',
+          title: 'High-fives today'
+        })
+          .prepare()
+          .render(metricData);
+
+        window.metric = new KeenDataviz({
+          container: '#nested .chart-demo-metric-previous-results',
+          type: 'metric',
+          title: 'High-fives today',
+          results,
+          previousResults
+        })
+
+        window.table = new KeenDataviz({
+          container: '.chart-demo-table',
+          type: 'table',
+          title: 'Basic table view',
+          notes: 'Footnotes for this table',
+          table: {
+            columns: ['keen.timestamp', 'user_agent', 'tracked_by'],
+            pagination: {
+              limit: 3
+            }
+          }
+        })
+          .render(tableData);
+
+        const emptyTable = new KeenDataviz({
+          container: '.chart-demo-empty-table',
+          type: 'table'
+        })
+          .render({ result: [] });
+
+        window.metricComboChart = new KeenDataviz({
+          container: '.chart-metric-combo',
+          title: 'Metric Combo',
+          type: 'metric-combo',
+          metricResults: {
+            previous: metricComboChartData.previous,
+            current: metricComboChartData.current,
+          },
+          results: metricComboChartData.interval,
+          tooltip: {
+            format: {
+              title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            }
+          }
+        })
+          .render();
+      }
 
       const RAND_DATA_MAX = 10;
 
@@ -711,854 +1586,6 @@
         current: results,
         interval: intervalQuery
       }
-
-      window.spinner = new KeenDataviz({
-          container: '#chart-demo-spinner',
-          type: 'spinner'
-        })
-        .render();
-
-      window.message = new KeenDataviz({
-          container: '.chart-demo-message',
-          type: 'message'
-        })
-        .message('This is a manual message!');
-
-      window.metric = new KeenDataviz({
-          container: '#nested .chart-demo-metric',
-          type: 'metric',
-          title: 'High-fives today'
-        })
-        .prepare()
-        .render(metricData);
-
-      window.metric = new KeenDataviz({
-          container: '#nested .chart-demo-metric-previous-results',
-          type: 'metric',
-          title: 'High-fives today',
-          results,
-          previousResults
-        })
-
-      window.table = new KeenDataviz({
-          container: '.chart-demo-table',
-          type: 'table',
-          title: 'Basic table view',
-          notes: 'Footnotes for this table',
-          table: {
-            columns: ['keen.timestamp', 'user_agent', 'tracked_by'],
-            pagination: {
-              limit: 3
-            }
-          }
-        })
-        .render(tableData);
-
-      const emptyTable = new KeenDataviz({
-          container: '.chart-demo-empty-table',
-          type: 'table'
-        })
-        .render({ result: [] });
-
-      window.funnel = new KeenDataviz({
-          container: '.chart-demo-funnel',
-          type: 'funnel',
-          labelMapping: {
-            'create_account': 'Create account',
-            'complete_profile': 'Complete profile',
-            'create_project': 'Create project',
-            'invite_teammate': 'Invite teammate'
-          },
-          funnel: {
-            percents: {
-              show: true,
-            }
-          }
-        })
-        .render(funnelData);
-
-      window.funnel = new KeenDataviz({
-          container: '.chart-demo-funnel-3d',
-          type: 'funnel-3d',
-          labelMapping: {
-            'started_video': 'Started video',
-            'twenty_five_percent': '25 percent',
-            'fifty_percent': '50 percent',
-            'seventy_five_percent': '75 percent',
-            'finish_video': 'Finished video'
-          },
-          funnel: {
-            lines: false,
-            percents: {
-              show: true,
-            },
-            resultValues: false
-          }
-        })
-        .render(funnelData3d);
-
-      window.funnel = new KeenDataviz({
-          container: '.chart-demo-horizontal-funnel',
-          type: 'horizontal-funnel',
-          labelMapping: {
-            'purchased_device': 'Purchased Device',
-            'activated_device': 'Activated Device',
-            'first_session': 'First Session',
-            'invite_friend': 'Invite Friend'
-          },
-          palette: 'autocollector'
-        })
-        .render(horizontalFunnelData);
-
-      window.funnel = new KeenDataviz({
-          container: '.chart-demo-horizontal-funnel-3d',
-          type: 'horizontal-funnel-3d',
-          labelMapping: {
-            'site_visits': 'Site visits',
-            'seen_ads': 'Seen ads',
-            'clicked_ads': 'Clicked ads',
-            'purchased_product': 'Purchased product'
-          },
-          funnel: {
-            lines: false,
-            percents: {
-              show: true,
-              decimals: 1,
-            },
-            resultValues: false,
-          }
-        })
-        .render(horizontalFunnelData3d);
-
-      window.gauge = new KeenDataviz({
-          container: '.chart-c3-gauge',
-          title: 'Percentage of awesome Gauge 1',
-          theme: 'custom-theme',
-          notes: 'Sample notes go down here',
-          type: 'gauge'
-        })
-        .render(gaugeData);
-
-      window.gauge2 = new KeenDataviz({
-          container: '.chart-c3-gauge2',
-          title: 'Percentage of awesome Gauge 2',
-          notes: 'some gauge2 note 123',
-          type: 'gauge',
-          theme: 'custom-theme',
-          color: {
-            pattern: ['#fe6672', '#ff855c', '#73d483'],
-            threshold: {
-              values: [25, 50, 75]
-            }
-          }
-        })
-        .render(gaugeData);
-
-      const gaugeInterval = setInterval(function(){
-        window.gauge2.call(function(){
-          this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
-        }).render();
-      }, 1000);
-
-      window.donut = new KeenDataviz({
-          container: '.chart-c3-donut',
-          title: 'Mmmm, donuts...',
-          type: 'donut',
-          legend: {
-            position: 'bottom',
-            show: true,
-            label: {
-              textMaxLength: 100
-            }
-          },
-          sortGroups: 'desc'
-        })
-        .render({
-          result: [
-            {email: 'andrew@js.ninja', value: 100},
-            {email: 'eve@hawai.travel', value: 50}
-          ]
-        });
-
-      window.pie = new KeenDataviz({
-          container: '.chart-c3-pie',
-          title: 'Mmmm, pie...',
-          type: 'pie',
-          palette: 'autocollector'
-        })
-        .render({
-          result: [
-            {some_key: 'john', result: 4},
-            {some_key: 'jack', result: 14},
-            {some_key: 'rob', result: 20},
-            {some_key: 'mary', result: 5},
-            {some_key: 'tod', result: 24}
-          ]});
-
-
-      // -------------------------
-      // BAR
-      // -------------------------
-
-      window.bar = new KeenDataviz({
-          container: '.chart-c3-bar',
-          title: 'Bar Chart Horizontal',
-          type: 'horizontal-bar',
-          sortGroups: 'desc',
-          legend: false,
-          palette: 'autocollector'
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.barMulti = new KeenDataviz({
-          container: '.chart-c3-bar-multi',
-          title: 'Bar Chart',
-          type: 'horizontal-bar'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.barMultiStacked = new KeenDataviz({
-        container: '.chart-c3-bar-stacked',
-        title: 'Bar Chart Multi Stacked',
-        type: 'horizontal-bar',
-        stacked: true,
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.barMultiPercent = new KeenDataviz({
-        container: '.chart-c3-bar-percent',
-        title: 'Bar Chart Multi Stacked 100%',
-        type: 'horizontal-bar',
-        stacking: 'percent',
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.barMultiPercent = new KeenDataviz({
-        container: '.chart-c3-bar-range',
-        title: 'Bar Chart Range',
-        type: 'horizontal-bar-range',
-        })
-        .call(function(){
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-      window.barTime = new KeenDataviz({
-          container: '.chart-c3-bar-time',
-          title: 'Bar Chart',
-          type: 'bar'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalDataYearly;
-        })
-        .render();
-
-      window.barTimeMulti = new KeenDataviz({
-          container: '.chart-c3-bar-time-multi',
-          title: 'Bar Chart Multi',
-          type: 'bar'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataYearly;
-        })
-        .render();
-
-      window.barTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-bar-time-stacked',
-        title: 'Bar Chart Multi Stacked',
-        type: 'bar',
-        stacked: true
-      })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataYearly;
-        })
-        .render();
-
-      window.barTimeMultiPercent = new KeenDataviz({
-        container: '.chart-c3-bar-time-percent',
-        title: 'Bar Chart Multi Stacked 100%',
-        type: 'bar',
-        stacking: 'percent'
-      })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataYearly;
-        })
-        .render();
-
-      window.barTimeMultiPercent = new KeenDataviz({
-        container: '.chart-c3-bar-time-range',
-        title: 'Bar Chart Range',
-        type: 'bar-range',
-      })
-        .call(function(){
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-      // -------------------------
-      // END BAR
-      // -------------------------
-
-
-      // -------------------------
-      // LINE !!!
-      // -------------------------
-
-      window.sparkline = new KeenDataviz({
-          container: '.chart-c3-sparkline',
-          title: 'Sparkline Chart',
-          type: 'line',
-          sparkline: true
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.line = new KeenDataviz({
-          container: '.chart-c3-line',
-          title: 'Line Chart',
-          type: 'line',
-
-
-
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.lineMulti = new KeenDataviz({
-          container: '.chart-c3-line-multi',
-          legend: {
-            position: 'bottom',
-            show: true
-          },
-          title: 'Multi Line Chart',
-          type: 'line'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.lineMultiStacked = new KeenDataviz({
-          container: '.chart-c3-line-stacked',
-          title: 'Stacked Line Chart',
-          type: 'line',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.lineTime = new KeenDataviz({
-          container:'.chart-c3-line-time',
-          title: 'Line Chart',
-          type: 'line'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalDataDaily;
-        })
-        .render();
-
-      window.lineTimeMulti = new KeenDataviz({
-          container: '.chart-c3-line-time-multi',
-          title: 'Line Chart',
-          type: 'line',
-          legend: {
-            position: 'top',
-            show: true,
-            pagination: {
-              limit: 3
-            }
-          }
-        })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.lineTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-line-time-stacked',
-          title: 'Line Chart Multi Stacked',
-          type: 'line',
-          stacked: true
-        })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      // -------------------------
-      // END LINE
-      // -------------------------
-
-
-      // -------------------------
-      // SPLINE
-      // -------------------------
-
-      window.spline = new KeenDataviz({
-          container: '.chart-c3-spline',
-          title: 'Spline Chart',
-          type: 'spline'
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.splineMulti = new KeenDataviz({
-          container: '.chart-c3-spline-multi',
-          title: 'Multi Spline Chart',
-          type: 'spline',
-          legend: {
-            position: 'left',
-            show: true,
-            label: {
-              textMaxLength: 20
-            }
-          }
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.splineMultiStacked = new KeenDataviz({
-          container: '.chart-c3-spline-stacked',
-          title: 'Spline Chart mutli stacked',
-          type: 'spline',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.splineTime = new KeenDataviz({
-          container: '.chart-c3-spline-time',
-          title: 'Spline Chart',
-          type: 'spline'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalDataHourly;
-        })
-        .render();
-
-      window.splineTimeMulti = new KeenDataviz({
-          container: '.chart-c3-spline-time-multi',
-          title: 'Spline Chart',
-          type: 'spline'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataHourly;
-        })
-        .render();
-
-      window.splineTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-spline-time-stacked',
-          title: 'Spline Chart multi stacked',
-          stacked: true,
-          type: 'spline'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataHourly;
-        })
-        .render();
-
-      // -------------------------
-      // END SPLINE
-      // -------------------------
-
-
-
-      // -------------------------
-      // AREA
-      // -------------------------
-
-      window.area = new KeenDataviz({
-          container: '.chart-c3-area',
-          title: 'Area Chart',
-          type: 'area'
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.areaMulti = new KeenDataviz({
-          container: '.chart-c3-area-multi',
-          title: 'Area Chart',
-          type: 'area'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-stacked',
-          title: 'Area Chart stacked',
-          type: 'area',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-        window.areaMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-percent',
-          title: 'Area Chart Stacked 100%',
-          type: 'area',
-          stacking: 'percent'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaTime = new KeenDataviz({
-          container: '.chart-c3-area-time',
-          title: 'Area Chart',
-          type: 'area'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalDataMinutely;
-        })
-        .render();
-
-      window.areaTimeMulti = new KeenDataviz({
-          container: '.chart-c3-area-time-multi',
-          title: 'Area Chart mutli',
-          type: 'area'
-        })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.areaTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-time-stacked',
-          title: 'Area Chart multi stacked',
-          type: 'area',
-          stacked: true,
-        })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-        window.areaTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-time-percent',
-          title: 'Area Chart multi stacked 100%',
-          type: 'area',
-          stacking: 'percent',
-        })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.areaTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-time-range',
-          title: 'Area Chart Range',
-          type: 'area-range',
-        })
-        .call(function(){
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-      // -------------------------
-      // END AREA
-      // -------------------------
-
-
-
-      // -------------------------
-      // AREA-SPLINE
-      // -------------------------
-
-      window.areaSpline = new KeenDataviz({
-          container: '.chart-c3-area-spline',
-          title: 'Area-Spline Chart',
-          type: 'area-spline',
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.areaSplineMulti = new KeenDataviz({
-          container: '.chart-c3-area-spline-multi',
-          title: 'Area-Spline Chart',
-          type: 'area-spline',
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaSplineMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-spline-stacked',
-          title: 'Area-Spline Chart stacked',
-          type: 'area-spline',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaSplineMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-spline-percent',
-          title: 'Area-Spline Chart stacked 100%',
-          type: 'area-spline',
-          stacking: 'percent'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaSplineTime = new KeenDataviz({
-          container: '.chart-c3-area-spline-time',
-          title: 'Area-Spline Chart',
-          type: 'area-spline'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalDataSecondly;
-        })
-        .render();
-
-      window.areaSplineTimeMulti = new KeenDataviz({
-          container: '.chart-c3-area-spline-time-multi',
-          title: 'Area-Spline Chart multi stacked',
-          type: 'area-spline'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataSecondly;
-        })
-        .render();
-
-      window.areaSplineTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-spline-time-stacked',
-          title: 'Area-Spline Chart multi stacked',
-          stacked: true,
-          type: 'area-spline'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataSecondly;
-        })
-        .render();
-      window.areaSplineTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-spline-time-percent',
-          title: 'Area-Spline Chart multi stacked 100%',
-          type: 'area-spline',
-          stacking: 'percent',
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiDataSecondly;
-        })
-        .render();
-
-      window.areaSplineTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-spline-time-range',
-          title: 'Area-Range-Spline Chart',
-          type: 'area-range-spline',
-        })
-        .call(function(){
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-        window.metricComboChart = new KeenDataviz({
-          container: '.chart-metric-combo',
-          title: 'Metric Combo',
-          type: 'metric-combo',
-          metricResults: {
-            previous: metricComboChartData.previous,
-            current: metricComboChartData.current,
-          },
-          results: metricComboChartData.interval,
-          tooltip: {
-            format: {
-              title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-            }
-          }
-        })
-        .render();
-
-      // -------------------------
-      // END AREA-SPLINE
-      // -------------------------
-
-
-
-      // -------------------------
-      // AREA-STEP
-      // -------------------------
-
-      window.areaStep = new KeenDataviz({
-          container: '.chart-c3-area-step',
-          title: 'Area-Step Chart multi',
-          type: 'area-step',
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.areaStepMulti = new KeenDataviz({
-          container: '.chart-c3-area-step-multi',
-          title: 'Area-Step Chart multi',
-          type: 'area-step',
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaStepMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-step-stacked',
-          title: 'Area-Step Chart multi stacked',
-          type: 'area-step',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-      
-      window.areaStepMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-step-percent',
-          title: 'Area-Step Chart multi stacked 100%',
-          type: 'area-step',
-          stacking: 'percent'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaStepTime = new KeenDataviz({
-          container: '.chart-c3-area-step-time',
-          title: 'Area-Step Chart',
-          type: 'area-step'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalData;
-        })
-        .render();
-
-      window.areaStepTimeMulti = new KeenDataviz({
-          container: '.chart-c3-area-step-time-multi',
-          title: 'Area-Step Chart multi',
-          type: 'area-step'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-step-time-stacked',
-          title: 'Area-Step Chart multi stacked',
-          type: 'area-step',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-step-time-percent',
-          title: 'Area-Step Chart multi stacked 100%',
-          type: 'area-step',
-          stacking: 'percent'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-area-step-time-range',
-          title: 'Area-Range-Step Chart',
-          type: 'area-range-step',
-        })
-        .call(function(){
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-      // -------------------------
-      // END AREA-STEP
-      // -------------------------
-
-
-      // -------------------------
-      // STEP
-      // -------------------------
-
-      window.step = new KeenDataviz({
-          container: '.chart-c3-step',
-          title: 'Step Chart',
-          type: 'step'
-        })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.stepMulti = new KeenDataviz({
-          container: '.chart-c3-step-multi',
-          title: 'Step Chart Multi',
-          type: 'step'
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.stepMultiStacked = new KeenDataviz({
-          container: '.chart-c3-step-stacked',
-          title: 'Step Chart',
-          type: 'step',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.stepTime = new KeenDataviz({
-          container: '.chart-c3-step-time',
-          title: 'Step Chart',
-          type: 'step'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalData;
-        })
-        .render();
-
-      window.stepTimeMulti = new KeenDataviz({
-          container: '.chart-c3-step-time-multi',
-          title: 'Step Chart mutli',
-          type: 'step'
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-step-time-stacked',
-          title: 'Step Chart Multi Stacked',
-          type: 'step',
-          stacked: true
-        })
-        .call(function(){
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      // -------------------------
-      // END STEP
-      // -------------------------
-
-
       function rand(a, b){
         return Math.floor((Math.random() * b) + a);
       }
@@ -1570,6 +1597,40 @@
         return arr;
       }
 
+    function changeTab(tabId){
+      let tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.className = tab.className.replace(' active', '')
+      });
+      let tabPanel = document.querySelectorAll('.tab-panel');
+      tabPanel.forEach(panel => {
+        panel.style.display = 'none';
+      })
+      document.getElementById(`${tabId}-panel`).style.display = 'block';
+      document.getElementById(`${tabId}-tab`).className += ' active';
+      switch (tabId) {
+        case 'bar':
+          barLoad();
+          break;
+        case 'line':
+          lineLoad();
+          break;
+        case 'area':
+          areaLoad();
+          break;
+        case 'pie':
+          pieLoad();
+          break;
+        case 'funnel':
+          funnelLoad();
+          break;
+        case 'custom':
+          customLoad();
+          break;
+
+        default:
+          break;
+      }
     }
     </script>
   </body>
