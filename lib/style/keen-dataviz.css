@@ -298,6 +298,32 @@
     -ms-animation: spin .7s linear infinite;
     -o-animation: spin .7s linear infinite;
   }
+
+  &-execution-meta {
+    padding: 0.5rem 1rem;
+    margin: 0.75rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    background: #fafafa;
+
+    dt {
+      margin-bottom: 0.5em;
+      flex: 1 0 50%;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover + dd {
+        font-weight: bold;
+      }
+    }
+
+    dd {
+      margin: 0;
+      flex: 1 0 50%;
+    }
+  }
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
