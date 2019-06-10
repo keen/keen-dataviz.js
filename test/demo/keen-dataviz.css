@@ -533,6 +533,8 @@
     -o-animation: spin .7s linear infinite;
   }
 .keen-dataviz-execution-meta {
+    position: absolute;
+    z-index: 999;
     padding: 0.5rem 1rem;
     margin: 0.75rem 0;
     display: inline-grid;
@@ -542,19 +544,34 @@
     text-transform: uppercase;
     font-size: 0.75rem;
     border: 1px solid #eee;
+    background: #fff;
   }
 .keen-dataviz-execution-meta dt {
-      font-weight: bold;
-      cursor: pointer
+      font-weight: bold
     }
 .keen-dataviz-execution-meta dt:hover + dd {
   font-weight: bold;
 }
-.keen-dataviz-execution-meta dd {
+.keen-dataviz-execution-meta dt, .keen-dataviz-execution-meta dd {
       margin: 0;
+      cursor: pointer;
     }
+.keen-dataviz-execution-meta .copied:after {
+  content: 'copied!';
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 10px;
+  margin-left: 0.5em;
+  position: absolute;
+  text-transform: none;
+  font-weight: normal;
+  -webkit-animation: 1s ease 0s 1 both fadeOut;
+          animation: 1s ease 0s 1 both fadeOut;
+}
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+@-webkit-keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 /* C3 CUSTOMIZATIONS */
 .keen-dataviz .c3-axis-y path {
        display: none;
