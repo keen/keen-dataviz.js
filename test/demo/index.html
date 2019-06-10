@@ -106,7 +106,7 @@
 
     </style>
   </head>
-  <body>
+  <body onload=init()>
     <h1>Dataviz Examples</h1>
 
     <div class="tabs">
@@ -488,7 +488,15 @@
     </div>
 
     <script>
-
+    
+    function init() {
+      const data = localStorage.getItem("activeTab");
+      const activeTab = JSON.parse(data);
+      if(activeTab) {
+        changeTab(activeTab);
+      }
+    }
+    
     function barLoad() {
         window.bar = new KeenDataviz({
           container: '.chart-c3-bar',
@@ -1608,6 +1616,7 @@
       })
       document.getElementById(`${tabId}-panel`).style.display = 'block';
       document.getElementById(`${tabId}-tab`).className += ' active';
+      localStorage.setItem('activeTab', JSON.stringify(tabId));
       switch (tabId) {
         case 'bar':
           barLoad();
