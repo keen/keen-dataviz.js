@@ -302,15 +302,14 @@
   &-execution-meta {
     padding: 0.5rem 1rem;
     margin: 0.75rem 0;
-    display: flex;
-    flex-wrap: wrap;
+    display: inline-grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-gap: 0.5em 1em;
     text-transform: uppercase;
     font-size: 0.75rem;
-    background: #fafafa;
+    border: 1px solid #eee;
 
     dt {
-      margin-bottom: 0.5em;
-      flex: 1 0 50%;
       font-weight: bold;
       cursor: pointer;
 
@@ -321,7 +320,6 @@
 
     dd {
       margin: 0;
-      flex: 1 0 50%;
     }
   }
 }
