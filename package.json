@@ -58,7 +58,7 @@
     "Funnels"
   ],
   "dependencies": {
-    "c3": "^0.6.13",
+    "c3": "^0.7.1",
     "d3": "^5.4.0",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.1",
