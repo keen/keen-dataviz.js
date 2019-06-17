@@ -754,6 +754,32 @@ chart.exportImage();
 chart.exportImage({ quality: 1, bgcolor: 'blue' });
 ```
 
+### Execution metadata
+
+You can easily show execution metadata if it's available. By defualt this option is set to true.
+
+```javascript
+const chart = new Keen.Dataviz({
+  container: '#container', // required
+  ui: {
+    executionMetadata: true // default
+  }
+});
+```
+
+### Copy to clipboard
+
+By default this feature is switched on. When you click on a point on the chart the result's value is copied to clipboard. When you select a group of points then sum of their values are copied.
+
+```javascript
+const chart = new Keen.Dataviz({
+  container: '#container', // required
+  utils: {
+    clickToCopyToClipboard: false, 
+  }
+});
+```
+
 **Advanced usage:**
 
 * [Chart types](./docs/README.md#chart-types)
