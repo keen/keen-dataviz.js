@@ -7,4 +7,5 @@ module.exports = {
   bail: true,
   testMatch: [files],
   testEnvironment: process.env.TEST_ENV || 'jsdom-c3',
+  testURL: 'http://localhost/',
 };
