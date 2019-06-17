@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("d3"), require("c3")) : factory(root["d3"], root["c3"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(window, function(__WEBPACK_EXTERNAL_MODULE__1__, __WEBPACK_EXTERNAL_MODULE__7__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE__2__, __WEBPACK_EXTERNAL_MODULE__9__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -46,17 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -76,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -118,12 +133,62 @@ function each(o, cb, s) {
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE__1__;
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = copyToClipboard;
+function stickTooltip(event, tooltip) {
+  tooltip.style.opacity = 0;
+  tooltip.style.top = event.pageY + 'px';
+  tooltip.style.left = event.pageX + 10 + 'px';
+}
+
+function copyToClipboard(value, event) {
+  var placeholder = document.createElement('input');
+  placeholder.value = value;
+  document.body.appendChild(placeholder);
+  placeholder.select();
+  document.execCommand('copy');
+  document.body.removeChild(placeholder);
+
+  if (event) {
+    var notification = document.createElement('div');
+    notification.style.padding = '5px 10px';
+    notification.style.backgroundColor = '#ffffff';
+    notification.style.fontSize = '12px';
+    notification.style.position = 'absolute';
+    notification.style.top = event.pageY + 'px';
+    notification.style.left = event.pageX + 10 + 'px';
+    notification.style.zIndex = '999';
+    notification.style.opacity = 1;
+    notification.style.transition = 'opacity 1s ease';
+    notification.innerText = 'copied!';
+
+    document.body.appendChild(notification);
+    document.addEventListener('mousemove', function (e) {
+      return stickTooltip(e, notification);
+    });
+
+    setTimeout(function () {
+      notification.style.opacity = 1;
+      document.body.removeChild(notification);
+    }, 1000);
+  }
+}
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__2__;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -203,7 +268,7 @@ function prettyNumber(input) {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -274,7 +339,27 @@ function escapeHtml(string) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.extend = extend;
+function extend(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    for (var prop in arguments[i]) {
+      target[prop] = arguments[i][prop];
+    }
+  }
+  return target;
+}
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -285,7 +370,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.textWrap = textWrap;
 
-var _d = __webpack_require__(1);
+var _d = __webpack_require__(2);
 
 var d3 = _interopRequireWildcard(_d);
 
@@ -319,89 +404,7 @@ function textWrap(text, width) {
 }
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.extend = extend;
-function extend(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    for (var prop in arguments[i]) {
-      target[prop] = arguments[i][prop];
-    }
-  }
-  return target;
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.testObject = testObject;
-exports.testString = testString;
-
-exports.default = function (input) {
-  if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object') {
-    return testObject(input);
-  } else if (typeof input === 'string') {
-    return testString(input);
-  }
-  return false;
-};
-
-function testObject(input) {
-  if (input !== null && typeof input.getTime === 'function' && !isNaN(input.getTime())) {
-    return true;
-  }
-  return false;
-}
-
-function testString(input) {
-  var ISO_8601 = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/i;
-  return ISO_8601.test(input);
-}
-
-/***/ }),
 /* 7 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__7__;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (len) {
-  var list = [];
-  for (var i = 0; i < len; i++) {
-    list.push(null);
-  }
-  return list;
-};
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -504,7 +507,7 @@ function appendRow(str, input) {
 }
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -513,81 +516,23 @@ function appendRow(str, input) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exportImage;
 
-var _domToImage = __webpack_require__(30);
-
-var _domToImage2 = _interopRequireDefault(_domToImage);
-
-var _fileSaver = __webpack_require__(29);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function exportImage(obj) {
-  var node = obj.node,
-      quality = obj.quality,
-      bgcolor = obj.bgcolor;
-
-  if (quality) {
-    if (quality < 0 || quality > 1) throw Error('Please provide image quality between 0 and 1');
-    _domToImage2.default.toBlob(node, { quality: quality, bgcolor: bgcolor }).then(function (blob) {
-      (0, _fileSaver.saveAs)(blob, 'chart.jpeg');
-    });
+exports.default = function (len) {
+  var list = [];
+  for (var i = 0; i < len; i++) {
+    list.push(null);
   }
-
-  if (!quality) {
-    _domToImage2.default.toBlob(node).then(function (blob) {
-      (0, _fileSaver.saveAs)(blob, 'chart.png');
-    });
-  }
-}
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = renderDownloadButton;
-
-var _downloadResults = __webpack_require__(31);
-
-var _downloadResults2 = _interopRequireDefault(_downloadResults);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function renderDownloadButton() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      element = _ref.element,
-      _ref$label = _ref.label,
-      label = _ref$label === undefined ? 'Download' : _ref$label,
-      _ref$type = _ref.type,
-      type = _ref$type === undefined ? 'json' : _ref$type,
-      data = _ref.data;
-
-  var btnClass = 'keen-dataviz-button';
-  var isBtnRendered = [].concat(_toConsumableArray(element.parentNode.children)).find(function (child) {
-    return child.className === btnClass;
-  });
-  if (isBtnRendered) return;
-
-  var button = document.createElement('button');
-  button.innerText = label;
-  button.className = btnClass;
-  button.addEventListener('click', function (event) {
-    return (0, _downloadResults2.default)({ event: event, type: type, data: data });
-  });
-  element.parentNode.insertBefore(button, element.nextSibling);
+  return list;
 };
 
 /***/ }),
-/* 12 */
+/* 9 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__9__;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -599,25 +544,58 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-exports.extendDeep = extendDeep;
+exports.testObject = testObject;
+exports.testString = testString;
 
-var _each = __webpack_require__(0);
-
-function extendDeep(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    (0, _each.each)(arguments[i], function (prop, key) {
-      if (typeof target[key] !== 'undefined' && typeof prop !== 'undefined' && _typeof(target[key]) === 'object' && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object' && target[key] !== null && prop !== null) {
-        extendDeep(target[key], prop);
-      } else {
-        target[key] = prop;
-      }
-    });
+exports.default = function (input) {
+  if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object') {
+    return testObject(input);
+  } else if (typeof input === 'string') {
+    return testString(input);
   }
-  return target;
+  return false;
+};
+
+function testObject(input) {
+  if (input !== null && typeof input.getTime === 'function' && !isNaN(input.getTime())) {
+    return true;
+  }
+  return false;
+}
+
+function testString(input) {
+  var ISO_8601 = /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(\.\d+)?(([+-]\d\d:\d\d)|Z)?$/i;
+  return ISO_8601.test(input);
 }
 
 /***/ }),
-/* 13 */
+/* 11 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -626,24 +604,122 @@ function extendDeep(target) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stripHtmlTags = stripHtmlTags;
-/**
- * Strip html tags from string
- *
- * @param  {string} string The string to strip
- * @return {string}
- * @public
- */
+exports.Dataset = undefined;
 
-function stripHtmlTags(inputString) {
-  if (typeof inputString !== 'string') {
-    return inputString;
+var _append = __webpack_require__(7);
+
+var append = _interopRequireWildcard(_append);
+
+var _delete = __webpack_require__(20);
+
+var del = _interopRequireWildcard(_delete);
+
+var _filter = __webpack_require__(21);
+
+var filter = _interopRequireWildcard(_filter);
+
+var _insert = __webpack_require__(22);
+
+var insert = _interopRequireWildcard(_insert);
+
+var _select = __webpack_require__(23);
+
+var select = _interopRequireWildcard(_select);
+
+var _sort = __webpack_require__(24);
+
+var sort = _interopRequireWildcard(_sort);
+
+var _update = __webpack_require__(25);
+
+var update = _interopRequireWildcard(_update);
+
+var _analyses = __webpack_require__(13);
+
+var _analyses2 = _interopRequireDefault(_analyses);
+
+var _extend = __webpack_require__(5);
+
+var _parsers = __webpack_require__(26);
+
+var _parsers2 = _interopRequireDefault(_parsers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+// Modifiers
+var Dataset = exports.Dataset = function Dataset() {
+  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  if (this instanceof Dataset === false) {
+    return new Dataset(config);
   }
-  return inputString.replace(/(<([^>]+)>)/ig, '');
-}
+
+  this.matrix = [['Index']];
+  this.meta = {
+    type: undefined
+  };
+  this.config = config;
+};
+
+// Utils
+
+
+Dataset.prototype.data = function (arr) {
+  if (!arguments.length) return this.matrix;
+  this.matrix = arr instanceof Array ? arr : null;
+  return this;
+};
+
+Dataset.prototype.set = function (coords, value) {
+  if (arguments.length < 2 || coords.length < 2) {
+    throw Error('Incorrect arguments provided for #set method');
+  }
+
+  var colIndex = 'number' === typeof coords[0] ? coords[0] : this.matrix[0].indexOf(coords[0]),
+      rowIndex = 'number' === typeof coords[1] ? coords[1] : select.selectColumn.call(this, 0).indexOf(coords[1]);
+
+  var colResult = select.selectColumn.call(this, coords[0]),
+      rowResult = select.selectRow.call(this, coords[1]);
+
+  // Column doesn't exist, create and reset colIndex
+  if (colResult.length < 1) {
+    append.appendColumn.call(this, String(coords[0]));
+    colIndex = this.matrix[0].length - 1;
+  }
+
+  // Row doesn't exist, create and reset rowIndex
+  if (rowResult.length < 1) {
+    append.appendRow.call(this, String(coords[1]));
+    rowIndex = this.matrix.length - 1;
+  }
+
+  // Set provided value
+  this.matrix[rowIndex][colIndex] = value;
+  return this;
+};
+
+Dataset.prototype.type = function (str) {
+  if (!arguments.length) return this.meta['type'];
+  this.meta['type'] = str ? String(str) : undefined;
+  return this;
+};
+
+(0, _extend.extend)(Dataset.prototype, append);
+(0, _extend.extend)(Dataset.prototype, del);
+(0, _extend.extend)(Dataset.prototype, filter);
+(0, _extend.extend)(Dataset.prototype, insert);
+(0, _extend.extend)(Dataset.prototype, select);
+(0, _extend.extend)(Dataset.prototype, sort);
+(0, _extend.extend)(Dataset.prototype, update);
+(0, _extend.extend)(Dataset.prototype, _analyses2.default);
+Dataset.parser = (0, _parsers2.default)(Dataset);
+
+exports.default = Dataset;
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -754,6 +830,32 @@ exports.default = {
 };
 
 /***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stripHtmlTags = stripHtmlTags;
+/**
+ * Strip html tags from string
+ *
+ * @param  {string} string The string to strip
+ * @return {string}
+ * @public
+ */
+
+function stripHtmlTags(inputString) {
+  if (typeof inputString !== 'string') {
+    return inputString;
+  }
+  return inputString.replace(/(<([^>]+)>)/ig, '');
+}
+
+/***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -763,145 +865,69 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Dataset = undefined;
 
-var _append = __webpack_require__(9);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var append = _interopRequireWildcard(_append);
+exports.extendDeep = extendDeep;
 
-var _delete = __webpack_require__(49);
+var _each = __webpack_require__(0);
 
-var del = _interopRequireWildcard(_delete);
-
-var _filter = __webpack_require__(48);
-
-var filter = _interopRequireWildcard(_filter);
-
-var _insert = __webpack_require__(47);
-
-var insert = _interopRequireWildcard(_insert);
-
-var _select = __webpack_require__(46);
-
-var select = _interopRequireWildcard(_select);
-
-var _sort = __webpack_require__(45);
-
-var sort = _interopRequireWildcard(_sort);
-
-var _update = __webpack_require__(44);
-
-var update = _interopRequireWildcard(_update);
-
-var _analyses = __webpack_require__(14);
-
-var _analyses2 = _interopRequireDefault(_analyses);
-
-var _extend = __webpack_require__(5);
-
-var _parsers = __webpack_require__(43);
-
-var _parsers2 = _interopRequireDefault(_parsers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-// Modifiers
-var Dataset = exports.Dataset = function Dataset() {
-  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-  if (this instanceof Dataset === false) {
-    return new Dataset(config);
+function extendDeep(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    (0, _each.each)(arguments[i], function (prop, key) {
+      if (typeof target[key] !== 'undefined' && typeof prop !== 'undefined' && _typeof(target[key]) === 'object' && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object' && target[key] !== null && prop !== null) {
+        extendDeep(target[key], prop);
+      } else {
+        target[key] = prop;
+      }
+    });
   }
-
-  this.matrix = [['Index']];
-  this.meta = {
-    type: undefined
-  };
-  this.config = config;
-};
-
-// Utils
-
-
-Dataset.prototype.data = function (arr) {
-  if (!arguments.length) return this.matrix;
-  this.matrix = arr instanceof Array ? arr : null;
-  return this;
-};
-
-Dataset.prototype.set = function (coords, value) {
-  if (arguments.length < 2 || coords.length < 2) {
-    throw Error('Incorrect arguments provided for #set method');
-  }
-
-  var colIndex = 'number' === typeof coords[0] ? coords[0] : this.matrix[0].indexOf(coords[0]),
-      rowIndex = 'number' === typeof coords[1] ? coords[1] : select.selectColumn.call(this, 0).indexOf(coords[1]);
-
-  var colResult = select.selectColumn.call(this, coords[0]),
-      rowResult = select.selectRow.call(this, coords[1]);
-
-  // Column doesn't exist, create and reset colIndex
-  if (colResult.length < 1) {
-    append.appendColumn.call(this, String(coords[0]));
-    colIndex = this.matrix[0].length - 1;
-  }
-
-  // Row doesn't exist, create and reset rowIndex
-  if (rowResult.length < 1) {
-    append.appendRow.call(this, String(coords[1]));
-    rowIndex = this.matrix.length - 1;
-  }
-
-  // Set provided value
-  this.matrix[rowIndex][colIndex] = value;
-  return this;
-};
-
-Dataset.prototype.type = function (str) {
-  if (!arguments.length) return this.meta['type'];
-  this.meta['type'] = str ? String(str) : undefined;
-  return this;
-};
-
-(0, _extend.extend)(Dataset.prototype, append);
-(0, _extend.extend)(Dataset.prototype, del);
-(0, _extend.extend)(Dataset.prototype, filter);
-(0, _extend.extend)(Dataset.prototype, insert);
-(0, _extend.extend)(Dataset.prototype, select);
-(0, _extend.extend)(Dataset.prototype, sort);
-(0, _extend.extend)(Dataset.prototype, update);
-(0, _extend.extend)(Dataset.prototype, _analyses2.default);
-Dataset.parser = (0, _parsers2.default)(Dataset);
-
-exports.default = Dataset;
+  return target;
+}
 
 /***/ }),
 /* 16 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var g;
+"use strict";
 
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
 
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = renderDownloadButton;
 
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
+var _downloadResults = __webpack_require__(38);
 
-module.exports = g;
+var _downloadResults2 = _interopRequireDefault(_downloadResults);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function renderDownloadButton() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      element = _ref.element,
+      _ref$label = _ref.label,
+      label = _ref$label === undefined ? 'Download' : _ref$label,
+      _ref$type = _ref.type,
+      type = _ref$type === undefined ? 'json' : _ref$type,
+      data = _ref.data;
+
+  var btnClass = 'keen-dataviz-button';
+  var isBtnRendered = [].concat(_toConsumableArray(element.parentNode.children)).find(function (child) {
+    return child.className === btnClass;
+  });
+  if (isBtnRendered) return;
+
+  var button = document.createElement('button');
+  button.innerText = label;
+  button.className = btnClass;
+  button.addEventListener('click', function (event) {
+    return (0, _downloadResults2.default)({ event: event, type: type, data: data });
+  });
+  element.parentNode.insertBefore(button, element.nextSibling);
+};
 
 /***/ }),
 /* 17 */
@@ -913,27 +939,84 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var palette = {
-  colors: ['#8be9fd', '#50fa7b', '#ffb86c', '#ff79c6', '#bd93f9', '#ff5555', '#f1fa8c']
-};
+exports.default = exportImage;
 
-exports.default = palette;
+var _domToImage = __webpack_require__(39);
+
+var _domToImage2 = _interopRequireDefault(_domToImage);
+
+var _fileSaver = __webpack_require__(40);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function exportImage(obj) {
+  var node = obj.node,
+      quality = obj.quality,
+      bgcolor = obj.bgcolor;
+
+  if (quality) {
+    if (quality < 0 || quality > 1) throw Error('Please provide image quality between 0 and 1');
+    _domToImage2.default.toBlob(node, { quality: quality, bgcolor: bgcolor }).then(function (blob) {
+      (0, _fileSaver.saveAs)(blob, 'chart.jpeg');
+    });
+  }
+
+  if (!quality) {
+    _domToImage2.default.toBlob(node).then(function (blob) {
+      (0, _fileSaver.saveAs)(blob, 'chart.png');
+    });
+  }
+}
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(global) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var palette = {
-  colors: ['#45B2E8', '#D9540D', '#2CAB72', '#2C4BAB', '#EDDD02', '#E84545', '#E845CE', '#5FCEC9', '#E89F45', '#28E43F', '#B765C0', '#458AE8', '#AB2C2C', '#AB2C75', '#27E5FF', '#7168F2', '#FF932B', '#855D00', '#ACE845', '#1C91B4']
+exports.Dataset = exports.Dataviz = exports.keenGlobals = exports.extendKeenGlobalObject = undefined;
+
+var _index = __webpack_require__(19);
+
+Object.defineProperty(exports, 'Dataviz', {
+  enumerable: true,
+  get: function get() {
+    return _index.Dataviz;
+  }
+});
+Object.defineProperty(exports, 'Dataset', {
+  enumerable: true,
+  get: function get() {
+    return _index.Dataset;
+  }
+});
+
+
+var env = typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {};
+
+var extendKeenGlobalObject = exports.extendKeenGlobalObject = function extendKeenGlobalObject(env) {
+  env.KeenDataviz = _index.Dataviz;
+  env.KeenDataset = _index.Dataset;
+
+  // just for backward compatibility
+  env.Keen = env.Keen || {};
+  env.Keen.Dataset = _index.Dataset;
+  env.Keen.Dataviz = _index.Dataviz;
 };
 
-exports.default = palette;
+if (false) {}
+
+var keenGlobals = exports.keenGlobals = undefined;
+if (typeof webpackKeenGlobals !== 'undefined') {
+  exports.keenGlobals = keenGlobals = webpackKeenGlobals;
+}
+
+exports.default = _index.Dataviz;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)))
 
 /***/ }),
 /* 19 */
@@ -945,11 +1028,1037 @@ exports.default = palette;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var palette = {
-  colors: ['#5E77FF', '#9C60FE', '#F162FE', '#FD65B7', '#FD6768', '#FDB86A', '#F2FC6C', '#A5FC6E', '#71FB85', '#73FBD0', '#76DDFA', '#76f4fa', '#bb76fa', '#fa76bf']
+exports.Dataset = exports.Dataviz = undefined;
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* eslint-env browser */
+
+
+// Utils
+
+
+var _dataset = __webpack_require__(12);
+
+Object.defineProperty(exports, 'Dataset', {
+  enumerable: true,
+  get: function get() {
+    return _dataset.Dataset;
+  }
+});
+
+var _d = __webpack_require__(2);
+
+var d3 = _interopRequireWildcard(_d);
+
+var _c = __webpack_require__(9);
+
+var _c2 = _interopRequireDefault(_c);
+
+var _package = __webpack_require__(29);
+
+var _package2 = _interopRequireDefault(_package);
+
+var _data = __webpack_require__(30);
+
+var _data2 = _interopRequireDefault(_data);
+
+var _each = __webpack_require__(0);
+
+var _assertDateString = __webpack_require__(10);
+
+var _assertDateString2 = _interopRequireDefault(_assertDateString);
+
+var _stripHtmlTags = __webpack_require__(14);
+
+var _escapeHtml = __webpack_require__(4);
+
+var _libraries = __webpack_require__(31);
+
+var _libraries2 = _interopRequireDefault(_libraries);
+
+var _extendDeep = __webpack_require__(15);
+
+var _exportSvg = __webpack_require__(17);
+
+var _exportSvg2 = _interopRequireDefault(_exportSvg);
+
+var _renderDownloadBtn = __webpack_require__(16);
+
+var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
+
+var _renderExecutionMetadata = __webpack_require__(49);
+
+var _renderExecutionMetadata2 = _interopRequireDefault(_renderExecutionMetadata);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
+
+var _index = __webpack_require__(50);
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+// Constructor
+var Dataviz = exports.Dataviz = function Dataviz() {
+  var _this = this;
+
+  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  if (this instanceof Dataviz === false) {
+    return new Dataviz(options);
+  }
+
+  this.c3 = _c2.default; // expose for use outside
+  this.d3 = d3;
+
+  var datavizInstance = this;
+  var defaultOptions = {
+    showDeprecationWarnings: true,
+    showLoadingSpinner: false,
+
+    container: undefined, // querySelector of container, for example '#someDiv'
+    containerElement: undefined, // HTML parent element for the chart
+
+    // width: undefined, *deprecated* - use CSS
+    // height: undefined, *deprecated* - use CSS
+
+    title: undefined,
+    showTitle: true,
+
+    notes: undefined,
+    theme: 'keen-dataviz',
+
+    colors: ['#00bbde', '#fe6672', '#eeb058', '#8a8ad6', '#ff855c', '#00cfbb', '#5a9eed', '#73d483', '#c879bb', '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e', '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'],
+
+    colorMapping: {},
+    ui: {
+      executionMetadata: true
+    },
+    utils: {
+      clickToCopyToClipboard: true
+    },
+
+    indexBy: 'timeframe.start',
+    labels: [],
+    labelMapping: {},
+    labelMappingRegExp: undefined,
+    errorMapping: {},
+    showErrorMessages: true,
+    library: 'default',
+    sortGroups: undefined,
+    sortIntervals: undefined,
+
+    results: undefined, // raw data
+
+    // C3 chartOptions
+    type: undefined,
+    stacked: false,
+    dateFormat: undefined,
+    legend: {
+      show: true,
+      position: 'right',
+      label: {
+        textMaxLength: 12
+      },
+      pagination: {
+        offset: 0, // start from
+        limit: 5 // items per page
+      },
+      tooltip: {
+        show: true,
+        pointer: true
+      },
+      sort: undefined
+    },
+
+    axis: {},
+    color: {},
+    size: {
+      // control it with CSS of .c3-chart
+    },
+    padding: {
+      top: 15
+    },
+    point: {
+      focus: {
+        expand: {
+          enabled: false
+        }
+      },
+      r: 2,
+      show: true
+    },
+    tooltip: {
+      format: {
+        // https://c3js.org/samples/tooltip_format.html
+      }
+    },
+    transition: {
+      // duration: 0
+    },
+    data: {
+      order: null,
+      selection: {
+        enabled: true,
+        draggable: true,
+        multiple: true
+      },
+      onselected: function onselected(d, element) {
+        var selectedItems = _this.view._artifacts.c3.selected();
+        var sum = selectedItems.reduce(function (prev, curr) {
+          return prev + curr.value;
+        }, 0);
+        (0, _copyToClipboard2.default)(sum);
+      }
+    },
+    grid: {
+      y: {
+        show: true
+      }
+    },
+    partialIntervalIndicator: {
+      show: undefined,
+      className: 'partial-interval-indicator'
+    },
+    timezone: 'UTC',
+    table: {
+      schema: 'static'
+    },
+    renderOnVisible: false,
+    funnel: {
+      lines: true,
+      resultValues: true,
+      percents: {
+        show: false,
+        countingMethod: 'absolute',
+        decimals: 0
+      },
+      marginBetweenElements: false,
+      hover: true,
+      effect3d: 'both-sides',
+      minimalSize: false
+    },
+    react: false,
+    range: false,
+    sparkline: false
+  };
+
+  this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
+
+  if (options.palette) {
+    if (!_index2.default[options.palette]) {
+      console.log('Colors pallete not found', options.palette);
+    }
+    this.config.colors = _index2.default[options.palette].colors;
+  }
+
+  if (this.config.type) {
+    // backward compatibility with v2016... areachart -> area
+    this.config.type = convertChartTypes(this.config.type);
+  }
+
+  // overwriting options for range chart
+  if (this.config.type && this.config.type.includes('-range')) {
+    this.config.range = true;
+    this.config.type = this.config.type.replace('-range', '');
+    this.config.legend.show = false;
+    this.config.stacking = 'normal';
+    this.config.labels = ['Max', 'Min'];
+    this.config.colors = [this.config.colors[0], this.config.colors[0]];
+  }
+
+  // overwriting stacked when stacking added
+  if (this.config.stacking) {
+    this.config.stacked = true;
+  }
+
+  // overwriting options for sparkline chart
+  if (this.config.sparkline) {
+    this.config.legend.show = false;
+    this.config.axis = {
+      x: {
+        show: false
+      },
+      y: {
+        show: false
+      }
+    };
+    this.config.grid = {
+      x: {
+        show: false
+      },
+      y: {
+        show: false
+      }
+    };
+  }
+
+  // get DOM node by query
+  if (this.config.container) {
+    this.el(this.config.container);
+  }
+
+  if (options.legend !== undefined && !options.legend) {
+    this.config.legend = _extends({}, options, {
+      show: false
+    });
+  }
+
+  if (options.color && options.color.pattern) {
+    // to match c3 options
+    this.config.colors = options.color.pattern;
+  }
+
+  if (this.config.legend && this.config.legend.tooltip && this.config.legend.tooltip.show === false && this.config.tooltip.show === undefined) {
+    this.config.tooltip = { show: false };
+  }
+
+  this.dataset = new _dataset.Dataset(this.config);
+  this.view = {
+    _prepared: false,
+    _rendered: false,
+    _artifacts: {/* state bin */}
+  };
+
+  Dataviz.visuals.push(this);
+
+  if (this.config.showLoadingSpinner) {
+    this.prepare();
+  }
+
+  if (!!this.config.results) {
+    this.render(this.config.results);
+  }
+  this.config.firstVisibilityState = document.visibilityState;
+
+  if (!this.config.utils.clickToCopyToClipboard) {
+    this.config.data.onselected = function () {};
+  }
+
+  if (options.data && options.data.onselected) {
+    this.config.data.onselected = function (d, element) {
+      var callback = options.data.onselected.bind(null, d, element);
+      callback();
+
+      if (_this.config.utils.clickToCopyToClipboard) {
+        var selectedItems = _this.view._artifacts.c3.selected();
+        var sum = selectedItems.reduce(function (prev, curr) {
+          return prev + curr.value;
+        }, 0);
+        (0, _copyToClipboard2.default)(sum);
+      }
+    };
+  }
 };
 
-exports.default = palette;
+Dataviz.libraries = { default: {} };
+if (typeof window !== 'undefined') {
+  Dataviz.libraries.default = (0, _libraries2.default)(Dataviz);
+}
+Dataviz.visuals = [];
+
+Dataviz.register = function (name, actions) {
+  Dataviz.libraries[name] = Dataviz.libraries[name] || {};
+  (0, _each.each)(actions, function (method, key) {
+    Dataviz.libraries[name][key] = method;
+  });
+};
+
+Dataviz.find = function (target) {
+  if (!arguments.length) return Dataviz.visuals;
+  var el = target.nodeName ? target : document.querySelector(target);
+  var match = null;
+  (0, _each.each)(Dataviz.visuals, function (visual) {
+    if (el == visual.config.container) {
+      match = visual;
+      return false;
+    }
+  });
+  return match;
+};
+
+// Prototype
+// ------------
+
+Dataviz.prototype.attributes = function (obj) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.attributes() is deprecated. Use: new KeenDataviz({ _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config;
+  var view = this.config;
+  (0, _each.each)(obj, function (prop, key) {
+    // Handle deprecated property names
+    if (key === 'chartType') {
+      key = 'type';
+    }
+    view[key] = prop;
+  });
+  return this;
+};
+
+Dataviz.prototype.call = function (fn) {
+  fn.call(this);
+  return this;
+};
+
+Dataviz.prototype.chartOptions = function (obj) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.chartOptions() is deprecated. Use: new KeenDataviz({ _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config;
+  this.config = (0, _extendDeep.extendDeep)(this.config, obj);
+  return this;
+};
+
+Dataviz.prototype.colors = function (arr) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.colors() is deprecated. Use: new KeenDataviz({ colors: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.colors;
+  this.config.colors = arr instanceof Array ? arr : [];
+  return this;
+};
+
+Dataviz.prototype.colorMapping = function (obj) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.colorMapping() is deprecated. Use: new KeenDataviz({ colorMapping: _your_value_here_ })');
+  }
+  var datavizInstance = this;
+  if (!arguments.length) return this.config.colorMapping;
+  if (obj === null) {
+    this.config.colorMapping = {};
+  } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
+    (0, _each.each)(obj, function (value, key) {
+      datavizInstance.config.colorMapping[key] = value ? value : null;
+    });
+  }
+  return this;
+};
+
+Dataviz.prototype.data = _data2.default;
+
+Dataviz.prototype.dateFormat = function (val) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.dateFormat() is deprecated. Use: new KeenDataviz({ dateFormat: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.dateFormat;
+  if (typeof val === 'string' || typeof val === 'function') {
+    this.config.dateFormat = val;
+  } else {
+    this.config.dateFormat = undefined;
+  }
+  return this;
+};
+
+Dataviz.prototype.destroy = function () {
+  var library = this.library();
+  var type = this.config.type;
+  var element = this.el();
+
+  // Call destroy method if present
+  if (Dataviz.libraries[library] && Dataviz.libraries[library][type]) {
+    Dataviz.libraries[library][type].destroy.call(this);
+  }
+
+  // Clear rendered artifacts, state bin
+  if (element) {
+    element.innerHTML = '';
+  }
+  this.view._prepared = false;
+  this.view._rendered = false;
+  this.view._artifacts = {};
+  return this;
+};
+
+Dataviz.prototype.el = function (target) {
+  var datavizInstance = this;
+  if (!arguments.length) return this.config.containerElement;
+  domReady(function () {
+    if (target && target !== null) {
+      if (target.nodeName) {
+        datavizInstance.config.containerElement = target;
+      } else if (document.querySelector) {
+        datavizInstance.config.containerElement = document.querySelector(target);
+      }
+    } else {
+      datavizInstance.config.containerElement = undefined;
+    }
+  });
+  return this;
+};
+
+Dataviz.prototype.height = function (num) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.height() is deprecated - use CSS classes');
+  }
+  return this;
+};
+
+// IMPORTANT: Must be run before data parsing
+Dataviz.prototype.indexBy = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.indexBy() is deprecated. Use: new KeenDataviz({ indexBy: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.indexBy;
+  this.config.indexBy = str ? String(str) : 'timeframe.start';
+  return this;
+};
+
+Dataviz.prototype.labels = function (arr) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.labels() is deprecated. Use: new KeenDataviz({ labels: _your_value_here_ })');
+  }
+
+  if (!arguments.length) return this.config.labels;
+  this.config.labels = arr instanceof Array ? arr : [];
+
+  setLabels(this);
+
+  return this;
+};
+
+function setLabels(datavizInstance) {
+  // Write labels
+  if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+    datavizInstance.dataset.updateColumn(0, function (value, index) {
+      if (datavizInstance.config.labels[index - 1]) {
+        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labels[index - 1]));
+      }
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
+    }.bind(datavizInstance));
+  } else {
+    datavizInstance.dataset.updateRow(0, function (value, index) {
+      if (index > 0 && datavizInstance.config.labels[index - 1]) {
+        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labels[index - 1]));
+      }
+      return (0, _stripHtmlTags.stripHtmlTags)(value);
+    }.bind(datavizInstance));
+  }
+}
+
+Dataviz.prototype.labelMapping = function (obj) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.labelMapping() is deprecated. Use: new KeenDataviz({ labelMapping: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.labelMapping;
+  if (obj === null) {
+    this.config.labelMapping = {};
+  } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
+    (0, _each.each)(obj, function (value, key) {
+      this.config.labelMapping[key] = value ? value : null;
+    }.bind(this));
+  }
+
+  mapLabels(this);
+
+  return this;
+};
+
+function mapLabelsExec(_ref) {
+  var datavizInstance = _ref.datavizInstance,
+      value = _ref.value;
+
+  if (datavizInstance.config.labelMappingRegExp) {
+    var valueAfterMatching = value;
+    datavizInstance.config.labelMappingRegExp.forEach(function (regExpAndLabel) {
+      if (regExpAndLabel.length > 1) {
+        var regExpObj = regExpAndLabel[0];
+        if (regExpObj.test(value)) {
+          valueAfterMatching = regExpAndLabel[1];
+        }
+      }
+    });
+    return (0, _stripHtmlTags.stripHtmlTags)(valueAfterMatching);
+  }
+  if (datavizInstance.config.labelMapping[value]) {
+    return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
+  }
+  return (0, _stripHtmlTags.stripHtmlTags)(value);
+}
+
+function mapLabels(datavizInstance) {
+  // Write labels
+  if (!datavizInstance.config.labelMappingDimension) {
+    // if not defined use deprecated auto-detecting
+    if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+      datavizInstance.config.labelMappingDimension = 'row';
+    } else {
+      datavizInstance.config.labelMappingDimension = 'column';
+    }
+  }
+
+  if (datavizInstance.config.labelMappingDimension === 'row' || datavizInstance.config.labelMappingDimension === 'both') {
+    datavizInstance.dataset.updateColumn(0, function (value) {
+      return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
+    }.bind(datavizInstance));
+  }
+
+  if (datavizInstance.config.labelMappingDimension === 'column' || datavizInstance.config.labelMappingDimension === 'both') {
+    datavizInstance.dataset.updateRow(0, function (value) {
+      return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
+    }.bind(datavizInstance));
+  }
+}
+
+Dataviz.prototype.library = function (str) {
+  if (!arguments.length) return this.config['library'];
+  this.config['library'] = str ? String(str) : null;
+  return this;
+};
+
+Dataviz.prototype.message = function () {
+  if (this.view._rendered) {
+    this.destroy();
+  }
+  if (this.el()) {
+    this.el().innerHTML = '';
+    var message = Dataviz.libraries.default.message;
+    if (message.render) {
+      message.render.apply(this, arguments);
+    }
+  }
+  return this;
+};
+
+Dataviz.prototype.notes = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.notes() is deprecated. Use: new KeenDataviz({ notes: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.notes;
+  this.config.notes = str ? String(str) : null;
+  return this;
+};
+
+Dataviz.prototype.prepare = function () {
+  var datavizInstance = this;
+
+  if (!this.el()) {
+    throw this.config.container + ' not found. A DOM parent element is required to mount the chart.';
+    return;
+  }
+
+  domReady(function () {
+    if (datavizInstance.view._rendered) {
+      datavizInstance.destroy();
+    }
+    if (datavizInstance.el()) {
+      datavizInstance.el().innerHTML = '';
+      var loader = Dataviz.libraries.default.spinner;
+      if (loader.render) {
+        loader.render.call(datavizInstance);
+      }
+      datavizInstance.view._prepared = true;
+    }
+  });
+
+  return this;
+};
+
+Dataviz.prototype.render = function () {
+  var _this2 = this;
+
+  var results = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+  var datavizInstance = this;
+
+  if (!!results) {
+    var firstResult = results[0] || results;
+    if (firstResult.query && firstResult.query.interval && firstResult.query.timeframe && typeof firstResult.query.timeframe === 'string' && firstResult.query.timeframe.includes('this_') && this.config.partialIntervalIndicator && this.config.partialIntervalIndicator.show === undefined) {
+      this.config.partialIntervalIndicator.show = true;
+    }
+
+    if (Array.isArray(results)) {
+      var timeframes = results.map(function (resultItem) {
+        return resultItem.query.timeframe;
+      });
+      timeframes.forEach(function (resultTimeframe) {
+        var foundDifferent = timeframes.find(function (timeframeItem) {
+          return JSON.stringify(timeframeItem) !== JSON.stringify(resultTimeframe);
+        });
+        if (foundDifferent) {
+          var msg = 'Timeframes of the queries should be the same';
+          console.error(msg);
+          throw msg;
+        }
+      });
+      // first result is important to prepare X on the chart
+      return datavizInstance.data(results[0]).call(function () {
+        var getLabel = function getLabel(input) {
+          return input.query.event_collection + ' ' + input.query.analysis_type;
+        };
+        var label = getLabel(results[0]);
+        if (datavizInstance.config.labelMapping[label]) {
+          label = datavizInstance.config.labelMapping[label];
+        }
+        _this2.dataset.deleteColumn(1);
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = results[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var result = _step.value;
+
+            label = getLabel(result);
+            var ds2 = _dataset.Dataset.parser('interval')(result);
+            datavizInstance.dataset.appendColumn(label, ds2.selectColumn(1).slice(1));
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      }).render();
+    }
+
+    return datavizInstance.data(results).render();
+  }
+  if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0 || !!this.config.labelMappingRegExp && this.config.labelMappingRegExp.length > 0) {
+    mapLabels(datavizInstance);
+  }
+  if (!!this.config.labels && Object.keys(this.config.labels).length > 0) {
+    setLabels(datavizInstance);
+  }
+  if (!!this.config.sortGroups) {
+    sortGroups(datavizInstance);
+  }
+  if (!!this.config.sortIntervals) {
+    sortIntervals(datavizInstance);
+  }
+
+  var loader = Dataviz.libraries.default.spinner;
+  var library = this.config.library;
+  var type = this.config.type;
+  var containerElement = this.el();
+
+  if (!containerElement || containerElement === undefined) {
+    var msg = this.config.container + ' not found. A DOM parent element is required to mount the chart.';
+    console.error(msg);
+    throw msg;
+    return;
+  }
+
+  var returnValue = datavizInstance;
+
+  if (datavizInstance.config.renderAsPromise) {
+    returnValue = new Promise(function (resolve, reject) {
+      var customCallback = _this2.config.onrendered;
+      datavizInstance.config.onrendered = function () {
+        if (customCallback) {
+          customCallback();
+        }
+        resolve(datavizInstance);
+      };
+    });
+  }
+
+  domReady(function () {
+    var shouldRenderExecutionMetadata = datavizInstance.execution_metadata && datavizInstance.config.ui && datavizInstance.config.ui.executionMetadata;
+    var shouldRenderDownloadBtn = datavizInstance.config.ui && datavizInstance.config.ui.buttons && datavizInstance.config.ui.buttons.download && datavizInstance.config.ui.buttons.download.type;
+    if (datavizInstance.view._prepared && loader.destroy) {
+      loader.destroy.apply(datavizInstance, arguments);
+    }
+    containerElement.innerHTML = '';
+
+    if (Dataviz.libraries[library] === 'undefined') {
+      // Error: Unregistered library
+      var _msg = 'Incorrect library';
+      datavizInstance.message(_msg);
+      throw _msg;
+      return;
+    } else {
+      if (typeof Dataviz.libraries[library][type] === 'undefined') {
+        var _msg2 = 'Incorrect chart type';
+        var mappedMsg = this.config.errorMapping[_msg2] || _msg2;
+        datavizInstance.message(mappedMsg);
+        throw _msg2;
+        return;
+      } else {
+        buildDomWrapper(containerElement, datavizInstance.config);
+        if (shouldRenderDownloadBtn) {
+          (0, _renderDownloadBtn2.default)({
+            element: containerElement,
+            data: datavizInstance.dataset.matrix,
+            type: datavizInstance.config.ui.buttons.download.type,
+            label: datavizInstance.config.ui.buttons.download.label
+          });
+        }
+        if (shouldRenderExecutionMetadata) {
+          (0, _renderExecutionMetadata2.default)({
+            element: containerElement,
+            data: datavizInstance.execution_metadata
+          });
+        }
+        var renderOnVisible = datavizInstance.config.renderOnVisible;
+
+        if (renderOnVisible) {
+          if (typeof IntersectionObserver !== 'undefined') {
+            var chartVisibleCallback = function chartVisibleCallback(events, observer) {
+              events.forEach(function (el) {
+                if (el.isIntersecting) {
+                  if (!datavizInstance.view._rendered) {
+                    Dataviz.libraries[library][type].render.call(datavizInstance);
+                    datavizInstance.view._rendered = true;
+                  }
+                }
+              });
+            };
+            var observer = new IntersectionObserver(chartVisibleCallback);
+            observer.observe(containerElement);
+            return;
+          }
+        }
+        if (datavizInstance.config.firstVisibilityState === 'hidden') {
+          if (typeof document !== 'undefined') {
+            var hidden = void 0,
+                visibilityChange = void 0;
+            if (typeof document.hidden !== "undefined") {
+              hidden = "hidden";
+              visibilityChange = "visibilitychange";
+            } else if (typeof document.msHidden !== "undefined") {
+              hidden = "msHidden";
+              visibilityChange = "msvisibilitychange";
+            } else if (typeof document.webkitHidden !== "undefined") {
+              hidden = "webkitHidden";
+              visibilityChange = "webkitvisibilitychange";
+            }
+            var handleVisibilityChange = function handleVisibilityChange() {
+              if (!document[hidden]) {
+                datavizInstance.view._artifacts.c3.load(datavizInstance.dataset.matrix);
+              }
+            };
+            if (typeof document.addEventListener !== "undefined" || hidden !== undefined) {
+              document.addEventListener(visibilityChange, handleVisibilityChange, {
+                once: true
+              });
+            }
+          }
+        }
+        Dataviz.libraries[library][type].render.call(datavizInstance);
+        datavizInstance.view._rendered = true;
+      }
+    }
+  });
+
+  return returnValue;
+};
+
+Dataviz.prototype.sortGroups = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.sortGroups() is deprecated. Use: new KeenDataviz({ sortGroups: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.sortGroups;
+  this.config.sortGroups = str ? String(str) : null;
+
+  sortGroups(this, str);
+
+  return this;
+};
+
+function sortGroups(datavizInstance) {
+  // Sort groups
+  if (datavizInstance.config.sortGroups && datavizInstance.data().length > 1) {
+    if ((0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
+      datavizInstance.dataset.sortColumns(datavizInstance.config.sortGroups, datavizInstance.dataset.getColumnSum);
+    } else {
+      datavizInstance.dataset.sortRows(datavizInstance.config.sortGroups, datavizInstance.dataset.getRowSum);
+    }
+  }
+}
+
+Dataviz.prototype.sortIntervals = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.sortIntervals() is deprecated. Use: new KeenDataviz({ sortIntervals: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.sortIntervals;
+  this.config.sortIntervals = str ? String(str) : null;
+
+  sortIntervals(this);
+
+  return this;
+};
+
+function sortIntervals(datavizInstance) {
+  if (datavizInstance.config.sortIntervals) {
+    datavizInstance.dataset.sortRows(datavizInstance.config.sortIntervals);
+  }
+}
+
+Dataviz.prototype.stacked = function (bool) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.stacked() is deprecated. Use: new KeenDataviz({ stacked: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.stacked;
+  this.config.stacked = bool ? true : false;
+  return this;
+};
+
+Dataviz.prototype.theme = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.theme() is deprecated. Use: new KeenDataviz({ theme: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.theme;
+  this.config.theme = str ? String(str) : null;
+  return this;
+};
+
+Dataviz.prototype.title = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.title() is deprecated. Use: new KeenDataviz({ title: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.title;
+  this.config.title = str ? String(str) : null;
+  return this;
+};
+
+Dataviz.prototype.type = function (str) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.type() is deprecated. Use: new KeenDataviz({ type: _your_value_here_ })');
+  }
+  if (!arguments.length) return this.config.type;
+  this.config.type = str ? convertChartTypes(str) : null;
+  return this;
+};
+
+Dataviz.prototype.update = function () {
+  var library = this.config.library;
+  var type = this.config.type;
+  var element = this.el();
+  if (library && type && element && Dataviz.libraries[library][type].update) {
+    Dataviz.libraries[library][type].update.apply(this, arguments);
+  }
+  return this;
+};
+
+Dataviz.prototype.width = function (num) {
+  if (this.config.showDeprecationWarnings) {
+    console.log('.width() is deprecated - use CSS classes');
+  }
+  return this;
+};
+
+Dataviz.prototype.exportImage = function () {
+  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      _ref2$quality = _ref2.quality,
+      quality = _ref2$quality === undefined ? 0 : _ref2$quality,
+      _ref2$bgcolor = _ref2.bgcolor,
+      bgcolor = _ref2$bgcolor === undefined ? '#fff' : _ref2$bgcolor;
+
+  (0, _exportSvg2.default)({
+    node: this.config.containerElement,
+    quality: quality,
+    bgcolor: bgcolor
+  });
+};
+
+// Deprecations
+Dataviz.prototype.chartType = Dataviz.prototype.type;
+Dataviz.prototype.error = Dataviz.prototype.message;
+Dataviz.prototype.parseRawData = Dataviz.prototype.data;
+Dataviz.prototype.parseRequest = function () {
+  // this.emit('error', 'This method is no longer supported. Use .data() instead: https://github.com/keen/keen-dataviz.js#data');
+  return this;
+};
+Dataviz.prototype.initialize = function () {
+  // this.emit('error', 'This method is no longer supported, and can be omitted as it has no impact');
+  return this;
+};
+
+Dataviz.version = _package2.default.version;
+
+// Private
+
+function buildDomWrapper(el, options) {
+  var html = '';
+  var chart100percentWide = '';
+  var rangeChart = '';
+  if (options.legend.position === 'top' || options.legend.position === 'bottom') {
+    chart100percentWide = 'c3-chart-100-percent';
+  }
+  if (options.range) {
+    rangeChart = 'keen-dataviz-range';
+  }
+  var container = '<div class="c3-chart ' + chart100percentWide + ' ' + rangeChart + '"></div>';
+  var align = 'horizontal';
+  if (options.legend.position === 'left' || options.legend.position === 'right') {
+    align = 'vertical';
+  }
+  if (options.legend && options.legend.show) {
+    if (options.legend.position === 'top' || options.legend.position === 'left') {
+      container = '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>' + container;
+    } else {
+      container = container + '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>';
+    }
+  }
+  if (!options.react) {
+    html += '<div class="' + options.theme + '">';
+  }
+  if (options.title && options.showTitle) {
+    html += '<div class="keen-dataviz-title ' + options.theme + '-title">' + options.title + '</div>';
+  }
+  html += '<div class="keen-dataviz-rendering keen-dataviz-rendering-' + align + ' ' + options.theme + '-rendering ' + options.theme + '-rendering-' + align + '">' + container + '</div>';
+  if (options.notes) {
+    html += '<div class="keen-dataviz-notes ' + options.theme + '-notes">' + options.notes + '</div>';
+  }
+  if (!options.react) {
+    html += '</div>';
+  }
+
+  el.innerHTML = html;
+}
+
+function convertChartTypes(str) {
+  var map = {
+    areachart: 'area',
+    barchart: 'horizontal-bar',
+    columnchart: 'bar',
+    linechart: 'line',
+    piechart: 'pie'
+  };
+  return map[str] || str;
+}
+
+function testDom(fn) {
+  if (/in/.test(document.readyState)) {
+    setTimeout(function () {
+      testDom(fn);
+    }, 9);
+  } else {
+    fn();
+  }
+}
+
+function domReady(fn) {
+  if (typeof document !== 'undefined' || typeof window === 'undefined') {
+    fn();
+    return;
+  }
+  // Firefox 3.5 shim
+  if (document.readyState == null && document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', function DOMContentLoaded() {
+      document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
+      document.readyState = 'complete';
+    }, false);
+    document.readyState = 'loading';
+  }
+  testDom(fn);
+}
+
+exports.default = Dataviz;
 
 /***/ }),
 /* 20 */
@@ -961,26 +2070,31 @@ exports.default = palette;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.deleteColumn = deleteColumn;
+exports.deleteRow = deleteRow;
 
-var _autocollector = __webpack_require__(19);
+var _each = __webpack_require__(0);
 
-var _autocollector2 = _interopRequireDefault(_autocollector);
+function deleteColumn(q) {
+  var self = this;
+  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
 
-var _modern = __webpack_require__(18);
+  if (index > -1) {
+    (0, _each.each)(self.matrix, function (row, i) {
+      self.matrix[i].splice(index, 1);
+    });
+  }
+  return self;
+}
 
-var _modern2 = _interopRequireDefault(_modern);
+function deleteRow(q) {
+  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
 
-var _dracula = __webpack_require__(17);
-
-var _dracula2 = _interopRequireDefault(_dracula);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  autocollector: _autocollector2.default,
-  modern: _modern2.default,
-  dracula: _dracula2.default
-};
+  if (index > -1) {
+    this.matrix.splice(index, 1);
+  }
+  return this;
+}
 
 /***/ }),
 /* 21 */
@@ -992,151 +2106,45 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint-env browser */
-
-
-var _c = __webpack_require__(7);
-
-var _c2 = _interopRequireDefault(_c);
+exports.filterColumns = filterColumns;
+exports.filterRows = filterRows;
 
 var _each = __webpack_require__(0);
 
-var _prettyNumber = __webpack_require__(2);
+function filterColumns(fn) {
+  var self = this;
+  var clone = [];
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  (0, _each.each)(self.matrix, function (row, i) {
+    clone.push([]);
+  });
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var MetricCombo = function () {
-  function MetricCombo() {
-    _classCallCheck(this, MetricCombo);
-  }
-
-  _createClass(MetricCombo, [{
-    key: 'render',
-    value: function render() {
-      var _this = this;
-
-      var _config = this.config,
-          container = _config.container,
-          metricResults = _config.metricResults,
-          title = _config.title,
-          tooltip = _config.tooltip;
-
-
-      var colors = ['#c3c4cc'];
-      var columns = [];
-      columns[0] = [];
-      (0, _each.each)(this.dataset.selectColumn(0), function (c, i) {
-        var cell = void 0;
-        if (i > 0) {
-          cell = new Date(c);
-        }
-        columns[0][i] = cell;
-      });
-      columns[0][0] = 'x';
-
-      (0, _each.each)(this.data()[0], function (c, i) {
-        if (i > 0) {
-          columns.push(_this.dataset.selectColumn(i));
-        }
-      });
-
-      var prevResult = metricResults && metricResults.previous && metricResults.previous.result || 0;
-      var currResult = metricResults && metricResults.current && metricResults.current.result || 0;
-      var count = currResult - prevResult;
-      var percentDifference = prevResult === 0 ? '-' : (0, _prettyNumber.prettyNumber)(Math.round(count / prevResult * 100));
-      var labelClass = 'keen-dataviz-metric-green';
-      var iconClass = 'arrow-green';
-
-      if (percentDifference < 0) {
-        labelClass = 'keen-dataviz-metric-red';
-        iconClass = 'arrow-red';
-      }
-
-      var containerTitle = this.config.showTitle && title ? '<div class="keen-dataviz-title">' + title + '</div>' : '';
-      var containerElement = document.querySelector(container);
-      containerElement.innerHTML = '\n      <div class="keen-dataviz">\n        <div class="keen-dataviz-metric-combo">\n          <div class="metric-combo-data">\n            ' + containerTitle + ' \n            <div class="percent-difference ' + labelClass + '"><div class="' + iconClass + '"></div> ' + percentDifference + ' %</div>\n            <div class="current-count ' + labelClass + '"> ' + (0, _prettyNumber.prettyNumber)(count) + ' </div>\n          </div>\n          <div class="keen-dataviz-rendering">\n            <div class="c3-chart"></div>\n          </div>\n        </div>\n      </div>';
-      var chartRoot = containerElement.querySelector('.c3-chart');
-      var chart = _c2.default.generate({
-        bindto: chartRoot,
-        color: {
-          pattern: colors
-        },
-        title: title,
-        legend: {
-          show: false
-        },
-        data: {
-          x: 'x',
-          columns: columns,
-          type: 'area-spline',
-          selection: {
-            draggable: false,
-            enabled: true,
-            multiple: true
-          }
-        },
-        point: {
-          r: 0,
-          focus: {
-            expand: {
-              r: 5,
-              enabled: true
-            }
-          },
-          select: {
-            r: 5,
-            enabled: true
-          }
-        },
-        axis: {
-          y: {
-            show: false
-          },
-          x: {
-            show: false
-          }
-        },
-        grid: {
-          x: {
-            show: false
-          },
-          y: {
-            show: false
-          }
-        },
-        padding: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: -4
-        },
-        tooltip: tooltip
+  (0, _each.each)(self.matrix[0], function (col, i) {
+    var selectedColumn = self.selectColumn(i);
+    if (i == 0 || fn.call(self, selectedColumn, i)) {
+      (0, _each.each)(selectedColumn, function (cell, ri) {
+        clone[ri].push(cell);
       });
     }
-  }, {
-    key: 'update',
-    value: function update() {
-      this.destroy();
-      this.render();
+  });
+
+  self.data(clone);
+  return self;
+}
+
+function filterRows(fn) {
+  var self = this;
+  var clone = [];
+
+  (0, _each.each)(self.matrix, function (row, i) {
+    if (i == 0 || fn.call(self, row, i)) {
+      clone.push(row);
     }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      var container = this.config.container;
+  });
 
-      var containerElement = document.querySelector(container);
-      var chartContainer = containerElement.querySelector('.c3-chart');
-      chartContainer.remove();
-    }
-  }]);
-
-  return MetricCombo;
-}();
-
-exports.default = MetricCombo;
+  self.data(clone);
+  return self;
+}
 
 /***/ }),
 /* 22 */
@@ -1148,279 +2156,97 @@ exports.default = MetricCombo;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.insertColumn = insertColumn;
+exports.insertRow = insertRow;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _each = __webpack_require__(0);
 
-var _d = __webpack_require__(1);
+var _createNullList = __webpack_require__(8);
 
-var d3 = _interopRequireWildcard(_d);
+var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _svgTextWrap = __webpack_require__(4);
+var _append = __webpack_require__(7);
 
-var _prettyNumber = __webpack_require__(2);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function insertColumn(index, str, input) {
+  var self = this;
+  var label = str !== undefined ? str : null;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  if (typeof input === 'function') {
 
-var HorizontalFunnel3d = function () {
-  function HorizontalFunnel3d() {
-    _classCallCheck(this, HorizontalFunnel3d);
+    self.matrix[0].splice(index, 0, label);
+    (0, _each.each)(self.matrix, function (row, i) {
+      var cell;
+      if (i > 0) {
+        cell = input.call(self, row, i);
+        if (typeof cell === 'undefined') {
+          cell = null;
+        }
+        self.matrix[i].splice(index, 0, cell);
+      }
+    });
+  } else if (!input || input instanceof Array) {
+    input = input || [];
+
+    if (input.length <= self.matrix.length - 1) {
+      input = input.concat((0, _createNullList2.default)(self.matrix.length - 1 - input.length));
+    } else {
+      // If this new column is longer than existing columns,
+      // we need to update the rest to match ...
+      (0, _each.each)(input, function (value, i) {
+        if (self.matrix.length - 1 < input.length) {
+          _append.appendRow.call(self, String(self.matrix.length));
+        }
+      });
+    }
+
+    self.matrix[0].splice(index, 0, label);
+    (0, _each.each)(input, function (value, i) {
+      self.matrix[i + 1].splice(index, 0, value);
+    });
+  }
+  return self;
+}
+
+function insertRow(index, str, input) {
+  var self = this;
+  var newRow = [];
+  var label = str !== undefined ? str : null;
+  newRow.push(label);
+
+  if (typeof input === 'function') {
+    (0, _each.each)(self.matrix[0], function (label, i) {
+      var col = void 0;
+      var cell = void 0;
+      if (i > 0) {
+        col = self.selectColumn(i);
+        cell = input.call(self, col, i);
+        if (typeof cell === 'undefined') {
+          cell = null;
+        }
+        newRow.push(cell);
+      }
+    });
+    self.matrix.splice(index, 0, newRow);
+  } else if (!input || input instanceof Array) {
+    input = input || [];
+
+    if (input.length <= self.matrix[0].length - 1) {
+      input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
+    } else {
+      (0, _each.each)(input, function (value, i) {
+        if (self.matrix[0].length - 1 < input.length) {
+          _append.appendColumn.call(self, String(self.matrix[0].length));
+        }
+      });
+    }
+
+    self.matrix.splice(index, 0, newRow.concat(input));
   }
 
-  _createClass(HorizontalFunnel3d, [{
-    key: 'render',
-    value: function render() {
-      var matrix = this.dataset.matrix;
-      var _config = this.config,
-          colors = _config.colors,
-          container = _config.container,
-          labelMapping = _config.labelMapping,
-          colorMapping = _config.colorMapping;
-
-      var opts = this.config;
-      var _config$funnel = this.config.funnel,
-          _config$funnel$percen = _config$funnel.percents,
-          show = _config$funnel$percen.show,
-          countingMethod = _config$funnel$percen.countingMethod,
-          decimals = _config$funnel$percen.decimals,
-          lines = _config$funnel.lines,
-          resultValues = _config$funnel.resultValues,
-          effect3d = _config$funnel.effect3d,
-          hover = _config$funnel.hover,
-          minimalSize = _config$funnel.minimalSize;
-
-      var margin = { top: 20, right: 30, bottom: 100, left: 10 };
-      var funnelContainer = d3.select(container);
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      var chart = chartContainer.append('svg');
-      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
-      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
-      var elemWidth = svgWidth / (matrix.length - 1);
-      var xMarginElement = elemWidth * 0.3;
-      var shadowCut = xMarginElement / 1.5;
-      var prevElemHeight = svgHeight;
-      var percent = 100 .toFixed(decimals);
-
-      // prepare normal funnel polygons
-      var minimalSizeStep = 0;
-      if (minimalSize) {
-        minimalSizeStep = (svgHeight - minimalSize) / (matrix.length - 2);
-      }
-      var polygons = matrix.slice(1).map(function (d, i) {
-        var newPoints = [{
-          x: elemWidth * i + xMarginElement,
-          y: (svgHeight - prevElemHeight) / 2
-        }, {
-          x: elemWidth * i + xMarginElement,
-          y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
-        }];
-        if (i !== 0) {
-          if (countingMethod === 'relative') {
-            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = prevElemHeight * d[1] / matrix[i][1];
-            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
-          }
-          if (countingMethod === 'absolute') {
-            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = svgHeight * d[1] / matrix[1][1];
-            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
-          }
-        }
-        var label = d[0];
-        if (Object.keys(labelMapping).length) {
-          for (var key in labelMapping) {
-            if (labelMapping[key] === d[0]) {
-              label = key;
-            }
-          }
-        }
-        var result = d[1];
-        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
-          result = (0, _prettyNumber.prettyNumber)(d[1]);
-        }
-        return {
-          name: d[0],
-          label: label,
-          percent: percent + '%',
-          result: result,
-          points: [].concat(newPoints, [{
-            x: elemWidth * (i + 1),
-            y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
-          }, {
-            x: elemWidth * (i + 1),
-            y: (svgHeight - prevElemHeight) / 2
-          }])
-        };
-      });
-
-      //funnel shadows preparing
-      var polygonsShadows = polygons.map(function (d, i) {
-        return {
-          label: d.label,
-          points: [{
-            x: d.points[0].x,
-            y: d.points[0].y
-          }, {
-            x: d.points[1].x,
-            y: d.points[1].y
-          }, {
-            x: effect3d === 'top' ? d.points[1].x : d.points[1].x - shadowCut,
-            y: effect3d === 'top' ? d.points[1].y : d.points[1].y - xMarginElement < svgHeight / 2 ? svgHeight / 2 + 5 : d.points[1].y - xMarginElement
-          }, {
-            x: effect3d === 'bottom' ? d.points[0].x : d.points[0].x - shadowCut,
-            y: effect3d === 'bottom' ? d.points[0].y : d.points[0].y + xMarginElement > svgHeight / 2 ? svgHeight / 2 - 5 : d.points[0].y + xMarginElement
-          }]
-        };
-      });
-
-      //connecting funnels with shadows for rendering
-      var polygons3d = polygons.concat(polygonsShadows);
-
-      //chart rendering with polygons
-      chart.attr('preserveAspectRatio', 'xMidYMid meet').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons3d).enter().append('polygon').attr('points', function (d) {
-        return d.points.map(function (p) {
-          return [p.x, p.y].join(',');
-        }).join(' ');
-      }).style('fill', function (d, i) {
-        if (i > polygons.length - 1) {
-          if (colorMapping[d.label]) {
-            return d3.rgb(colorMapping[d.label]).darker(1.5);
-          }
-          return d3.rgb(colors[i - polygons.length]).darker(1.5);
-        }
-        if (colorMapping[d.label]) {
-          return colorMapping[d.label];
-        }
-        return colors[i];
-      }).attr('class', function (d) {
-        return d.label;
-      }).attr('cursor', 'pointer');
-
-      if (lines) {
-        //rendering lines
-        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', function (d) {
-          return d.points[0].x + margin.left - xMarginElement * 0.8;
-        }).attr('y1', svgHeight + margin.bottom).attr('x2', function (d) {
-          return d.points[0].x + margin.left - xMarginElement * 0.8;
-        }).attr('y2', function (d) {
-          return d.points[0].y + margin.top;
-        }).attr('class', 'chart-lines');
-
-        //rendering last line
-        chart.append('line').attr('x1', svgWidth + margin.left + xMarginElement / 4).attr('y1', svgHeight + margin.bottom).attr('x2', polygons[polygons.length - 1].points[3].x + margin.left + xMarginElement / 4).attr('y2', polygons[polygons.length - 1].points[3].y + margin.top).attr('class', 'chart-lines');
-      }
-
-      //rendering labels when lines are visible
-      if (lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[0].x + margin.left + elemWidth * 0.25;
-        }).attr('y', svgHeight + margin.bottom * 0.4 + margin.top).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
-      }
-
-      //rendering labels when lines are not visible
-      if (!lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[0].x + margin.left + elemWidth * 0.25;
-        }).attr('y', function (d) {
-          if (d.points[2].y + elemWidth / 4 > svgHeight + margin.bottom - 40) {
-            return svgHeight + margin.bottom - 40 + margin.top;
-          }
-          if (d.points[2].y + elemWidth / 4 < d.points[1].y) {
-            return d.points[1].y + 20 + margin.top;
-          }
-          return d.points[2].y + elemWidth / 4 + 10 + margin.top;
-        }).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
-      }
-
-      //rendering percents for each step
-      if (show && !resultValues) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2.8 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results for each step
-      if (resultValues && !show) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2.8 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results and percenage together
-      if (show && resultValues) {
-        //rendering percents
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2.8 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top + 16).attr('class', function (d) {
-          return 'text-second ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-
-        //rendering results
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2.8 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top - 3).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-
-      //hover handling
-      if (hover) {
-        var handleMouseOver = function handleMouseOver(d) {
-          polygonsHover.style('opacity', 0.5);
-          labelHover.style('opacity', 0.5);
-          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
-          chart.selectAll('.' + thisLabel).style('opacity', 1);
-        };
-
-        var handleMouseOut = function handleMouseOut(d) {
-          polygonsHover.style('opacity', 1);
-          labelHover.style('opacity', 1);
-        };
-
-        var polygonsHover = chart.selectAll('polygon');
-        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-
-        var labelHover = chart.selectAll('text');
-        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-      }
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      this.destroy();
-      this.render();
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      chartContainer.remove();
-    }
-  }]);
-
-  return HorizontalFunnel3d;
-}();
-
-exports.default = HorizontalFunnel3d;
+  return self;
+}
 
 /***/ }),
 /* 23 */
@@ -1432,248 +2258,32 @@ exports.default = HorizontalFunnel3d;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.selectColumn = selectColumn;
+exports.selectRow = selectRow;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _each = __webpack_require__(0);
 
-var _d = __webpack_require__(1);
+function selectColumn(q) {
+  var result = [];
+  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
 
-var d3 = _interopRequireWildcard(_d);
-
-var _svgTextWrap = __webpack_require__(4);
-
-var _prettyNumber = __webpack_require__(2);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var HorizontalFunnel = function () {
-  function HorizontalFunnel() {
-    _classCallCheck(this, HorizontalFunnel);
+  if (index > -1 && typeof this.matrix[0][index] !== 'undefined') {
+    (0, _each.each)(this.matrix, function (row, i) {
+      result.push(row[index]);
+    });
   }
+  return result;
+}
 
-  _createClass(HorizontalFunnel, [{
-    key: 'render',
-    value: function render() {
-      var matrix = this.dataset.matrix;
-      var _config = this.config,
-          colors = _config.colors,
-          container = _config.container,
-          labelMapping = _config.labelMapping,
-          colorMapping = _config.colorMapping;
+function selectRow(q) {
+  var result = [];
+  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
 
-      var opts = this.config;
-      var _config$funnel = this.config.funnel,
-          _config$funnel$percen = _config$funnel.percents,
-          show = _config$funnel$percen.show,
-          countingMethod = _config$funnel$percen.countingMethod,
-          decimals = _config$funnel$percen.decimals,
-          lines = _config$funnel.lines,
-          marginBetweenSteps = _config$funnel.marginBetweenSteps,
-          resultValues = _config$funnel.resultValues,
-          hover = _config$funnel.hover,
-          minimalSize = _config$funnel.minimalSize;
-
-      var margin = { top: 20, right: 30, bottom: 100, left: 10 };
-      var xMarginElement = 0;
-      if (marginBetweenSteps) {
-        xMarginElement = 5;
-      }
-      var funnelContainer = d3.select(container);
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      var chart = chartContainer.append('svg');
-      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
-      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
-      var elemWidth = svgWidth / (matrix.length - 1);
-      var prevElemHeight = svgHeight;
-      var percent = 100 .toFixed(decimals);
-
-      // prepare normal funnel polygons
-      var minimalSizeStep = 0;
-      if (minimalSize) {
-        minimalSizeStep = (svgHeight - minimalSize) / (matrix.length - 2);
-      }
-      var polygons = matrix.slice(1).map(function (d, i) {
-        var newPoints = [{
-          x: elemWidth * i + xMarginElement,
-          y: (svgHeight - prevElemHeight) / 2
-        }, {
-          x: elemWidth * i + xMarginElement,
-          y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
-        }];
-        if (i !== 0) {
-          if (countingMethod === 'relative') {
-            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = prevElemHeight * d[1] / matrix[i][1];
-            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
-          }
-          if (countingMethod === 'absolute') {
-            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = svgHeight * d[1] / matrix[1][1];
-            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
-          }
-        }
-        var label = d[0];
-        if (Object.keys(labelMapping).length) {
-          for (var key in labelMapping) {
-            if (labelMapping[key] === d[0]) {
-              label = key;
-            }
-          }
-        }
-        var result = d[1];
-        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
-          result = (0, _prettyNumber.prettyNumber)(d[1]);
-        }
-        return {
-          name: d[0],
-          label: label,
-          percent: percent + '%',
-          result: result,
-          points: [].concat(newPoints, [{
-            x: elemWidth * (i + 1),
-            y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
-          }, {
-            x: elemWidth * (i + 1),
-            y: (svgHeight - prevElemHeight) / 2
-          }])
-        };
-      });
-
-      //chart rendering with polygons
-      chart.attr('preserveAspectRatio', 'xMidYMid meet').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons).enter().append('polygon').attr('points', function (d) {
-        return d.points.map(function (p) {
-          return [p.x, p.y].join(',');
-        }).join(' ');
-      }).style('fill', function (d, i) {
-        if (colorMapping[d.label]) {
-          return colorMapping[d.label];
-        }
-        return colors[i];
-      }).attr('class', function (d) {
-        return d.label;
-      }).attr('cursor', 'pointer');
-
-      if (lines) {
-        //rendering lines
-        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', function (d) {
-          return d.points[0].x + margin.left - xMarginElement / 2;
-        }).attr('y1', svgHeight + margin.bottom).attr('x2', function (d) {
-          return d.points[0].x + margin.left - xMarginElement / 2;
-        }).attr('y2', function (d) {
-          return d.points[0].y + margin.top;
-        }).attr('class', 'chart-lines');
-
-        //rendering last line
-        chart.append('line').attr('x1', svgWidth + margin.left - xMarginElement / 2).attr('y1', svgHeight + margin.bottom).attr('x2', polygons[polygons.length - 1].points[3].x + margin.left + xMarginElement / 2).attr('y2', polygons[polygons.length - 1].points[3].y + margin.top).attr('class', 'chart-lines');
-      }
-
-      //rendering labels when lines are visible
-      if (lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2 + margin.left;
-        }).attr('y', svgHeight + margin.bottom * 0.5 + margin.top).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
-      }
-
-      //rendering labels when lines are not visible
-      if (!lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2 + margin.left;
-        }).attr('y', function (d) {
-          if (d.points[2].y + (d.points[3].y - d.points[0].y) / 2 + elemWidth / 4 > svgHeight + margin.bottom - 40 + margin.top) {
-            return svgHeight + margin.bottom - 40 + margin.top;
-          }
-          return d.points[2].y + (d.points[3].y - d.points[0].y) / 2 + elemWidth / 4 + margin.top;
-        }).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
-      }
-
-      //rendering percents for each step
-      if (show && !resultValues) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results for each step
-      if (resultValues && !show) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results and percenage together
-      if (show && resultValues) {
-        //rendering percents
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top + 16).attr('class', function (d) {
-          return 'text-second ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-
-        //rendering results
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
-          return d.points[1].x + elemWidth / 2 + margin.left;
-        }).attr('y', svgHeight / 2 + margin.top - 3).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-      //hover handling
-      if (hover) {
-        var handleMouseOver = function handleMouseOver(d) {
-          polygonsHover.style('opacity', 0.5);
-          labelHover.style('opacity', 0.5);
-          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
-          chart.selectAll('.' + thisLabel).style('opacity', 1);
-        };
-
-        var handleMouseOut = function handleMouseOut(d) {
-          polygonsHover.style('opacity', 1);
-          labelHover.style('opacity', 1);
-        };
-
-        var polygonsHover = chart.selectAll('polygon');
-        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-
-        var labelHover = chart.selectAll('text');
-        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-      }
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      this.destroy();
-      this.render();
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      chartContainer.remove();
-    }
-  }]);
-
-  return HorizontalFunnel;
-}();
-
-exports.default = HorizontalFunnel;
+  if (index > -1 && typeof this.matrix[index] !== 'undefined') {
+    result = this.matrix[index];
+  }
+  return result;
+}
 
 /***/ }),
 /* 24 */
@@ -1685,275 +2295,65 @@ exports.default = HorizontalFunnel;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.sortColumns = sortColumns;
+exports.sortRows = sortRows;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _each = __webpack_require__(0);
 
-var _d = __webpack_require__(1);
+var _analyses = __webpack_require__(13);
 
-var d3 = _interopRequireWildcard(_d);
+var _analyses2 = _interopRequireDefault(_analyses);
 
-var _svgTextWrap = __webpack_require__(4);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _prettyNumber = __webpack_require__(2);
+function sortColumns(str, comp) {
+  var self = this,
+      head = this.matrix[0].slice(1),
+      // minus index
+  cols = [],
+      clone = [],
+      fn = comp || _analyses2.default.getColumnLabel;
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Funnel3d = function () {
-  function Funnel3d() {
-    _classCallCheck(this, Funnel3d);
-  }
-
-  _createClass(Funnel3d, [{
-    key: 'render',
-    value: function render() {
-      var matrix = this.dataset.matrix;
-      var _config = this.config,
-          colors = _config.colors,
-          container = _config.container,
-          labelMapping = _config.labelMapping,
-          colorMapping = _config.colorMapping;
-
-      var opts = this.config;
-      var _config$funnel = this.config.funnel,
-          _config$funnel$percen = _config$funnel.percents,
-          show = _config$funnel$percen.show,
-          countingMethod = _config$funnel$percen.countingMethod,
-          decimals = _config$funnel$percen.decimals,
-          lines = _config$funnel.lines,
-          resultValues = _config$funnel.resultValues,
-          effect3d = _config$funnel.effect3d,
-          hover = _config$funnel.hover,
-          minimalSize = _config$funnel.minimalSize;
-
-      var margin = { top: 20, right: 30, bottom: 60, left: 200 };
-      var funnelContainer = d3.select(container);
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      var chart = chartContainer.append('svg');
-      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
-      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
-      var elemHeight = svgHeight / (matrix.length - 1);
-      var yMarginElement = elemHeight * 0.3;
-      var shadowCut = yMarginElement * 2.5;
-      var prevElemWidth = svgWidth;
-      var percent = 100 .toFixed(decimals);
-
-      // prepare normal funnel polygons
-      var minimalSizeStep = 0;
-      if (minimalSize) {
-        minimalSizeStep = (svgWidth - minimalSize) / (matrix.length - 2);
-      }
-      var polygons = matrix.slice(1).map(function (d, i) {
-        var newPoints = [{
-          x: (svgWidth - prevElemWidth) / 2,
-          y: elemHeight * i + yMarginElement
-        }, {
-          x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
-          y: elemHeight * i + yMarginElement
-        }];
-        if (i !== 0) {
-          if (countingMethod === 'relative') {
-            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = prevElemWidth * d[1] / matrix[i][1];
-            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
-          }
-          if (countingMethod === 'absolute') {
-            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = svgWidth * d[1] / matrix[1][1];
-            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
-          }
-        }
-        var label = d[0];
-        if (Object.keys(labelMapping).length) {
-          for (var key in labelMapping) {
-            if (labelMapping[key] === d[0]) {
-              label = key;
-            }
-          }
-        }
-        var result = d[1];
-        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
-          result = (0, _prettyNumber.prettyNumber)(d[1]);
-        }
-        return {
-          name: d[0],
-          label: label,
-          percent: percent + '%',
-          result: result,
-          points: [].concat(newPoints, [{
-            x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
-            y: elemHeight * (i + 1)
-          }, {
-            x: (svgWidth - prevElemWidth) / 2,
-            y: elemHeight * (i + 1)
-          }])
-        };
-      });
-
-      //funnel shadows preparing
-      var polygonsShadows = polygons.map(function (d, i) {
-        return {
-          label: d.label,
-          points: [{
-            x: d.points[3].x,
-            y: d.points[3].y
-          }, {
-            x: d.points[2].x,
-            y: d.points[2].y
-          }, {
-            x: effect3d === 'left' ? d.points[2].x : d.points[2].x - shadowCut < svgWidth / 2 ? svgWidth / 2 + 5 : d.points[2].x - shadowCut,
-            y: effect3d === 'left' ? d.points[2].y : d.points[2].y + yMarginElement / 1.5
-          }, {
-            x: effect3d === 'right' ? d.points[3].x : d.points[3].x + shadowCut > svgWidth / 2 ? svgWidth / 2 - 5 : d.points[3].x + shadowCut,
-            y: effect3d === 'right' ? d.points[3].y : d.points[3].y + yMarginElement / 1.5
-          }]
-        };
-      });
-
-      //connecting funnels with shadows for rendering
-      var polygons3d = polygons.concat(polygonsShadows);
-
-      //chart rendering with polygons
-      chart.attr('preserveAspectRatio', 'xMidYMid meet').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons3d).enter().append('polygon').attr('points', function (d) {
-        return d.points.map(function (p) {
-          return [p.x, p.y].join(',');
-        }).join(' ');
-      }).style('fill', function (d, i) {
-        if (i > polygons.length - 1) {
-          if (colorMapping[d.label]) {
-            return d3.rgb(colorMapping[d.label]).darker(1.5);
-          }
-          return d3.rgb(colors[i - polygons.length]).darker(1.5);
-        }
-        if (colorMapping[d.label]) {
-          return colorMapping[d.label];
-        }
-        return colors[i];
-      }).attr('class', function (d) {
-        return d.label;
-      }).attr('cursor', 'pointer');
-
-      if (lines) {
-        //rendering lines
-        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', 10).attr('y1', function (d) {
-          return d.points[0].y + margin.top - yMarginElement / 5;
-        }).attr('x2', function (d, i) {
-          if (i === 0) {
-            return d.points[1].x + margin.left;
-          }
-          return d.points[1].x + margin.left - shadowCut;
-        }).attr('y2', function (d) {
-          return d.points[0].y + margin.top - yMarginElement / 5;
-        }).attr('class', 'chart-lines');
-
-        //rendering last line
-        chart.append('line').attr('x1', 10).attr('y1', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement - yMarginElement / 5).attr('x2', polygons[polygons.length - 1].points[2].x + margin.left - shadowCut).attr('y2', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement - yMarginElement / 5).attr('class', 'chart-lines');
-      }
-
-      //rendering labels when lines are visible
-      if (lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'start').attr('x', 20).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 5 + yMarginElement / 4;
-        }).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
-      }
-
-      //rendering labels when lines are not visible
-      if (!lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'end').attr('x', function (d) {
-          return d.points[0].x + (d.points[3].x - d.points[0].x) / 2 + 130;
-        }).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 5;
-        }).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
-      }
-
-      //rendering percents for each step
-      if (show && !resultValues) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 8;
-        }).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results for each step
-      if (resultValues && !show) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 8;
-        }).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results and percenage together
-      if (show && resultValues) {
-        //rendering percents
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 18;
-        }).attr('class', function (d) {
-          return 'text-second ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-
-        //rendering results
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 3;
-        }).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-      //hover handling
-      if (hover) {
-        var handleMouseOver = function handleMouseOver(d) {
-          polygonsHover.style('opacity', 0.5);
-          labelHover.style('opacity', 0.5);
-          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
-          chart.selectAll('.' + thisLabel).style('opacity', 1);
-        };
-
-        var handleMouseOut = function handleMouseOut(d) {
-          polygonsHover.style('opacity', 1);
-          labelHover.style('opacity', 1);
-        };
-
-        var polygonsHover = chart.selectAll('polygon');
-        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-
-        var labelHover = chart.selectAll('text');
-        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-      }
+  // Isolate each column (except the index)
+  (0, _each.each)(head, function (cell, i) {
+    cols.push(self.selectColumn(i + 1).slice(0));
+  });
+  cols.sort(function (a, b) {
+    // If fn(a) > fn(b)
+    var op = fn.call(self, a) > fn.call(self, b);
+    if (op) {
+      return str === 'asc' ? 1 : -1;
+    } else if (!op) {
+      return str === 'asc' ? -1 : 1;
+    } else {
+      return 0;
     }
-  }, {
-    key: 'update',
-    value: function update() {
-      this.destroy();
-      this.render();
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      chartContainer.remove();
-    }
-  }]);
+  });
+  (0, _each.each)(cols, function (col, i) {
+    self.deleteColumn(i + 1).insertColumn(i + 1, col[0], col.slice(1));
+  });
+  return self;
+}
 
-  return Funnel3d;
-}();
-
-exports.default = Funnel3d;
+function sortRows(str, comp) {
+  var self = this,
+      head = this.matrix.slice(0, 1),
+      body = this.matrix.slice(1),
+      fn = comp || _analyses2.default.getRowIndex;
+  body.sort(function (a, b) {
+    // If fn(a) > fn(b)
+    var op = fn.call(self, a) > fn.call(self, b);
+    if (op) {
+      return str === 'asc' ? 1 : -1;
+    } else if (!op) {
+      return str === 'asc' ? -1 : 1;
+    } else {
+      return 0;
+    }
+  });
+  self.data(head.concat(body));
+  return self;
+}
 
 /***/ }),
 /* 25 */
@@ -1965,251 +2365,94 @@ exports.default = Funnel3d;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.updateColumn = updateColumn;
+exports.updateRow = updateRow;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _each = __webpack_require__(0);
 
-var _d = __webpack_require__(1);
+var _createNullList = __webpack_require__(8);
 
-var d3 = _interopRequireWildcard(_d);
+var _createNullList2 = _interopRequireDefault(_createNullList);
 
-var _svgTextWrap = __webpack_require__(4);
+var _append = __webpack_require__(7);
 
-var _prettyNumber = __webpack_require__(2);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function updateColumn(q, input) {
+  var self = this,
+      index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  if (index > -1) {
 
-var Funnel = function () {
-  function Funnel() {
-    _classCallCheck(this, Funnel);
-  }
+    if (typeof input === 'function') {
 
-  _createClass(Funnel, [{
-    key: 'render',
-    value: function render() {
-      var matrix = this.dataset.matrix;
-      var _config = this.config,
-          colors = _config.colors,
-          container = _config.container,
-          labelMapping = _config.labelMapping,
-          colorMapping = _config.colorMapping;
-
-      var opts = this.config;
-      var _config$funnel = this.config.funnel,
-          _config$funnel$percen = _config$funnel.percents,
-          show = _config$funnel$percen.show,
-          countingMethod = _config$funnel$percen.countingMethod,
-          decimals = _config$funnel$percen.decimals,
-          lines = _config$funnel.lines,
-          marginBetweenSteps = _config$funnel.marginBetweenSteps,
-          resultValues = _config$funnel.resultValues,
-          hover = _config$funnel.hover,
-          minimalSize = _config$funnel.minimalSize;
-
-      var margin = { top: 20, right: 30, bottom: 30, left: 200 };
-      var yMarginElement = 0;
-      if (marginBetweenSteps) {
-        yMarginElement = 5;
-      }
-      var funnelContainer = d3.select(container);
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      var chart = chartContainer.append('svg');
-      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
-      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
-      var elemHeight = svgHeight / (matrix.length - 1);
-      var prevElemWidth = svgWidth;
-      var percent = 100 .toFixed(decimals);
-
-      // prepare normal funnel polygons
-      var minimalSizeStep = 0;
-      if (minimalSize) {
-        minimalSizeStep = (svgWidth - minimalSize) / (matrix.length - 2);
-      }
-      var polygons = matrix.slice(1).map(function (d, i) {
-        var newPoints = [{
-          x: (svgWidth - prevElemWidth) / 2,
-          y: elemHeight * i + yMarginElement
-        }, {
-          x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
-          y: elemHeight * i + yMarginElement
-        }];
-        if (i !== 0) {
-          if (countingMethod === "relative") {
-            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = prevElemWidth * d[1] / matrix[i][1];
-            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
-          }
-          if (countingMethod === "absolute") {
-            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = svgWidth * d[1] / matrix[1][1];
-            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
+      (0, _each.each)(self.data(), function (row, i) {
+        var cell;
+        if (i > 0) {
+          cell = input.call(self, row[index], i, row);
+          if (typeof cell !== 'undefined') {
+            self.matrix[i][index] = cell;
           }
         }
-        var label = d[0];
-        if (Object.keys(labelMapping).length) {
-          for (var key in labelMapping) {
-            if (labelMapping[key] === d[0]) {
-              label = key;
-            }
-          }
-        }
-        var result = d[1];
-        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
-          result = (0, _prettyNumber.prettyNumber)(d[1]);
-        }
-        return {
-          name: d[0],
-          label: label,
-          percent: percent + '%',
-          result: result,
-          points: [].concat(newPoints, [{
-            x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
-            y: elemHeight * (i + 1)
-          }, {
-            x: (svgWidth - prevElemWidth) / 2,
-            y: elemHeight * (i + 1)
-          }])
-        };
       });
+    } else if (!input || input instanceof Array) {
+      input = input || [];
 
-      //chart rendering with polygons
-      chart.attr('preserveAspectRatio', 'xMidYMid slice').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons).enter().append('polygon').attr('points', function (d) {
-        return d.points.map(function (p) {
-          return [p.x, p.y].join(',');
-        }).join(' ');
-      }).style('fill', function (d, i) {
-        if (colorMapping[d.label]) {
-          return colorMapping[d.label];
+      if (input.length <= self.data().length - 1) {
+        input = input.concat((0, _createNullList2.default)(self.data().length - 1 - input.length));
+      } else {
+        // If this new column is longer than existing columns,
+        // we need to update the rest to match ...
+        (0, _each.each)(input, function (value, i) {
+          if (self.matrix.length - 1 < input.length) {
+            _append.appendRow.call(self, String(self.matrix.length));
+          }
+        });
+      }
+
+      (0, _each.each)(input, function (value, i) {
+        self.matrix[i + 1][index] = value;
+      });
+    }
+  }
+  return self;
+}
+
+function updateRow(q, input) {
+  var self = this,
+      index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+
+  if (index > -1) {
+
+    if (typeof input === 'function') {
+
+      (0, _each.each)(self.data()[index], function (value, i) {
+        var col = self.selectColumn(i),
+            cell = input.call(self, value, i, col);
+        if (typeof cell !== 'undefined') {
+          self.matrix[index][i] = cell;
         }
-        return colors[i];
-      }).attr('class', function (d) {
-        return d.label;
-      }).attr('cursor', 'pointer');
+      });
+    } else if (!input || input instanceof Array) {
+      input = input || [];
 
-      if (lines) {
-        //rendering lines
-        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', 10).attr('y1', function (d) {
-          return d.points[0].y + margin.top - yMarginElement / 2;
-        }).attr('x2', function (d) {
-          return d.points[1].x + margin.left;
-        }).attr('y2', function (d) {
-          return d.points[0].y + margin.top - yMarginElement / 2;
-        }).attr('class', 'chart-lines');
-
-        //rendering last line
-        chart.append('line').attr('x1', 10).attr('y1', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement / 2).attr('x2', polygons[polygons.length - 1].points[2].x + margin.left).attr('y2', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement / 2).attr('class', 'chart-lines');
-      }
-
-      //rendering labels when lines are visible
-      if (lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'start').attr('x', 20).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 5;
-        }).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
-      }
-
-      //rendering labels when lines are not visible
-      if (!lines) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'end').attr('x', function (d) {
-          return d.points[0].x + (d.points[3].x - d.points[0].x) / 2 + margin.left * 0.9;
-        }).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 5;
-        }).attr('class', function (d) {
-          return 'text-label ' + d.label;
-        }).text(function (d) {
-          return d.name;
-        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
-      }
-
-      //rendering percents for each step
-      if (show && !resultValues) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 8;
-        }).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results for each step
-      if (resultValues && !show) {
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 8;
-        }).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
-      }
-
-      //rendering results and percenage together
-      if (show && resultValues) {
-        //rendering percents
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          if (yMarginElement === 0) {
-            return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 16;
+      if (input.length <= self.matrix[0].length - 1) {
+        input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
+      } else {
+        (0, _each.each)(input, function (value, i) {
+          if (self.matrix[0].length - 1 < input.length) {
+            _append.appendColumn.call(self, String(self.matrix[0].length));
           }
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 12;
-        }).attr('class', function (d) {
-          return 'text-second ' + d.label;
-        }).text(function (d) {
-          return d.percent;
-        }).attr('cursor', 'pointer');
-
-        //rendering results
-        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
-          if (yMarginElement === 0) {
-            return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top;
-          }
-          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement - 5;
-        }).attr('class', function (d) {
-          return 'text-main ' + d.label;
-        }).text(function (d) {
-          return d.result;
-        }).attr('cursor', 'pointer');
+        });
       }
-      //hover handling
-      if (hover) {
-        var handleMouseOver = function handleMouseOver(d) {
-          polygonsHover.style('opacity', 0.5);
-          labelHover.style('opacity', 0.5);
-          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
-          chart.selectAll('.' + thisLabel).style('opacity', 1);
-        };
 
-        var handleMouseOut = function handleMouseOut(d) {
-          polygonsHover.style('opacity', 1);
-          labelHover.style('opacity', 1);
-        };
-
-        var polygonsHover = chart.selectAll('polygon');
-        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-
-        var labelHover = chart.selectAll('text');
-        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
-      }
+      (0, _each.each)(input, function (value, i) {
+        self.matrix[index][i + 1] = value;
+      });
     }
-  }, {
-    key: 'update',
-    value: function update() {
-      this.destroy();
-      this.render();
-    }
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
-      chartContainer.remove();
-    }
-  }]);
-
-  return Funnel;
-}();
-
-exports.default = Funnel;
+  }
+  return self;
+}
 
 /***/ }),
 /* 26 */
@@ -2221,37 +2464,215 @@ exports.default = Funnel;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {
-  render: function render() {
-    var html = '';
-    var artifacts = this.view._artifacts.spinner = {};
+exports.default = initialize;
 
-    // Build DOM element
-    html += '<div class="' + this.config.theme + '">';
-    html += '<div class="keen-spinner-container keen-dataviz-box">';
-    html += '<div class="keen-spinner-indicator"></div>';
-    html += '</div>';
-    html += '</div>';
-    this.el().innerHTML = html;
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    if (this.view._artifacts.spinner) {
-      if (this.view._artifacts.spinner.interval) {
-        clearInterval(this.view._artifacts.spinner.interval);
+var _each = __webpack_require__(0);
+
+var _flatten = __webpack_require__(27);
+
+var _object = __webpack_require__(28);
+
+var Dataset = void 0; /* injected */
+
+function initialize(lib) {
+  Dataset = lib;
+  return function (name) {
+    var options = Array.prototype.slice.call(arguments, 1);
+
+    if (!parsers[name]) {
+      throw 'Requested parser does not exist';
+    } else {
+      return parsers[name].apply(this, options);
+    }
+  };
+}
+
+function parseMetric() {
+  return function (res) {
+    return new Dataset().set(['Value', 'Result'], res.result).type('metric');
+  };
+}
+
+//var myParser = Dataset.parser('interval', 'timeframe.end');
+function parseInterval() {
+  var options = Array.prototype.slice.call(arguments);
+  return function (res) {
+    var dataset = new Dataset().type('interval');
+    (0, _each.each)(res.result, function (record, i) {
+      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
+      dataset.set(['Result', index], record.value);
+    });
+    return dataset;
+  };
+}
+
+function parseGroupedMetric() {
+  return function (res) {
+    var dataset = new Dataset().type('grouped-metric');
+    (0, _each.each)(res.result, function (record, i) {
+      var label;
+      (0, _each.each)(record, function (value, key) {
+        if (key !== 'result') {
+          label = key;
+        }
+      });
+      dataset.set(['Result', String(record[label])], record.result);
+    });
+    return dataset;
+  };
+}
+
+//var myParser = Dataset.parser('grouped-interval', 'timeframe.end');
+function parseGroupedInterval() {
+  var options = Array.prototype.slice.call(arguments);
+  return function (res) {
+    var dataset = new Dataset().type('grouped-interval');
+    (0, _each.each)(res.result, function (record, i) {
+      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
+      if (record.value.length) {
+        (0, _each.each)(record.value, function (group, j) {
+          var label;
+          (0, _each.each)(group, function (value, key) {
+            if (key !== 'result') {
+              label = key;
+            }
+          });
+          dataset.set([String(group[label]), index], group.result);
+        });
+      } else {
+        dataset.appendRow(index);
       }
-      this.view._artifacts.spinner.radius = 0;
-      try {
-        delete this.view._artifacts.spinner;
-      } catch (e) {
-        this.view._artifacts.spinner = undefined;
+    });
+    return dataset;
+  };
+}
+
+//var myParser = Dataset.parser('double-grouped-metric', ['first', 'second']);
+function parseDoubleGroupedMetric() {
+  var options = Array.prototype.slice.call(arguments);
+  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
+  return function (res) {
+    var dataset = new Dataset().type('double-grouped-metric');
+    (0, _each.each)(res.result, function (record, i) {
+      var rowLabel = record[options[0][0]] + ' ' + record[options[0][1]];
+      dataset.set(['Result', rowLabel], record.result);
+    });
+    return dataset;
+  };
+}
+
+//var myParser = Dataset.parser('double-grouped-interval', ['first', 'second'], 'timeframe.end');
+function parseDoubleGroupedInterval() {
+  var options = Array.prototype.slice.call(arguments);
+  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
+  return function (res) {
+    var dataset = new Dataset().type('double-grouped-interval');
+    (0, _each.each)(res.result, function (record, i) {
+      var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
+      (0, _each.each)(record['value'], function (value, j) {
+        var label = value[options[0][0]] + ' ' + value[options[0][1]];
+        dataset.set([label, index], value.result);
+      });
+    });
+    return dataset;
+  };
+}
+
+function parseFunnel() {
+  return function (res) {
+    var result, steps, dataset;
+    if (typeof res.steps !== 'undefined' && typeof res.result !== 'undefined' && res.result instanceof Array) {
+      // Ad-hoc funnel response
+      result = res.result;
+      steps = res.steps;
+    } else if (typeof res.result.steps !== 'undefined' && typeof res.result.result !== 'undefined' && res.result.result instanceof Array) {
+      // Saved funnel response
+      result = res.result.result;
+      steps = res.result.steps;
+    }
+    dataset = new Dataset().type('funnel');
+    dataset.appendColumn('Step Value');
+    (0, _each.each)(result, function (value, i) {
+      if (typeof steps !== 'undefined' && steps[i]) {
+        dataset.appendRow(String(steps[i].event_collection), [value]);
+      }
+    });
+    return dataset;
+  };
+}
+
+function parseList() {
+  return function (res) {
+    var dataset = new Dataset().type('list');
+    (0, _each.each)(res.result, function (value, i) {
+      dataset.set(['Result', String(i + 1)], value);
+    });
+    return dataset;
+  };
+}
+
+function parseExtraction() {
+  var config = this.config;
+  return function (res) {
+    var datasetExtraction = new Dataset().type('extraction');
+
+    // get keys of the Object, static schema
+    var names = Object.keys((0, _flatten.flatten)(res.result[0]));
+
+    var tableConfig = config && config.table;
+    if (tableConfig && tableConfig.schema === 'dynamic') {
+      var results = res.result;
+      var keys = {};
+      results.forEach(function (resultItem) {
+        var resultKeys = Object.keys((0, _flatten.flatten)(resultItem));
+        if (resultKeys && resultKeys.length) {
+          resultKeys.forEach(function (keyName) {
+            if (!keys[keyName]) {
+              keys[keyName] = true;
+            }
+          });
+        }
+      });
+      names = Object.keys(keys);
+    }
+
+    var nameI = 0;
+    names.forEach(function (value) {
+      datasetExtraction.set([value, '0'], value);
+      nameI++;
+    });
+
+    if (Dataset) {
+      if (config && config.table && config.table.columns) {
+        names = config.table.columns;
       }
     }
-    this.el().innerHTML = '';
-  }
+
+    for (var i = 0; i < res.result.length; i++) {
+      var record = [i + 1];
+      for (var iNames = 0; iNames < names.length; iNames++) {
+        record.push((0, _object.valueAtDeepKey)(res.result[i], names[iNames]));
+      }
+      datasetExtraction.matrix[String(i + 1)] = record;
+    }
+
+    datasetExtraction.deleteColumn(0);
+
+    return datasetExtraction;
+  };
+}
+
+// Parser definitions
+var parsers = {
+  metric: parseMetric,
+  interval: parseInterval,
+  'grouped-metric': parseGroupedMetric,
+  'grouped-interval': parseGroupedInterval,
+  'double-grouped-metric': parseDoubleGroupedMetric,
+  'double-grouped-interval': parseDoubleGroupedInterval,
+  funnel: parseFunnel,
+  list: parseList,
+  extraction: parseExtraction
 };
 
 /***/ }),
@@ -2265,280 +2686,28 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+exports.flatten = flatten;
+// Pure awesomeness by Will Rayner (penguinboy)
+// https://gist.github.com/penguinboy/762197
 
-var _escapeHtml = __webpack_require__(3);
-
-var currentPage = void 0;
-function _generateTableRows(datavizInstance, dataset) {
-  var html = '';
-  var defaultConfig = {
-    page: 1,
-    limit: 0,
-    arrows: true
-  };
-  var customConfig = {};
-  if (datavizInstance.config.table && datavizInstance.config.table.pagination) {
-    customConfig = datavizInstance.config.table.pagination;
-  }
-  var config = _extends({}, defaultConfig, customConfig);
-
-  if (!currentPage) {
-    currentPage = config.page;
-  }
-
-  var datasetPaginated = void 0;
-  var pages = 0;
-  if (config.limit === 0) {
-    datasetPaginated = dataset.slice(1); // remove header
-  } else {
-    var start = config.limit * (currentPage - 1) + 1;
-    var end = start + config.limit;
-    datasetPaginated = dataset.slice(start, end);
-    pages = Math.ceil((dataset.length - 1) / config.limit);
-  }
-
-  var columnsArray = datavizInstance.config.table.columns ? datavizInstance.config.table.columns : datavizInstance.dataset.matrix[0];
-
-  var colNamesToMap = {};
-  var _datavizInstance$conf = datavizInstance.config.table,
-      mapValues = _datavizInstance$conf.mapValues,
-      mapDates = _datavizInstance$conf.mapDates;
-
-  for (var key in mapValues) {
-    colNamesToMap[columnsArray.indexOf(key)] = key;
-  }
-
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
-
-  try {
-    for (var _iterator = datasetPaginated[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var row = _step.value;
-
-      html += '<tr class="table-data-row">';
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = row.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var _ref = _step2.value;
-
-          var _ref2 = _slicedToArray(_ref, 2);
-
-          var index = _ref2[0];
-          var rowColValue = _ref2[1];
-
-          if (mapDates && rowColValue instanceof Date) {
-            rowColValue = mapDates(rowColValue);
-          }
-
-          var rowColValueEscaped = (0, _escapeHtml.escapeHtml)(rowColValue);
-          if (colNamesToMap[index]) {
-            html += '<td>' + mapValues[colNamesToMap[index]](rowColValueEscaped) + '</td>';
-            continue;
-          }
-          html += '<td>' + rowColValueEscaped + '</td>';
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-            _iterator2.return();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
+function flatten(ob) {
+  var toReturn = {};
+  for (var i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
+      var flatObject = flatten(ob[i]);
+      for (var x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+        toReturn[i + '.' + x] = flatObject[x];
       }
-
-      html += '</tr>';
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator.return) {
-        _iterator.return();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
+    } else {
+      toReturn[i] = ob[i];
     }
   }
-
-  if (pages > 1) {
-    html += '<tr class="table-pagination"><td colspan="999">';
-    var pageNumber = 1;
-    var prevPage = currentPage === 1 ? 1 : currentPage - 1;
-    var nextPage = currentPage === pages ? pages : currentPage + 1;
-    if (config.arrows) {
-      html += '<a class="arrow btn" data-page="' + prevPage + '"><</a>';
-    }
-    while (pageNumber <= pages) {
-      html += '<a class="btn ' + (pageNumber === currentPage ? 'active' : '') + '" data-page="' + pageNumber + '">' + pageNumber + '</a>';
-      pageNumber++;
-    }
-    if (config.arrows) {
-      html += '<a class="arrow btn" data-page="' + nextPage + '">></a>';
-    }
-    html += '</td></tr>';
-  }
-
-  return html;
-}
-
-function _generateTableHeader(datavizInstance, dataset) {
-  var html = '';
-  var fieldNumber = -1;
-  var tableConfig = datavizInstance.config.table;
-  var columnNames = tableConfig && tableConfig.columns || dataset[0];
-  var _iteratorNormalCompletion3 = true;
-  var _didIteratorError3 = false;
-  var _iteratorError3 = undefined;
-
-  try {
-    for (var _iterator3 = columnNames[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-      var colName = _step3.value;
-
-      var colNameEscaped = (0, _escapeHtml.escapeHtml)(colName);
-      fieldNumber += 1;
-      html += '<th fieldNumber="' + fieldNumber + '">' + colNameEscaped + '</th>';
-    }
-  } catch (err) {
-    _didIteratorError3 = true;
-    _iteratorError3 = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion3 && _iterator3.return) {
-        _iterator3.return();
-      }
-    } finally {
-      if (_didIteratorError3) {
-        throw _iteratorError3;
-      }
-    }
-  }
-
-  return html;
-}
-
-var render = function render() {
-  var _this = this;
-
-  var dataset = this.dataset.matrix;
-
-  var el = this.el();
-  var theme = this.config.theme;
-  var datavizInstance = this;
-
-  var html = '';
-
-  var isEmpty = dataset.length === 1 && dataset[0].length === 0;
-  if (isEmpty) {
-    var msg = 'No data to display';
-    var mappedMsg = this.config.errorMapping[msg] || msg;
-    if (this.config.showErrorMessages) {
-      this.message(mappedMsg);
-    }
-    return;
-  }
-
-  // Open wrapper
-  html += '<div class="' + theme + '-table">';
-
-  // Static, scrollable table
-  html += '<table class="' + theme + '-table-dataset">';
-  html += '<thead>';
-  html += '<tr>';
-  html += _generateTableHeader(datavizInstance, dataset);
-  html += '</tr>';
-  html += '</thead>';
-  // Table data
-  html += '<tbody>';
-  html += _generateTableRows(datavizInstance, dataset);
-  html += '</tbody>';
-  html += '</table>';
-  /* */
-  // Close wrapper
-  html += '</div>';
-
-  // Inject HTML string
-  el.querySelector('.' + theme + '-rendering').innerHTML = html;
-
-  el.querySelectorAll('.' + theme + '-rendering th').forEach(function (item) {
-    item.addEventListener('click', function (event) {
-      var sortOrder = event.target.getAttribute('order') || 'asc';
-      var fieldNumber = event.target.getAttribute('fieldNumber');
-      var checker = function checker(a, b) {
-        var sortOrderNumber = sortOrder === 'asc' ? 1 : -1;
-
-        if (typeof a[fieldNumber] === 'string') {
-          var nameA = a[fieldNumber].toUpperCase(); // ignore upper and lowercase
-          var nameB = b[fieldNumber].toUpperCase(); // ignore upper and lowercase
-          if (nameA < nameB) {
-            return -1 * sortOrderNumber;
-          }
-          if (nameA > nameB) {
-            return 1 * sortOrderNumber;
-          }
-
-          // names must be equal
-          return 0;
-        }
-        return (a[fieldNumber] - b[fieldNumber]) * sortOrderNumber;
-      };
-
-      if (sortOrder === 'asc') {
-        sortOrder = 'desc';
-      } else {
-        sortOrder = 'asc';
-      }
-      event.target.setAttribute('order', sortOrder);
-
-      var first = _this.dataset.matrix.shift();
-      _this.dataset.matrix.sort(checker);
-      _this.dataset.matrix.unshift(first);
-
-      el.querySelector('.' + theme + '-rendering tbody').innerHTML = _generateTableRows(datavizInstance, dataset);
-      attachBtnEventListeners();
-    });
-  });
-
-  var attachBtnEventListeners = function attachBtnEventListeners() {
-    el.querySelectorAll('.btn').forEach(function (btn) {
-      btn.addEventListener('click', function (event) {
-        currentPage = parseInt(event.target.getAttribute('data-page'));
-        el.querySelector('.' + theme + '-rendering tbody').innerHTML = _generateTableRows(datavizInstance, dataset);
-        attachBtnEventListeners();
-      }, true);
-    });
-  };
-
-  attachBtnEventListeners(datavizInstance, el, theme);
-
-  if (this.config.onrendered) {
-    this.config.onrendered();
-  }
+  return toReturn;
 };
-
-var update = function update() {
-  // no special update handling
-  this.render();
-};
-
-var destroy = function destroy() {};
-
-exports.default = { render: render, update: update, destroy: destroy };
 
 /***/ }),
 /* 28 */
@@ -2550,74 +2719,1212 @@ exports.default = { render: render, update: update, destroy: destroy };
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.valueAtDeepKey = valueAtDeepKey;
+function valueAtDeepKey(obj, is, value) {
+  if (typeof is == 'string') return valueAtDeepKey(obj, is.split('.'), value);else if (is.length == 1 && value !== undefined && obj !== null && typeof obj[is[0]] !== 'undefined') return obj[is[0]] = value;else if (is.length == 0) return obj;else if (typeof is === 'undefined' || typeof obj === 'undefined' || is === null || obj === null || typeof obj[is[0]] === 'undefined') return null;else return valueAtDeepKey(obj[is[0]], is.slice(1), value);
+}
 
-var _prettyNumber = __webpack_require__(2);
+/***/ }),
+/* 29 */
+/***/ (function(module) {
 
-var _escapeHtml = __webpack_require__(3);
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.11.0","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.7.1","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.29.0","webpack-bundle-analyzer":"^3.3.2","webpack-cli":"^3.2.1","webpack-dev-server":"^3.3.1","xhr-mock":"^2.3.2"}};
 
-exports.default = {
-  render: function render() {
-    var color = this.config.colors[0];
-    var theme = this.config.theme;
-    var title = this.config.title;
-    var opts = this.config;
-    var value = '-';
-    var html = '';
-    var prefix = '';
-    var suffix = '';
-    var formattedNum = void 0;
-    var valueEl = void 0;
-    var flexDifferenceStyle = '';
-    var resultDifference = '';
-    var differenceStyle = '';
-    var smallerValue = '';
-    var _config = this.config,
-        results = _config.results,
-        previousResults = _config.previousResults;
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
 
-    if (results && previousResults) {
-      flexDifferenceStyle = previousResults ? ' metric-comparison' : '';
-      smallerValue = previousResults && title ? '-smaller' : '';
-      resultDifference = results.result - previousResults.result;
-      differenceStyle = resultDifference > 0 ? '-green' : '-red';
-      resultDifference = Math.abs(resultDifference);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (data) {
+  if (!arguments.length) return this.dataset.data();
+  if (data instanceof _dataset2.default) {
+    this.dataset = data;
+    return this;
+  }
+  return parseResponse.call(this, data);
+};
+
+var _dataset = __webpack_require__(12);
+
+var _dataset2 = _interopRequireDefault(_dataset);
+
+var _extend = __webpack_require__(5);
+
+var _stripHtmlTags = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+;
+
+function parseResponse(response) {
+  var dataset,
+      indexBy,
+      meta,
+      parser,
+      parserArgs = [],
+      query,
+      selectedParser,
+      title,
+      type;
+
+  indexBy = this.config.indexBy;
+  meta = response.metadata || {};
+  query = typeof response.query !== 'undefined' ? response.query : {};
+
+  // Ensure all required params are present
+  query = (0, _extend.extend)({
+    analysis_type: null,
+    event_collection: null,
+    filters: [],
+    group_by: null,
+    interval: null,
+    timeframe: null,
+    timezone: null
+  }, query);
+
+  if (query.analysis_type === 'funnel') {
+    parser = 'funnel';
+  } else if (query.analysis_type === 'extraction') {
+    parser = 'extraction';
+  } else if (query.analysis_type === 'select_unique') {
+    if (!query.group_by && !query.interval) {
+      parser = 'list';
+    }
+    // else { Not supported }
+  } else if (query.analysis_type) {
+    if (!query.group_by && !query.interval) {
+      parser = 'metric';
+    } else if (query.group_by && !query.interval) {
+      if (query.group_by instanceof Array && query.group_by.length > 1) {
+        parser = 'double-grouped-metric';
+        parserArgs.push(query.group_by);
+      } else {
+        parser = 'grouped-metric';
+      }
+    } else if (query.interval && !query.group_by) {
+      parser = 'interval';
+      parserArgs.push(indexBy);
+    } else if (query.group_by && query.interval) {
+      if (query.group_by instanceof Array && query.group_by.length > 1) {
+        parser = 'double-grouped-interval';
+        parserArgs.push(query.group_by);
+        parserArgs.push(indexBy);
+      } else {
+        parser = 'grouped-interval';
+        parserArgs.push(indexBy);
+      }
+    }
+  }
+
+  if (!parser) {
+
+    // Metric
+    // -------------------------------
+    if (typeof response.result === 'number') {
+      parser = 'metric';
     }
 
-    if (typeof this.data()[1][1] === 'number') {
-      value = this.data()[1][1];
-    }
+    // Everything else
+    // -------------------------------
+    if (response.result instanceof Array && response.result.length > 0) {
 
-    formattedNum = value;
-    if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(value))) {
-      formattedNum = (0, _prettyNumber.prettyNumber)(value);
-      if (results && previousResults) {
-        resultDifference = (0, _prettyNumber.prettyNumber)(resultDifference);
+      // Interval w/ single value
+      // -------------------------------
+      if (response.result[0].timeframe && (typeof response.result[0].value == 'number' || response.result[0].value == null)) {
+        parser = 'interval';
+        parserArgs.push(indexBy);
+      }
+
+      // Static GroupBy
+      // -------------------------------
+      if (typeof response.result[0].result == 'number') {
+        parser = 'grouped-metric';
+      }
+
+      // Grouped Interval
+      // -------------------------------
+      if (response.result[0].value instanceof Array) {
+        parser = 'grouped-interval';
+        parserArgs.push(indexBy);
+      }
+
+      // Funnel
+      // -------------------------------
+      if (typeof response.result[0] === 'number' && typeof response.steps !== 'undefined') {
+        parser = 'funnel';
+        // Move steps into query object
+        query.steps = response.steps;
+      }
+
+      // Select Unique
+      // -------------------------------
+      if ((typeof response.result[0] === 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined') {
+        parser = 'list';
+      }
+
+      // Extraction
+      // -------------------------------
+      if (!parser) {
+        parser = 'extraction';
       }
     }
 
-    if (opts['prefix']) {
-      prefix = '<span class="' + theme + '-metric-prefix">' + opts['prefix'] + '</span>';
+    if (!parser) {
+      parser = 'extraction';
     }
-    if (opts['suffix']) {
-      suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
-    }
-    html += '<div class="' + theme + '">';
-    html += '<div class="' + theme + '-metric keen-dataviz-box' + flexDifferenceStyle + '" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
-    if (results && previousResults) {
-      html += '<div class="' + theme + '-metric' + differenceStyle + '"><div class="arrow' + differenceStyle + '"> </div>' + (0, _escapeHtml.escapeHtml)(resultDifference) + '</div>';
-    }
-    html += '<div class="' + theme + '-metric-value' + smallerValue + '">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
-    if (title) {
-      html += '<div class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</div>';
-    }
-    html += '</div>';
-    html += '</div>';
+  }
 
-    this.el().innerHTML = html;
-
-    if (this.config.onrendered) {
-      this.config.onrendered();
+  // Set title from saved query body, or create a default title
+  if (this.config.title === undefined) {
+    if (meta.display_name) {
+      title = meta.display_name;
+    } else {
+      title = getDefaultTitle(query);
     }
+    this.config.title = title;
+  }
+
+  // Set type from saved query body, or use a default type
+  if (!this.config.type) {
+    if (meta.visualization && meta.visualization.chart_type) {
+      type = meta.visualization.chart_type;
+    } else {
+      type = getDefaultType(parser);
+    }
+    this.config.type = type;
+  }
+
+  // Define the appropriate parser
+  selectedParser = _dataset2.default.parser.apply(this, [parser].concat(parserArgs));
+
+  // Parse the response with augmented query body
+  dataset = selectedParser((0, _extend.extend)(response, { 'query': query }));
+
+  // Set true dates for 'interval' data
+  if (parser.indexOf('interval') > -1) {
+    dataset.updateColumn(0, function (value, i) {
+      return new Date(value);
+    });
+  }
+
+  dataset.updateRow(0, function (value, i) {
+    return (0, _stripHtmlTags.stripHtmlTags)(value);
+  });
+
+  this.dataset = dataset;
+
+  if (response.execution_metadata) {
+    this.execution_metadata = response.execution_metadata;
+  }
+
+  return this;
+}
+
+function getDefaultTitle(query) {
+  var analysis = query.analysis_type ? query.analysis_type.replace('_', ' ') : '',
+      title;
+
+  title = analysis.replace(/\b./g, function (a) {
+    return a.toUpperCase();
+  });
+
+  if (query.event_collection) {
+    title += ' - ' + query.event_collection;
+  }
+  return title;
+}
+
+function getDefaultType(parser) {
+  var type = void 0;
+  switch (parser) {
+    case 'metric':
+      type = 'metric';
+      break;
+    case 'interval':
+      type = 'area';
+      break;
+    case 'grouped-metric':
+    case 'double-grouped-metric':
+      type = 'bar';
+      break;
+    case 'grouped-interval':
+    case 'double-grouped-interval':
+      type = 'line';
+      break;
+    case 'funnel':
+      type = 'horizontal-bar';
+      break;
+    case 'list':
+    case 'extraction':
+    default:
+      type = 'table';
+  }
+  return type;
+}
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function (lib) {
+  var timer = void 0;
+  bindResizeListener(function () {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    var delay = lib.visuals.length > 12 ? 1000 : 250;
+    timer = setTimeout(function () {
+      (0, _each.each)(lib.visuals, function (chart) {
+        var c3Chart = chart.view._artifacts.c3;
+        if (c3Chart) {
+          var prevSiblingWidth = c3Chart.element.previousSibling ? c3Chart.element.previousSibling.offsetWidth : 0;
+          var nextSiblingWidth = c3Chart.element.nextSibling ? c3Chart.element.nextSibling.offsetWidth : 0;
+          var parentWidth = c3Chart.element.parentNode.parentNode.offsetWidth;
+          var width = parentWidth - prevSiblingWidth - nextSiblingWidth;
+
+          c3Chart.resize({
+            width: width
+          });
+        }
+      });
+    }, delay);
+  });
+
+  // FIX for c3 tooltip bug - REMOVE when https://github.com/c3js/c3/pull/2476 is merged
+  if (_c2.default.chart && _c2.default.chart.internal && _c2.default.chart.internal.fn) {
+    _c2.default.chart.internal.fn.horizontalDistance = function (data, pos) {
+      var $$ = this,
+          config = $$.config,
+          xIndex = config.axis_rotated ? 1 : 0,
+          x = $$.x(data.x);
+      return Math.abs(x - pos[xIndex]);
+    };
+    _c2.default.chart.internal.fn.findClosest = function (values, pos) {
+      var CLASS = _c2.default.chart.internal.fn.CLASS;
+      var $$ = this,
+          minDist = $$.config.point_sensitivity,
+          minDist = Infinity,
+          closest;
+      // find mouseovering bar
+      values.filter(function (v) {
+        return v && $$.isBarType(v.id);
+      }).forEach(function (v) {
+        var shape = $$.main.select('.' + CLASS.bars + $$.getTargetSelectorSuffix(v.id) + ' .' + CLASS.bar + '-' + v.index).node();
+        if (!closest && $$.isWithinBar($$.d3.mouse(shape), shape)) {
+          closest = v;
+        }
+      });
+      // find closest point from non-bar
+      values.filter(function (v) {
+        return v && !$$.isBarType(v.id);
+      }).forEach(function (v) {
+        var d = $$.dist(v, pos);
+        var d = $$.horizontalDistance(v, pos);
+        if (d < minDist) {
+          minDist = d;
+          closest = v;
+        }
+      });
+      return closest;
+    };
+  }
+
+  return defineC3();
+};
+
+var _c = __webpack_require__(9);
+
+var _c2 = _interopRequireDefault(_c);
+
+var _each = __webpack_require__(0);
+
+var _extend = __webpack_require__(5);
+
+var _extendDeep = __webpack_require__(15);
+
+var _assertDateString = __webpack_require__(10);
+
+var _assertDateString2 = _interopRequireDefault(_assertDateString);
+
+var _defaultDateFormat = __webpack_require__(32);
+
+var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
+
+var _paginatingLegend = __webpack_require__(33);
+
+var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
+
+var _tooltipContents = __webpack_require__(34);
+
+var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
+
+var _calculateRange = __webpack_require__(35);
+
+var _calculateRange2 = _interopRequireDefault(_calculateRange);
+
+var _calculatePercents = __webpack_require__(36);
+
+var _message = __webpack_require__(37);
+
+var _message2 = _interopRequireDefault(_message);
+
+var _metric = __webpack_require__(41);
+
+var _metric2 = _interopRequireDefault(_metric);
+
+var _table = __webpack_require__(42);
+
+var _table2 = _interopRequireDefault(_table);
+
+var _spinner = __webpack_require__(43);
+
+var _spinner2 = _interopRequireDefault(_spinner);
+
+var _funnel = __webpack_require__(44);
+
+var _funnel2 = _interopRequireDefault(_funnel);
+
+var _funnel3d = __webpack_require__(45);
+
+var _funnel3d2 = _interopRequireDefault(_funnel3d);
+
+var _horizontalFunnel = __webpack_require__(46);
+
+var _horizontalFunnel2 = _interopRequireDefault(_horizontalFunnel);
+
+var _horizontalFunnel3d = __webpack_require__(47);
+
+var _horizontalFunnel3d2 = _interopRequireDefault(_horizontalFunnel3d);
+
+var _metricCombo = __webpack_require__(48);
+
+var _metricCombo2 = _interopRequireDefault(_metricCombo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+;
+
+function defineC3() {
+  var types = {
+    message: _message2.default,
+    metric: _metric2.default,
+    table: _table2.default,
+    spinner: _spinner2.default,
+    'funnel': new _funnel2.default(),
+    'funnel-3d': new _funnel3d2.default(),
+    'horizontal-funnel': new _horizontalFunnel2.default(),
+    'horizontal-funnel-3d': new _horizontalFunnel3d2.default(),
+    'metric-combo': new _metricCombo2.default()
+  };
+
+  var c3Types = [
+  // Standard types
+  'area', 'area-spline', 'area-step', 'bar', 'donut', 'gauge', 'line', 'pie', 'step', 'spline',
+
+  // Horizontal variant types
+  'horizontal-area', 'horizontal-area-spline', 'horizontal-area-step', 'horizontal-bar', 'horizontal-line', 'horizontal-step', 'horizontal-spline'];
+
+  var getPaddings = function getPaddings(element, paddingName) {
+    return parseInt(window.getComputedStyle(element)['padding' + paddingName].replace('px', ''));
+  };
+
+  function getDefaultOptions() {
+    var ENFORCED_OPTIONS = {
+      bindto: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'),
+      color: {
+        pattern: this.config.colors
+      },
+      data: {
+        colors: _extends({}, this.config.colorMapping),
+        columns: [],
+        type: this.config.type.replace('horizontal-', '')
+      }
+    };
+
+    var renderingElement = this.el();
+
+    var height = renderingElement.offsetHeight;
+
+    height -= getPaddings(renderingElement, 'Top') + getPaddings(renderingElement, 'Bottom');
+
+    if (this.config.showTitle) {
+      var titleElement = this.el().querySelector('.keen-dataviz-title');
+      if (titleElement) {
+        height -= titleElement.offsetHeight;
+      } else {
+        height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
+      }
+    }
+
+    if (this.config.notes) {
+      var notesElement = this.el().querySelector('.keen-dataviz-notes');
+      if (notesElement) {
+        height -= notesElement.offsetHeight;
+      } else {
+        height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
+      }
+    }
+
+    var width = this.el().querySelector('.c3-chart').offsetWidth - (getPaddings(renderingElement, 'Left') + getPaddings(renderingElement, 'Right'));
+    if (width < 0) {
+      width = 0;
+    }
+
+    var DEFAULT_OPTIONS = {
+      size: {
+        width: width,
+        height: height > 0 ? height : undefined
+      }
+    };
+
+    var extendedConfig = (0, _extendDeep.extendDeep)({}, DEFAULT_OPTIONS, this.config, ENFORCED_OPTIONS);
+
+    return extendedConfig;
+  }
+
+  (0, _each.each)(c3Types, function (type, index) {
+    types[type] = {
+      render: function render() {
+        var _this = this;
+
+        var options = getDefaultOptions.call(this);
+
+        // 100% for charts
+        var sumArray = (0, _calculatePercents.calculateSumForPercents)(this.dataset.matrix);
+        var oldMatrix = [];
+        if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
+          oldMatrix = this.dataset.matrix;
+          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculatePercents.calculatePercents)(this.dataset.matrix, sumArray)));
+          if (!options.sparkline) {
+            options.axis = {
+              y: {
+                padding: {
+                  top: 0
+                },
+                tick: {
+                  format: function format(d) {
+                    return d + '%';
+                  }
+                }
+              }
+            };
+          }
+        }
+
+        // range charts
+        if (options.range) {
+          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculateRange2.default)(this.dataset.matrix)));
+        }
+
+        if (!!this.config.clearOnRender && options.data.columns.length && this.dataset && this.dataset.meta) {
+          var datasetMeta = this.dataset.meta || {};
+
+          var _datasetMeta$type = datasetMeta.type,
+              _type = _datasetMeta$type === undefined ? '' : _datasetMeta$type;
+
+          var spliceFrom = 0;
+          var intervalTypes = ['interval'];
+          if (intervalTypes.includes(_type)) {
+            spliceFrom = 1;
+          }
+          options.data.columns.splice(spliceFrom);
+        }
+
+        if (this.data()[0].length === 1 || this.data().length === 1) {
+          var msg = 'No data to display';
+          var mappedMsg = this.config.errorMapping[msg] || msg;
+          if (this.config.showErrorMessages) {
+            this.message(mappedMsg);
+          }
+          return;
+        }
+
+        var removeLegend = false;
+
+        if (type === 'gauge') {
+          // Accommodate a neat bug:
+          options.legend.show = false;
+          options.data.columns = [[this.config.title || this.data()[1][0], this.data()[1][1]]];
+          removeLegend = true;
+        } else if (type === 'pie' || type === 'donut') {
+          options.data.columns = this.data().slice(1);
+        } else {
+
+          // Apply formatting for horizontal variant types
+          if (type.indexOf('horizontal-') > -1) {
+            options.axis.rotated = type.indexOf('horizontal-') > -1;
+          }
+
+          if ((0, _assertDateString2.default)(this.data()[1][0])) {
+            // TIMESERIES
+            options.axis.x = options.axis.x || {};
+            options.axis.x.type = 'timeseries';
+            options.axis.x.tick = options.axis.x.tick || {
+              format: this.config.dateFormat || (0, _defaultDateFormat2.default)(this.data()[1][0], this.data()[2] ? this.data()[2][0] : this.data()[1][0]),
+              culling: { max: 5 }
+            };
+
+            options.data.columns[0] = [];
+            (0, _each.each)(this.dataset.selectColumn(0), function (cell, i) {
+              if (i > 0) {
+                cell = new Date(cell);
+              }
+              options.data.columns[0][i] = cell;
+            });
+            options.data.columns[0][0] = 'x';
+            options.data.x = 'x';
+            if (this.config.stacked && this.data()[0].length > 2) {
+              options.data.groups = [this.dataset.selectRow(0).slice(1)];
+            }
+          } else {
+            // CATEGORIES
+            options.axis.x = options.axis.x || {};
+            options.axis.x.type = 'category';
+            options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
+            if (this.config.stacked && this.data()[0].length > 2) {
+              options.data.groups = [this.dataset.selectRow(0).slice(1)];
+            }
+          }
+
+          if (this.data()[0].length === 2) {
+            options.legend.show = false;
+            removeLegend = true;
+          }
+
+          (0, _each.each)(this.data()[0], function (cell, i) {
+            if (i > 0) {
+              options.data.columns.push(this.dataset.selectColumn(i));
+            }
+          }.bind(this));
+        }
+
+        if (removeLegend) {
+          var legendElement = this.el().querySelector('.keen-c3-legend');
+          if (legendElement) {
+            legendElement.remove();
+            options.size.width = this.el().querySelector('.c3-chart').offsetWidth;
+          }
+          options.legend.show = false;
+        }
+
+        var chartTypesWithPartialIntervalIndicator = ['area', 'area-spline', 'area-step', 'line', 'spline', 'step'];
+
+        if (options.partialIntervalIndicator && options.partialIntervalIndicator.show && chartTypesWithPartialIntervalIndicator.indexOf(options.type) > -1) {
+          var results = options.data.columns && options.data.columns[0];
+          if (results && results.length > 1) {
+            var partialResultsRegion = {
+              axis: 'x',
+              start: new Date(results[results.length - 2]),
+              class: options.partialIntervalIndicator.className
+            };
+            options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
+          }
+        }
+
+        if (!(options.tooltip && options.tooltip.show === false) && (options.legend.show === true || options.legend && options.legend.tooltip && options.legend.tooltip.show)) {
+
+          // Apply custom tooltip
+          options.tooltip = {
+            contents: _tooltipContents2.default,
+            format: {
+              title: this.config.tooltip.format.title,
+              value: function value(_value, ratio, id, index) {
+                var valueFormatted = c3CustomTooltipFiltering.call(_this, _value, ratio, id, index);
+                if (_this.config.tooltip && _this.config.tooltip.format && _this.config.tooltip.format.value) {
+                  valueFormatted = _this.config.tooltip.format.value.call(_this, valueFormatted, ratio, id, index);
+                  // Restore value from percents calculation for stacking 100% charts
+                  if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
+                    valueFormatted = parseFloat((valueFormatted / 100 * sumArray[index]).toFixed(2));
+                  }
+                  // Restore value from range calculation for range charts
+                  if (options.range) {
+                    if (id === 'Max') {
+                      valueFormatted += _this.dataset.matrix[index + 1][2];
+                    }
+                  }
+                  return valueFormatted;
+                }
+                // Restore value from percents calculation for stacking 100% charts
+                if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
+                  valueFormatted = (valueFormatted / 100 * sumArray[index]).toFixed(2);
+                  return parseFloat(valueFormatted);
+                }
+                // Restore value from range calculation for range charts
+                if (options.range) {
+                  if (id === 'Max') {
+                    valueFormatted += _this.dataset.matrix[index + 1][2];
+                  }
+                }
+                return valueFormatted;
+              }
+            }
+          };
+        }
+
+        if (options.legend.show === true) {
+          var c3options = _extends({}, options);
+          // Apply custom color handling
+          c3options.data.color = c3CustomDataMapping.bind(this);
+
+          c3options.legend.hide = true; // hide default c3 legend
+
+          // Render artifacts
+          this.view._artifacts['c3'] = _c2.default.generate(c3options);
+
+          _paginatingLegend2.default.call(this, _extends({}, options, { onLegendRendered: function onLegendRendered() {
+              var legendElement = _this.el().querySelector('.keen-c3-legend');
+              if (legendElement) {
+                if (options.legend.position === 'top' || options.legend.position === 'bottom') {
+                  c3options.size.height -= legendElement.offsetHeight;
+                  _this.view._artifacts['c3'].resize({ height: c3options.size.height });
+                } else {
+                  if (c3options.size.width === 0) {
+                    c3options.size.width = _this.el().offsetWidth - getPaddings(_this.el(), 'Left') - getPaddings(_this.el(), 'Right');
+                  }
+                  c3options.size.width -= legendElement.offsetWidth;
+                  _this.view._artifacts['c3'].resize({ width: c3options.size.width });
+                }
+              }
+            },
+            onPaginated: function onPaginated() {
+              _this.view._artifacts['c3'].flush();
+            }
+          }));
+        } else {
+          this.view._artifacts['c3'] = _c2.default.generate(options);
+        }
+      },
+      update: function update() {
+        // no special update handling
+        this.render();
+      },
+      destroy: function destroy() {
+        if (this.view._artifacts['c3']) {
+          this.view._artifacts['c3'].destroy();
+          this.view._artifacts['c3'] = null;
+        }
+      }
+    };
+  });
+
+  return types;
+}
+
+function c3CustomDataMapping(color, d) {
+  var type = this.config.type;
+  if (this.view._artifacts.pagination && type !== 'gauge'
+  /*&& this.type() !== 'pie'
+    && this.type() !== 'donut'*/) {
+      var scope = this.view._artifacts.pagination.labels;
+      if (d.id && scope.indexOf(d.id) > -1 || d && !d.id && scope.indexOf(d) > -1) {
+        return color;
+      } else {
+        if (type === 'donut' || type === 'pie') {
+          return 'rgba(0,0,0,.1)';
+        } else {
+          return 'rgba(0,0,0,.07)';
+        }
+      }
+    } else {
+    return color;
+  }
+}
+
+function c3CustomTooltipFiltering(value, ratio, id, index) {
+  var type = this.config.type;
+
+  if (this.view._artifacts.pagination && type !== 'gauge'
+  /*&& this.type() !== 'pie'
+    && this.type() !== 'donut'*/) {
+      var scope = this.view._artifacts.pagination.labels;
+      if (scope.indexOf(id) > -1) {
+        return value;
+      }
+    } else {
+    return value;
+  }
+}
+
+function bindResizeListener(fn) {
+  if (typeof window === 'undefined') return;
+  window.onresize = window.resize = function () {};
+  if (window.addEventListener) {
+    window.addEventListener('resize', fn, true);
+  } else if (window.attachEvent) {
+    window.attachEvent('onresize', fn);
+  }
+}
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (startDate, endDate) {
+  var timeDiff = Math.abs(new Date(startDate).getTime() - new Date(endDate).getTime());
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+  // Yearly (31536000000) + Monthly
+  if (timeDiff >= 2419200000) {
+    return function (ms) {
+      var date = new Date(ms);
+      return months[date.getMonth()] + ' ' + date.getFullYear();
+    };
+  }
+  // Daily
+  else if (timeDiff >= 86400000) {
+      return function (ms) {
+        var date = new Date(ms);
+        return months[date.getMonth()] + ' ' + date.getDate();
+      };
+    }
+    // Hourly
+    else if (timeDiff >= 3600000) {
+        return '%I:%M %p';
+      }
+      // Minutely
+      else {
+          return '%I:%M:%S %p';
+        }
+};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function (options) {
+  var cols = options.data.columns;
+  var datavizInstance = this;
+  var chart = this.view._artifacts.c3;
+  var columns = [];
+  var domNode = this.el().querySelector('.' + datavizInstance.config.theme + '-rendering');
+  var legendConfig = datavizInstance.config.legend;
+
+  var pagination = this.view._artifacts.pagination = _extends({
+    hidden: [],
+    labels: [],
+    offset: 0,
+    limit: Math.round((domNode.offsetHeight - 78) / 20),
+    total: 0
+  }, legendConfig.pagination);
+
+  if (options.legend.sort) {
+    columns = options.legend.sort(cols);
+
+    // update column order in the data, so tooltip will be the same order
+    var columnsSorted = [];
+    var dataColumnsSorted = [];
+    if (cols[0][0] === 'x') {
+      dataColumnsSorted.push(cols[0]);
+    }
+    columns.forEach(function (column) {
+      var columnData = options.data.columns.find(function (item) {
+        return item[0] === column;
+      });
+      dataColumnsSorted.push(columnData);
+    });
+    options.data.columns = dataColumnsSorted;
+  } else {
+    for (var i = 0; i < cols.length; i++) {
+      if (cols[i][0] !== 'x' && !(0, _assertDateString2.default)(cols[i][1])) {
+        columns.push(cols[i][0]);
+      }
+    }
+  }
+
+  var legendElement = this.el().querySelector('.keen-c3-legend');
+
+  var align = 'vertical';
+  if (legendConfig.position === 'top' || legendConfig.position === 'bottom') {
+    align = 'horizontal';
+  }
+
+  var paginateHorizontalLeftElement = document.createElement('div');
+  paginateHorizontalLeftElement.setAttribute('class', 'keen-c3-legend-pagination-icons keen-c3-legend-horizontal-pagination-left');
+  if (align === 'horizontal') {
+    legendElement.append(paginateHorizontalLeftElement);
+  }
+
+  var legendItemsElement = document.createElement('div');
+  legendItemsElement.setAttribute('class', 'keen-c3-legend-items keen-c3-legend-' + align + '-items');
+  legendElement.append(legendItemsElement);
+
+  var paginateVerticalElement = document.createElement('div');
+  paginateVerticalElement.setAttribute('class', 'keen-c3-legend-pagination keen-c3-legend-pagination-icons');
+  if (align === 'vertical') {
+    legendElement.append(paginateVerticalElement);
+  }
+
+  var paginateHorizontalRightElement = document.createElement('div');
+  paginateHorizontalRightElement.setAttribute('class', 'keen-c3-legend-pagination-icons keen-c3-legend-horizontal-pagination-right');
+  if (align === 'horizontal') {
+    legendElement.append(paginateHorizontalRightElement);
+  }
+
+  paginateData();
+
+  function paginateData() {
+    pagination.labels = columns.slice(pagination.offset, pagination.offset + pagination.limit);
+    pagination.total = columns.length;
+    renderLegendComponent.call(datavizInstance, pagination.labels);
+    if (pagination.total > pagination.limit) {
+      renderPaginationComponent.call(datavizInstance);
+    }
+    if (options.onPaginated) {
+      options.onPaginated();
+    }
+  }
+
+  function renderLegendComponent() {
+    legendItemsElement.innerHTML = '';
+
+    pagination.labels.forEach(function (label) {
+      var labelShortened = legendConfig.label.textMaxLength ? label.slice(0, legendConfig.label.textMaxLength - 1) : label;
+      var legendItem = document.createElement("div");
+      legendItem.innerHTML = '<span class=\'legend-item-text\'>' + labelShortened + '</span>';
+      legendItem.chartPartId = label;
+      legendItem.setAttribute('class', 'legend-item');
+      legendItemsElement.append(legendItem);
+
+      var legendItemColorSample = document.createElement("span");
+      legendItemColorSample.setAttribute('class', 'legend-item-color-sample');
+      legendItemColorSample.style.backgroundColor = chart.color(legendItem.chartPartId);
+      legendItem.prepend(legendItemColorSample);
+
+      var tooltipElement = document.createElement("div");
+      legendItem.addEventListener('mouseover', function (event) {
+        chart.focus(legendItem.chartPartId);
+        if (legendConfig.tooltip.show && legendItem.chartPartId.length > legendConfig.label.textMaxLength) {
+          tooltipElement.setAttribute('class', 'keen-c3-legend-label-overlay keen-c3-legend-position-' + legendConfig.position);
+          tooltipElement.innerHTML = '' + (options.legend.tooltip.pointer ? '<div class=\'overlay-pointer\'></div>' : '') + legendItem.chartPartId;
+          legendItem.append(tooltipElement);
+        }
+      });
+      legendItem.addEventListener('mouseout', function (event) {
+        chart.revert();
+        tooltipElement.remove();
+      });
+      legendItem.addEventListener('click', function (event) {
+        var opacity = 1;
+        var isHidden = pagination.hidden.indexOf(legendItem.chartPartId);
+        if (isHidden < 0) {
+          pagination.hidden.push(legendItem.chartPartId);
+          opacity = .35;
+        } else {
+          pagination.hidden.splice(isHidden, 1);
+          opacity = 1;
+        }
+        legendItem.style.opacity = opacity;
+        chart.toggle(legendItem.chartPartId);
+      });
+    });
+
+    if (options.onLegendRendered) {
+      options.onLegendRendered();
+      options.onLegendRendered = null;
+    }
+  }
+
+  function renderPaginationComponent() {
+    paginateVerticalElement.innerHTML = '';
+    paginateHorizontalLeftElement.innerHTML = '';
+    paginateHorizontalRightElement.innerHTML = '';
+
+    var arrowUp = document.createElement('i');
+    var arrowDown = document.createElement('i');
+
+    var paginate = function paginate(direction) {
+      if (direction === 'forward') {
+        var _diff = pagination.offset + pagination.limit;
+        if (_diff < pagination.total) {
+          pagination.offset = _diff;
+          return;
+        }
+        pagination.offset = 0;
+        return;
+      }
+
+      var diff = pagination.offset - pagination.limit;
+      if (diff >= 0) {
+        pagination.offset = diff;
+        return;
+      }
+
+      pagination.offset = Math.floor(pagination.total / pagination.limit) * pagination.limit;
+    };
+
+    arrowDown.addEventListener('click', function () {
+      paginate('forward');
+      paginateData();
+      clearSelectedText();
+    });
+
+    arrowUp.addEventListener('click', function () {
+      paginate('backward');
+      paginateData();
+      clearSelectedText();
+    });
+
+    if (legendConfig.position === 'left' || legendConfig.position === 'right') {
+      arrowUp.setAttribute('class', 'up');
+      arrowDown.setAttribute('class', 'down');
+      paginateVerticalElement.append(arrowDown);
+      paginateVerticalElement.append(arrowUp);
+    } else {
+      // bottom top
+      arrowUp.setAttribute('class', 'left');
+      arrowDown.setAttribute('class', 'right');
+      paginateHorizontalLeftElement.append(arrowUp);
+      paginateHorizontalRightElement.append(arrowDown);
+    }
+  }
+
+  function clearSelectedText() {
+    var selection = void 0;
+    if (document.selection && document.selection.empty) {
+      selection = document.selection;
+      selection.empty();
+    } else if (window.getSelection) {
+      selection = window.getSelection();
+      selection.removeAllRanges();
+    }
+  }
+};
+
+var _d = __webpack_require__(2);
+
+var d3 = _interopRequireWildcard(_d);
+
+var _assertDateString = __webpack_require__(10);
+
+var _assertDateString2 = _interopRequireDefault(_assertDateString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
+  var text = void 0;
+  var title = void 0;
+  // Set config options or defaults
+  var nameFormat = this.config.tooltip_format_name || function (name) {
+    return name;
+  };
+  var titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
+  var valueFormat = this.config.tooltip_format_value || defaultValueFormat;
+
+  // Reverse list to match legend
+  for (var i = 0; i < d.length; i++) {
+    if (!(d[i] && (d[i].value || d[i].value === 0))) {
+      continue;
+    }
+    if (!text) {
+      title = titleFormat ? titleFormat(d[i].x) : d[i].x;
+      text = "<table class='" + this.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + (0, _escapeHtml.escapeHtml)(title) + "</th></tr>" : "");
+    }
+    var name = nameFormat(d[i].name);
+    var value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
+    var bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
+    if (value && !isNaN(value)) {
+      text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
+      if (name.indexOf('__tooltip_ignore_name_field__') === -1) {
+        text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + (0, _escapeHtml.escapeHtml)(name) + "</td>";
+      }
+      text += "<td class='value'>" + (0, _escapeHtml.escapeHtml)(value) + "</td>";
+      text += "</tr>";
+    }
+  }
+  return text + "</table>";
+};
+
+var _escapeHtml = __webpack_require__(4);
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = calculateRange;
+function calculateRange(matrix) {
+  var newValues = matrix.slice(1).map(function (d) {
+    return d.map(function (e, i) {
+      if (typeof e === 'number') {
+        if (i === 1) {
+          return e - d[i + 1];
+        }
+      }
+      return e;
+    });
+  });
+  return newValues;
+}
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.calculateSumForPercents = calculateSumForPercents;
+exports.calculatePercents = calculatePercents;
+function calculateSumForPercents(matrix) {
+  var sumArray = [];
+  matrix.slice(1).forEach(function (d, i) {
+    d.forEach(function (e) {
+      if (typeof e === 'number') {
+        if (!sumArray[i]) {
+          sumArray[i] = e;
+          return sumArray[i];
+        }
+        sumArray[i] += e;
+      }
+      return sumArray[i];
+    });
+  });
+  return sumArray;
+}
+
+function calculatePercents(matrix, sumArray) {
+  var newValues = matrix.slice(1).map(function (d, i) {
+    return d.map(function (e) {
+      if (typeof e === 'number') {
+        return e / sumArray[i] * 100;
+      }
+      return e;
+    });
+  });
+  return newValues;
+}
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _escapeHtml = __webpack_require__(4);
+
+var _renderDownloadBtn = __webpack_require__(16);
+
+var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  render: function render(text) {
+    var outer = document.createElement('div');
+    var inner = document.createElement('div');
+    var msg = document.createElement('span');
+
+    var titleContainer = document.createElement('div');
+    var notesContainer = document.createElement('div');
+
+    outer.className = this.config.theme + ' keen-dataviz-box';
+    inner.className = this.config.theme + '-message';
+
+    // Create title and notes for message
+    titleContainer.className = this.config.theme + '-title';
+    titleContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.config.title || '');
+    notesContainer.className = this.config.theme + '-notes';
+    notesContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.config.notes || '');
+
+    msg.innerHTML = (0, _escapeHtml.escapeHtml)(text) || '';
+    inner.appendChild(msg);
+
+    if (this.config.title && this.config.showTitle) {
+      outer.appendChild(titleContainer);
+    }
+
+    outer.appendChild(inner);
+
+    if (this.config.notes) {
+      outer.appendChild(notesContainer);
+    }
+
+    if (this.config.ui && this.config.ui.buttons && this.config.ui.buttons.download && this.config.ui.buttons.download.type) {
+      (0, _renderDownloadBtn2.default)({
+        element: this.el(),
+        data: (0, _escapeHtml.escapeHtml)(text) || '',
+        type: this.config.ui.buttons.download.type,
+        label: this.config.ui.buttons.download.label
+      });
+    }
+
+    if (this.config.utils && this.config.utils.clickToCopyToClipboard) {
+      titleContainer.addEventListener('click', function (e) {
+        return (0, _copyToClipboard2.default)(e.target.innerText, e);
+      });
+      notesContainer.addEventListener('click', function (e) {
+        return (0, _copyToClipboard2.default)(e.target.innerText, e);
+      });
+      msg.addEventListener('click', function (e) {
+        return (0, _copyToClipboard2.default)(e.target.innerText, e);
+      });
+    }
+
+    this.el().innerHTML = '';
+    this.el().appendChild(outer);
   },
   update: function update() {
     // no special update handling
@@ -2629,19 +3936,92 @@ exports.default = {
 };
 
 /***/ }),
-/* 29 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {}})(this,function(){"use strict";function b(a,b){return"undefined"==typeof b?b={autoBom:!1}:"object"!=typeof b&&(console.warn("Deprecated: Expected third argument to be a object"),b={autoBom:!b}),b.autoBom&&/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a.type)?new Blob(["\uFEFF",a],{type:a.type}):a}function c(b,c,d){var e=new XMLHttpRequest;e.open("GET",b),e.responseType="blob",e.onload=function(){a(e.response,c,d)},e.onerror=function(){console.error("could not download file")},e.send()}function d(a){var b=new XMLHttpRequest;return b.open("HEAD",a,!1),b.send(),200<=b.status&&299>=b.status}function e(a){try{a.dispatchEvent(new MouseEvent("click"))}catch(c){var b=document.createEvent("MouseEvents");b.initMouseEvent("click",!0,!0,window,0,0,0,80,20,!1,!1,!1,!1,0,null),a.dispatchEvent(b)}}var f="object"==typeof window&&window.window===window?window:"object"==typeof self&&self.self===self?self:"object"==typeof global&&global.global===global?global:void 0,a=f.saveAs||("object"!=typeof window||window!==f?function(){}:"download"in HTMLAnchorElement.prototype?function(b,g,h){var i=f.URL||f.webkitURL,j=document.createElement("a");g=g||b.name||"download",j.download=g,j.rel="noopener","string"==typeof b?(j.href=b,j.origin===location.origin?e(j):d(j.href)?c(b,g,h):e(j,j.target="_blank")):(j.href=i.createObjectURL(b),setTimeout(function(){i.revokeObjectURL(j.href)},4E4),setTimeout(function(){e(j)},0))}:"msSaveOrOpenBlob"in navigator?function(f,g,h){if(g=g||f.name||"download","string"!=typeof f)navigator.msSaveOrOpenBlob(b(f,h),g);else if(d(f))c(f,g,h);else{var i=document.createElement("a");i.href=f,i.target="_blank",setTimeout(function(){e(i)})}}:function(a,b,d,e){if(e=e||open("","_blank"),e&&(e.document.title=e.document.body.innerText="downloading..."),"string"==typeof a)return c(a,b,d);var g="application/octet-stream"===a.type,h=/constructor/i.test(f.HTMLElement)||f.safari,i=/CriOS\/[\d]+/.test(navigator.userAgent);if((i||g&&h)&&"object"==typeof FileReader){var j=new FileReader;j.onloadend=function(){var a=j.result;a=i?a:a.replace(/^data:[^;]*;/,"data:attachment/file;"),e?e.location.href=a:location=a,e=null},j.readAsDataURL(a)}else{var k=f.URL||f.webkitURL,l=k.createObjectURL(a);e?e.location=l:location.href=l,e=null,setTimeout(function(){k.revokeObjectURL(l)},4E4)}});f.saveAs=a.saveAs=a,"undefined"!=typeof module&&(module.exports=a)});
+"use strict";
 
-//# sourceMappingURL=FileSaver.min.js.map
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(16)))
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = downloadResults;
+
+var _exportSvg = __webpack_require__(17);
+
+var _exportSvg2 = _interopRequireDefault(_exportSvg);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function generateCsvContent(data) {
+  var csvContent = 'data:text/csv;charset=utf-8,';
+
+  data.forEach(function (row, i) {
+    row.forEach(function (cell, j) {
+      csvContent += String(cell).replace(/,/g, '');
+      if (row.length > j + 1) {
+        csvContent += ',';
+      }
+    });
+    if (data.length > i + 1) {
+      csvContent += '\n';
+    }
+  });
+
+  return csvContent;
+}
+
+function downloadResults(obj) {
+  var event = obj.event,
+      type = obj.type,
+      data = obj.data;
+
+  event.preventDefault();
+  var supportedFormats = ['json', 'csv', 'jpg', 'jpeg', 'png'];
+  var format = type.toLowerCase();
+  if (!supportedFormats.includes(type)) {
+    throw new Error('This type is not supported');
+  }
+
+  var fileName = 'chart';
+  var fileFormat = '';
+  var content = '';
+
+  if (format === 'png') {
+    (0, _exportSvg2.default)({
+      node: event.currentTarget.previousElementSibling
+    });
+    return;
+  }
+
+  if (format === 'jpg' || format === 'jpeg') {
+    (0, _exportSvg2.default)({
+      node: event.currentTarget.previousElementSibling,
+      quality: 1,
+      bgcolor: '#fff'
+    });
+    return;
+  }
+
+  if (format === 'json') {
+    content = 'data:text/json;charset=utf-8, ' + encodeURIComponent(JSON.stringify(data));
+    fileFormat = format;
+  }
+
+  if (format === 'csv') {
+    content = generateCsvContent(data);
+  }
+
+  var htmlElement = document.createElement('a');
+  htmlElement.setAttribute('href', content);
+  htmlElement.setAttribute('download', fileName + '.' + fileFormat);
+  document.body.appendChild(htmlElement);
+  htmlElement.click();
+  document.body.removeChild(htmlElement);
+}
 
 /***/ }),
-/* 30 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (global) {
@@ -3416,1280 +4796,16 @@ exports.default = {
 
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = downloadResults;
-
-var _exportSvg = __webpack_require__(10);
-
-var _exportSvg2 = _interopRequireDefault(_exportSvg);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function generateCsvContent(data) {
-  var csvContent = 'data:text/csv;charset=utf-8,';
-
-  data.forEach(function (row, i) {
-    row.forEach(function (cell, j) {
-      csvContent += String(cell).replace(/,/g, '');
-      if (row.length > j + 1) {
-        csvContent += ',';
-      }
-    });
-    if (data.length > i + 1) {
-      csvContent += '\n';
-    }
-  });
-
-  return csvContent;
-}
-
-function downloadResults(obj) {
-  var event = obj.event,
-      type = obj.type,
-      data = obj.data;
-
-  event.preventDefault();
-  var supportedFormats = ['json', 'csv', 'jpg', 'jpeg', 'png'];
-  var format = type.toLowerCase();
-  if (!supportedFormats.includes(type)) {
-    throw new Error('This type is not supported');
-  }
-
-  var fileName = 'chart';
-  var fileFormat = '';
-  var content = '';
-
-  if (format === 'png') {
-    (0, _exportSvg2.default)({
-      node: event.currentTarget.previousElementSibling
-    });
-    return;
-  }
-
-  if (format === 'jpg' || format === 'jpeg') {
-    (0, _exportSvg2.default)({
-      node: event.currentTarget.previousElementSibling,
-      quality: 1,
-      bgcolor: '#fff'
-    });
-    return;
-  }
-
-  if (format === 'json') {
-    content = 'data:text/json;charset=utf-8, ' + encodeURIComponent(JSON.stringify(data));
-    fileFormat = format;
-  }
-
-  if (format === 'csv') {
-    content = generateCsvContent(data);
-  }
-
-  var htmlElement = document.createElement('a');
-  htmlElement.setAttribute('href', content);
-  htmlElement.setAttribute('download', fileName + '.' + fileFormat);
-  document.body.appendChild(htmlElement);
-  htmlElement.click();
-  document.body.removeChild(htmlElement);
-}
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _escapeHtml = __webpack_require__(3);
-
-var _renderDownloadBtn = __webpack_require__(11);
-
-var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-  render: function render(text) {
-    var outer = document.createElement('div');
-    var inner = document.createElement('div');
-    var msg = document.createElement('span');
-
-    var titleContainer = document.createElement('div');
-    var notesContainer = document.createElement('div');
-
-    outer.className = this.config.theme + ' keen-dataviz-box';
-    inner.className = this.config.theme + '-message';
-
-    // Create title and notes for message
-    titleContainer.className = this.config.theme + '-title';
-    titleContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.config.title || '');
-    notesContainer.className = this.config.theme + '-notes';
-    notesContainer.innerHTML = (0, _escapeHtml.escapeHtml)(this.config.notes || '');
-
-    msg.innerHTML = (0, _escapeHtml.escapeHtml)(text) || '';
-    inner.appendChild(msg);
-
-    if (this.config.title && this.config.showTitle) {
-      outer.appendChild(titleContainer);
-    }
-
-    outer.appendChild(inner);
-
-    if (this.config.notes) {
-      outer.appendChild(notesContainer);
-    }
-
-    if (this.config.ui && this.config.ui.buttons && this.config.ui.buttons.download && this.config.ui.buttons.download.type) {
-      (0, _renderDownloadBtn2.default)({
-        element: this.el(),
-        data: (0, _escapeHtml.escapeHtml)(text) || '',
-        type: this.config.ui.buttons.download.type,
-        label: this.config.ui.buttons.download.label
-      });
-    }
-
-    this.el().innerHTML = '';
-    this.el().appendChild(outer);
-  },
-  update: function update() {
-    // no special update handling
-    this.render();
-  },
-  destroy: function destroy() {
-    // no special clean-up
-  }
-};
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.calculateSumForPercents = calculateSumForPercents;
-exports.calculatePercents = calculatePercents;
-function calculateSumForPercents(matrix) {
-  var sumArray = [];
-  matrix.slice(1).forEach(function (d, i) {
-    d.forEach(function (e) {
-      if (typeof e === 'number') {
-        if (!sumArray[i]) {
-          sumArray[i] = e;
-          return sumArray[i];
-        }
-        sumArray[i] += e;
-      }
-      return sumArray[i];
-    });
-  });
-  return sumArray;
-}
-
-function calculatePercents(matrix, sumArray) {
-  var newValues = matrix.slice(1).map(function (d, i) {
-    return d.map(function (e) {
-      if (typeof e === 'number') {
-        return e / sumArray[i] * 100;
-      }
-      return e;
-    });
-  });
-  return newValues;
-}
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = calculateRange;
-function calculateRange(matrix) {
-  var newValues = matrix.slice(1).map(function (d) {
-    return d.map(function (e, i) {
-      if (typeof e === 'number') {
-        if (i === 1) {
-          return e - d[i + 1];
-        }
-      }
-      return e;
-    });
-  });
-  return newValues;
-}
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
-  var text = void 0;
-  var title = void 0;
-  // Set config options or defaults
-  var nameFormat = this.config.tooltip_format_name || function (name) {
-    return name;
-  };
-  var titleFormat = this.config.tooltip_format_title || defaultTitleFormat;
-  var valueFormat = this.config.tooltip_format_value || defaultValueFormat;
-
-  // Reverse list to match legend
-  for (var i = 0; i < d.length; i++) {
-    if (!(d[i] && (d[i].value || d[i].value === 0))) {
-      continue;
-    }
-    if (!text) {
-      title = titleFormat ? titleFormat(d[i].x) : d[i].x;
-      text = "<table class='" + this.CLASS.tooltip + "'>" + (title || title === 0 ? "<tr><th colspan='2'>" + (0, _escapeHtml.escapeHtml)(title) + "</th></tr>" : "");
-    }
-    var name = nameFormat(d[i].name);
-    var value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index);
-    var bgcolor = this.levelColor ? this.levelColor(d[i].value) : color(d[i].id);
-    if (value && !isNaN(value)) {
-      text += "<tr class='" + this.CLASS.tooltipName + "-" + d[i].id + "'>";
-      if (name.indexOf('__tooltip_ignore_name_field__') === -1) {
-        text += "<td class='name'><span style='background-color:" + bgcolor + "'></span>" + (0, _escapeHtml.escapeHtml)(name) + "</td>";
-      }
-      text += "<td class='value'>" + (0, _escapeHtml.escapeHtml)(value) + "</td>";
-      text += "</tr>";
-    }
-  }
-  return text + "</table>";
-};
-
-var _escapeHtml = __webpack_require__(3);
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports.default = function (options) {
-  var cols = options.data.columns;
-  var datavizInstance = this;
-  var chart = this.view._artifacts.c3;
-  var columns = [];
-  var domNode = this.el().querySelector('.' + datavizInstance.config.theme + '-rendering');
-  var legendConfig = datavizInstance.config.legend;
-
-  var pagination = this.view._artifacts.pagination = _extends({
-    hidden: [],
-    labels: [],
-    offset: 0,
-    limit: Math.round((domNode.offsetHeight - 78) / 20),
-    total: 0
-  }, legendConfig.pagination);
-
-  if (options.legend.sort) {
-    columns = options.legend.sort(cols);
-
-    // update column order in the data, so tooltip will be the same order
-    var columnsSorted = [];
-    var dataColumnsSorted = [];
-    if (cols[0][0] === 'x') {
-      dataColumnsSorted.push(cols[0]);
-    }
-    columns.forEach(function (column) {
-      var columnData = options.data.columns.find(function (item) {
-        return item[0] === column;
-      });
-      dataColumnsSorted.push(columnData);
-    });
-    options.data.columns = dataColumnsSorted;
-  } else {
-    for (var i = 0; i < cols.length; i++) {
-      if (cols[i][0] !== 'x' && !(0, _assertDateString2.default)(cols[i][1])) {
-        columns.push(cols[i][0]);
-      }
-    }
-  }
-
-  var legendElement = this.el().querySelector('.keen-c3-legend');
-
-  var align = 'vertical';
-  if (legendConfig.position === 'top' || legendConfig.position === 'bottom') {
-    align = 'horizontal';
-  }
-
-  var paginateHorizontalLeftElement = document.createElement('div');
-  paginateHorizontalLeftElement.setAttribute('class', 'keen-c3-legend-pagination-icons keen-c3-legend-horizontal-pagination-left');
-  if (align === 'horizontal') {
-    legendElement.append(paginateHorizontalLeftElement);
-  }
-
-  var legendItemsElement = document.createElement('div');
-  legendItemsElement.setAttribute('class', 'keen-c3-legend-items keen-c3-legend-' + align + '-items');
-  legendElement.append(legendItemsElement);
-
-  var paginateVerticalElement = document.createElement('div');
-  paginateVerticalElement.setAttribute('class', 'keen-c3-legend-pagination keen-c3-legend-pagination-icons');
-  if (align === 'vertical') {
-    legendElement.append(paginateVerticalElement);
-  }
-
-  var paginateHorizontalRightElement = document.createElement('div');
-  paginateHorizontalRightElement.setAttribute('class', 'keen-c3-legend-pagination-icons keen-c3-legend-horizontal-pagination-right');
-  if (align === 'horizontal') {
-    legendElement.append(paginateHorizontalRightElement);
-  }
-
-  paginateData();
-
-  function paginateData() {
-    pagination.labels = columns.slice(pagination.offset, pagination.offset + pagination.limit);
-    pagination.total = columns.length;
-    renderLegendComponent.call(datavizInstance, pagination.labels);
-    if (pagination.total > pagination.limit) {
-      renderPaginationComponent.call(datavizInstance);
-    }
-    if (options.onPaginated) {
-      options.onPaginated();
-    }
-  }
-
-  function renderLegendComponent() {
-    legendItemsElement.innerHTML = '';
-
-    pagination.labels.forEach(function (label) {
-      var labelShortened = legendConfig.label.textMaxLength ? label.slice(0, legendConfig.label.textMaxLength - 1) : label;
-      var legendItem = document.createElement("div");
-      legendItem.innerHTML = '<span class=\'legend-item-text\'>' + labelShortened + '</span>';
-      legendItem.chartPartId = label;
-      legendItem.setAttribute('class', 'legend-item');
-      legendItemsElement.append(legendItem);
-
-      var legendItemColorSample = document.createElement("span");
-      legendItemColorSample.setAttribute('class', 'legend-item-color-sample');
-      legendItemColorSample.style.backgroundColor = chart.color(legendItem.chartPartId);
-      legendItem.prepend(legendItemColorSample);
-
-      var tooltipElement = document.createElement("div");
-      legendItem.addEventListener('mouseover', function (event) {
-        chart.focus(legendItem.chartPartId);
-        if (legendConfig.tooltip.show && legendItem.chartPartId.length > legendConfig.label.textMaxLength) {
-          tooltipElement.setAttribute('class', 'keen-c3-legend-label-overlay keen-c3-legend-position-' + legendConfig.position);
-          tooltipElement.innerHTML = '' + (options.legend.tooltip.pointer ? '<div class=\'overlay-pointer\'></div>' : '') + legendItem.chartPartId;
-          legendItem.append(tooltipElement);
-        }
-      });
-      legendItem.addEventListener('mouseout', function (event) {
-        chart.revert();
-        tooltipElement.remove();
-      });
-      legendItem.addEventListener('click', function (event) {
-        var opacity = 1;
-        var isHidden = pagination.hidden.indexOf(legendItem.chartPartId);
-        if (isHidden < 0) {
-          pagination.hidden.push(legendItem.chartPartId);
-          opacity = .35;
-        } else {
-          pagination.hidden.splice(isHidden, 1);
-          opacity = 1;
-        }
-        legendItem.style.opacity = opacity;
-        chart.toggle(legendItem.chartPartId);
-      });
-    });
-
-    if (options.onLegendRendered) {
-      options.onLegendRendered();
-      options.onLegendRendered = null;
-    }
-  }
-
-  function renderPaginationComponent() {
-    paginateVerticalElement.innerHTML = '';
-    paginateHorizontalLeftElement.innerHTML = '';
-    paginateHorizontalRightElement.innerHTML = '';
-
-    var arrowUp = document.createElement('i');
-    var arrowDown = document.createElement('i');
-
-    var paginate = function paginate(direction) {
-      if (direction === 'forward') {
-        var _diff = pagination.offset + pagination.limit;
-        if (_diff < pagination.total) {
-          pagination.offset = _diff;
-          return;
-        }
-        pagination.offset = 0;
-        return;
-      }
-
-      var diff = pagination.offset - pagination.limit;
-      if (diff >= 0) {
-        pagination.offset = diff;
-        return;
-      }
-
-      pagination.offset = Math.floor(pagination.total / pagination.limit) * pagination.limit;
-    };
-
-    arrowDown.addEventListener('click', function () {
-      paginate('forward');
-      paginateData();
-      clearSelectedText();
-    });
-
-    arrowUp.addEventListener('click', function () {
-      paginate('backward');
-      paginateData();
-      clearSelectedText();
-    });
-
-    if (legendConfig.position === 'left' || legendConfig.position === 'right') {
-      arrowUp.setAttribute('class', 'up');
-      arrowDown.setAttribute('class', 'down');
-      paginateVerticalElement.append(arrowDown);
-      paginateVerticalElement.append(arrowUp);
-    } else {
-      // bottom top
-      arrowUp.setAttribute('class', 'left');
-      arrowDown.setAttribute('class', 'right');
-      paginateHorizontalLeftElement.append(arrowUp);
-      paginateHorizontalRightElement.append(arrowDown);
-    }
-  }
-
-  function clearSelectedText() {
-    var selection = void 0;
-    if (document.selection && document.selection.empty) {
-      selection = document.selection;
-      selection.empty();
-    } else if (window.getSelection) {
-      selection = window.getSelection();
-      selection.removeAllRanges();
-    }
-  }
-};
-
-var _d = __webpack_require__(1);
-
-var d3 = _interopRequireWildcard(_d);
-
-var _assertDateString = __webpack_require__(6);
-
-var _assertDateString2 = _interopRequireDefault(_assertDateString);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (startDate, endDate) {
-  var timeDiff = Math.abs(new Date(startDate).getTime() - new Date(endDate).getTime());
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-
-  // Yearly (31536000000) + Monthly
-  if (timeDiff >= 2419200000) {
-    return function (ms) {
-      var date = new Date(ms);
-      return months[date.getMonth()] + ' ' + date.getFullYear();
-    };
-  }
-  // Daily
-  else if (timeDiff >= 86400000) {
-      return function (ms) {
-        var date = new Date(ms);
-        return months[date.getMonth()] + ' ' + date.getDate();
-      };
-    }
-    // Hourly
-    else if (timeDiff >= 3600000) {
-        return '%I:%M %p';
-      }
-      // Minutely
-      else {
-          return '%I:%M:%S %p';
-        }
-};
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports.default = function (lib) {
-  var timer = void 0;
-  bindResizeListener(function () {
-    if (timer) {
-      clearTimeout(timer);
-    }
-    var delay = lib.visuals.length > 12 ? 1000 : 250;
-    timer = setTimeout(function () {
-      (0, _each.each)(lib.visuals, function (chart) {
-        var c3Chart = chart.view._artifacts.c3;
-        if (c3Chart) {
-          var prevSiblingWidth = c3Chart.element.previousSibling ? c3Chart.element.previousSibling.offsetWidth : 0;
-          var nextSiblingWidth = c3Chart.element.nextSibling ? c3Chart.element.nextSibling.offsetWidth : 0;
-          var parentWidth = c3Chart.element.parentNode.parentNode.offsetWidth;
-          var width = parentWidth - prevSiblingWidth - nextSiblingWidth;
-
-          c3Chart.resize({
-            width: width
-          });
-        }
-      });
-    }, delay);
-  });
-
-  // FIX for c3 tooltip bug - REMOVE when https://github.com/c3js/c3/pull/2476 is merged
-  if (_c2.default.chart && _c2.default.chart.internal && _c2.default.chart.internal.fn) {
-    _c2.default.chart.internal.fn.horizontalDistance = function (data, pos) {
-      var $$ = this,
-          config = $$.config,
-          xIndex = config.axis_rotated ? 1 : 0,
-          x = $$.x(data.x);
-      return Math.abs(x - pos[xIndex]);
-    };
-    _c2.default.chart.internal.fn.findClosest = function (values, pos) {
-      var CLASS = _c2.default.chart.internal.fn.CLASS;
-      var $$ = this,
-          minDist = $$.config.point_sensitivity,
-          minDist = Infinity,
-          closest;
-      // find mouseovering bar
-      values.filter(function (v) {
-        return v && $$.isBarType(v.id);
-      }).forEach(function (v) {
-        var shape = $$.main.select('.' + CLASS.bars + $$.getTargetSelectorSuffix(v.id) + ' .' + CLASS.bar + '-' + v.index).node();
-        if (!closest && $$.isWithinBar($$.d3.mouse(shape), shape)) {
-          closest = v;
-        }
-      });
-      // find closest point from non-bar
-      values.filter(function (v) {
-        return v && !$$.isBarType(v.id);
-      }).forEach(function (v) {
-        var d = $$.dist(v, pos);
-        var d = $$.horizontalDistance(v, pos);
-        if (d < minDist) {
-          minDist = d;
-          closest = v;
-        }
-      });
-      return closest;
-    };
-  }
-
-  return defineC3();
-};
-
-var _c = __webpack_require__(7);
-
-var _c2 = _interopRequireDefault(_c);
-
-var _each = __webpack_require__(0);
-
-var _extend = __webpack_require__(5);
-
-var _extendDeep = __webpack_require__(12);
-
-var _assertDateString = __webpack_require__(6);
-
-var _assertDateString2 = _interopRequireDefault(_assertDateString);
-
-var _defaultDateFormat = __webpack_require__(37);
-
-var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
-
-var _paginatingLegend = __webpack_require__(36);
-
-var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
-
-var _tooltipContents = __webpack_require__(35);
-
-var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
-
-var _calculateRange = __webpack_require__(34);
-
-var _calculateRange2 = _interopRequireDefault(_calculateRange);
-
-var _calculatePercents = __webpack_require__(33);
-
-var _message = __webpack_require__(32);
-
-var _message2 = _interopRequireDefault(_message);
-
-var _metric = __webpack_require__(28);
-
-var _metric2 = _interopRequireDefault(_metric);
-
-var _table = __webpack_require__(27);
-
-var _table2 = _interopRequireDefault(_table);
-
-var _spinner = __webpack_require__(26);
-
-var _spinner2 = _interopRequireDefault(_spinner);
-
-var _funnel = __webpack_require__(25);
-
-var _funnel2 = _interopRequireDefault(_funnel);
-
-var _funnel3d = __webpack_require__(24);
-
-var _funnel3d2 = _interopRequireDefault(_funnel3d);
-
-var _horizontalFunnel = __webpack_require__(23);
-
-var _horizontalFunnel2 = _interopRequireDefault(_horizontalFunnel);
-
-var _horizontalFunnel3d = __webpack_require__(22);
-
-var _horizontalFunnel3d2 = _interopRequireDefault(_horizontalFunnel3d);
-
-var _metricCombo = __webpack_require__(21);
-
-var _metricCombo2 = _interopRequireDefault(_metricCombo);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-;
-
-function defineC3() {
-  var types = {
-    message: _message2.default,
-    metric: _metric2.default,
-    table: _table2.default,
-    spinner: _spinner2.default,
-    'funnel': new _funnel2.default(),
-    'funnel-3d': new _funnel3d2.default(),
-    'horizontal-funnel': new _horizontalFunnel2.default(),
-    'horizontal-funnel-3d': new _horizontalFunnel3d2.default(),
-    'metric-combo': new _metricCombo2.default()
-  };
-
-  var c3Types = [
-  // Standard types
-  'area', 'area-spline', 'area-step', 'bar', 'donut', 'gauge', 'line', 'pie', 'step', 'spline',
-
-  // Horizontal variant types
-  'horizontal-area', 'horizontal-area-spline', 'horizontal-area-step', 'horizontal-bar', 'horizontal-line', 'horizontal-step', 'horizontal-spline'];
-
-  var getPaddings = function getPaddings(element, paddingName) {
-    return parseInt(window.getComputedStyle(element)['padding' + paddingName].replace('px', ''));
-  };
-
-  function getDefaultOptions() {
-    var ENFORCED_OPTIONS = {
-      bindto: this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'),
-      color: {
-        pattern: this.config.colors
-      },
-      data: {
-        colors: _extends({}, this.config.colorMapping),
-        columns: [],
-        type: this.config.type.replace('horizontal-', '')
-      }
-    };
-
-    var renderingElement = this.el();
-
-    var height = renderingElement.offsetHeight;
-
-    height -= getPaddings(renderingElement, 'Top') + getPaddings(renderingElement, 'Bottom');
-
-    if (this.config.showTitle) {
-      var titleElement = this.el().querySelector('.keen-dataviz-title');
-      if (titleElement) {
-        height -= titleElement.offsetHeight;
-      } else {
-        height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
-      }
-    }
-
-    if (this.config.notes) {
-      var notesElement = this.el().querySelector('.keen-dataviz-notes');
-      if (notesElement) {
-        height -= notesElement.offsetHeight;
-      } else {
-        height -= parseInt(window.getComputedStyle(this.el(), null)['font-size'].replace('px', ''));
-      }
-    }
-
-    var width = this.el().querySelector('.c3-chart').offsetWidth - (getPaddings(renderingElement, 'Left') + getPaddings(renderingElement, 'Right'));
-    if (width < 0) {
-      width = 0;
-    }
-
-    var DEFAULT_OPTIONS = {
-      size: {
-        width: width,
-        height: height > 0 ? height : undefined
-      }
-    };
-
-    var extendedConfig = (0, _extendDeep.extendDeep)({}, DEFAULT_OPTIONS, this.config, ENFORCED_OPTIONS);
-
-    return extendedConfig;
-  }
-
-  (0, _each.each)(c3Types, function (type, index) {
-    types[type] = {
-      render: function render() {
-        var _this = this;
-
-        var options = getDefaultOptions.call(this);
-
-        // 100% for charts
-        var sumArray = (0, _calculatePercents.calculateSumForPercents)(this.dataset.matrix);
-        var oldMatrix = [];
-        if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
-          oldMatrix = this.dataset.matrix;
-          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculatePercents.calculatePercents)(this.dataset.matrix, sumArray)));
-          if (!options.sparkline) {
-            options.axis = {
-              y: {
-                padding: {
-                  top: 0
-                },
-                tick: {
-                  format: function format(d) {
-                    return d + '%';
-                  }
-                }
-              }
-            };
-          }
-        }
-
-        // range charts
-        if (options.range) {
-          this.dataset.matrix = [this.dataset.matrix[0]].concat(_toConsumableArray((0, _calculateRange2.default)(this.dataset.matrix)));
-        }
-
-        if (!!this.config.clearOnRender && options.data.columns.length && this.dataset && this.dataset.meta) {
-          var datasetMeta = this.dataset.meta || {};
-
-          var _datasetMeta$type = datasetMeta.type,
-              _type = _datasetMeta$type === undefined ? '' : _datasetMeta$type;
-
-          var spliceFrom = 0;
-          var intervalTypes = ['interval'];
-          if (intervalTypes.includes(_type)) {
-            spliceFrom = 1;
-          }
-          options.data.columns.splice(spliceFrom);
-        }
-
-        if (this.data()[0].length === 1 || this.data().length === 1) {
-          var msg = 'No data to display';
-          var mappedMsg = this.config.errorMapping[msg] || msg;
-          if (this.config.showErrorMessages) {
-            this.message(mappedMsg);
-          }
-          return;
-        }
-
-        var removeLegend = false;
-
-        if (type === 'gauge') {
-          // Accommodate a neat bug:
-          options.legend.show = false;
-          options.data.columns = [[this.config.title || this.data()[1][0], this.data()[1][1]]];
-          removeLegend = true;
-        } else if (type === 'pie' || type === 'donut') {
-          options.data.columns = this.data().slice(1);
-        } else {
-
-          // Apply formatting for horizontal variant types
-          if (type.indexOf('horizontal-') > -1) {
-            options.axis.rotated = type.indexOf('horizontal-') > -1;
-          }
-
-          if ((0, _assertDateString2.default)(this.data()[1][0])) {
-            // TIMESERIES
-            options.axis.x = options.axis.x || {};
-            options.axis.x.type = 'timeseries';
-            options.axis.x.tick = options.axis.x.tick || {
-              format: this.config.dateFormat || (0, _defaultDateFormat2.default)(this.data()[1][0], this.data()[2] ? this.data()[2][0] : this.data()[1][0]),
-              culling: { max: 5 }
-            };
-
-            options.data.columns[0] = [];
-            (0, _each.each)(this.dataset.selectColumn(0), function (cell, i) {
-              if (i > 0) {
-                cell = new Date(cell);
-              }
-              options.data.columns[0][i] = cell;
-            });
-            options.data.columns[0][0] = 'x';
-            options.data.x = 'x';
-            if (this.config.stacked && this.data()[0].length > 2) {
-              options.data.groups = [this.dataset.selectRow(0).slice(1)];
-            }
-          } else {
-            // CATEGORIES
-            options.axis.x = options.axis.x || {};
-            options.axis.x.type = 'category';
-            options.axis.x.categories = this.dataset.selectColumn(0).slice(1);
-            if (this.config.stacked && this.data()[0].length > 2) {
-              options.data.groups = [this.dataset.selectRow(0).slice(1)];
-            }
-          }
-
-          if (this.data()[0].length === 2) {
-            options.legend.show = false;
-            removeLegend = true;
-          }
-
-          (0, _each.each)(this.data()[0], function (cell, i) {
-            if (i > 0) {
-              options.data.columns.push(this.dataset.selectColumn(i));
-            }
-          }.bind(this));
-        }
-
-        if (removeLegend) {
-          var legendElement = this.el().querySelector('.keen-c3-legend');
-          if (legendElement) {
-            legendElement.remove();
-            options.size.width = this.el().querySelector('.c3-chart').offsetWidth;
-          }
-          options.legend.show = false;
-        }
-
-        var chartTypesWithPartialIntervalIndicator = ['area', 'area-spline', 'area-step', 'line', 'spline', 'step'];
-
-        if (options.partialIntervalIndicator && options.partialIntervalIndicator.show && chartTypesWithPartialIntervalIndicator.indexOf(options.type) > -1) {
-          var results = options.data.columns && options.data.columns[0];
-          if (results && results.length > 1) {
-            var partialResultsRegion = {
-              axis: 'x',
-              start: new Date(results[results.length - 2]),
-              class: options.partialIntervalIndicator.className
-            };
-            options.regions = [].concat(_toConsumableArray(options.regions || []), [partialResultsRegion]);
-          }
-        }
-
-        if (!(options.tooltip && options.tooltip.show === false) && (options.legend.show === true || options.legend && options.legend.tooltip && options.legend.tooltip.show)) {
-
-          // Apply custom tooltip
-          options.tooltip = {
-            contents: _tooltipContents2.default,
-            format: {
-              title: this.config.tooltip.format.title,
-              value: function value(_value, ratio, id, index) {
-                var valueFormatted = c3CustomTooltipFiltering.call(_this, _value, ratio, id, index);
-                if (_this.config.tooltip && _this.config.tooltip.format && _this.config.tooltip.format.value) {
-                  valueFormatted = _this.config.tooltip.format.value.call(_this, valueFormatted, ratio, id, index);
-                  // Restore value from percents calculation for stacking 100% charts
-                  if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
-                    valueFormatted = parseFloat((valueFormatted / 100 * sumArray[index]).toFixed(2));
-                  }
-                  // Restore value from range calculation for range charts
-                  if (options.range) {
-                    if (id === 'Max') {
-                      valueFormatted += _this.dataset.matrix[index + 1][2];
-                    }
-                  }
-                  return valueFormatted;
-                }
-                // Restore value from percents calculation for stacking 100% charts
-                if (options.stacking === 'percent' && (type === 'bar' || type === 'horizontal-bar' || type === 'area' || type === 'area-step' || type === 'area-spline')) {
-                  valueFormatted = (valueFormatted / 100 * sumArray[index]).toFixed(2);
-                  return parseFloat(valueFormatted);
-                }
-                // Restore value from range calculation for range charts
-                if (options.range) {
-                  if (id === 'Max') {
-                    valueFormatted += _this.dataset.matrix[index + 1][2];
-                  }
-                }
-                return valueFormatted;
-              }
-            }
-          };
-        }
-
-        if (options.legend.show === true) {
-          var c3options = _extends({}, options);
-          // Apply custom color handling
-          c3options.data.color = c3CustomDataMapping.bind(this);
-
-          c3options.legend.hide = true; // hide default c3 legend
-
-          // Render artifacts
-          this.view._artifacts['c3'] = _c2.default.generate(c3options);
-
-          _paginatingLegend2.default.call(this, _extends({}, options, { onLegendRendered: function onLegendRendered() {
-              var legendElement = _this.el().querySelector('.keen-c3-legend');
-              if (legendElement) {
-                if (options.legend.position === 'top' || options.legend.position === 'bottom') {
-                  c3options.size.height -= legendElement.offsetHeight;
-                  _this.view._artifacts['c3'].resize({ height: c3options.size.height });
-                } else {
-                  if (c3options.size.width === 0) {
-                    c3options.size.width = _this.el().offsetWidth - getPaddings(_this.el(), 'Left') - getPaddings(_this.el(), 'Right');
-                  }
-                  c3options.size.width -= legendElement.offsetWidth;
-                  _this.view._artifacts['c3'].resize({ width: c3options.size.width });
-                }
-              }
-            },
-            onPaginated: function onPaginated() {
-              _this.view._artifacts['c3'].flush();
-            }
-          }));
-        } else {
-          this.view._artifacts['c3'] = _c2.default.generate(options);
-        }
-      },
-      update: function update() {
-        // no special update handling
-        this.render();
-      },
-      destroy: function destroy() {
-        if (this.view._artifacts['c3']) {
-          this.view._artifacts['c3'].destroy();
-          this.view._artifacts['c3'] = null;
-        }
-      }
-    };
-  });
-
-  return types;
-}
-
-function c3CustomDataMapping(color, d) {
-  var type = this.config.type;
-  if (this.view._artifacts.pagination && type !== 'gauge'
-  /*&& this.type() !== 'pie'
-    && this.type() !== 'donut'*/) {
-      var scope = this.view._artifacts.pagination.labels;
-      if (d.id && scope.indexOf(d.id) > -1 || d && !d.id && scope.indexOf(d) > -1) {
-        return color;
-      } else {
-        if (type === 'donut' || type === 'pie') {
-          return 'rgba(0,0,0,.1)';
-        } else {
-          return 'rgba(0,0,0,.07)';
-        }
-      }
-    } else {
-    return color;
-  }
-}
-
-function c3CustomTooltipFiltering(value, ratio, id, index) {
-  var type = this.config.type;
-
-  if (this.view._artifacts.pagination && type !== 'gauge'
-  /*&& this.type() !== 'pie'
-    && this.type() !== 'donut'*/) {
-      var scope = this.view._artifacts.pagination.labels;
-      if (scope.indexOf(id) > -1) {
-        return value;
-      }
-    } else {
-    return value;
-  }
-}
-
-function bindResizeListener(fn) {
-  if (typeof window === 'undefined') return;
-  window.onresize = window.resize = function () {};
-  if (window.addEventListener) {
-    window.addEventListener('resize', fn, true);
-  } else if (window.attachEvent) {
-    window.attachEvent('onresize', fn);
-  }
-}
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-exports.default = function (data) {
-  if (!arguments.length) return this.dataset.data();
-  if (data instanceof _dataset2.default) {
-    this.dataset = data;
-    return this;
-  }
-  return parseResponse.call(this, data);
-};
-
-var _dataset = __webpack_require__(15);
-
-var _dataset2 = _interopRequireDefault(_dataset);
-
-var _extend = __webpack_require__(5);
-
-var _stripHtmlTags = __webpack_require__(13);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-;
-
-function parseResponse(response) {
-  var dataset,
-      indexBy,
-      meta,
-      parser,
-      parserArgs = [],
-      query,
-      selectedParser,
-      title,
-      type;
-
-  indexBy = this.config.indexBy;
-  meta = response.metadata || {};
-  query = typeof response.query !== 'undefined' ? response.query : {};
-
-  // Ensure all required params are present
-  query = (0, _extend.extend)({
-    analysis_type: null,
-    event_collection: null,
-    filters: [],
-    group_by: null,
-    interval: null,
-    timeframe: null,
-    timezone: null
-  }, query);
-
-  if (query.analysis_type === 'funnel') {
-    parser = 'funnel';
-  } else if (query.analysis_type === 'extraction') {
-    parser = 'extraction';
-  } else if (query.analysis_type === 'select_unique') {
-    if (!query.group_by && !query.interval) {
-      parser = 'list';
-    }
-    // else { Not supported }
-  } else if (query.analysis_type) {
-    if (!query.group_by && !query.interval) {
-      parser = 'metric';
-    } else if (query.group_by && !query.interval) {
-      if (query.group_by instanceof Array && query.group_by.length > 1) {
-        parser = 'double-grouped-metric';
-        parserArgs.push(query.group_by);
-      } else {
-        parser = 'grouped-metric';
-      }
-    } else if (query.interval && !query.group_by) {
-      parser = 'interval';
-      parserArgs.push(indexBy);
-    } else if (query.group_by && query.interval) {
-      if (query.group_by instanceof Array && query.group_by.length > 1) {
-        parser = 'double-grouped-interval';
-        parserArgs.push(query.group_by);
-        parserArgs.push(indexBy);
-      } else {
-        parser = 'grouped-interval';
-        parserArgs.push(indexBy);
-      }
-    }
-  }
-
-  if (!parser) {
-
-    // Metric
-    // -------------------------------
-    if (typeof response.result === 'number') {
-      parser = 'metric';
-    }
-
-    // Everything else
-    // -------------------------------
-    if (response.result instanceof Array && response.result.length > 0) {
-
-      // Interval w/ single value
-      // -------------------------------
-      if (response.result[0].timeframe && (typeof response.result[0].value == 'number' || response.result[0].value == null)) {
-        parser = 'interval';
-        parserArgs.push(indexBy);
-      }
-
-      // Static GroupBy
-      // -------------------------------
-      if (typeof response.result[0].result == 'number') {
-        parser = 'grouped-metric';
-      }
-
-      // Grouped Interval
-      // -------------------------------
-      if (response.result[0].value instanceof Array) {
-        parser = 'grouped-interval';
-        parserArgs.push(indexBy);
-      }
-
-      // Funnel
-      // -------------------------------
-      if (typeof response.result[0] === 'number' && typeof response.steps !== 'undefined') {
-        parser = 'funnel';
-        // Move steps into query object
-        query.steps = response.steps;
-      }
-
-      // Select Unique
-      // -------------------------------
-      if ((typeof response.result[0] === 'string' || typeof response.result[0] == 'number') && typeof response.steps === 'undefined') {
-        parser = 'list';
-      }
-
-      // Extraction
-      // -------------------------------
-      if (!parser) {
-        parser = 'extraction';
-      }
-    }
-
-    if (!parser) {
-      parser = 'extraction';
-    }
-  }
-
-  // Set title from saved query body, or create a default title
-  if (this.config.title === undefined) {
-    if (meta.display_name) {
-      title = meta.display_name;
-    } else {
-      title = getDefaultTitle(query);
-    }
-    this.config.title = title;
-  }
-
-  // Set type from saved query body, or use a default type
-  if (!this.config.type) {
-    if (meta.visualization && meta.visualization.chart_type) {
-      type = meta.visualization.chart_type;
-    } else {
-      type = getDefaultType(parser);
-    }
-    this.config.type = type;
-  }
-
-  // Define the appropriate parser
-  selectedParser = _dataset2.default.parser.apply(this, [parser].concat(parserArgs));
-
-  // Parse the response with augmented query body
-  dataset = selectedParser((0, _extend.extend)(response, { 'query': query }));
-
-  // Set true dates for 'interval' data
-  if (parser.indexOf('interval') > -1) {
-    dataset.updateColumn(0, function (value, i) {
-      return new Date(value);
-    });
-  }
-
-  dataset.updateRow(0, function (value, i) {
-    return (0, _stripHtmlTags.stripHtmlTags)(value);
-  });
-
-  this.dataset = dataset;
-
-  return this;
-}
-
-function getDefaultTitle(query) {
-  var analysis = query.analysis_type ? query.analysis_type.replace('_', ' ') : '',
-      title;
-
-  title = analysis.replace(/\b./g, function (a) {
-    return a.toUpperCase();
-  });
-
-  if (query.event_collection) {
-    title += ' - ' + query.event_collection;
-  }
-  return title;
-}
-
-function getDefaultType(parser) {
-  var type = void 0;
-  switch (parser) {
-    case 'metric':
-      type = 'metric';
-      break;
-    case 'interval':
-      type = 'area';
-      break;
-    case 'grouped-metric':
-    case 'double-grouped-metric':
-      type = 'bar';
-      break;
-    case 'grouped-interval':
-    case 'double-grouped-interval':
-      type = 'line';
-      break;
-    case 'funnel':
-      type = 'horizontal-bar';
-      break;
-    case 'list':
-    case 'extraction':
-    default:
-      type = 'table';
-  }
-  return type;
-}
-
-/***/ }),
 /* 40 */
-/***/ (function(module) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.10.4","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.6.13","d3":"^5.4.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.5.0","webpack-bundle-analyzer":"^3.3.2","webpack-cli":"^2.0.13","webpack-dev-server":"^3.1.1","xhr-mock":"^2.3.2"}};
+/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {}})(this,function(){"use strict";function b(a,b){return"undefined"==typeof b?b={autoBom:!1}:"object"!=typeof b&&(console.warn("Deprecated: Expected third argument to be a object"),b={autoBom:!b}),b.autoBom&&/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(a.type)?new Blob(["\uFEFF",a],{type:a.type}):a}function c(b,c,d){var e=new XMLHttpRequest;e.open("GET",b),e.responseType="blob",e.onload=function(){a(e.response,c,d)},e.onerror=function(){console.error("could not download file")},e.send()}function d(a){var b=new XMLHttpRequest;b.open("HEAD",a,!1);try{b.send()}catch(a){}return 200<=b.status&&299>=b.status}function e(a){try{a.dispatchEvent(new MouseEvent("click"))}catch(c){var b=document.createEvent("MouseEvents");b.initMouseEvent("click",!0,!0,window,0,0,0,80,20,!1,!1,!1,!1,0,null),a.dispatchEvent(b)}}var f="object"==typeof window&&window.window===window?window:"object"==typeof self&&self.self===self?self:"object"==typeof global&&global.global===global?global:void 0,a=f.saveAs||("object"!=typeof window||window!==f?function(){}:"download"in HTMLAnchorElement.prototype?function(b,g,h){var i=f.URL||f.webkitURL,j=document.createElement("a");g=g||b.name||"download",j.download=g,j.rel="noopener","string"==typeof b?(j.href=b,j.origin===location.origin?e(j):d(j.href)?c(b,g,h):e(j,j.target="_blank")):(j.href=i.createObjectURL(b),setTimeout(function(){i.revokeObjectURL(j.href)},4E4),setTimeout(function(){e(j)},0))}:"msSaveOrOpenBlob"in navigator?function(f,g,h){if(g=g||f.name||"download","string"!=typeof f)navigator.msSaveOrOpenBlob(b(f,h),g);else if(d(f))c(f,g,h);else{var i=document.createElement("a");i.href=f,i.target="_blank",setTimeout(function(){e(i)})}}:function(a,b,d,e){if(e=e||open("","_blank"),e&&(e.document.title=e.document.body.innerText="downloading..."),"string"==typeof a)return c(a,b,d);var g="application/octet-stream"===a.type,h=/constructor/i.test(f.HTMLElement)||f.safari,i=/CriOS\/[\d]+/.test(navigator.userAgent);if((i||g&&h)&&"object"==typeof FileReader){var j=new FileReader;j.onloadend=function(){var a=j.result;a=i?a:a.replace(/^data:[^;]*;/,"data:attachment/file;"),e?e.location.href=a:location=a,e=null},j.readAsDataURL(a)}else{var k=f.URL||f.webkitURL,l=k.createObjectURL(a);e?e.location=l:location.href=l,e=null,setTimeout(function(){k.revokeObjectURL(l)},4E4)}});f.saveAs=a.saveAs=a, true&&(module.exports=a)});
+
+//# sourceMappingURL=FileSaver.min.js.map
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)))
 
 /***/ }),
 /* 41 */
@@ -4701,10 +4817,103 @@ module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK fo
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.valueAtDeepKey = valueAtDeepKey;
-function valueAtDeepKey(obj, is, value) {
-  if (typeof is == 'string') return valueAtDeepKey(obj, is.split('.'), value);else if (is.length == 1 && value !== undefined && obj !== null && typeof obj[is[0]] !== 'undefined') return obj[is[0]] = value;else if (is.length == 0) return obj;else if (typeof is === 'undefined' || typeof obj === 'undefined' || is === null || obj === null || typeof obj[is[0]] === 'undefined') return null;else return valueAtDeepKey(obj[is[0]], is.slice(1), value);
-}
+
+var _prettyNumber = __webpack_require__(3);
+
+var _escapeHtml = __webpack_require__(4);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  render: function render() {
+    var color = this.config.colors[0];
+    var theme = this.config.theme;
+    var title = this.config.title;
+    var opts = this.config;
+    var value = '-';
+    var html = '';
+    var prefix = '';
+    var suffix = '';
+    var formattedNum = void 0;
+    var valueEl = void 0;
+    var flexDifferenceStyle = '';
+    var resultDifference = '';
+    var differenceStyle = '';
+    var smallerValue = '';
+    var _config = this.config,
+        results = _config.results,
+        previousResults = _config.previousResults;
+
+    if (results && previousResults) {
+      flexDifferenceStyle = previousResults ? ' metric-comparison' : '';
+      smallerValue = previousResults && title ? '-smaller' : '';
+      resultDifference = results.result - previousResults.result;
+      differenceStyle = resultDifference > 0 ? '-green' : '-red';
+      resultDifference = Math.abs(resultDifference);
+    }
+
+    if (typeof this.data()[1][1] === 'number') {
+      value = this.data()[1][1];
+    }
+
+    formattedNum = value;
+    if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(value))) {
+      formattedNum = (0, _prettyNumber.prettyNumber)(value);
+      if (results && previousResults) {
+        resultDifference = (0, _prettyNumber.prettyNumber)(resultDifference);
+      }
+    }
+
+    if (opts['prefix']) {
+      prefix = '<span class="' + theme + '-metric-prefix">' + opts['prefix'] + '</span>';
+    }
+    if (opts['suffix']) {
+      suffix = '<span class="' + theme + '-metric-suffix">' + opts['suffix'] + '</span>';
+    }
+    html += '<div class="' + theme + '">';
+    html += '<div class="' + theme + '-metric keen-dataviz-box' + flexDifferenceStyle + '" title="' + (0, _escapeHtml.escapeHtml)(value) + '">';
+    if (results && previousResults) {
+      html += '<div class="' + theme + '-metric' + differenceStyle + '"><div class="arrow' + differenceStyle + '"> </div>' + (0, _escapeHtml.escapeHtml)(resultDifference) + '</div>';
+    }
+    html += '<div class="' + theme + '-metric-value' + smallerValue + '">' + prefix + (0, _escapeHtml.escapeHtml)(formattedNum) + suffix + '</div>';
+    if (title) {
+      html += '<div class="' + theme + '-metric-title">' + (0, _escapeHtml.escapeHtml)(title) + '</div>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    this.el().innerHTML = html;
+
+    if (this.config.onrendered) {
+      this.config.onrendered();
+    }
+
+    if (this.config.utils && this.config.utils.clickToCopyToClipboard) {
+      var resultClassName = '.' + theme + '-metric-value' + smallerValue;
+      document.querySelector(resultClassName).addEventListener('click', function (e) {
+        return (0, _copyToClipboard2.default)(e.target.innerText, e);
+      });
+
+      if (results && previousResults) {
+        var previousResultsClassName = '.' + theme + '-metric' + differenceStyle;
+        document.querySelector(previousResultsClassName).addEventListener('click', function (e) {
+          return (0, _copyToClipboard2.default)(e.target.innerText, e);
+        });
+      }
+    }
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    // no special clean-up
+  }
+};
 
 /***/ }),
 /* 42 */
@@ -4717,28 +4926,299 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-exports.flatten = flatten;
-// Pure awesomeness by Will Rayner (penguinboy)
-// https://gist.github.com/penguinboy/762197
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-function flatten(ob) {
-  var toReturn = {};
-  for (var i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
-    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
-      var flatObject = flatten(ob[i]);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) continue;
-        toReturn[i + '.' + x] = flatObject[x];
+var _escapeHtml = __webpack_require__(4);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var currentPage = void 0;
+function _generateTableRows(datavizInstance, dataset) {
+  var html = '';
+  var defaultConfig = {
+    page: 1,
+    limit: 0,
+    arrows: true
+  };
+  var customConfig = {};
+  if (datavizInstance.config.table && datavizInstance.config.table.pagination) {
+    customConfig = datavizInstance.config.table.pagination;
+  }
+  var config = _extends({}, defaultConfig, customConfig);
+
+  if (!currentPage) {
+    currentPage = config.page;
+  }
+
+  var datasetPaginated = void 0;
+  var pages = 0;
+  if (config.limit === 0) {
+    datasetPaginated = dataset.slice(1); // remove header
+  } else {
+    var start = config.limit * (currentPage - 1) + 1;
+    var end = start + config.limit;
+    datasetPaginated = dataset.slice(start, end);
+    pages = Math.ceil((dataset.length - 1) / config.limit);
+  }
+
+  var columnsArray = datavizInstance.config.table.columns ? datavizInstance.config.table.columns : datavizInstance.dataset.matrix[0];
+
+  var colNamesToMap = {};
+  var _datavizInstance$conf = datavizInstance.config.table,
+      mapValues = _datavizInstance$conf.mapValues,
+      mapDates = _datavizInstance$conf.mapDates;
+
+  for (var key in mapValues) {
+    colNamesToMap[columnsArray.indexOf(key)] = key;
+  }
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = datasetPaginated[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var row = _step.value;
+
+      html += '<tr class="table-data-row">';
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = row.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var _ref = _step2.value;
+
+          var _ref2 = _slicedToArray(_ref, 2);
+
+          var index = _ref2[0];
+          var rowColValue = _ref2[1];
+
+          if (mapDates && rowColValue instanceof Date) {
+            rowColValue = mapDates(rowColValue);
+          }
+
+          var rowColValueEscaped = (0, _escapeHtml.escapeHtml)(rowColValue);
+          if (colNamesToMap[index]) {
+            html += '<td>' + mapValues[colNamesToMap[index]](rowColValueEscaped) + '</td>';
+            continue;
+          }
+          html += '<td>' + rowColValueEscaped + '</td>';
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
       }
-    } else {
-      toReturn[i] = ob[i];
+
+      html += '</tr>';
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
     }
   }
-  return toReturn;
+
+  if (pages > 1) {
+    html += '<tr class="table-pagination"><td colspan="999">';
+    var pageNumber = 1;
+    var prevPage = currentPage === 1 ? 1 : currentPage - 1;
+    var nextPage = currentPage === pages ? pages : currentPage + 1;
+    if (config.arrows) {
+      html += '<a class="arrow btn" data-page="' + prevPage + '"><</a>';
+    }
+    while (pageNumber <= pages) {
+      html += '<a class="btn ' + (pageNumber === currentPage ? 'active' : '') + '" data-page="' + pageNumber + '">' + pageNumber + '</a>';
+      pageNumber++;
+    }
+    if (config.arrows) {
+      html += '<a class="arrow btn" data-page="' + nextPage + '">></a>';
+    }
+    html += '</td></tr>';
+  }
+
+  return html;
+}
+
+function _generateTableHeader(datavizInstance, dataset) {
+  var html = '';
+  var fieldNumber = -1;
+  var tableConfig = datavizInstance.config.table;
+  var columnNames = tableConfig && tableConfig.columns || dataset[0];
+  var _iteratorNormalCompletion3 = true;
+  var _didIteratorError3 = false;
+  var _iteratorError3 = undefined;
+
+  try {
+    for (var _iterator3 = columnNames[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+      var colName = _step3.value;
+
+      var colNameEscaped = (0, _escapeHtml.escapeHtml)(colName);
+      fieldNumber += 1;
+      html += '<th fieldNumber="' + fieldNumber + '">' + colNameEscaped + '</th>';
+    }
+  } catch (err) {
+    _didIteratorError3 = true;
+    _iteratorError3 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+        _iterator3.return();
+      }
+    } finally {
+      if (_didIteratorError3) {
+        throw _iteratorError3;
+      }
+    }
+  }
+
+  return html;
+}
+
+var render = function render() {
+  var _this = this;
+
+  var dataset = this.dataset.matrix;
+
+  var el = this.el();
+  var theme = this.config.theme;
+  var datavizInstance = this;
+
+  var html = '';
+
+  var isEmpty = dataset.length === 1 && dataset[0].length === 0;
+  if (isEmpty) {
+    var msg = 'No data to display';
+    var mappedMsg = this.config.errorMapping[msg] || msg;
+    if (this.config.showErrorMessages) {
+      this.message(mappedMsg);
+    }
+    return;
+  }
+
+  // Open wrapper
+  html += '<div class="' + theme + '-table">';
+
+  // Static, scrollable table
+  html += '<table class="' + theme + '-table-dataset">';
+  html += '<thead>';
+  html += '<tr>';
+  html += _generateTableHeader(datavizInstance, dataset);
+  html += '</tr>';
+  html += '</thead>';
+  // Table data
+  html += '<tbody>';
+  html += _generateTableRows(datavizInstance, dataset);
+  html += '</tbody>';
+  html += '</table>';
+  /* */
+  // Close wrapper
+  html += '</div>';
+
+  // Inject HTML string
+  el.querySelector('.' + theme + '-rendering').innerHTML = html;
+
+  el.querySelectorAll('.' + theme + '-rendering th').forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var sortOrder = event.target.getAttribute('order') || 'asc';
+      var fieldNumber = event.target.getAttribute('fieldNumber');
+      var checker = function checker(a, b) {
+        var sortOrderNumber = sortOrder === 'asc' ? 1 : -1;
+
+        if (typeof a[fieldNumber] === 'string') {
+          var nameA = a[fieldNumber].toUpperCase(); // ignore upper and lowercase
+          var nameB = b[fieldNumber].toUpperCase(); // ignore upper and lowercase
+          if (nameA < nameB) {
+            return -1 * sortOrderNumber;
+          }
+          if (nameA > nameB) {
+            return 1 * sortOrderNumber;
+          }
+
+          // names must be equal
+          return 0;
+        }
+        return (a[fieldNumber] - b[fieldNumber]) * sortOrderNumber;
+      };
+
+      if (sortOrder === 'asc') {
+        sortOrder = 'desc';
+      } else {
+        sortOrder = 'asc';
+      }
+      event.target.setAttribute('order', sortOrder);
+
+      var first = _this.dataset.matrix.shift();
+      _this.dataset.matrix.sort(checker);
+      _this.dataset.matrix.unshift(first);
+
+      el.querySelector('.' + theme + '-rendering tbody').innerHTML = _generateTableRows(datavizInstance, dataset);
+      attachBtnEventListeners();
+    });
+  });
+
+  var attachBtnEventListeners = function attachBtnEventListeners() {
+    el.querySelectorAll('.btn').forEach(function (btn) {
+      btn.addEventListener('click', function (event) {
+        currentPage = parseInt(event.target.getAttribute('data-page'));
+        el.querySelector('.' + theme + '-rendering tbody').innerHTML = _generateTableRows(datavizInstance, dataset);
+        attachBtnEventListeners();
+      }, true);
+    });
+  };
+
+  attachBtnEventListeners(datavizInstance, el, theme);
+
+  if (this.config.onrendered) {
+    this.config.onrendered();
+  }
+
+  if (this.config.utils && this.config.utils.clickToCopyToClipboard) {
+    var tableClass = '.' + theme + '-table-dataset';
+    document.querySelector(tableClass).addEventListener('click', function (e) {
+      var _e$target = e.target,
+          nodeName = _e$target.nodeName,
+          innerText = _e$target.innerText;
+
+      if (nodeName === 'TD') {
+        (0, _copyToClipboard2.default)(innerText, e);
+      }
+    });
+  }
 };
+
+var update = function update() {
+  // no special update handling
+  this.render();
+};
+
+var destroy = function destroy() {};
+
+exports.default = { render: render, update: update, destroy: destroy };
 
 /***/ }),
 /* 43 */
@@ -4750,215 +5230,37 @@ function flatten(ob) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = initialize;
+exports.default = {
+  render: function render() {
+    var html = '';
+    var artifacts = this.view._artifacts.spinner = {};
 
-var _each = __webpack_require__(0);
-
-var _flatten = __webpack_require__(42);
-
-var _object = __webpack_require__(41);
-
-var Dataset = void 0; /* injected */
-
-function initialize(lib) {
-  Dataset = lib;
-  return function (name) {
-    var options = Array.prototype.slice.call(arguments, 1);
-
-    if (!parsers[name]) {
-      throw 'Requested parser does not exist';
-    } else {
-      return parsers[name].apply(this, options);
-    }
-  };
-}
-
-function parseMetric() {
-  return function (res) {
-    return new Dataset().set(['Value', 'Result'], res.result).type('metric');
-  };
-}
-
-//var myParser = Dataset.parser('interval', 'timeframe.end');
-function parseInterval() {
-  var options = Array.prototype.slice.call(arguments);
-  return function (res) {
-    var dataset = new Dataset().type('interval');
-    (0, _each.each)(res.result, function (record, i) {
-      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      dataset.set(['Result', index], record.value);
-    });
-    return dataset;
-  };
-}
-
-function parseGroupedMetric() {
-  return function (res) {
-    var dataset = new Dataset().type('grouped-metric');
-    (0, _each.each)(res.result, function (record, i) {
-      var label;
-      (0, _each.each)(record, function (value, key) {
-        if (key !== 'result') {
-          label = key;
-        }
-      });
-      dataset.set(['Result', String(record[label])], record.result);
-    });
-    return dataset;
-  };
-}
-
-//var myParser = Dataset.parser('grouped-interval', 'timeframe.end');
-function parseGroupedInterval() {
-  var options = Array.prototype.slice.call(arguments);
-  return function (res) {
-    var dataset = new Dataset().type('grouped-interval');
-    (0, _each.each)(res.result, function (record, i) {
-      var index = options[0] && options[0] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      if (record.value.length) {
-        (0, _each.each)(record.value, function (group, j) {
-          var label;
-          (0, _each.each)(group, function (value, key) {
-            if (key !== 'result') {
-              label = key;
-            }
-          });
-          dataset.set([String(group[label]), index], group.result);
-        });
-      } else {
-        dataset.appendRow(index);
+    // Build DOM element
+    html += '<div class="' + this.config.theme + '">';
+    html += '<div class="keen-spinner-container keen-dataviz-box">';
+    html += '<div class="keen-spinner-indicator"></div>';
+    html += '</div>';
+    html += '</div>';
+    this.el().innerHTML = html;
+  },
+  update: function update() {
+    // no special update handling
+    this.render();
+  },
+  destroy: function destroy() {
+    if (this.view._artifacts.spinner) {
+      if (this.view._artifacts.spinner.interval) {
+        clearInterval(this.view._artifacts.spinner.interval);
       }
-    });
-    return dataset;
-  };
-}
-
-//var myParser = Dataset.parser('double-grouped-metric', ['first', 'second']);
-function parseDoubleGroupedMetric() {
-  var options = Array.prototype.slice.call(arguments);
-  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
-  return function (res) {
-    var dataset = new Dataset().type('double-grouped-metric');
-    (0, _each.each)(res.result, function (record, i) {
-      var rowLabel = record[options[0][0]] + ' ' + record[options[0][1]];
-      dataset.set(['Result', rowLabel], record.result);
-    });
-    return dataset;
-  };
-}
-
-//var myParser = Dataset.parser('double-grouped-interval', ['first', 'second'], 'timeframe.end');
-function parseDoubleGroupedInterval() {
-  var options = Array.prototype.slice.call(arguments);
-  if (!options[0]) throw 'Requested parser requires a sequential list (array) of properties to target as a second argument';
-  return function (res) {
-    var dataset = new Dataset().type('double-grouped-interval');
-    (0, _each.each)(res.result, function (record, i) {
-      var index = options[1] && options[1] === 'timeframe.end' ? record.timeframe.end : record.timeframe.start;
-      (0, _each.each)(record['value'], function (value, j) {
-        var label = value[options[0][0]] + ' ' + value[options[0][1]];
-        dataset.set([label, index], value.result);
-      });
-    });
-    return dataset;
-  };
-}
-
-function parseFunnel() {
-  return function (res) {
-    var result, steps, dataset;
-    if (typeof res.steps !== 'undefined' && typeof res.result !== 'undefined' && res.result instanceof Array) {
-      // Ad-hoc funnel response
-      result = res.result;
-      steps = res.steps;
-    } else if (typeof res.result.steps !== 'undefined' && typeof res.result.result !== 'undefined' && res.result.result instanceof Array) {
-      // Saved funnel response
-      result = res.result.result;
-      steps = res.result.steps;
-    }
-    dataset = new Dataset().type('funnel');
-    dataset.appendColumn('Step Value');
-    (0, _each.each)(result, function (value, i) {
-      if (typeof steps !== 'undefined' && steps[i]) {
-        dataset.appendRow(String(steps[i].event_collection), [value]);
-      }
-    });
-    return dataset;
-  };
-}
-
-function parseList() {
-  return function (res) {
-    var dataset = new Dataset().type('list');
-    (0, _each.each)(res.result, function (value, i) {
-      dataset.set(['Result', String(i + 1)], value);
-    });
-    return dataset;
-  };
-}
-
-function parseExtraction() {
-  var config = this.config;
-  return function (res) {
-    var datasetExtraction = new Dataset().type('extraction');
-
-    // get keys of the Object, static schema
-    var names = Object.keys((0, _flatten.flatten)(res.result[0]));
-
-    var tableConfig = config && config.table;
-    if (tableConfig && tableConfig.schema === 'dynamic') {
-      var results = res.result;
-      var keys = {};
-      results.forEach(function (resultItem) {
-        var resultKeys = Object.keys((0, _flatten.flatten)(resultItem));
-        if (resultKeys && resultKeys.length) {
-          resultKeys.forEach(function (keyName) {
-            if (!keys[keyName]) {
-              keys[keyName] = true;
-            }
-          });
-        }
-      });
-      names = Object.keys(keys);
-    }
-
-    var nameI = 0;
-    names.forEach(function (value) {
-      datasetExtraction.set([value, '0'], value);
-      nameI++;
-    });
-
-    if (Dataset) {
-      if (config && config.table && config.table.columns) {
-        names = config.table.columns;
+      this.view._artifacts.spinner.radius = 0;
+      try {
+        delete this.view._artifacts.spinner;
+      } catch (e) {
+        this.view._artifacts.spinner = undefined;
       }
     }
-
-    for (var i = 0; i < res.result.length; i++) {
-      var record = [i + 1];
-      for (var iNames = 0; iNames < names.length; iNames++) {
-        record.push((0, _object.valueAtDeepKey)(res.result[i], names[iNames]));
-      }
-      datasetExtraction.matrix[String(i + 1)] = record;
-    }
-
-    datasetExtraction.deleteColumn(0);
-
-    return datasetExtraction;
-  };
-}
-
-// Parser definitions
-var parsers = {
-  metric: parseMetric,
-  interval: parseInterval,
-  'grouped-metric': parseGroupedMetric,
-  'grouped-interval': parseGroupedInterval,
-  'double-grouped-metric': parseDoubleGroupedMetric,
-  'double-grouped-interval': parseDoubleGroupedInterval,
-  funnel: parseFunnel,
-  list: parseList,
-  extraction: parseExtraction
+    this.el().innerHTML = '';
+  }
 };
 
 /***/ }),
@@ -4971,94 +5273,276 @@ var parsers = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateColumn = updateColumn;
-exports.updateRow = updateRow;
 
-var _each = __webpack_require__(0);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createNullList = __webpack_require__(8);
+var _d = __webpack_require__(2);
 
-var _createNullList2 = _interopRequireDefault(_createNullList);
+var d3 = _interopRequireWildcard(_d);
 
-var _append = __webpack_require__(9);
+var _svgTextWrap = __webpack_require__(6);
+
+var _prettyNumber = __webpack_require__(3);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function updateColumn(q, input) {
-  var self = this,
-      index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-  if (index > -1) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    if (typeof input === 'function') {
+var Funnel = function () {
+  function Funnel() {
+    _classCallCheck(this, Funnel);
+  }
 
-      (0, _each.each)(self.data(), function (row, i) {
-        var cell;
-        if (i > 0) {
-          cell = input.call(self, row[index], i, row);
-          if (typeof cell !== 'undefined') {
-            self.matrix[i][index] = cell;
+  _createClass(Funnel, [{
+    key: 'render',
+    value: function render() {
+      var matrix = this.dataset.matrix;
+      var _config = this.config,
+          colors = _config.colors,
+          container = _config.container,
+          labelMapping = _config.labelMapping,
+          colorMapping = _config.colorMapping,
+          utils = _config.utils;
+
+      var opts = this.config;
+      var _config$funnel = this.config.funnel,
+          _config$funnel$percen = _config$funnel.percents,
+          show = _config$funnel$percen.show,
+          countingMethod = _config$funnel$percen.countingMethod,
+          decimals = _config$funnel$percen.decimals,
+          lines = _config$funnel.lines,
+          marginBetweenSteps = _config$funnel.marginBetweenSteps,
+          resultValues = _config$funnel.resultValues,
+          hover = _config$funnel.hover,
+          minimalSize = _config$funnel.minimalSize;
+
+      var margin = { top: 20, right: 30, bottom: 30, left: 200 };
+      var yMarginElement = 0;
+      if (marginBetweenSteps) {
+        yMarginElement = 5;
+      }
+      var funnelContainer = d3.select(container);
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      var chart = chartContainer.append('svg');
+      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
+      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
+      var elemHeight = svgHeight / (matrix.length - 1);
+      var prevElemWidth = svgWidth;
+      var percent = 100 .toFixed(decimals);
+
+      // prepare normal funnel polygons
+      var minimalSizeStep = 0;
+      if (minimalSize) {
+        minimalSizeStep = (svgWidth - minimalSize) / (matrix.length - 2);
+      }
+      var polygons = matrix.slice(1).map(function (d, i) {
+        var newPoints = [{
+          x: (svgWidth - prevElemWidth) / 2,
+          y: elemHeight * i + yMarginElement
+        }, {
+          x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
+          y: elemHeight * i + yMarginElement
+        }];
+        if (i !== 0) {
+          if (countingMethod === "relative") {
+            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = prevElemWidth * d[1] / matrix[i][1];
+            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
+          }
+          if (countingMethod === "absolute") {
+            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = svgWidth * d[1] / matrix[1][1];
+            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
           }
         }
-      });
-    } else if (!input || input instanceof Array) {
-      input = input || [];
-
-      if (input.length <= self.data().length - 1) {
-        input = input.concat((0, _createNullList2.default)(self.data().length - 1 - input.length));
-      } else {
-        // If this new column is longer than existing columns,
-        // we need to update the rest to match ...
-        (0, _each.each)(input, function (value, i) {
-          if (self.matrix.length - 1 < input.length) {
-            _append.appendRow.call(self, String(self.matrix.length));
+        var label = d[0];
+        if (Object.keys(labelMapping).length) {
+          for (var key in labelMapping) {
+            if (labelMapping[key] === d[0]) {
+              label = key;
+            }
           }
-        });
-      }
-
-      (0, _each.each)(input, function (value, i) {
-        self.matrix[i + 1][index] = value;
-      });
-    }
-  }
-  return self;
-}
-
-function updateRow(q, input) {
-  var self = this,
-      index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
-
-  if (index > -1) {
-
-    if (typeof input === 'function') {
-
-      (0, _each.each)(self.data()[index], function (value, i) {
-        var col = self.selectColumn(i),
-            cell = input.call(self, value, i, col);
-        if (typeof cell !== 'undefined') {
-          self.matrix[index][i] = cell;
         }
+        var result = d[1];
+        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
+          result = (0, _prettyNumber.prettyNumber)(d[1]);
+        }
+        return {
+          name: d[0],
+          label: label,
+          percent: percent + '%',
+          result: result,
+          points: [].concat(newPoints, [{
+            x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
+            y: elemHeight * (i + 1)
+          }, {
+            x: (svgWidth - prevElemWidth) / 2,
+            y: elemHeight * (i + 1)
+          }])
+        };
       });
-    } else if (!input || input instanceof Array) {
-      input = input || [];
 
-      if (input.length <= self.matrix[0].length - 1) {
-        input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
-      } else {
-        (0, _each.each)(input, function (value, i) {
-          if (self.matrix[0].length - 1 < input.length) {
-            _append.appendColumn.call(self, String(self.matrix[0].length));
-          }
-        });
+      //chart rendering with polygons
+      chart.attr('preserveAspectRatio', 'xMidYMid slice').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons).enter().append('polygon').attr('points', function (d) {
+        return d.points.map(function (p) {
+          return [p.x, p.y].join(',');
+        }).join(' ');
+      }).style('fill', function (d, i) {
+        if (colorMapping[d.label]) {
+          return colorMapping[d.label];
+        }
+        return colors[i];
+      }).attr('class', function (d) {
+        return d.label;
+      }).attr('cursor', 'pointer');
+
+      if (lines) {
+        //rendering lines
+        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', 10).attr('y1', function (d) {
+          return d.points[0].y + margin.top - yMarginElement / 2;
+        }).attr('x2', function (d) {
+          return d.points[1].x + margin.left;
+        }).attr('y2', function (d) {
+          return d.points[0].y + margin.top - yMarginElement / 2;
+        }).attr('class', 'chart-lines');
+
+        //rendering last line
+        chart.append('line').attr('x1', 10).attr('y1', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement / 2).attr('x2', polygons[polygons.length - 1].points[2].x + margin.left).attr('y2', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement / 2).attr('class', 'chart-lines');
       }
 
-      (0, _each.each)(input, function (value, i) {
-        self.matrix[index][i + 1] = value;
-      });
+      //rendering labels when lines are visible
+      if (lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'start').attr('x', 20).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 5;
+        }).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
+      }
+
+      //rendering labels when lines are not visible
+      if (!lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'end').attr('x', function (d) {
+          return d.points[0].x + (d.points[3].x - d.points[0].x) / 2 + margin.left * 0.9;
+        }).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 5;
+        }).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
+      }
+
+      //rendering percents for each step
+      if (show && !resultValues) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 8;
+        }).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results for each step
+      if (resultValues && !show) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 8;
+        }).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results and percenage together
+      if (show && resultValues) {
+        //rendering percents
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          if (yMarginElement === 0) {
+            return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 16;
+          }
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement + 12;
+        }).attr('class', function (d) {
+          return 'text-second ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+
+        //rendering results
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          if (yMarginElement === 0) {
+            return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top;
+          }
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + yMarginElement - 5;
+        }).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+      //hover handling
+      if (hover) {
+        var handleMouseOver = function handleMouseOver(d) {
+          polygonsHover.style('opacity', 0.5);
+          labelHover.style('opacity', 0.5);
+          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
+          chart.selectAll('.' + thisLabel).style('opacity', 1);
+        };
+
+        var handleMouseOut = function handleMouseOut(d) {
+          polygonsHover.style('opacity', 1);
+          labelHover.style('opacity', 1);
+        };
+
+        var polygonsHover = chart.selectAll('polygon');
+        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+
+        var labelHover = chart.selectAll('text');
+        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+      }
+
+      // click to copy
+      if (utils && utils.clickToCopyToClipboard) {
+        var handleClickToCopy = function handleClickToCopy(data) {
+          var percent = data.percent,
+              result = data.result;
+
+          if (resultValues) {
+            (0, _copyToClipboard2.default)(result, d3.event);
+          } else if (show) {
+            (0, _copyToClipboard2.default)(percent, d3.event);
+          }
+        };
+
+        var label = chart.selectAll('text');
+
+        label.on('click', handleClickToCopy);
+      }
     }
-  }
-  return self;
-}
+  }, {
+    key: 'update',
+    value: function update() {
+      this.destroy();
+      this.render();
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      chartContainer.remove();
+    }
+  }]);
+
+  return Funnel;
+}();
+
+exports.default = Funnel;
 
 /***/ }),
 /* 45 */
@@ -5070,65 +5554,300 @@ function updateRow(q, input) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.sortColumns = sortColumns;
-exports.sortRows = sortRows;
 
-var _each = __webpack_require__(0);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _analyses = __webpack_require__(14);
+var _d = __webpack_require__(2);
 
-var _analyses2 = _interopRequireDefault(_analyses);
+var d3 = _interopRequireWildcard(_d);
+
+var _svgTextWrap = __webpack_require__(6);
+
+var _prettyNumber = __webpack_require__(3);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function sortColumns(str, comp) {
-  var self = this,
-      head = this.matrix[0].slice(1),
-      // minus index
-  cols = [],
-      clone = [],
-      fn = comp || _analyses2.default.getColumnLabel;
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-  // Isolate each column (except the index)
-  (0, _each.each)(head, function (cell, i) {
-    cols.push(self.selectColumn(i + 1).slice(0));
-  });
-  cols.sort(function (a, b) {
-    // If fn(a) > fn(b)
-    var op = fn.call(self, a) > fn.call(self, b);
-    if (op) {
-      return str === 'asc' ? 1 : -1;
-    } else if (!op) {
-      return str === 'asc' ? -1 : 1;
-    } else {
-      return 0;
-    }
-  });
-  (0, _each.each)(cols, function (col, i) {
-    self.deleteColumn(i + 1).insertColumn(i + 1, col[0], col.slice(1));
-  });
-  return self;
-}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function sortRows(str, comp) {
-  var self = this,
-      head = this.matrix.slice(0, 1),
-      body = this.matrix.slice(1),
-      fn = comp || _analyses2.default.getRowIndex;
-  body.sort(function (a, b) {
-    // If fn(a) > fn(b)
-    var op = fn.call(self, a) > fn.call(self, b);
-    if (op) {
-      return str === 'asc' ? 1 : -1;
-    } else if (!op) {
-      return str === 'asc' ? -1 : 1;
-    } else {
-      return 0;
+var Funnel3d = function () {
+  function Funnel3d() {
+    _classCallCheck(this, Funnel3d);
+  }
+
+  _createClass(Funnel3d, [{
+    key: 'render',
+    value: function render() {
+      var matrix = this.dataset.matrix;
+      var _config = this.config,
+          colors = _config.colors,
+          container = _config.container,
+          labelMapping = _config.labelMapping,
+          colorMapping = _config.colorMapping,
+          utils = _config.utils;
+
+      var opts = this.config;
+      var _config$funnel = this.config.funnel,
+          _config$funnel$percen = _config$funnel.percents,
+          show = _config$funnel$percen.show,
+          countingMethod = _config$funnel$percen.countingMethod,
+          decimals = _config$funnel$percen.decimals,
+          lines = _config$funnel.lines,
+          resultValues = _config$funnel.resultValues,
+          effect3d = _config$funnel.effect3d,
+          hover = _config$funnel.hover,
+          minimalSize = _config$funnel.minimalSize;
+
+      var margin = { top: 20, right: 30, bottom: 60, left: 200 };
+      var funnelContainer = d3.select(container);
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      var chart = chartContainer.append('svg');
+      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
+      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
+      var elemHeight = svgHeight / (matrix.length - 1);
+      var yMarginElement = elemHeight * 0.3;
+      var shadowCut = yMarginElement * 2.5;
+      var prevElemWidth = svgWidth;
+      var percent = 100 .toFixed(decimals);
+
+      // prepare normal funnel polygons
+      var minimalSizeStep = 0;
+      if (minimalSize) {
+        minimalSizeStep = (svgWidth - minimalSize) / (matrix.length - 2);
+      }
+      var polygons = matrix.slice(1).map(function (d, i) {
+        var newPoints = [{
+          x: (svgWidth - prevElemWidth) / 2,
+          y: elemHeight * i + yMarginElement
+        }, {
+          x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
+          y: elemHeight * i + yMarginElement
+        }];
+        if (i !== 0) {
+          if (countingMethod === 'relative') {
+            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = prevElemWidth * d[1] / matrix[i][1];
+            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
+          }
+          if (countingMethod === 'absolute') {
+            minimalSize ? prevElemWidth = prevElemWidth - minimalSizeStep : prevElemWidth = svgWidth * d[1] / matrix[1][1];
+            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
+          }
+        }
+        var label = d[0];
+        if (Object.keys(labelMapping).length) {
+          for (var key in labelMapping) {
+            if (labelMapping[key] === d[0]) {
+              label = key;
+            }
+          }
+        }
+        var result = d[1];
+        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
+          result = (0, _prettyNumber.prettyNumber)(d[1]);
+        }
+        return {
+          name: d[0],
+          label: label,
+          percent: percent + '%',
+          result: result,
+          points: [].concat(newPoints, [{
+            x: (svgWidth - prevElemWidth) / 2 + prevElemWidth,
+            y: elemHeight * (i + 1)
+          }, {
+            x: (svgWidth - prevElemWidth) / 2,
+            y: elemHeight * (i + 1)
+          }])
+        };
+      });
+
+      //funnel shadows preparing
+      var polygonsShadows = polygons.map(function (d, i) {
+        return {
+          label: d.label,
+          points: [{
+            x: d.points[3].x,
+            y: d.points[3].y
+          }, {
+            x: d.points[2].x,
+            y: d.points[2].y
+          }, {
+            x: effect3d === 'left' ? d.points[2].x : d.points[2].x - shadowCut < svgWidth / 2 ? svgWidth / 2 + 5 : d.points[2].x - shadowCut,
+            y: effect3d === 'left' ? d.points[2].y : d.points[2].y + yMarginElement / 1.5
+          }, {
+            x: effect3d === 'right' ? d.points[3].x : d.points[3].x + shadowCut > svgWidth / 2 ? svgWidth / 2 - 5 : d.points[3].x + shadowCut,
+            y: effect3d === 'right' ? d.points[3].y : d.points[3].y + yMarginElement / 1.5
+          }]
+        };
+      });
+
+      //connecting funnels with shadows for rendering
+      var polygons3d = polygons.concat(polygonsShadows);
+
+      //chart rendering with polygons
+      chart.attr('preserveAspectRatio', 'xMidYMid meet').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons3d).enter().append('polygon').attr('points', function (d) {
+        return d.points.map(function (p) {
+          return [p.x, p.y].join(',');
+        }).join(' ');
+      }).style('fill', function (d, i) {
+        if (i > polygons.length - 1) {
+          if (colorMapping[d.label]) {
+            return d3.rgb(colorMapping[d.label]).darker(1.5);
+          }
+          return d3.rgb(colors[i - polygons.length]).darker(1.5);
+        }
+        if (colorMapping[d.label]) {
+          return colorMapping[d.label];
+        }
+        return colors[i];
+      }).attr('class', function (d) {
+        return d.label;
+      }).attr('cursor', 'pointer');
+
+      if (lines) {
+        //rendering lines
+        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', 10).attr('y1', function (d) {
+          return d.points[0].y + margin.top - yMarginElement / 5;
+        }).attr('x2', function (d, i) {
+          if (i === 0) {
+            return d.points[1].x + margin.left;
+          }
+          return d.points[1].x + margin.left - shadowCut;
+        }).attr('y2', function (d) {
+          return d.points[0].y + margin.top - yMarginElement / 5;
+        }).attr('class', 'chart-lines');
+
+        //rendering last line
+        chart.append('line').attr('x1', 10).attr('y1', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement - yMarginElement / 5).attr('x2', polygons[polygons.length - 1].points[2].x + margin.left - shadowCut).attr('y2', polygons[polygons.length - 1].points[2].y + margin.top + yMarginElement - yMarginElement / 5).attr('class', 'chart-lines');
+      }
+
+      //rendering labels when lines are visible
+      if (lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'start').attr('x', 20).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 5 + yMarginElement / 4;
+        }).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
+      }
+
+      //rendering labels when lines are not visible
+      if (!lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'end').attr('x', function (d) {
+          return d.points[0].x + (d.points[3].x - d.points[0].x) / 2 + 130;
+        }).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 5;
+        }).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, margin.left).attr('cursor', 'pointer');
+      }
+
+      //rendering percents for each step
+      if (show && !resultValues) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 8;
+        }).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results for each step
+      if (resultValues && !show) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 8;
+        }).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results and percenage together
+      if (show && resultValues) {
+        //rendering percents
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 18;
+        }).attr('class', function (d) {
+          return 'text-second ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+
+        //rendering results
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', svgWidth / 2 + margin.left).attr('y', function (d) {
+          return (d.points[2].y - d.points[1].y) / 2 + d.points[1].y + margin.top + 3;
+        }).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+      //hover handling
+      if (hover) {
+        var handleMouseOver = function handleMouseOver(d) {
+          polygonsHover.style('opacity', 0.5);
+          labelHover.style('opacity', 0.5);
+          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
+          chart.selectAll('.' + thisLabel).style('opacity', 1);
+        };
+
+        var handleMouseOut = function handleMouseOut(d) {
+          polygonsHover.style('opacity', 1);
+          labelHover.style('opacity', 1);
+        };
+
+        var polygonsHover = chart.selectAll('polygon');
+        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+
+        var labelHover = chart.selectAll('text');
+        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+      }
+
+      // click to copy
+      if (utils && utils.clickToCopyToClipboard) {
+        var handleClickToCopy = function handleClickToCopy(data) {
+          var percent = data.percent,
+              result = data.result;
+
+          if (resultValues) {
+            (0, _copyToClipboard2.default)(result, d3.event);
+          } else if (show) {
+            (0, _copyToClipboard2.default)(percent, d3.event);
+          }
+        };
+
+        var label = chart.selectAll('text');
+
+        label.on('click', handleClickToCopy);
+      }
     }
-  });
-  self.data(head.concat(body));
-  return self;
-}
+  }, {
+    key: 'update',
+    value: function update() {
+      this.destroy();
+      this.render();
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      chartContainer.remove();
+    }
+  }]);
+
+  return Funnel3d;
+}();
+
+exports.default = Funnel3d;
 
 /***/ }),
 /* 46 */
@@ -5140,32 +5859,273 @@ function sortRows(str, comp) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.selectColumn = selectColumn;
-exports.selectRow = selectRow;
 
-var _each = __webpack_require__(0);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function selectColumn(q) {
-  var result = [];
-  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+var _d = __webpack_require__(2);
 
-  if (index > -1 && typeof this.matrix[0][index] !== 'undefined') {
-    (0, _each.each)(this.matrix, function (row, i) {
-      result.push(row[index]);
-    });
+var d3 = _interopRequireWildcard(_d);
+
+var _svgTextWrap = __webpack_require__(6);
+
+var _prettyNumber = __webpack_require__(3);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HorizontalFunnel = function () {
+  function HorizontalFunnel() {
+    _classCallCheck(this, HorizontalFunnel);
   }
-  return result;
-}
 
-function selectRow(q) {
-  var result = [];
-  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+  _createClass(HorizontalFunnel, [{
+    key: 'render',
+    value: function render() {
+      var matrix = this.dataset.matrix;
+      var _config = this.config,
+          colors = _config.colors,
+          container = _config.container,
+          labelMapping = _config.labelMapping,
+          colorMapping = _config.colorMapping,
+          utils = _config.utils;
 
-  if (index > -1 && typeof this.matrix[index] !== 'undefined') {
-    result = this.matrix[index];
-  }
-  return result;
-}
+      var opts = this.config;
+      var _config$funnel = this.config.funnel,
+          _config$funnel$percen = _config$funnel.percents,
+          show = _config$funnel$percen.show,
+          countingMethod = _config$funnel$percen.countingMethod,
+          decimals = _config$funnel$percen.decimals,
+          lines = _config$funnel.lines,
+          marginBetweenSteps = _config$funnel.marginBetweenSteps,
+          resultValues = _config$funnel.resultValues,
+          hover = _config$funnel.hover,
+          minimalSize = _config$funnel.minimalSize;
+
+      var margin = { top: 20, right: 30, bottom: 100, left: 10 };
+      var xMarginElement = 0;
+      if (marginBetweenSteps) {
+        xMarginElement = 5;
+      }
+      var funnelContainer = d3.select(container);
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      var chart = chartContainer.append('svg');
+      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
+      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
+      var elemWidth = svgWidth / (matrix.length - 1);
+      var prevElemHeight = svgHeight;
+      var percent = 100 .toFixed(decimals);
+
+      // prepare normal funnel polygons
+      var minimalSizeStep = 0;
+      if (minimalSize) {
+        minimalSizeStep = (svgHeight - minimalSize) / (matrix.length - 2);
+      }
+      var polygons = matrix.slice(1).map(function (d, i) {
+        var newPoints = [{
+          x: elemWidth * i + xMarginElement,
+          y: (svgHeight - prevElemHeight) / 2
+        }, {
+          x: elemWidth * i + xMarginElement,
+          y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
+        }];
+        if (i !== 0) {
+          if (countingMethod === 'relative') {
+            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = prevElemHeight * d[1] / matrix[i][1];
+            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
+          }
+          if (countingMethod === 'absolute') {
+            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = svgHeight * d[1] / matrix[1][1];
+            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
+          }
+        }
+        var label = d[0];
+        if (Object.keys(labelMapping).length) {
+          for (var key in labelMapping) {
+            if (labelMapping[key] === d[0]) {
+              label = key;
+            }
+          }
+        }
+        var result = d[1];
+        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
+          result = (0, _prettyNumber.prettyNumber)(d[1]);
+        }
+        return {
+          name: d[0],
+          label: label,
+          percent: percent + '%',
+          result: result,
+          points: [].concat(newPoints, [{
+            x: elemWidth * (i + 1),
+            y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
+          }, {
+            x: elemWidth * (i + 1),
+            y: (svgHeight - prevElemHeight) / 2
+          }])
+        };
+      });
+
+      //chart rendering with polygons
+      chart.attr('preserveAspectRatio', 'xMidYMid meet').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons).enter().append('polygon').attr('points', function (d) {
+        return d.points.map(function (p) {
+          return [p.x, p.y].join(',');
+        }).join(' ');
+      }).style('fill', function (d, i) {
+        if (colorMapping[d.label]) {
+          return colorMapping[d.label];
+        }
+        return colors[i];
+      }).attr('class', function (d) {
+        return d.label;
+      }).attr('cursor', 'pointer');
+
+      if (lines) {
+        //rendering lines
+        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', function (d) {
+          return d.points[0].x + margin.left - xMarginElement / 2;
+        }).attr('y1', svgHeight + margin.bottom).attr('x2', function (d) {
+          return d.points[0].x + margin.left - xMarginElement / 2;
+        }).attr('y2', function (d) {
+          return d.points[0].y + margin.top;
+        }).attr('class', 'chart-lines');
+
+        //rendering last line
+        chart.append('line').attr('x1', svgWidth + margin.left - xMarginElement / 2).attr('y1', svgHeight + margin.bottom).attr('x2', polygons[polygons.length - 1].points[3].x + margin.left + xMarginElement / 2).attr('y2', polygons[polygons.length - 1].points[3].y + margin.top).attr('class', 'chart-lines');
+      }
+
+      //rendering labels when lines are visible
+      if (lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2 + margin.left;
+        }).attr('y', svgHeight + margin.bottom * 0.5 + margin.top).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
+      }
+
+      //rendering labels when lines are not visible
+      if (!lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2 + margin.left;
+        }).attr('y', function (d) {
+          if (d.points[2].y + (d.points[3].y - d.points[0].y) / 2 + elemWidth / 4 > svgHeight + margin.bottom - 40 + margin.top) {
+            return svgHeight + margin.bottom - 40 + margin.top;
+          }
+          return d.points[2].y + (d.points[3].y - d.points[0].y) / 2 + elemWidth / 4 + margin.top;
+        }).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
+      }
+
+      //rendering percents for each step
+      if (show && !resultValues) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results for each step
+      if (resultValues && !show) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results and percenage together
+      if (show && resultValues) {
+        //rendering percents
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top + 16).attr('class', function (d) {
+          return 'text-second ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+
+        //rendering results
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top - 3).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+      //hover handling
+      if (hover) {
+        var handleMouseOver = function handleMouseOver(d) {
+          polygonsHover.style('opacity', 0.5);
+          labelHover.style('opacity', 0.5);
+          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
+          chart.selectAll('.' + thisLabel).style('opacity', 1);
+        };
+
+        var handleMouseOut = function handleMouseOut(d) {
+          polygonsHover.style('opacity', 1);
+          labelHover.style('opacity', 1);
+        };
+
+        var polygonsHover = chart.selectAll('polygon');
+        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+
+        var labelHover = chart.selectAll('text');
+        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+      }
+
+      // click to copy
+      if (utils && utils.clickToCopyToClipboard) {
+        var handleClickToCopy = function handleClickToCopy(data) {
+          var percent = data.percent,
+              result = data.result;
+
+          if (resultValues) {
+            (0, _copyToClipboard2.default)(result, d3.event);
+          } else if (show) {
+            (0, _copyToClipboard2.default)(percent, d3.event);
+          }
+        };
+
+        var label = chart.selectAll('text');
+
+        label.on('click', handleClickToCopy);
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      this.destroy();
+      this.render();
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      chartContainer.remove();
+    }
+  }]);
+
+  return HorizontalFunnel;
+}();
+
+exports.default = HorizontalFunnel;
 
 /***/ }),
 /* 47 */
@@ -5177,97 +6137,304 @@ function selectRow(q) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.insertColumn = insertColumn;
-exports.insertRow = insertRow;
 
-var _each = __webpack_require__(0);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _createNullList = __webpack_require__(8);
+var _d = __webpack_require__(2);
 
-var _createNullList2 = _interopRequireDefault(_createNullList);
+var d3 = _interopRequireWildcard(_d);
 
-var _append = __webpack_require__(9);
+var _svgTextWrap = __webpack_require__(6);
+
+var _prettyNumber = __webpack_require__(3);
+
+var _copyToClipboard = __webpack_require__(1);
+
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function insertColumn(index, str, input) {
-  var self = this;
-  var label = str !== undefined ? str : null;
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-  if (typeof input === 'function') {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    self.matrix[0].splice(index, 0, label);
-    (0, _each.each)(self.matrix, function (row, i) {
-      var cell;
-      if (i > 0) {
-        cell = input.call(self, row, i);
-        if (typeof cell === 'undefined') {
-          cell = null;
-        }
-        self.matrix[i].splice(index, 0, cell);
-      }
-    });
-  } else if (!input || input instanceof Array) {
-    input = input || [];
-
-    if (input.length <= self.matrix.length - 1) {
-      input = input.concat((0, _createNullList2.default)(self.matrix.length - 1 - input.length));
-    } else {
-      // If this new column is longer than existing columns,
-      // we need to update the rest to match ...
-      (0, _each.each)(input, function (value, i) {
-        if (self.matrix.length - 1 < input.length) {
-          _append.appendRow.call(self, String(self.matrix.length));
-        }
-      });
-    }
-
-    self.matrix[0].splice(index, 0, label);
-    (0, _each.each)(input, function (value, i) {
-      self.matrix[i + 1].splice(index, 0, value);
-    });
-  }
-  return self;
-}
-
-function insertRow(index, str, input) {
-  var self = this;
-  var newRow = [];
-  var label = str !== undefined ? str : null;
-  newRow.push(label);
-
-  if (typeof input === 'function') {
-    (0, _each.each)(self.matrix[0], function (label, i) {
-      var col = void 0;
-      var cell = void 0;
-      if (i > 0) {
-        col = self.selectColumn(i);
-        cell = input.call(self, col, i);
-        if (typeof cell === 'undefined') {
-          cell = null;
-        }
-        newRow.push(cell);
-      }
-    });
-    self.matrix.splice(index, 0, newRow);
-  } else if (!input || input instanceof Array) {
-    input = input || [];
-
-    if (input.length <= self.matrix[0].length - 1) {
-      input = input.concat((0, _createNullList2.default)(self.matrix[0].length - 1 - input.length));
-    } else {
-      (0, _each.each)(input, function (value, i) {
-        if (self.matrix[0].length - 1 < input.length) {
-          _append.appendColumn.call(self, String(self.matrix[0].length));
-        }
-      });
-    }
-
-    self.matrix.splice(index, 0, newRow.concat(input));
+var HorizontalFunnel3d = function () {
+  function HorizontalFunnel3d() {
+    _classCallCheck(this, HorizontalFunnel3d);
   }
 
-  return self;
-}
+  _createClass(HorizontalFunnel3d, [{
+    key: 'render',
+    value: function render() {
+      var matrix = this.dataset.matrix;
+      var _config = this.config,
+          colors = _config.colors,
+          container = _config.container,
+          labelMapping = _config.labelMapping,
+          colorMapping = _config.colorMapping,
+          utils = _config.utils;
+
+      var opts = this.config;
+      var _config$funnel = this.config.funnel,
+          _config$funnel$percen = _config$funnel.percents,
+          show = _config$funnel$percen.show,
+          countingMethod = _config$funnel$percen.countingMethod,
+          decimals = _config$funnel$percen.decimals,
+          lines = _config$funnel.lines,
+          resultValues = _config$funnel.resultValues,
+          effect3d = _config$funnel.effect3d,
+          hover = _config$funnel.hover,
+          minimalSize = _config$funnel.minimalSize;
+
+      var margin = { top: 20, right: 30, bottom: 100, left: 10 };
+      var funnelContainer = d3.select(container);
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      var chart = chartContainer.append('svg');
+      var svgWidth = funnelContainer.style('width').slice(0, -2) - margin.right - margin.left;
+      var svgHeight = funnelContainer.style('height').slice(0, -2) - margin.top - margin.bottom - 30;
+      var elemWidth = svgWidth / (matrix.length - 1);
+      var xMarginElement = elemWidth * 0.3;
+      var shadowCut = xMarginElement / 1.5;
+      var prevElemHeight = svgHeight;
+      var percent = 100 .toFixed(decimals);
+
+      // prepare normal funnel polygons
+      var minimalSizeStep = 0;
+      if (minimalSize) {
+        minimalSizeStep = (svgHeight - minimalSize) / (matrix.length - 2);
+      }
+      var polygons = matrix.slice(1).map(function (d, i) {
+        var newPoints = [{
+          x: elemWidth * i + xMarginElement,
+          y: (svgHeight - prevElemHeight) / 2
+        }, {
+          x: elemWidth * i + xMarginElement,
+          y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
+        }];
+        if (i !== 0) {
+          if (countingMethod === 'relative') {
+            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = prevElemHeight * d[1] / matrix[i][1];
+            percent = (d[1] / matrix[i][1] * 100).toFixed(decimals);
+          }
+          if (countingMethod === 'absolute') {
+            minimalSize ? prevElemHeight = prevElemHeight - minimalSizeStep : prevElemHeight = svgHeight * d[1] / matrix[1][1];
+            percent = (d[1] / matrix[1][1] * 100).toFixed(decimals);
+          }
+        }
+        var label = d[0];
+        if (Object.keys(labelMapping).length) {
+          for (var key in labelMapping) {
+            if (labelMapping[key] === d[0]) {
+              label = key;
+            }
+          }
+        }
+        var result = d[1];
+        if ((typeof opts['prettyNumber'] === 'undefined' || opts['prettyNumber'] === true) && !isNaN(parseInt(d[1]))) {
+          result = (0, _prettyNumber.prettyNumber)(d[1]);
+        }
+        return {
+          name: d[0],
+          label: label,
+          percent: percent + '%',
+          result: result,
+          points: [].concat(newPoints, [{
+            x: elemWidth * (i + 1),
+            y: (svgHeight - prevElemHeight) / 2 + prevElemHeight
+          }, {
+            x: elemWidth * (i + 1),
+            y: (svgHeight - prevElemHeight) / 2
+          }])
+        };
+      });
+
+      //funnel shadows preparing
+      var polygonsShadows = polygons.map(function (d, i) {
+        return {
+          label: d.label,
+          points: [{
+            x: d.points[0].x,
+            y: d.points[0].y
+          }, {
+            x: d.points[1].x,
+            y: d.points[1].y
+          }, {
+            x: effect3d === 'top' ? d.points[1].x : d.points[1].x - shadowCut,
+            y: effect3d === 'top' ? d.points[1].y : d.points[1].y - xMarginElement < svgHeight / 2 ? svgHeight / 2 + 5 : d.points[1].y - xMarginElement
+          }, {
+            x: effect3d === 'bottom' ? d.points[0].x : d.points[0].x - shadowCut,
+            y: effect3d === 'bottom' ? d.points[0].y : d.points[0].y + xMarginElement > svgHeight / 2 ? svgHeight / 2 - 5 : d.points[0].y + xMarginElement
+          }]
+        };
+      });
+
+      //connecting funnels with shadows for rendering
+      var polygons3d = polygons.concat(polygonsShadows);
+
+      //chart rendering with polygons
+      chart.attr('preserveAspectRatio', 'xMidYMid meet').attr('viewBox', '0 0 ' + (svgWidth + margin.left + margin.right) + ' ' + (svgHeight + margin.top + margin.bottom - 30)).attr('height', '100%').attr('width', '100%').append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').selectAll('polygon').data(polygons3d).enter().append('polygon').attr('points', function (d) {
+        return d.points.map(function (p) {
+          return [p.x, p.y].join(',');
+        }).join(' ');
+      }).style('fill', function (d, i) {
+        if (i > polygons.length - 1) {
+          if (colorMapping[d.label]) {
+            return d3.rgb(colorMapping[d.label]).darker(1.5);
+          }
+          return d3.rgb(colors[i - polygons.length]).darker(1.5);
+        }
+        if (colorMapping[d.label]) {
+          return colorMapping[d.label];
+        }
+        return colors[i];
+      }).attr('class', function (d) {
+        return d.label;
+      }).attr('cursor', 'pointer');
+
+      if (lines) {
+        //rendering lines
+        chart.selectAll('line').data(polygons).enter().append('line').attr('x1', function (d) {
+          return d.points[0].x + margin.left - xMarginElement * 0.8;
+        }).attr('y1', svgHeight + margin.bottom).attr('x2', function (d) {
+          return d.points[0].x + margin.left - xMarginElement * 0.8;
+        }).attr('y2', function (d) {
+          return d.points[0].y + margin.top;
+        }).attr('class', 'chart-lines');
+
+        //rendering last line
+        chart.append('line').attr('x1', svgWidth + margin.left + xMarginElement / 4).attr('y1', svgHeight + margin.bottom).attr('x2', polygons[polygons.length - 1].points[3].x + margin.left + xMarginElement / 4).attr('y2', polygons[polygons.length - 1].points[3].y + margin.top).attr('class', 'chart-lines');
+      }
+
+      //rendering labels when lines are visible
+      if (lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[0].x + margin.left + elemWidth * 0.25;
+        }).attr('y', svgHeight + margin.bottom * 0.4 + margin.top).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
+      }
+
+      //rendering labels when lines are not visible
+      if (!lines) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[0].x + margin.left + elemWidth * 0.25;
+        }).attr('y', function (d) {
+          if (d.points[2].y + elemWidth / 4 > svgHeight + margin.bottom - 40) {
+            return svgHeight + margin.bottom - 40 + margin.top;
+          }
+          if (d.points[2].y + elemWidth / 4 < d.points[1].y) {
+            return d.points[1].y + 20 + margin.top;
+          }
+          return d.points[2].y + elemWidth / 4 + 10 + margin.top;
+        }).attr('class', function (d) {
+          return 'text-label ' + d.label;
+        }).text(function (d) {
+          return d.name;
+        }).call(_svgTextWrap.textWrap, elemWidth).attr('cursor', 'pointer');
+      }
+
+      //rendering percents for each step
+      if (show && !resultValues) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2.8 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results for each step
+      if (resultValues && !show) {
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2.8 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top + 10).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+
+      //rendering results and percenage together
+      if (show && resultValues) {
+        //rendering percents
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2.8 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top + 16).attr('class', function (d) {
+          return 'text-second ' + d.label;
+        }).text(function (d) {
+          return d.percent;
+        }).attr('cursor', 'pointer');
+
+        //rendering results
+        chart.selectAll('text.label').data(polygons).enter().append('text').style('text-anchor', 'middle').attr('x', function (d) {
+          return d.points[1].x + elemWidth / 2.8 + margin.left;
+        }).attr('y', svgHeight / 2 + margin.top - 3).attr('class', function (d) {
+          return 'text-main ' + d.label;
+        }).text(function (d) {
+          return d.result;
+        }).attr('cursor', 'pointer');
+      }
+
+      //hover handling
+      if (hover) {
+        var handleMouseOver = function handleMouseOver(d) {
+          polygonsHover.style('opacity', 0.5);
+          labelHover.style('opacity', 0.5);
+          var thisLabel = /[^ ]*$/.exec(d3.select(this).attr('class'))[0];
+          chart.selectAll('.' + thisLabel).style('opacity', 1);
+        };
+
+        var handleMouseOut = function handleMouseOut(d) {
+          polygonsHover.style('opacity', 1);
+          labelHover.style('opacity', 1);
+        };
+
+        var polygonsHover = chart.selectAll('polygon');
+        polygonsHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+
+        var labelHover = chart.selectAll('text');
+        labelHover.on("mouseover", handleMouseOver).on("mouseout", handleMouseOut);
+      }
+
+      // click to copy
+      if (utils && utils.clickToCopyToClipboard) {
+        var handleClickToCopy = function handleClickToCopy(data) {
+          var percent = data.percent,
+              result = data.result;
+
+          if (resultValues) {
+            (0, _copyToClipboard2.default)(result, d3.event);
+          } else if (show) {
+            (0, _copyToClipboard2.default)(percent, d3.event);
+          }
+        };
+
+        var label = chart.selectAll('text');
+
+        label.on('click', handleClickToCopy);
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      this.destroy();
+      this.render();
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      var chartContainer = d3.select(this.el().querySelector('.' + this.config.theme + '-rendering .c3-chart'));
+      chartContainer.remove();
+    }
+  }]);
+
+  return HorizontalFunnel3d;
+}();
+
+exports.default = HorizontalFunnel3d;
 
 /***/ }),
 /* 48 */
@@ -5279,45 +6446,163 @@ function insertRow(index, str, input) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.filterColumns = filterColumns;
-exports.filterRows = filterRows;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /* eslint-env browser */
+
+
+var _c = __webpack_require__(9);
+
+var _c2 = _interopRequireDefault(_c);
 
 var _each = __webpack_require__(0);
 
-function filterColumns(fn) {
-  var self = this;
-  var clone = [];
+var _prettyNumber = __webpack_require__(3);
 
-  (0, _each.each)(self.matrix, function (row, i) {
-    clone.push([]);
-  });
+var _copyToClipboard = __webpack_require__(1);
 
-  (0, _each.each)(self.matrix[0], function (col, i) {
-    var selectedColumn = self.selectColumn(i);
-    if (i == 0 || fn.call(self, selectedColumn, i)) {
-      (0, _each.each)(selectedColumn, function (cell, ri) {
-        clone[ri].push(cell);
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MetricCombo = function () {
+  function MetricCombo() {
+    _classCallCheck(this, MetricCombo);
+  }
+
+  _createClass(MetricCombo, [{
+    key: 'render',
+    value: function render() {
+      var _this = this;
+
+      var _config = this.config,
+          container = _config.container,
+          metricResults = _config.metricResults,
+          title = _config.title,
+          tooltip = _config.tooltip,
+          utils = _config.utils;
+
+
+      var colors = ['#c3c4cc'];
+      var columns = [];
+      columns[0] = [];
+      (0, _each.each)(this.dataset.selectColumn(0), function (c, i) {
+        var cell = void 0;
+        if (i > 0) {
+          cell = new Date(c);
+        }
+        columns[0][i] = cell;
       });
+      columns[0][0] = 'x';
+
+      (0, _each.each)(this.data()[0], function (c, i) {
+        if (i > 0) {
+          columns.push(_this.dataset.selectColumn(i));
+        }
+      });
+
+      var prevResult = metricResults && metricResults.previous && metricResults.previous.result || 0;
+      var currResult = metricResults && metricResults.current && metricResults.current.result || 0;
+      var count = currResult - prevResult;
+      var percentDifference = prevResult === 0 ? '-' : (0, _prettyNumber.prettyNumber)(Math.round(count / prevResult * 100));
+      var labelClass = 'keen-dataviz-metric-green';
+      var iconClass = 'arrow-green';
+
+      if (percentDifference < 0) {
+        labelClass = 'keen-dataviz-metric-red';
+        iconClass = 'arrow-red';
+      }
+
+      var containerTitle = this.config.showTitle && title ? '<div class="keen-dataviz-title">' + title + '</div>' : '';
+      var containerElement = document.querySelector(container);
+      containerElement.innerHTML = '\n      <div class="keen-dataviz">\n        <div class="keen-dataviz-metric-combo">\n          <div class="metric-combo-data">\n            ' + containerTitle + ' \n            <div class="percent-difference ' + labelClass + '"><div class="' + iconClass + '"></div> ' + percentDifference + ' %</div>\n            <div class="current-count ' + labelClass + '"> ' + (0, _prettyNumber.prettyNumber)(count) + ' </div>\n          </div>\n          <div class="keen-dataviz-rendering">\n            <div class="c3-chart"></div>\n          </div>\n        </div>\n      </div>';
+      var chartRoot = containerElement.querySelector('.c3-chart');
+      var chart = _c2.default.generate({
+        bindto: chartRoot,
+        color: {
+          pattern: colors
+        },
+        title: title,
+        legend: {
+          show: false
+        },
+        data: {
+          x: 'x',
+          columns: columns,
+          type: 'area-spline',
+          selection: {
+            draggable: false,
+            enabled: true,
+            multiple: true
+          }
+        },
+        point: {
+          r: 0,
+          focus: {
+            expand: {
+              r: 5,
+              enabled: true
+            }
+          },
+          select: {
+            r: 5,
+            enabled: true
+          }
+        },
+        axis: {
+          y: {
+            show: false
+          },
+          x: {
+            show: false
+          }
+        },
+        grid: {
+          x: {
+            show: false
+          },
+          y: {
+            show: false
+          }
+        },
+        padding: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: -4
+        },
+        tooltip: tooltip
+      });
+
+      if (utils && utils.clickToCopyToClipboard) {
+        var currentCount = document.querySelector('.current-count').innerText;
+        document.querySelector('.keen-dataviz-metric-combo').addEventListener('click', function (e) {
+          return (0, _copyToClipboard2.default)(currentCount, e);
+        });
+      }
     }
-  });
-
-  self.data(clone);
-  return self;
-}
-
-function filterRows(fn) {
-  var self = this;
-  var clone = [];
-
-  (0, _each.each)(self.matrix, function (row, i) {
-    if (i == 0 || fn.call(self, row, i)) {
-      clone.push(row);
+  }, {
+    key: 'update',
+    value: function update() {
+      this.destroy();
+      this.render();
     }
-  });
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      var container = this.config.container;
 
-  self.data(clone);
-  return self;
-}
+      var containerElement = document.querySelector(container);
+      var chartContainer = containerElement.querySelector('.c3-chart');
+      chartContainer.remove();
+    }
+  }]);
+
+  return MetricCombo;
+}();
+
+exports.default = MetricCombo;
 
 /***/ }),
 /* 49 */
@@ -5329,30 +6614,77 @@ function filterRows(fn) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteColumn = deleteColumn;
-exports.deleteRow = deleteRow;
+exports.default = renderExecutionMetadata;
 
-var _each = __webpack_require__(0);
+var _copyToClipboard = __webpack_require__(1);
 
-function deleteColumn(q) {
-  var self = this;
-  var index = typeof q === 'number' ? q : this.matrix[0].indexOf(q);
+var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 
-  if (index > -1) {
-    (0, _each.each)(self.matrix, function (row, i) {
-      self.matrix[i].splice(index, 1);
-    });
-  }
-  return self;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function removeClassWithTimeOut(element) {
+  var className = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'copied';
+  var ms = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
+
+  setTimeout(function () {
+    element.classList.remove(className);
+  }, ms);
 }
 
-function deleteRow(q) {
-  var index = typeof q === 'number' ? q : this.selectColumn(0).indexOf(q);
+function handleCopyToClipboard(event) {
+  var target = event.target,
+      nodeName = event.target.nodeName;
 
-  if (index > -1) {
-    this.matrix.splice(index, 1);
+
+  var value = void 0;
+  if (nodeName === 'DD') {
+    value = target.innerText;
+    if (!target.classList.contains('copied')) {
+      target.classList.add('copied');
+      removeClassWithTimeOut(target);
+    }
   }
-  return this;
+  if (nodeName === 'DT') {
+    value = target.nextSibling.innerText;
+    if (!target.nextSibling.classList.contains('copied')) {
+      target.nextSibling.classList.add('copied');
+      removeClassWithTimeOut(target.nextSibling);
+    }
+  }
+
+  (0, _copyToClipboard2.default)(value);
+}
+
+function renderExecutionMetadata() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      element = _ref.element,
+      data = _ref.data;
+
+  var dataList = document.createElement('dl');
+  dataList.classList = 'keen-dataviz-execution-meta';
+
+  if (Object.keys(data).length) {
+    Object.keys(data).forEach(function (item) {
+      var dt = document.createElement('dt');
+      dt.innerText = item.replace(/_/g, ' ');
+      dt.addEventListener('click', function (e) {
+        return handleCopyToClipboard(e);
+      });
+
+      var dd = document.createElement('dd');
+      dd.innerText = data[item];
+      dd.addEventListener('click', function (e) {
+        return handleCopyToClipboard(e);
+      });
+
+      dataList.append(dt);
+      dataList.append(dd);
+    });
+  } else {
+    dataList.innerText = 'No execution metadata available';
+  }
+
+  element.append(dataList);
 }
 
 /***/ }),
@@ -5365,1035 +6697,74 @@ function deleteRow(q) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Dataset = exports.Dataviz = undefined;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _autocollector = __webpack_require__(51);
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _autocollector2 = _interopRequireDefault(_autocollector);
 
-var _dataset = __webpack_require__(15);
+var _modern = __webpack_require__(52);
 
-Object.defineProperty(exports, 'Dataset', {
-  enumerable: true,
-  get: function get() {
-    return _dataset.Dataset;
-  }
-});
+var _modern2 = _interopRequireDefault(_modern);
 
-var _d = __webpack_require__(1);
+var _dracula = __webpack_require__(53);
 
-var d3 = _interopRequireWildcard(_d);
-
-var _c = __webpack_require__(7);
-
-var _c2 = _interopRequireDefault(_c);
-
-var _package = __webpack_require__(40);
-
-var _package2 = _interopRequireDefault(_package);
-
-var _data = __webpack_require__(39);
-
-var _data2 = _interopRequireDefault(_data);
-
-var _each = __webpack_require__(0);
-
-var _assertDateString = __webpack_require__(6);
-
-var _assertDateString2 = _interopRequireDefault(_assertDateString);
-
-var _stripHtmlTags = __webpack_require__(13);
-
-var _escapeHtml = __webpack_require__(3);
-
-var _libraries = __webpack_require__(38);
-
-var _libraries2 = _interopRequireDefault(_libraries);
-
-var _extendDeep = __webpack_require__(12);
-
-var _exportSvg = __webpack_require__(10);
-
-var _exportSvg2 = _interopRequireDefault(_exportSvg);
-
-var _renderDownloadBtn = __webpack_require__(11);
-
-var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
-
-var _index = __webpack_require__(20);
-
-var _index2 = _interopRequireDefault(_index);
+var _dracula2 = _interopRequireDefault(_dracula);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /* eslint-env browser */
-
-
-// Utils
-
-
-// Constructor
-var Dataviz = exports.Dataviz = function Dataviz() {
-  var _defaultOptions;
-
-  var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-  if (this instanceof Dataviz === false) {
-    return new Dataviz(options);
-  }
-
-  this.c3 = _c2.default; // expose for use outside
-  this.d3 = d3;
-
-  var datavizInstance = this;
-  var defaultOptions = (_defaultOptions = {
-    showDeprecationWarnings: true,
-    showLoadingSpinner: false,
-
-    container: undefined, // querySelector of container, for example '#someDiv'
-    containerElement: undefined, // HTML parent element for the chart
-
-    // width: undefined, *deprecated* - use CSS
-    // height: undefined, *deprecated* - use CSS
-
-    title: undefined,
-    showTitle: true,
-
-    notes: undefined,
-    theme: 'keen-dataviz',
-
-    colors: ['#00bbde', '#fe6672', '#eeb058', '#8a8ad6', '#ff855c', '#00cfbb', '#5a9eed', '#73d483', '#c879bb', '#0099b6', '#d74d58', '#cb9141', '#6b6bb6', '#d86945', '#00aa99', '#4281c9', '#57b566', '#ac5c9e', '#27cceb', '#ff818b', '#f6bf71', '#9b9be1', '#ff9b79', '#26dfcd', '#73aff4', '#87e096', '#d88bcb'],
-
-    colorMapping: {},
-    ui: {},
-
-    indexBy: 'timeframe.start',
-    labels: [],
-    labelMapping: {},
-    labelMappingRegExp: undefined,
-    errorMapping: {},
-    showErrorMessages: true,
-    library: 'default',
-    sortGroups: undefined,
-    sortIntervals: undefined,
-
-    results: undefined, // raw data
-
-    // C3 chartOptions
-    type: undefined,
-    stacked: false,
-    dateFormat: undefined,
-    legend: {
-      show: true,
-      position: 'right',
-      label: {
-        textMaxLength: 12
-      },
-      pagination: {
-        offset: 0, // start from
-        limit: 5 // items per page
-      },
-      tooltip: {
-        show: true,
-        pointer: true
-      },
-      sort: undefined
-    },
-
-    axis: {},
-    color: {},
-    data: {
-      order: null
-    },
-    size: {
-      // control it with CSS of .c3-chart
-    },
-    padding: {
-      top: 15
-    },
-    point: {
-      focus: {
-        expand: {
-          enabled: false
-        }
-      },
-      r: 2,
-      show: true
-    },
-    tooltip: {
-      format: {
-        // https://c3js.org/samples/tooltip_format.html
-      }
-    },
-    transition: {
-      // duration: 0
-    }
-  }, _defineProperty(_defaultOptions, 'data', {
-    selection: {
-      enabled: true,
-      draggable: true,
-      multiple: true
-    }
-  }), _defineProperty(_defaultOptions, 'grid', {
-    y: {
-      show: true
-    }
-  }), _defineProperty(_defaultOptions, 'partialIntervalIndicator', {
-    show: undefined,
-    className: 'partial-interval-indicator'
-  }), _defineProperty(_defaultOptions, 'timezone', 'UTC'), _defineProperty(_defaultOptions, 'table', {
-    schema: 'static'
-  }), _defineProperty(_defaultOptions, 'renderOnVisible', false), _defineProperty(_defaultOptions, 'funnel', {
-    lines: true,
-    resultValues: true,
-    percents: {
-      show: false,
-      countingMethod: 'absolute',
-      decimals: 0
-    },
-    marginBetweenElements: false,
-    hover: true,
-    effect3d: 'both-sides',
-    minimalSize: false
-  }), _defineProperty(_defaultOptions, 'react', false), _defineProperty(_defaultOptions, 'range', false), _defineProperty(_defaultOptions, 'sparkline', false), _defaultOptions);
-
-  this.config = _extends({}, (0, _extendDeep.extendDeep)(defaultOptions, options));
-
-  if (options.palette) {
-    if (!_index2.default[options.palette]) {
-      console.log('Colors pallete not found', options.palette);
-    }
-    this.config.colors = _index2.default[options.palette].colors;
-  }
-
-  if (this.config.type) {
-    // backward compatibility with v2016... areachart -> area
-    this.config.type = convertChartTypes(this.config.type);
-  }
-
-  // overwriting options for range chart
-  if (this.config.type && this.config.type.includes('-range')) {
-    this.config.range = true;
-    this.config.type = this.config.type.replace('-range', '');
-    this.config.legend.show = false;
-    this.config.stacking = 'normal';
-    this.config.labels = ['Max', 'Min'];
-    this.config.colors = [this.config.colors[0], this.config.colors[0]];
-  }
-
-  // overwriting stacked when stacking added
-  if (this.config.stacking) {
-    this.config.stacked = true;
-  }
-
-  // overwriting options for sparkline chart
-  if (this.config.sparkline) {
-    this.config.legend.show = false;
-    this.config.axis = {
-      x: {
-        show: false
-      },
-      y: {
-        show: false
-      }
-    };
-    this.config.grid = {
-      x: {
-        show: false
-      },
-      y: {
-        show: false
-      }
-    };
-  }
-
-  // get DOM node by query
-  if (this.config.container) {
-    this.el(this.config.container);
-  }
-
-  if (options.legend !== undefined && !options.legend) {
-    this.config.legend = _extends({}, options, {
-      show: false
-    });
-  }
-
-  if (options.color && options.color.pattern) {
-    // to match c3 options
-    this.config.colors = options.color.pattern;
-  }
-
-  if (this.config.legend && this.config.legend.tooltip && this.config.legend.tooltip.show === false && this.config.tooltip.show === undefined) {
-    this.config.tooltip = { show: false };
-  }
-
-  this.dataset = new _dataset.Dataset(this.config);
-  this.view = {
-    _prepared: false,
-    _rendered: false,
-    _artifacts: {/* state bin */}
-  };
-
-  Dataviz.visuals.push(this);
-
-  if (this.config.showLoadingSpinner) {
-    this.prepare();
-  }
-
-  if (!!this.config.results) {
-    this.render(this.config.results);
-  }
-  this.config.firstVisibilityState = document.visibilityState;
+exports.default = {
+  autocollector: _autocollector2.default,
+  modern: _modern2.default,
+  dracula: _dracula2.default
 };
-
-Dataviz.libraries = { default: {} };
-if (typeof window !== 'undefined') {
-  Dataviz.libraries.default = (0, _libraries2.default)(Dataviz);
-}
-Dataviz.visuals = [];
-
-Dataviz.register = function (name, actions) {
-  Dataviz.libraries[name] = Dataviz.libraries[name] || {};
-  (0, _each.each)(actions, function (method, key) {
-    Dataviz.libraries[name][key] = method;
-  });
-};
-
-Dataviz.find = function (target) {
-  if (!arguments.length) return Dataviz.visuals;
-  var el = target.nodeName ? target : document.querySelector(target);
-  var match = null;
-  (0, _each.each)(Dataviz.visuals, function (visual) {
-    if (el == visual.config.container) {
-      match = visual;
-      return false;
-    }
-  });
-  return match;
-};
-
-// Prototype
-// ------------
-
-Dataviz.prototype.attributes = function (obj) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.attributes() is deprecated. Use: new KeenDataviz({ _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config;
-  var view = this.config;
-  (0, _each.each)(obj, function (prop, key) {
-    // Handle deprecated property names
-    if (key === 'chartType') {
-      key = 'type';
-    }
-    view[key] = prop;
-  });
-  return this;
-};
-
-Dataviz.prototype.call = function (fn) {
-  fn.call(this);
-  return this;
-};
-
-Dataviz.prototype.chartOptions = function (obj) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.chartOptions() is deprecated. Use: new KeenDataviz({ _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config;
-  this.config = (0, _extendDeep.extendDeep)(this.config, obj);
-  return this;
-};
-
-Dataviz.prototype.colors = function (arr) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.colors() is deprecated. Use: new KeenDataviz({ colors: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.colors;
-  this.config.colors = arr instanceof Array ? arr : [];
-  return this;
-};
-
-Dataviz.prototype.colorMapping = function (obj) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.colorMapping() is deprecated. Use: new KeenDataviz({ colorMapping: _your_value_here_ })');
-  }
-  var datavizInstance = this;
-  if (!arguments.length) return this.config.colorMapping;
-  if (obj === null) {
-    this.config.colorMapping = {};
-  } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-    (0, _each.each)(obj, function (value, key) {
-      datavizInstance.config.colorMapping[key] = value ? value : null;
-    });
-  }
-  return this;
-};
-
-Dataviz.prototype.data = _data2.default;
-
-Dataviz.prototype.dateFormat = function (val) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.dateFormat() is deprecated. Use: new KeenDataviz({ dateFormat: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.dateFormat;
-  if (typeof val === 'string' || typeof val === 'function') {
-    this.config.dateFormat = val;
-  } else {
-    this.config.dateFormat = undefined;
-  }
-  return this;
-};
-
-Dataviz.prototype.destroy = function () {
-  var library = this.library();
-  var type = this.config.type;
-  var element = this.el();
-
-  // Call destroy method if present
-  if (Dataviz.libraries[library] && Dataviz.libraries[library][type]) {
-    Dataviz.libraries[library][type].destroy.call(this);
-  }
-
-  // Clear rendered artifacts, state bin
-  if (element) {
-    element.innerHTML = '';
-  }
-  this.view._prepared = false;
-  this.view._rendered = false;
-  this.view._artifacts = {};
-  return this;
-};
-
-Dataviz.prototype.el = function (target) {
-  var datavizInstance = this;
-  if (!arguments.length) return this.config.containerElement;
-  domReady(function () {
-    if (target && target !== null) {
-      if (target.nodeName) {
-        datavizInstance.config.containerElement = target;
-      } else if (document.querySelector) {
-        datavizInstance.config.containerElement = document.querySelector(target);
-      }
-    } else {
-      datavizInstance.config.containerElement = undefined;
-    }
-  });
-  return this;
-};
-
-Dataviz.prototype.height = function (num) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.height() is deprecated - use CSS classes');
-  }
-  return this;
-};
-
-// IMPORTANT: Must be run before data parsing
-Dataviz.prototype.indexBy = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.indexBy() is deprecated. Use: new KeenDataviz({ indexBy: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.indexBy;
-  this.config.indexBy = str ? String(str) : 'timeframe.start';
-  return this;
-};
-
-Dataviz.prototype.labels = function (arr) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.labels() is deprecated. Use: new KeenDataviz({ labels: _your_value_here_ })');
-  }
-
-  if (!arguments.length) return this.config.labels;
-  this.config.labels = arr instanceof Array ? arr : [];
-
-  setLabels(this);
-
-  return this;
-};
-
-function setLabels(datavizInstance) {
-  // Write labels
-  if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
-    datavizInstance.dataset.updateColumn(0, function (value, index) {
-      if (datavizInstance.config.labels[index - 1]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labels[index - 1]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
-    }.bind(datavizInstance));
-  } else {
-    datavizInstance.dataset.updateRow(0, function (value, index) {
-      if (index > 0 && datavizInstance.config.labels[index - 1]) {
-        return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labels[index - 1]));
-      }
-      return (0, _stripHtmlTags.stripHtmlTags)(value);
-    }.bind(datavizInstance));
-  }
-}
-
-Dataviz.prototype.labelMapping = function (obj) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.labelMapping() is deprecated. Use: new KeenDataviz({ labelMapping: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.labelMapping;
-  if (obj === null) {
-    this.config.labelMapping = {};
-  } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-    (0, _each.each)(obj, function (value, key) {
-      this.config.labelMapping[key] = value ? value : null;
-    }.bind(this));
-  }
-
-  mapLabels(this);
-
-  return this;
-};
-
-function mapLabelsExec(_ref) {
-  var datavizInstance = _ref.datavizInstance,
-      value = _ref.value;
-
-  if (datavizInstance.config.labelMappingRegExp) {
-    var valueAfterMatching = value;
-    datavizInstance.config.labelMappingRegExp.forEach(function (regExpAndLabel) {
-      if (regExpAndLabel.length > 1) {
-        var regExpObj = regExpAndLabel[0];
-        if (regExpObj.test(value)) {
-          valueAfterMatching = regExpAndLabel[1];
-        }
-      }
-    });
-    return (0, _stripHtmlTags.stripHtmlTags)(valueAfterMatching);
-  }
-  if (datavizInstance.config.labelMapping[value]) {
-    return (0, _stripHtmlTags.stripHtmlTags)(String(datavizInstance.config.labelMapping[value]));
-  }
-  return (0, _stripHtmlTags.stripHtmlTags)(value);
-}
-
-function mapLabels(datavizInstance) {
-  // Write labels
-  if (!datavizInstance.config.labelMappingDimension) {
-    // if not defined use deprecated auto-detecting
-    if (datavizInstance.data()[0].length === 2 && !(0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
-      datavizInstance.config.labelMappingDimension = 'row';
-    } else {
-      datavizInstance.config.labelMappingDimension = 'column';
-    }
-  }
-
-  if (datavizInstance.config.labelMappingDimension === 'row' || datavizInstance.config.labelMappingDimension === 'both') {
-    datavizInstance.dataset.updateColumn(0, function (value) {
-      return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
-    }.bind(datavizInstance));
-  }
-
-  if (datavizInstance.config.labelMappingDimension === 'column' || datavizInstance.config.labelMappingDimension === 'both') {
-    datavizInstance.dataset.updateRow(0, function (value) {
-      return mapLabelsExec({ datavizInstance: datavizInstance, value: value });
-    }.bind(datavizInstance));
-  }
-}
-
-Dataviz.prototype.library = function (str) {
-  if (!arguments.length) return this.config['library'];
-  this.config['library'] = str ? String(str) : null;
-  return this;
-};
-
-Dataviz.prototype.message = function () {
-  if (this.view._rendered) {
-    this.destroy();
-  }
-  if (this.el()) {
-    this.el().innerHTML = '';
-    var message = Dataviz.libraries.default.message;
-    if (message.render) {
-      message.render.apply(this, arguments);
-    }
-  }
-  return this;
-};
-
-Dataviz.prototype.notes = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.notes() is deprecated. Use: new KeenDataviz({ notes: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.notes;
-  this.config.notes = str ? String(str) : null;
-  return this;
-};
-
-Dataviz.prototype.prepare = function () {
-  var datavizInstance = this;
-
-  if (!this.el()) {
-    throw this.config.container + ' not found. A DOM parent element is required to mount the chart.';
-    return;
-  }
-
-  domReady(function () {
-    if (datavizInstance.view._rendered) {
-      datavizInstance.destroy();
-    }
-    if (datavizInstance.el()) {
-      datavizInstance.el().innerHTML = '';
-      var loader = Dataviz.libraries.default.spinner;
-      if (loader.render) {
-        loader.render.call(datavizInstance);
-      }
-      datavizInstance.view._prepared = true;
-    }
-  });
-
-  return this;
-};
-
-Dataviz.prototype.render = function () {
-  var _this = this;
-
-  var results = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-  var datavizInstance = this;
-
-  if (!!results) {
-    var firstResult = results[0] || results;
-    if (firstResult.query && firstResult.query.interval && firstResult.query.timeframe && typeof firstResult.query.timeframe === 'string' && firstResult.query.timeframe.includes('this_') && this.config.partialIntervalIndicator && this.config.partialIntervalIndicator.show === undefined) {
-      this.config.partialIntervalIndicator.show = true;
-    }
-
-    if (Array.isArray(results)) {
-      var timeframes = results.map(function (resultItem) {
-        return resultItem.query.timeframe;
-      });
-      timeframes.forEach(function (resultTimeframe) {
-        var foundDifferent = timeframes.find(function (timeframeItem) {
-          return JSON.stringify(timeframeItem) !== JSON.stringify(resultTimeframe);
-        });
-        if (foundDifferent) {
-          var msg = 'Timeframes of the queries should be the same';
-          console.error(msg);
-          throw msg;
-        }
-      });
-      // first result is important to prepare X on the chart
-      return datavizInstance.data(results[0]).call(function () {
-        var getLabel = function getLabel(input) {
-          return input.query.event_collection + ' ' + input.query.analysis_type;
-        };
-        var label = getLabel(results[0]);
-        if (datavizInstance.config.labelMapping[label]) {
-          label = datavizInstance.config.labelMapping[label];
-        }
-        _this.dataset.deleteColumn(1);
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = results[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var result = _step.value;
-
-            label = getLabel(result);
-            var ds2 = _dataset.Dataset.parser('interval')(result);
-            datavizInstance.dataset.appendColumn(label, ds2.selectColumn(1).slice(1));
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-      }).render();
-    }
-
-    return datavizInstance.data(results).render();
-  }
-  if (!!this.config.labelMapping && Object.keys(this.config.labelMapping).length > 0 || !!this.config.labelMappingRegExp && this.config.labelMappingRegExp.length > 0) {
-    mapLabels(datavizInstance);
-  }
-  if (!!this.config.labels && Object.keys(this.config.labels).length > 0) {
-    setLabels(datavizInstance);
-  }
-  if (!!this.config.sortGroups) {
-    sortGroups(datavizInstance);
-  }
-  if (!!this.config.sortIntervals) {
-    sortIntervals(datavizInstance);
-  }
-
-  var loader = Dataviz.libraries.default.spinner;
-  var library = this.config.library;
-  var type = this.config.type;
-  var containerElement = this.el();
-
-  if (!containerElement || containerElement === undefined) {
-    var msg = this.config.container + ' not found. A DOM parent element is required to mount the chart.';
-    console.error(msg);
-    throw msg;
-    return;
-  }
-
-  var returnValue = datavizInstance;
-
-  if (datavizInstance.config.renderAsPromise) {
-    returnValue = new Promise(function (resolve, reject) {
-      var customCallback = _this.config.onrendered;
-      datavizInstance.config.onrendered = function () {
-        if (customCallback) {
-          customCallback();
-        }
-        resolve(datavizInstance);
-      };
-    });
-  }
-
-  domReady(function () {
-    var shouldRenderDownloadBtn = datavizInstance.config.ui && datavizInstance.config.ui.buttons && datavizInstance.config.ui.buttons.download && datavizInstance.config.ui.buttons.download.type;
-    if (datavizInstance.view._prepared && loader.destroy) {
-      loader.destroy.apply(datavizInstance, arguments);
-    }
-    containerElement.innerHTML = '';
-
-    if (Dataviz.libraries[library] === 'undefined') {
-      // Error: Unregistered library
-      var _msg = 'Incorrect library';
-      datavizInstance.message(_msg);
-      throw _msg;
-      return;
-    } else {
-      if (typeof Dataviz.libraries[library][type] === 'undefined') {
-        var _msg2 = 'Incorrect chart type';
-        var mappedMsg = this.config.errorMapping[_msg2] || _msg2;
-        datavizInstance.message(mappedMsg);
-        throw _msg2;
-        return;
-      } else {
-        buildDomWrapper(containerElement, datavizInstance.config);
-        if (shouldRenderDownloadBtn) {
-          (0, _renderDownloadBtn2.default)({
-            element: containerElement,
-            data: datavizInstance.dataset.matrix,
-            type: datavizInstance.config.ui.buttons.download.type,
-            label: datavizInstance.config.ui.buttons.download.label
-          });
-        }
-        var renderOnVisible = datavizInstance.config.renderOnVisible;
-
-        if (renderOnVisible) {
-          if (typeof IntersectionObserver !== 'undefined') {
-            var chartVisibleCallback = function chartVisibleCallback(events, observer) {
-              events.forEach(function (el) {
-                if (el.isIntersecting) {
-                  if (!datavizInstance.view._rendered) {
-                    Dataviz.libraries[library][type].render.call(datavizInstance);
-                    datavizInstance.view._rendered = true;
-                  }
-                }
-              });
-            };
-            var observer = new IntersectionObserver(chartVisibleCallback);
-            observer.observe(containerElement);
-            return;
-          }
-        }
-        if (datavizInstance.config.firstVisibilityState === 'hidden') {
-          if (typeof document !== 'undefined') {
-            var hidden = void 0,
-                visibilityChange = void 0;
-            if (typeof document.hidden !== "undefined") {
-              hidden = "hidden";
-              visibilityChange = "visibilitychange";
-            } else if (typeof document.msHidden !== "undefined") {
-              hidden = "msHidden";
-              visibilityChange = "msvisibilitychange";
-            } else if (typeof document.webkitHidden !== "undefined") {
-              hidden = "webkitHidden";
-              visibilityChange = "webkitvisibilitychange";
-            }
-            var handleVisibilityChange = function handleVisibilityChange() {
-              if (!document[hidden]) {
-                datavizInstance.view._artifacts.c3.load(datavizInstance.dataset.matrix);
-              }
-            };
-            if (typeof document.addEventListener !== "undefined" || hidden !== undefined) {
-              document.addEventListener(visibilityChange, handleVisibilityChange, {
-                once: true
-              });
-            }
-          }
-        }
-        Dataviz.libraries[library][type].render.call(datavizInstance);
-        datavizInstance.view._rendered = true;
-      }
-    }
-  });
-
-  return returnValue;
-};
-
-Dataviz.prototype.sortGroups = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.sortGroups() is deprecated. Use: new KeenDataviz({ sortGroups: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.sortGroups;
-  this.config.sortGroups = str ? String(str) : null;
-
-  sortGroups(this, str);
-
-  return this;
-};
-
-function sortGroups(datavizInstance) {
-  // Sort groups
-  if (datavizInstance.config.sortGroups && datavizInstance.data().length > 1) {
-    if ((0, _assertDateString2.default)(datavizInstance.data()[1][0])) {
-      datavizInstance.dataset.sortColumns(datavizInstance.config.sortGroups, datavizInstance.dataset.getColumnSum);
-    } else {
-      datavizInstance.dataset.sortRows(datavizInstance.config.sortGroups, datavizInstance.dataset.getRowSum);
-    }
-  }
-}
-
-Dataviz.prototype.sortIntervals = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.sortIntervals() is deprecated. Use: new KeenDataviz({ sortIntervals: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.sortIntervals;
-  this.config.sortIntervals = str ? String(str) : null;
-
-  sortIntervals(this);
-
-  return this;
-};
-
-function sortIntervals(datavizInstance) {
-  if (datavizInstance.config.sortIntervals) {
-    datavizInstance.dataset.sortRows(datavizInstance.config.sortIntervals);
-  }
-}
-
-Dataviz.prototype.stacked = function (bool) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.stacked() is deprecated. Use: new KeenDataviz({ stacked: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.stacked;
-  this.config.stacked = bool ? true : false;
-  return this;
-};
-
-Dataviz.prototype.theme = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.theme() is deprecated. Use: new KeenDataviz({ theme: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.theme;
-  this.config.theme = str ? String(str) : null;
-  return this;
-};
-
-Dataviz.prototype.title = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.title() is deprecated. Use: new KeenDataviz({ title: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.title;
-  this.config.title = str ? String(str) : null;
-  return this;
-};
-
-Dataviz.prototype.type = function (str) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.type() is deprecated. Use: new KeenDataviz({ type: _your_value_here_ })');
-  }
-  if (!arguments.length) return this.config.type;
-  this.config.type = str ? convertChartTypes(str) : null;
-  return this;
-};
-
-Dataviz.prototype.update = function () {
-  var library = this.config.library;
-  var type = this.config.type;
-  var element = this.el();
-  if (library && type && element && Dataviz.libraries[library][type].update) {
-    Dataviz.libraries[library][type].update.apply(this, arguments);
-  }
-  return this;
-};
-
-Dataviz.prototype.width = function (num) {
-  if (this.config.showDeprecationWarnings) {
-    console.log('.width() is deprecated - use CSS classes');
-  }
-  return this;
-};
-
-Dataviz.prototype.exportImage = function () {
-  var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-      _ref2$quality = _ref2.quality,
-      quality = _ref2$quality === undefined ? 0 : _ref2$quality,
-      _ref2$bgcolor = _ref2.bgcolor,
-      bgcolor = _ref2$bgcolor === undefined ? '#fff' : _ref2$bgcolor;
-
-  (0, _exportSvg2.default)({
-    node: this.config.containerElement,
-    quality: quality,
-    bgcolor: bgcolor
-  });
-};
-
-// Deprecations
-Dataviz.prototype.chartType = Dataviz.prototype.type;
-Dataviz.prototype.error = Dataviz.prototype.message;
-Dataviz.prototype.parseRawData = Dataviz.prototype.data;
-Dataviz.prototype.parseRequest = function () {
-  // this.emit('error', 'This method is no longer supported. Use .data() instead: https://github.com/keen/keen-dataviz.js#data');
-  return this;
-};
-Dataviz.prototype.initialize = function () {
-  // this.emit('error', 'This method is no longer supported, and can be omitted as it has no impact');
-  return this;
-};
-
-Dataviz.version = _package2.default.version;
-
-// Private
-
-function buildDomWrapper(el, options) {
-  var html = '';
-  var chart100percentWide = '';
-  var rangeChart = '';
-  if (options.legend.position === 'top' || options.legend.position === 'bottom') {
-    chart100percentWide = 'c3-chart-100-percent';
-  }
-  if (options.range) {
-    rangeChart = 'keen-dataviz-range';
-  }
-  var container = '<div class="c3-chart ' + chart100percentWide + ' ' + rangeChart + '"></div>';
-  var align = 'horizontal';
-  if (options.legend.position === 'left' || options.legend.position === 'right') {
-    align = 'vertical';
-  }
-  if (options.legend && options.legend.show) {
-    if (options.legend.position === 'top' || options.legend.position === 'left') {
-      container = '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>' + container;
-    } else {
-      container = container + '<div class="keen-c3-legend keen-c3-legend-' + align + ' keen-c3-legend-' + options.legend.position + '"></div>';
-    }
-  }
-  if (!options.react) {
-    html += '<div class="' + options.theme + '">';
-  }
-  if (options.title && options.showTitle) {
-    html += '<div class="keen-dataviz-title ' + options.theme + '-title">' + options.title + '</div>';
-  }
-  html += '<div class="keen-dataviz-rendering keen-dataviz-rendering-' + align + ' ' + options.theme + '-rendering ' + options.theme + '-rendering-' + align + '">' + container + '</div>';
-  if (options.notes) {
-    html += '<div class="keen-dataviz-notes ' + options.theme + '-notes">' + options.notes + '</div>';
-  }
-  if (!options.react) {
-    html += '</div>';
-  }
-
-  el.innerHTML = html;
-}
-
-function convertChartTypes(str) {
-  var map = {
-    areachart: 'area',
-    barchart: 'horizontal-bar',
-    columnchart: 'bar',
-    linechart: 'line',
-    piechart: 'pie'
-  };
-  return map[str] || str;
-}
-
-function testDom(fn) {
-  if (/in/.test(document.readyState)) {
-    setTimeout(function () {
-      testDom(fn);
-    }, 9);
-  } else {
-    fn();
-  }
-}
-
-function domReady(fn) {
-  if (typeof document !== 'undefined' || typeof window === 'undefined') {
-    fn();
-    return;
-  }
-  // Firefox 3.5 shim
-  if (document.readyState == null && document.addEventListener) {
-    document.addEventListener('DOMContentLoaded', function DOMContentLoaded() {
-      document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
-      document.readyState = 'complete';
-    }, false);
-    document.readyState = 'loading';
-  }
-  testDom(fn);
-}
-
-exports.default = Dataviz;
 
 /***/ }),
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Dataset = exports.Dataviz = exports.keenGlobals = exports.extendKeenGlobalObject = undefined;
-
-var _index = __webpack_require__(50);
-
-Object.defineProperty(exports, 'Dataviz', {
-  enumerable: true,
-  get: function get() {
-    return _index.Dataviz;
-  }
-});
-Object.defineProperty(exports, 'Dataset', {
-  enumerable: true,
-  get: function get() {
-    return _index.Dataset;
-  }
-});
-
-
-var env = typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {};
-
-var extendKeenGlobalObject = exports.extendKeenGlobalObject = function extendKeenGlobalObject(env) {
-  env.KeenDataviz = _index.Dataviz;
-  env.KeenDataset = _index.Dataset;
-
-  // just for backward compatibility
-  env.Keen = env.Keen || {};
-  env.Keen.Dataset = _index.Dataset;
-  env.Keen.Dataviz = _index.Dataviz;
+var palette = {
+  colors: ['#5E77FF', '#9C60FE', '#F162FE', '#FD65B7', '#FD6768', '#FDB86A', '#F2FC6C', '#A5FC6E', '#71FB85', '#73FBD0', '#76DDFA', '#76f4fa', '#bb76fa', '#fa76bf']
 };
 
-if (false) {}
+exports.default = palette;
 
-var keenGlobals = exports.keenGlobals = undefined;
-if (typeof webpackKeenGlobals !== 'undefined') {
-  exports.keenGlobals = keenGlobals = webpackKeenGlobals;
-}
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
 
-exports.default = _index.Dataviz;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(16)))
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var palette = {
+  colors: ['#45B2E8', '#D9540D', '#2CAB72', '#2C4BAB', '#EDDD02', '#E84545', '#E845CE', '#5FCEC9', '#E89F45', '#28E43F', '#B765C0', '#458AE8', '#AB2C2C', '#AB2C75', '#27E5FF', '#7168F2', '#FF932B', '#855D00', '#ACE845', '#1C91B4']
+};
+
+exports.default = palette;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var palette = {
+  colors: ['#8be9fd', '#50fa7b', '#ffb86c', '#ff79c6', '#bd93f9', '#ff5555', '#f1fa8c']
+};
+
+exports.default = palette;
 
 /***/ })
 /******/ ]);
