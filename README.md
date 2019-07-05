@@ -750,13 +750,23 @@ const chart = new Keen.Dataviz({
 ### Save charts as JPG/PNG files
 
 ```javascript
-// method by default generates PNG image
+// method by default generates a PNG image
 chart.exportImage();
 
 // if quality provided then JPEG is generated
 // quality - a number between 0 to 1 indicating image quality (quality = 0 generates PNG image)
 // bgcolor - a string value for background color, any valid CSS color value (defaults to '#fff')
 chart.exportImage({ quality: 1, bgcolor: 'blue' });
+```
+
+### Export data to a file
+
+```javascript
+// method by default generates a JSON image
+chart.exportData();
+
+// supported formats : 'json', 'csv'
+chart.exportData('csv');
 ```
 
 ### Execution metadata
