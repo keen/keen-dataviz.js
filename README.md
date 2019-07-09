@@ -762,7 +762,7 @@ chart.exportImage({ quality: 1, bgcolor: 'blue' });
 ### Export data to a file
 
 ```javascript
-// method by default generates a JSON image
+// method by default generates a JSON file
 chart.exportData();
 
 // supported formats : 'json', 'csv'
