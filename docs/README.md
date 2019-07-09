@@ -193,3 +193,15 @@ chart.exportImage();
 // bgcolor - a string value for background color, any valid CSS color value (defaults to '#fff')
 chart.exportImage({ quality: 1, bgcolor: 'blue' });
 ```
+
+### .exportData(string)
+
+Export data to a file
+
+```javascript
+// method by default generates a JSON file
+chart.exportData();
+
+// supported formats : 'json', 'csv'
+chart.exportData('csv');
+```
