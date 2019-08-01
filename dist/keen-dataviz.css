@@ -841,9 +841,9 @@
     pointer-events: none;
     z-index: 222;
   }
-.keen-dataviz-range .c3-area-Min {
+.keen-dataviz-range .c3-area-Max {
   display: none;
 }
-.keen-dataviz-range .c3-bars-Min {
+.keen-dataviz-range .c3-bars-Max {
   display: none;
 }
