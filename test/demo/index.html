@@ -1287,76 +1287,75 @@
     }
 
     function customLoad() {
-        // window.spinner = new KeenDataviz({
-        //   container: '#chart-demo-spinner',
-        //   type: 'spinner'
-        // })
-        //   .render();
+        window.spinner = new KeenDataviz({
+          container: '#chart-demo-spinner',
+          type: 'spinner'
+        })
+          .render();
 
-        // window.message = new KeenDataviz({
-        //   container: '.chart-demo-message',
-        //   type: 'message'
-        // })
-        //   .message('This is a manual message!');
+        window.message = new KeenDataviz({
+          container: '.chart-demo-message',
+          type: 'message'
+        })
+          .message('This is a manual message!');
 
-        // window.metric = new KeenDataviz({
-        //   container: '#nested .chart-demo-metric',
-        //   type: 'metric',
-        //   title: 'High-fives today'
-        // })
-        //   .prepare()
-        //   .render(metricData);
+        window.metric = new KeenDataviz({
+          container: '#nested .chart-demo-metric',
+          type: 'metric',
+          title: 'High-fives today'
+        })
+          .prepare()
+          .render(metricData);
 
-        // window.metric = new KeenDataviz({
-        //   container: '#nested .chart-demo-metric-previous-results',
-        //   type: 'metric',
-        //   title: 'High-fives today',
-        //   results,
-        //   previousResults
-        // })
+        window.metric = new KeenDataviz({
+          container: '#nested .chart-demo-metric-previous-results',
+          type: 'metric',
+          title: 'High-fives today',
+          results,
+          previousResults
+        })
 
-        // window.table = new KeenDataviz({
-        //   container: '.chart-demo-table',
-        //   type: 'table',
-        //   title: 'Basic table view',
-        //   notes: 'Footnotes for this table',
-        //   table: {
-        //     columns: ['keen.timestamp', 'user_agent', 'tracked_by'],
-        //     pagination: {
-        //       limit: 3
-        //     }
-        //   }
-        // })
-        //   .render(tableData);
+        window.table = new KeenDataviz({
+          container: '.chart-demo-table',
+          type: 'table',
+          title: 'Basic table view',
+          notes: 'Footnotes for this table',
+          table: {
+            columns: ['keen.timestamp', 'user_agent', 'tracked_by'],
+            pagination: {
+              limit: 3
+            }
+          }
+        })
+          .render(tableData);
 
-        // const emptyTable = new KeenDataviz({
-        //   container: '.chart-demo-empty-table',
-        //   type: 'table'
-        // })
-        //   .render({ result: [] });
+        const emptyTable = new KeenDataviz({
+          container: '.chart-demo-empty-table',
+          type: 'table'
+        })
+          .render({ result: [] });
 
-        // window.metricComboChart = new KeenDataviz({
-        //   container: '.chart-metric-combo',
-        //   title: 'Metric Combo',
-        //   type: 'metric-combo',
-        //   metricResults: {
-        //     previous: metricComboChartData.previous,
-        //     current: metricComboChartData.current,
-        //   },
-        //   results: metricComboChartData.interval,
-        //   tooltip: {
-        //     format: {
-        //       title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        //     }
-        //   }
-        // })
-        //   .render();
+        window.metricComboChart = new KeenDataviz({
+          container: '.chart-metric-combo',
+          title: 'Metric Combo',
+          type: 'metric-combo',
+          metricResults: {
+            previous: metricComboChartData.previous,
+            current: metricComboChartData.current,
+          },
+          results: metricComboChartData.interval,
+          tooltip: {
+            format: {
+              title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+            }
+          }
+        })
+          .render();
 
         window.heatmapChart = new KeenDataviz({
           container: '.chart-heatmap',
           title: 'Heatmap chart',
           type: 'heatmap',
-          colors: ["#ffffd9","#edf8b1","#c7e9b4","#7fcdbb","#41b6c4","#1d91c0","#225ea8","#253494","#081d58"],
           results: heatmapData()
         })
         .render();
@@ -1615,21 +1614,8 @@
         const numberOfDays = 7;
         const numberOfHours = numberOfDays * 24;
         const msPerHour = 60 * 60 * 1000;
-        const minValue = 1;
-        const maxValue = 50;
         const timestamp = new Date().getTime();
         let result = [];
-
-        // for (let i = 0; i <= numberOfHours; i++) {
-        //   const obj = {
-        //     timestamp: new Date(timestamp).toISOString(),
-        //     value: Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue,
-        //   }
-        //   timestamp = timestamp - msPerHour;
-        //   result.push(obj)
-        // }
-
-        // return result;
 
         const ds = new Dataset();
         const startDate = timestamp - (numberOfHours * msPerHour);
