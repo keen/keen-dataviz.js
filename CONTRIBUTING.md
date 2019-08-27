@@ -44,3 +44,11 @@ Fetch the branch and/or deploy to staging to test the following:
 ```
 
 This PR template can be viewed rendered in Markdown [here](./.github/PULL_REQUEST_TEMPLATE.md).
+
+
+## Publishing on the NPM
+
+```ssh
+# create new tag - patch | minor | major (SEMVER)
+$ npm version patch
+```
