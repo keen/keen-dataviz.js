@@ -59,6 +59,7 @@
   ],
   "dependencies": {
     "c3": "^0.7.2",
+    "d3": "^5.11.0",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.1",
     "promise-polyfill": "^8.0.0"
