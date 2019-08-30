@@ -624,7 +624,7 @@
 }
 
 .keen-dataviz ~ .rangeable-container {
-  margin: 3rem 0 1rem 0;
+  margin: 2rem 0;
 }
 .keen-dataviz ~ .rangeable-container .rangeable-track,
 .keen-dataviz ~ .rangeable-container .rangeable-progress {
@@ -641,4 +641,4 @@
   border-radius: 0;
   font-weight: normal;
   padding: 3px 9px;
-} 
+}
