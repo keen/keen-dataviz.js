@@ -62,7 +62,8 @@
     "d3": "^5.11.0",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.1",
-    "promise-polyfill": "^8.0.0"
+    "promise-polyfill": "^8.0.0",
+    "rangeable": "^0.1.6"
   },
   "devDependencies": {
     "autoprefixer": "^8.2.0",
