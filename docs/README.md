@@ -117,6 +117,20 @@ Default configuration values:
   }
 ```
 
+* heatmap
+
+```javascript
+const chart = new KeenDataviz({
+    container: '.chart-heatmap',
+    title: 'Heatmap chart',
+    type: 'heatmap',
+    tooltip: {
+      showValueOnly: false, // if set to true tooltip displays x, y and value, in other case only value is visible
+    },
+    showSlider: true, // turn on range slider below chart
+  })
+```
+
 ## Prototype methods
 
 ### .call(function)
