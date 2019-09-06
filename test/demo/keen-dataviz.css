@@ -232,6 +232,46 @@
 .c3-drag-zoom .extent {
   fill-opacity: 0.1;
 }
+/*
+ Rangeable
+ Copyright (c) 2018 Karl Saunders
+ Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+ and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+
+ Version: 0.1.6
+
+*/
+.rangeable-container.combined-tooltip.dragging .rangeable-progress>.rangeable-tooltip,.rangeable-container.combined-tooltip.rangeable-tooltips--visible .rangeable-progress>.rangeable-tooltip,.rangeable-container.dragging.rangeable-tooltips .rangeable-handle .rangeable-tooltip,.rangeable-container.rangeable-tooltips--visible.rangeable-tooltips .rangeable-handle .rangeable-tooltip,.rangeable-container.rangeable-vertical.combined-tooltip .rangeable-progress>.rangeable-tooltip::before{display:block}
+.rangeable-container{cursor:pointer;width:100%}
+.rangeable-container.rangeable-disabled{opacity:.6;cursor:not-allowed}
+.rangeable-container.rangeable-multiple.combined-tooltip .rangeable-handle .rangeable-tooltip,.rangeable-container.rangeable-vertical.combined-tooltip .rangeable-handle .rangeable-tooltip{opacity:0}
+.rangeable-container.focus .rangeable-handle{border:1px solid #74b9ff}
+.rangeable-container.rangeable-multiple .rangeable-handle:nth-child(1){left:0;-webkit-transform:translate3d(-50%,-50%,0);transform:translate3d(-50%,-50%,0)}
+.rangeable-container.rangeable-multiple .rangeable-handle:nth-child(2){right:0}
+.rangeable-container.rangeable-vertical{height:100%;width:auto}
+.rangeable-container.rangeable-vertical .rangeable-track{width:8px;height:100%}
+.rangeable-container.rangeable-vertical .rangeable-progress{width:8px;height:100%;top:auto;bottom:0;-webkit-transform-origin:0 100% 0;-ms-transform-origin:0 100% 0;transform-origin:0 100% 0}
+.rangeable-container.rangeable-vertical .rangeable-handle{right:auto;left:50%;top:0;-webkit-transform:translate3d(-50%,-50%,0);transform:translate3d(-50%,-50%,0)}
+.rangeable-container.rangeable-vertical .rangeable-tooltip{position:absolute;top:50%;left:calc(100% + 6px + 4px + 5px);right:auto;bottom:auto;-webkit-transform:translate3d(0,-50%,0);transform:translate3d(0,-50%,0)}
+.rangeable-container.rangeable-vertical .rangeable-tooltip::before{right:100%;left:auto;top:50%;-webkit-transform:translate3d(0,-50%,0);transform:translate3d(0,-50%,0);border-width:4px 4px 4px 0;border-color:transparent #3db13d transparent transparent}
+.rangeable-container.rangeable-vertical .rangeable-buffer{width:100%;height:0}
+.rangeable-container.rangeable-vertical.rangeable-multiple .rangeable-handle:nth-child(1){top:0;left:50%}
+.rangeable-container.rangeable-vertical.rangeable-multiple .rangeable-handle:nth-child(2){bottom:0;top:auto;-webkit-transform:translate3d(-50%,50%,0);transform:translate3d(-50%,50%,0)}
+.rangeable-input{position:absolute;overflow:hidden;clip:rect(0,0,0,0);width:1px;height:1px;margin:-1px;padding:0;border:0}
+.rangeable-input:focus+.rangeable-track .rangeable-handle::after{position:absolute;width:22px;height:22px;bottom:-6px;right:-6px;outline:#000 dotted 1px;content:""}
+.rangeable-progress,.rangeable-track{height:8px;width:100%;border-radius:4px}
+.rangeable-track{background-color:#ccc;position:relative}
+.rangeable-progress{background-color:#3db13d;position:absolute;left:0;top:0;-webkit-transform-origin:0 0 0;-ms-transform-origin:0 0 0;transform-origin:0 0 0}
+.rangeable-progress>.rangeable-tooltip{display:none;z-index:11;top:auto;bottom:calc(100% + 7px + 9px);white-space:nowrap}
+.rangeable-handle{-webkit-box-sizing:border-box;box-sizing:border-box;width:22px;height:22px;border:6px solid #3db13d;border-radius:50%;background-color:#fff;position:absolute;top:50%;right:0;-webkit-transform:translate3d(50%,-50%,0);transform:translate3d(50%,-50%,0)}
+.rangeable-handle:focus{outline:0}
+.rangeable-handle:focus::after{position:absolute;width:22px;height:22px;bottom:-6px;right:-6px;outline:#000 dotted 1px;content:""}
+.rangeable-handle.active{z-index:10}
+.rangeable-handle .rangeable-tooltip{display:none}
+.rangeable-tooltip{position:absolute;right:50%;bottom:calc(100% + 6px + 4px + 5px);-webkit-transform:translate3d(50%,0,0);transform:translate3d(50%,0,0);text-align:center;padding:2px 13px;background-color:#3db13d;border-radius:4px;font-weight:700;font-size:16px;color:#fff;font-family:Inconsolata,Consolas,Courier New,Lucida Console,sans-serif}
+.rangeable-tooltip::before{width:0;height:0;border-width:4px 4px 0;border-style:solid;border-color:#3db13d transparent transparent;position:absolute;left:50%;top:100%;-webkit-transform:translate3d(-50%,0,0);transform:translate3d(-50%,0,0);content:""}
+.rangeable-buffers{position:absolute;left:0;top:0;height:100%;width:100%}
+.rangeable-buffer{position:absolute;background-color:rgba(0,0,0,.2);border-radius:4px;height:100%}
 /* WRAPPER */
 .keen-dataviz {
   -webkit-box-sizing: border-box;
@@ -846,4 +886,21 @@
 }
 .keen-dataviz-range .c3-bars-Max {
   display: none;
+}
+.keen-dataviz ~ .rangeable-container {
+  margin: 2rem 0;
+}
+.keen-dataviz ~ .rangeable-container .rangeable-track,
+.keen-dataviz ~ .rangeable-container .rangeable-progress {
+  height: 4px;
+}
+.keen-dataviz ~ .rangeable-container .rangeable-handle {
+  width: 16px;
+  height: 16px;
+  border-width: 4px;
+}
+.keen-dataviz ~ .rangeable-container .rangeable-tooltip {
+  border-radius: 0;
+  font-weight: normal;
+  padding: 3px 9px;
 }
