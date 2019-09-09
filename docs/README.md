@@ -117,6 +117,24 @@ Default configuration values:
   }
 ```
 
+* choropleth
+
+Default configuration values:
+
+```javascript
+  choropleth: {
+      map: 'world', // 'world' - world map divided by countries
+                    // 'us - United States map divided by states
+      borders: {
+        show: true, // show or hide borders
+        size: 0.5, // set size of borders
+        color: '#000' // change color of borders
+      },
+      showSlider: false // show slider to filter data
+    }
+  }
+```
+
 ## Prototype methods
 
 ### .call(function)
