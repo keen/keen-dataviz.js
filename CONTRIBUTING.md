@@ -2,11 +2,6 @@
 
 This is an open source project and we love involvement from the community! Hit us up with pull requests and issues. The more contributions the better!
 
-**TODO:**
-
-* [ ] Rebuild `google` and `chartjs` adapters from [keen-js](https://github.com/keen/keen-js) into `/lib/libraries`
-* [ ] Design and build debugging tools
-
 Run the following commands to install and build this project:
 
 ```ssh
@@ -49,3 +44,11 @@ Fetch the branch and/or deploy to staging to test the following:
 ```
 
 This PR template can be viewed rendered in Markdown [here](./.github/PULL_REQUEST_TEMPLATE.md).
+
+
+## Publishing on the NPM
+
+```ssh
+# create new tag - patch | minor | major (SEMVER)
+$ npm version patch
+```
