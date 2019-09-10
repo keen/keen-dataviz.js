@@ -619,3 +619,23 @@
 .keen-dataviz-range .c3-bars-Max {
   display: none;
 }
+
+.keen-dataviz ~ .rangeable-container {
+  margin: 2rem 0;
+}
+.keen-dataviz ~ .rangeable-container .rangeable-track,
+.keen-dataviz ~ .rangeable-container .rangeable-progress {
+  height: 4px;
+}
+
+.keen-dataviz ~ .rangeable-container .rangeable-handle {
+  width: 16px;
+  height: 16px;
+  border-width: 4px;
+}
+
+.keen-dataviz ~ .rangeable-container .rangeable-tooltip {
+  border-radius: 0;
+  font-weight: normal;
+  padding: 3px 9px;
+}
