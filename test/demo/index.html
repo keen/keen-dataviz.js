@@ -2,80 +2,76 @@
 <html>
   <head>
     <title>Webpack Dev Keen Dataviz Demo</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <script src="./assets/faker.js"></script>
     <script src="keen-dataviz.js"></script>
-    <link rel="stylesheet" href="./assets/keen-dashboards.css">
-    <link rel="stylesheet" href="./keen-dataviz.css">
+    <link rel="stylesheet" href="./assets/keen-dashboards.css" />
+    <link rel="stylesheet" href="./keen-dataviz.css" />
     <style>
-    body {
-      padding: 20px;
-    }
-    h1, h2, h3 {
-      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    h1 {
-      color: #282828;
-      font-weight: 200;
-      margin: 0;
-    }
-    h2 {
-      color: #4D4D4D;
-      font-size: 21px;
-      margin: 48px 0 24px;
-      text-transform: uppercase;
-    }
-    h3 {
-      color: #555;
-      font-size: 16px;
-      margin: 0 0 24px;
-    }
-    .demo-chart {
-      background: #fff;
-      margin: 0 auto;
-      width: 600px;
-    }
+      body {
+        padding: 20px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Gotham Rounded SSm A", "Gotham Rounded SSm B",
+          "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+      h1 {
+        color: #282828;
+        font-weight: 200;
+        margin: 0;
+      }
+      h2 {
+        color: #4d4d4d;
+        font-size: 21px;
+        margin: 48px 0 24px;
+        text-transform: uppercase;
+      }
+      h3 {
+        color: #555;
+        font-size: 16px;
+        margin: 0 0 24px;
+      }
+      .demo-chart {
+        background: #fff;
+        margin: 0 auto;
+        width: 600px;
+      }
 
-    .tabs {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin-top: 20px;
-      font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
+      .tabs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 20px;
+        font-family: "Gotham Rounded SSm A", "Gotham Rounded SSm B",
+          "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
 
-    .tab {
-      border: 1px solid #eee;
-      width: 100%;
-      text-align: center;
-      padding: 20px 0;
-      background: #f9f9f9;
-      cursor: pointer;
-    }
+      .tab {
+        border: 1px solid #eee;
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        background: #f9f9f9;
+        cursor: pointer;
+      }
 
-    .tab:hover {
-      background: hsl(0, 0%, 90%)
-    }
+      .tab:hover {
+        background: hsl(0, 0%, 90%);
+      }
 
-    .tab-panel {
-      display: none;
-      padding: 10px;
-      border: 1px solid #eee;
-    }
-    .active {
-      background: hsl(0, 0%, 90%)
-    }
+      .tab-panel {
+        display: none;
+        padding: 10px;
+        border: 1px solid #eee;
+      }
+      .active {
+        background: hsl(0, 0%, 90%);
+      }
     </style>
     <style>
-
-
-    /* !!! */
-
-
-
-
-
-
+      /* !!! */
 
       .custom-theme {
         background: #fff;
@@ -94,37 +90,46 @@
         border-top: 1px solid #d7d7d7;
         padding: 5px 10px;
       }
-      .keen-ui-col-4{
+      .keen-ui-col-4 {
       }
-      .keen-chart-container{
+      .keen-chart-container {
         height: 280px;
       }
 
-      .keen-chart-small-container{
+      .keen-chart-small-container {
         height: 140px;
       }
 
       .chart-heatmap {
         min-height: 500px;
       }
-
     </style>
   </head>
-  <body onload=init()>
+  <body onload="init()">
     <h1>Dataviz Examples</h1>
 
     <div class="tabs">
       <div class="tab" id="bar-tab" onclick="changeTab('bar')">Bar charts</div>
-      <div class="tab" id="line-tab" onclick="changeTab('line')">Line, Spline and Step charts</div>
-      <div class="tab" id="area-tab" onclick="changeTab('area')">Area charts</div>
-      <div class="tab" id="pie-tab" onclick="changeTab('pie')">Pie, Donut and Gauge charts</div>
-      <div class="tab" id="funnel-tab" onclick="changeTab('funnel')">Funnel charts</div>
-      <div class="tab" id="custom-tab" onclick="changeTab('custom')">Custom charts</div>
+      <div class="tab" id="line-tab" onclick="changeTab('line')">
+        Line, Spline and Step charts
+      </div>
+      <div class="tab" id="area-tab" onclick="changeTab('area')">
+        Area charts
+      </div>
+      <div class="tab" id="pie-tab" onclick="changeTab('pie')">
+        Pie, Donut and Gauge charts
+      </div>
+      <div class="tab" id="funnel-tab" onclick="changeTab('funnel')">
+        Funnel charts
+      </div>
+      <div class="tab" id="custom-tab" onclick="changeTab('custom')">
+        Custom charts
+      </div>
     </div>
-    
+
     <div id="bar-panel" class="tab-panel active-panel">
       <h2>Bar chart</h2>
-    
+
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -134,7 +139,7 @@
           <div class="chart-c3-bar-multi keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-bar-stacked keen-chart-container"></div>
@@ -143,13 +148,13 @@
           <div class="chart-c3-bar-percent keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-bar-range keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h3>Timeseries (yearly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -159,7 +164,7 @@
           <div class="chart-c3-bar-time-multi keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-bar-time-stacked keen-chart-container"></div>
@@ -168,7 +173,7 @@
           <div class="chart-c3-bar-time-percent keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-bar-time-range keen-chart-container"></div>
@@ -177,9 +182,9 @@
     </div>
     <div id="line-panel" class="tab-panel">
       <h2>Line chart</h2>
-    
+
       <h3>Categorical</h3>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-sparkline keen-chart-container"></div>
@@ -188,7 +193,7 @@
           <div class="chart-c3-line keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-line-multi keen-chart-container"></div>
@@ -197,7 +202,7 @@
           <div class="chart-c3-line-stacked keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h3>Timeseries (daily)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -210,9 +215,9 @@
           <div class="chart-c3-line-time-stacked keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h2>Spline chart</h2>
-    
+
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -225,7 +230,7 @@
           <div class="chart-c3-spline-stacked keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h3>Timeseries (hourly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -238,9 +243,9 @@
           <div class="chart-c3-spline-time-stacked keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h2>Step chart</h2>
-    
+
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -253,7 +258,7 @@
           <div class="chart-c3-step-stacked keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
@@ -269,7 +274,7 @@
     </div>
     <div id="area-panel" class="tab-panel">
       <h2>Area chart</h2>
-    
+
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -287,7 +292,7 @@
           <div class="chart-c3-area-percent keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h3>Timeseries (minutely)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -310,10 +315,9 @@
           <div class="chart-c3-area-time-range keen-chart-container"></div>
         </div>
       </div>
-    
-    
+
       <h2>Area-Spline chart</h2>
-    
+
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -323,7 +327,7 @@
           <div class="chart-c3-area-spline-multi keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-stacked keen-chart-container"></div>
@@ -332,35 +336,42 @@
           <div class="chart-c3-area-spline-percent keen-chart-container"></div>
         </div>
       </div>
-    
-    
+
       <h3>Timeseries (secondly)</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-spline-time keen-chart-container"></div>
         </div>
         <div class="keen-ui-col-6">
-          <div class="chart-c3-area-spline-time-multi keen-chart-container"></div>
+          <div
+            class="chart-c3-area-spline-time-multi keen-chart-container"
+          ></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
-          <div class="chart-c3-area-spline-time-stacked keen-chart-container"></div>
+          <div
+            class="chart-c3-area-spline-time-stacked keen-chart-container"
+          ></div>
         </div>
         <div class="keen-ui-col-6">
-          <div class="chart-c3-area-spline-time-percent keen-chart-container"></div>
+          <div
+            class="chart-c3-area-spline-time-percent keen-chart-container"
+          ></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
-          <div class="chart-c3-area-spline-time-range keen-chart-container"></div>
+          <div
+            class="chart-c3-area-spline-time-range keen-chart-container"
+          ></div>
         </div>
       </div>
-    
+
       <h2>Area-Step chart</h2>
-    
+
       <h3>Categorical</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -370,7 +381,7 @@
           <div class="chart-c3-area-step-multi keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-c3-area-step-stacked keen-chart-container"></div>
@@ -379,7 +390,7 @@
           <div class="chart-c3-area-step-percent keen-chart-container"></div>
         </div>
       </div>
-    
+
       <h3>Timeseries</h3>
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
@@ -389,16 +400,20 @@
           <div class="chart-c3-area-step-time-multi keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
-          <div class="chart-c3-area-step-time-stacked keen-chart-container"></div>
+          <div
+            class="chart-c3-area-step-time-stacked keen-chart-container"
+          ></div>
         </div>
         <div class="keen-ui-col-6">
-          <div class="chart-c3-area-step-time-percent keen-chart-container"></div>
+          <div
+            class="chart-c3-area-step-time-percent keen-chart-container"
+          ></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <div class="chart-c3-area-step-time-range keen-chart-container"></div>
@@ -433,7 +448,7 @@
           <div class="chart-demo-funnel-3d keen-chart-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6" id="nested">
           <h2>Horizontal funnel</h2>
@@ -441,7 +456,9 @@
         </div>
         <div class="keen-ui-col-6" id="nested">
           <h2>Horizontal funnel 3D</h2>
-          <div class="chart-demo-horizontal-funnel-3d keen-chart-container"></div>
+          <div
+            class="chart-demo-horizontal-funnel-3d keen-chart-container"
+          ></div>
         </div>
       </div>
     </div>
@@ -453,10 +470,12 @@
         </div>
         <div class="keen-ui-col-4" id="nested">
           <h2>Metric with previous results</h2>
-          <div class="chart-demo-metric-previous-results keen-chart-small-container"></div>
+          <div
+            class="chart-demo-metric-previous-results keen-chart-small-container"
+          ></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
           <h2>Message</h2>
@@ -467,21 +486,21 @@
           <div id="chart-demo-spinner" class="keen-chart-small-container"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <h2>Table</h2>
           <div class="chart-demo-table"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-12">
           <h2>Empty Table</h2>
           <div class="chart-demo-empty-table"></div>
         </div>
       </div>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-4">
           <h2>Combo charts</h2>
@@ -494,12 +513,12 @@
       </div>
 
       <h2>Choropleth</h2>
-    
+
       <div class="keen-ui-row">
         <div class="keen-ui-col-6">
           <div class="chart-choropleth-world keen-chart-container"></div>
         </div>
-      
+
         <div class="keen-ui-col-6">
           <div class="chart-choropleth-us keen-chart-container"></div>
         </div>
@@ -507,895 +526,1010 @@
     </div>
 
     <script>
-    
-    function init() {
-      const data = localStorage.getItem("activeTab");
-      const activeTab = JSON.parse(data);
-      if(activeTab) {
-        changeTab(activeTab);
+      function init() {
+        const data = localStorage.getItem("activeTab");
+        const activeTab = JSON.parse(data);
+        if (activeTab) {
+          changeTab(activeTab);
+        }
       }
-    }
-    
-    function barLoad() {
+
+      function barLoad() {
         window.bar = new KeenDataviz({
-          container: '.chart-c3-bar',
-          title: 'Bar Chart Horizontal',
-          type: 'horizontal-bar',
-          sortGroups: 'desc',
+          container: ".chart-c3-bar",
+          title: "Bar Chart Horizontal",
+          type: "horizontal-bar",
+          sortGroups: "desc",
           legend: false,
-          palette: 'autocollector',
+          palette: "autocollector",
           renderOnVisible: true
         })
           .data(makeGroupedDataset())
           .render();
 
         window.barMulti = new KeenDataviz({
-          container: '.chart-c3-bar-multi',
-          title: 'Bar Chart',
-          type: 'horizontal-bar',
+          container: ".chart-c3-bar-multi",
+          title: "Bar Chart",
+          type: "horizontal-bar",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = groupedMultiData;
           })
           .render();
 
         window.barMultiStacked = new KeenDataviz({
-          container: '.chart-c3-bar-stacked',
-          title: 'Bar Chart Multi Stacked',
-          type: 'horizontal-bar',
+          container: ".chart-c3-bar-stacked",
+          title: "Bar Chart Multi Stacked",
+          type: "horizontal-bar",
           stacked: true,
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = groupedMultiData;
           })
           .render();
 
         window.barMultiPercent = new KeenDataviz({
-          container: '.chart-c3-bar-percent',
-          title: 'Bar Chart Multi Stacked 100%',
-          type: 'horizontal-bar',
-          stacking: 'percent',
+          container: ".chart-c3-bar-percent",
+          title: "Bar Chart Multi Stacked 100%",
+          type: "horizontal-bar",
+          stacking: "percent",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = groupedMultiData;
           })
           .render();
 
         window.barMultiPercent = new KeenDataviz({
-          container: '.chart-c3-bar-range',
-          title: 'Bar Chart Range',
-          type: 'horizontal-bar-range',
+          container: ".chart-c3-bar-range",
+          title: "Bar Chart Range",
+          type: "horizontal-bar-range",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = rangeData;
           })
           .render();
 
         window.barTime = new KeenDataviz({
-          container: '.chart-c3-bar-time',
-          title: 'Bar Chart',
-          type: 'bar',
+          container: ".chart-c3-bar-time",
+          title: "Bar Chart",
+          type: "bar",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = intervalDataYearly;
           })
           .render();
 
         window.barTimeMulti = new KeenDataviz({
-          container: '.chart-c3-bar-time-multi',
-          title: 'Bar Chart Multi',
-          type: 'bar',
+          container: ".chart-c3-bar-time-multi",
+          title: "Bar Chart Multi",
+          type: "bar",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = intervalMultiDataYearly;
           })
           .render();
 
         window.barTimeMultiStacked = new KeenDataviz({
-          container: '.chart-c3-bar-time-stacked',
-          title: 'Bar Chart Multi Stacked',
-          type: 'bar',
+          container: ".chart-c3-bar-time-stacked",
+          title: "Bar Chart Multi Stacked",
+          type: "bar",
           stacked: true,
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = intervalMultiDataYearly;
           })
           .render();
 
         window.barTimeMultiPercent = new KeenDataviz({
-          container: '.chart-c3-bar-time-percent',
-          title: 'Bar Chart Multi Stacked 100%',
-          type: 'bar',
-          stacking: 'percent',
+          container: ".chart-c3-bar-time-percent",
+          title: "Bar Chart Multi Stacked 100%",
+          type: "bar",
+          stacking: "percent",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
             this.dataset.matrix = intervalMultiDataYearly;
           })
           .render();
 
         window.barTimeMultiPercent = new KeenDataviz({
-          container: '.chart-c3-bar-time-range',
-          title: 'Bar Chart Range',
-          type: 'bar-range',
+          container: ".chart-c3-bar-time-range",
+          title: "Bar Chart Range",
+          type: "bar-range",
           renderOnVisible: true
         })
-          .call(function () {
+          .call(function() {
+            this.dataset.matrix = rangeData;
+          })
+          .render();
+      }
+
+      function lineLoad() {
+        window.sparkline = new KeenDataviz({
+          container: ".chart-c3-sparkline",
+          title: "Sparkline Chart",
+          type: "line",
+          sparkline: true,
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.line = new KeenDataviz({
+          container: ".chart-c3-line",
+          title: "Line Chart",
+          type: "line",
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.lineMulti = new KeenDataviz({
+          container: ".chart-c3-line-multi",
+          legend: {
+            position: "bottom",
+            show: true
+          },
+          title: "Multi Line Chart",
+          type: "line",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.lineMultiStacked = new KeenDataviz({
+          container: ".chart-c3-line-stacked",
+          title: "Stacked Line Chart",
+          type: "line",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.lineTime = new KeenDataviz({
+          container: ".chart-c3-line-time",
+          title: "Line Chart",
+          type: "line",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalDataDaily;
+          })
+          .render();
+
+        window.lineTimeMulti = new KeenDataviz({
+          container: ".chart-c3-line-time-multi",
+          title: "Line Chart",
+          type: "line",
+          legend: {
+            position: "top",
+            show: true,
+            pagination: {
+              limit: 3
+            }
+          },
+          renderOnVisible: true
+        })
+          .data(makeGroupedIntervalDataset())
+          .render();
+
+        window.lineTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-line-time-stacked",
+          title: "Line Chart Multi Stacked",
+          type: "line",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .data(makeGroupedIntervalDataset())
+          .render();
+
+        window.spline = new KeenDataviz({
+          container: ".chart-c3-spline",
+          title: "Spline Chart",
+          type: "spline",
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.splineMulti = new KeenDataviz({
+          container: ".chart-c3-spline-multi",
+          title: "Multi Spline Chart",
+          type: "spline",
+          legend: {
+            position: "left",
+            show: true,
+            label: {
+              textMaxLength: 20
+            }
+          },
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.splineMultiStacked = new KeenDataviz({
+          container: ".chart-c3-spline-stacked",
+          title: "Spline Chart mutli stacked",
+          type: "spline",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.splineTime = new KeenDataviz({
+          container: ".chart-c3-spline-time",
+          title: "Spline Chart",
+          type: "spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalDataHourly;
+          })
+          .render();
+
+        window.splineTimeMulti = new KeenDataviz({
+          container: ".chart-c3-spline-time-multi",
+          title: "Spline Chart",
+          type: "spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiDataHourly;
+          })
+          .render();
+
+        window.splineTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-spline-time-stacked",
+          title: "Spline Chart multi stacked",
+          stacked: true,
+          type: "spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiDataHourly;
+          })
+          .render();
+
+        window.step = new KeenDataviz({
+          container: ".chart-c3-step",
+          title: "Step Chart",
+          type: "step",
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.stepMulti = new KeenDataviz({
+          container: ".chart-c3-step-multi",
+          title: "Step Chart Multi",
+          type: "step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.stepMultiStacked = new KeenDataviz({
+          container: ".chart-c3-step-stacked",
+          title: "Step Chart",
+          type: "step",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.stepTime = new KeenDataviz({
+          container: ".chart-c3-step-time",
+          title: "Step Chart",
+          type: "step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalData;
+          })
+          .render();
+
+        window.stepTimeMulti = new KeenDataviz({
+          container: ".chart-c3-step-time-multi",
+          title: "Step Chart mutli",
+          type: "step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiData;
+          })
+          .render();
+
+        window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-step-time-stacked",
+          title: "Step Chart Multi Stacked",
+          type: "step",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiData;
+          })
+          .render();
+      }
+
+      function areaLoad() {
+        window.area = new KeenDataviz({
+          container: ".chart-c3-area",
+          title: "Area Chart",
+          type: "area",
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.areaMulti = new KeenDataviz({
+          container: ".chart-c3-area-multi",
+          title: "Area Chart",
+          type: "area",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-stacked",
+          title: "Area Chart stacked",
+          type: "area",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-percent",
+          title: "Area Chart Stacked 100%",
+          type: "area",
+          stacking: "percent",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaTime = new KeenDataviz({
+          container: ".chart-c3-area-time",
+          title: "Area Chart",
+          type: "area",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalDataMinutely;
+          })
+          .render();
+
+        window.areaTimeMulti = new KeenDataviz({
+          container: ".chart-c3-area-time-multi",
+          title: "Area Chart mutli",
+          type: "area",
+          renderOnVisible: true
+        })
+          .data(makeGroupedIntervalDataset())
+          .render();
+
+        window.areaTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-time-stacked",
+          title: "Area Chart multi stacked",
+          type: "area",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .data(makeGroupedIntervalDataset())
+          .render();
+
+        window.areaTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-time-percent",
+          title: "Area Chart multi stacked 100%",
+          type: "area",
+          stacking: "percent",
+          renderOnVisible: true
+        })
+          .data(makeGroupedIntervalDataset())
+          .render();
+
+        window.areaTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-time-range",
+          title: "Area Chart Range",
+          type: "area-range",
+          renderOnVisible: true
+        })
+          .call(function() {
             this.dataset.matrix = rangeData;
           })
           .render();
 
-      }
-
-    function lineLoad() {
-      window.sparkline = new KeenDataviz({
-        container: '.chart-c3-sparkline',
-        title: 'Sparkline Chart',
-        type: 'line',
-        sparkline: true,
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.line = new KeenDataviz({
-        container: '.chart-c3-line',
-        title: 'Line Chart',
-        type: 'line',
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.lineMulti = new KeenDataviz({
-        container: '.chart-c3-line-multi',
-        legend: {
-          position: 'bottom',
-          show: true
-        },
-        title: 'Multi Line Chart',
-        type: 'line',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
+        window.areaSpline = new KeenDataviz({
+          container: ".chart-c3-area-spline",
+          title: "Area-Spline Chart",
+          type: "area-spline",
+          renderOnVisible: true
         })
-        .render();
-
-      window.lineMultiStacked = new KeenDataviz({
-        container: '.chart-c3-line-stacked',
-        title: 'Stacked Line Chart',
-        type: 'line',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.lineTime = new KeenDataviz({
-        container: '.chart-c3-line-time',
-        title: 'Line Chart',
-        type: 'line',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalDataDaily;
-        })
-        .render();
-
-      window.lineTimeMulti = new KeenDataviz({
-        container: '.chart-c3-line-time-multi',
-        title: 'Line Chart',
-        type: 'line',
-        legend: {
-          position: 'top',
-          show: true,
-          pagination: {
-            limit: 3
-          }
-        },
-        renderOnVisible: true
-      })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.lineTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-line-time-stacked',
-        title: 'Line Chart Multi Stacked',
-        type: 'line',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.spline = new KeenDataviz({
-        container: '.chart-c3-spline',
-        title: 'Spline Chart',
-        type: 'spline',
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.splineMulti = new KeenDataviz({
-        container: '.chart-c3-spline-multi',
-        title: 'Multi Spline Chart',
-        type: 'spline',
-        legend: {
-          position: 'left',
-          show: true,
-          label: {
-            textMaxLength: 20
-          }
-        },
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.splineMultiStacked = new KeenDataviz({
-        container: '.chart-c3-spline-stacked',
-        title: 'Spline Chart mutli stacked',
-        type: 'spline',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.splineTime = new KeenDataviz({
-        container: '.chart-c3-spline-time',
-        title: 'Spline Chart',
-        type: 'spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalDataHourly;
-        })
-        .render();
-
-      window.splineTimeMulti = new KeenDataviz({
-        container: '.chart-c3-spline-time-multi',
-        title: 'Spline Chart',
-        type: 'spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiDataHourly;
-        })
-        .render();
-
-      window.splineTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-spline-time-stacked',
-        title: 'Spline Chart multi stacked',
-        stacked: true,
-        type: 'spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiDataHourly;
-        })
-        .render();
-
-      window.step = new KeenDataviz({
-        container: '.chart-c3-step',
-        title: 'Step Chart',
-        type: 'step',
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.stepMulti = new KeenDataviz({
-        container: '.chart-c3-step-multi',
-        title: 'Step Chart Multi',
-        type: 'step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.stepMultiStacked = new KeenDataviz({
-        container: '.chart-c3-step-stacked',
-        title: 'Step Chart',
-        type: 'step',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.stepTime = new KeenDataviz({
-        container: '.chart-c3-step-time',
-        title: 'Step Chart',
-        type: 'step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalData;
-        })
-        .render();
-
-      window.stepTimeMulti = new KeenDataviz({
-        container: '.chart-c3-step-time-multi',
-        title: 'Step Chart mutli',
-        type: 'step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-step-time-stacked',
-        title: 'Step Chart Multi Stacked',
-        type: 'step',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-    }
-
-    function areaLoad() {
-      window.area = new KeenDataviz({
-        container: '.chart-c3-area',
-        title: 'Area Chart',
-        type: 'area',
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.areaMulti = new KeenDataviz({
-        container: '.chart-c3-area-multi',
-        title: 'Area Chart',
-        type: 'area',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-stacked',
-        title: 'Area Chart stacked',
-        type: 'area',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-percent',
-        title: 'Area Chart Stacked 100%',
-        type: 'area',
-        stacking: 'percent',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaTime = new KeenDataviz({
-        container: '.chart-c3-area-time',
-        title: 'Area Chart',
-        type: 'area',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalDataMinutely;
-        })
-        .render();
-
-      window.areaTimeMulti = new KeenDataviz({
-        container: '.chart-c3-area-time-multi',
-        title: 'Area Chart mutli',
-        type: 'area',
-        renderOnVisible: true
-      })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.areaTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-time-stacked',
-        title: 'Area Chart multi stacked',
-        type: 'area',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.areaTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-time-percent',
-        title: 'Area Chart multi stacked 100%',
-        type: 'area',
-        stacking: 'percent',
-        renderOnVisible: true
-      })
-        .data(makeGroupedIntervalDataset())
-        .render();
-
-      window.areaTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-time-range',
-        title: 'Area Chart Range',
-        type: 'area-range',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-      window.areaSpline = new KeenDataviz({
-        container: '.chart-c3-area-spline',
-        title: 'Area-Spline Chart',
-        type: 'area-spline',
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.areaSplineMulti = new KeenDataviz({
-        container: '.chart-c3-area-spline-multi',
-        title: 'Area-Spline Chart',
-        type: 'area-spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaSplineMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-spline-stacked',
-        title: 'Area-Spline Chart stacked',
-        type: 'area-spline',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaSplineMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-spline-percent',
-        title: 'Area-Spline Chart stacked 100%',
-        type: 'area-spline',
-        stacking: 'percent',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaSplineTime = new KeenDataviz({
-        container: '.chart-c3-area-spline-time',
-        title: 'Area-Spline Chart',
-        type: 'area-spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalDataSecondly;
-        })
-        .render();
-
-      window.areaSplineTimeMulti = new KeenDataviz({
-        container: '.chart-c3-area-spline-time-multi',
-        title: 'Area-Spline Chart multi stacked',
-        type: 'area-spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiDataSecondly;
-        })
-        .render();
-
-      window.areaSplineTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-spline-time-stacked',
-        title: 'Area-Spline Chart multi stacked',
-        stacked: true,
-        type: 'area-spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiDataSecondly;
-        })
-        .render();
-      window.areaSplineTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-spline-time-percent',
-        title: 'Area-Spline Chart multi stacked 100%',
-        type: 'area-spline',
-        stacking: 'percent',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiDataSecondly;
-        })
-        .render();
-
-      window.areaSplineTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-spline-time-range',
-        title: 'Area-Range-Spline Chart',
-        type: 'area-range-spline',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-
-      window.areaStep = new KeenDataviz({
-        container: '.chart-c3-area-step',
-        title: 'Area-Step Chart multi',
-        type: 'area-step',
-        renderOnVisible: true
-      })
-        .data(makeGroupedDataset())
-        .render();
-
-      window.areaStepMulti = new KeenDataviz({
-        container: '.chart-c3-area-step-multi',
-        title: 'Area-Step Chart multi',
-        type: 'area-step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaStepMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-step-stacked',
-        title: 'Area-Step Chart multi stacked',
-        type: 'area-step',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaStepMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-step-percent',
-        title: 'Area-Step Chart multi stacked 100%',
-        type: 'area-step',
-        stacking: 'percent',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = groupedMultiData;
-        })
-        .render();
-
-      window.areaStepTime = new KeenDataviz({
-        container: '.chart-c3-area-step-time',
-        title: 'Area-Step Chart',
-        type: 'area-step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalData;
-        })
-        .render();
-
-      window.areaStepTimeMulti = new KeenDataviz({
-        container: '.chart-c3-area-step-time-multi',
-        title: 'Area-Step Chart multi',
-        type: 'area-step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-step-time-stacked',
-        title: 'Area-Step Chart multi stacked',
-        type: 'area-step',
-        stacked: true,
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-step-time-percent',
-        title: 'Area-Step Chart multi stacked 100%',
-        type: 'area-step',
-        stacking: 'percent',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = intervalMultiData;
-        })
-        .render();
-
-      window.areaStepTimeMultiStacked = new KeenDataviz({
-        container: '.chart-c3-area-step-time-range',
-        title: 'Area-Range-Step Chart',
-        type: 'area-range-step',
-        renderOnVisible: true
-      })
-        .call(function () {
-          this.dataset.matrix = rangeData;
-        })
-        .render();
-    }
-
-    function pieLoad() {
-      window.gauge = new KeenDataviz({
-        container: '.chart-c3-gauge',
-        title: 'Percentage of awesome Gauge 1',
-        theme: 'custom-theme',
-        notes: 'Sample notes go down here',
-        type: 'gauge'
-      })
-        .render(gaugeData);
-
-      window.gauge2 = new KeenDataviz({
-        container: '.chart-c3-gauge2',
-        title: 'Percentage of awesome Gauge 2',
-        notes: 'some gauge2 note 123',
-        type: 'gauge',
-        theme: 'custom-theme',
-        color: {
-          pattern: ['#fe6672', '#ff855c', '#73d483'],
-          threshold: {
-            values: [25, 50, 75]
-          }
-        }
-      })
-        .render(gaugeData);
-
-      const gaugeInterval = setInterval(function () {
-        window.gauge2.call(function () {
-          this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
-        }).render();
-      }, 1000);
-
-      window.donut = new KeenDataviz({
-        container: '.chart-c3-donut',
-        title: 'Mmmm, donuts...',
-        type: 'donut',
-        legend: {
-          position: 'bottom',
-          show: true,
-          label: {
-            textMaxLength: 100
-          }
-        },
-        sortGroups: 'desc'
-      })
-        .render({
-          result: [
-            { email: 'andrew@js.ninja', value: 100 },
-            { email: 'eve@hawai.travel', value: 50 }
-          ]
-        });
-
-      window.pie = new KeenDataviz({
-        container: '.chart-c3-pie',
-        title: 'Mmmm, pie...',
-        type: 'pie',
-        palette: 'autocollector'
-      })
-        .render({
-          result: [
-            { some_key: 'john', result: 4 },
-            { some_key: 'jack', result: 14 },
-            { some_key: 'rob', result: 20 },
-            { some_key: 'mary', result: 5 },
-            { some_key: 'tod', result: 24 }
-          ]
-        });
-
-    }
-
-    function funnelLoad() {
-      window.funnel = new KeenDataviz({
-        container: '.chart-demo-funnel',
-        type: 'funnel',
-        labelMapping: {
-          'create_account': 'Create account',
-          'complete_profile': 'Complete profile',
-          'create_project': 'Create project',
-          'invite_teammate': 'Invite teammate'
-        },
-        funnel: {
-          percents: {
-            show: true,
-          }
-        }
-      })
-        .render(funnelData);
-
-      window.funnel = new KeenDataviz({
-        container: '.chart-demo-funnel-3d',
-        type: 'funnel-3d',
-        labelMapping: {
-          'started_video': 'Started video',
-          'twenty_five_percent': '25 percent',
-          'fifty_percent': '50 percent',
-          'seventy_five_percent': '75 percent',
-          'finish_video': 'Finished video'
-        },
-        funnel: {
-          lines: false,
-          percents: {
-            show: true,
-          },
-          resultValues: false
-        }
-      })
-        .render(funnelData3d);
-
-      window.funnel = new KeenDataviz({
-        container: '.chart-demo-horizontal-funnel',
-        type: 'horizontal-funnel',
-        labelMapping: {
-          'purchased_device': 'Purchased Device',
-          'activated_device': 'Activated Device',
-          'first_session': 'First Session',
-          'invite_friend': 'Invite Friend'
-        },
-        palette: 'autocollector'
-      })
-        .render(horizontalFunnelData);
-
-      window.funnel = new KeenDataviz({
-        container: '.chart-demo-horizontal-funnel-3d',
-        type: 'horizontal-funnel-3d',
-        labelMapping: {
-          'site_visits': 'Site visits',
-          'seen_ads': 'Seen ads',
-          'clicked_ads': 'Clicked ads',
-          'purchased_product': 'Purchased product'
-        },
-        funnel: {
-          lines: false,
-          percents: {
-            show: true,
-            decimals: 1,
-          },
-          resultValues: false,
-        }
-      })
-        .render(horizontalFunnelData3d);
-
-    }
-
-    function customLoad() {
-        window.spinner = new KeenDataviz({
-          container: '#chart-demo-spinner',
-          type: 'spinner'
-        })
+          .data(makeGroupedDataset())
           .render();
 
-        window.message = new KeenDataviz({
-          container: '.chart-demo-message',
-          type: 'message'
+        window.areaSplineMulti = new KeenDataviz({
+          container: ".chart-c3-area-spline-multi",
+          title: "Area-Spline Chart",
+          type: "area-spline",
+          renderOnVisible: true
         })
-          .message('This is a manual message!');
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaSplineMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-spline-stacked",
+          title: "Area-Spline Chart stacked",
+          type: "area-spline",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaSplineMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-spline-percent",
+          title: "Area-Spline Chart stacked 100%",
+          type: "area-spline",
+          stacking: "percent",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaSplineTime = new KeenDataviz({
+          container: ".chart-c3-area-spline-time",
+          title: "Area-Spline Chart",
+          type: "area-spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalDataSecondly;
+          })
+          .render();
+
+        window.areaSplineTimeMulti = new KeenDataviz({
+          container: ".chart-c3-area-spline-time-multi",
+          title: "Area-Spline Chart multi stacked",
+          type: "area-spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiDataSecondly;
+          })
+          .render();
+
+        window.areaSplineTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-spline-time-stacked",
+          title: "Area-Spline Chart multi stacked",
+          stacked: true,
+          type: "area-spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiDataSecondly;
+          })
+          .render();
+        window.areaSplineTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-spline-time-percent",
+          title: "Area-Spline Chart multi stacked 100%",
+          type: "area-spline",
+          stacking: "percent",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiDataSecondly;
+          })
+          .render();
+
+        window.areaSplineTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-spline-time-range",
+          title: "Area-Range-Spline Chart",
+          type: "area-range-spline",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = rangeData;
+          })
+          .render();
+
+        window.areaStep = new KeenDataviz({
+          container: ".chart-c3-area-step",
+          title: "Area-Step Chart multi",
+          type: "area-step",
+          renderOnVisible: true
+        })
+          .data(makeGroupedDataset())
+          .render();
+
+        window.areaStepMulti = new KeenDataviz({
+          container: ".chart-c3-area-step-multi",
+          title: "Area-Step Chart multi",
+          type: "area-step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaStepMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-step-stacked",
+          title: "Area-Step Chart multi stacked",
+          type: "area-step",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaStepMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-step-percent",
+          title: "Area-Step Chart multi stacked 100%",
+          type: "area-step",
+          stacking: "percent",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = groupedMultiData;
+          })
+          .render();
+
+        window.areaStepTime = new KeenDataviz({
+          container: ".chart-c3-area-step-time",
+          title: "Area-Step Chart",
+          type: "area-step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalData;
+          })
+          .render();
+
+        window.areaStepTimeMulti = new KeenDataviz({
+          container: ".chart-c3-area-step-time-multi",
+          title: "Area-Step Chart multi",
+          type: "area-step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiData;
+          })
+          .render();
+
+        window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-step-time-stacked",
+          title: "Area-Step Chart multi stacked",
+          type: "area-step",
+          stacked: true,
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiData;
+          })
+          .render();
+
+        window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-step-time-percent",
+          title: "Area-Step Chart multi stacked 100%",
+          type: "area-step",
+          stacking: "percent",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = intervalMultiData;
+          })
+          .render();
+
+        window.areaStepTimeMultiStacked = new KeenDataviz({
+          container: ".chart-c3-area-step-time-range",
+          title: "Area-Range-Step Chart",
+          type: "area-range-step",
+          renderOnVisible: true
+        })
+          .call(function() {
+            this.dataset.matrix = rangeData;
+          })
+          .render();
+      }
+
+      function pieLoad() {
+        window.gauge = new KeenDataviz({
+          container: ".chart-c3-gauge",
+          title: "Percentage of awesome Gauge 1",
+          theme: "custom-theme",
+          notes: "Sample notes go down here",
+          type: "gauge"
+        }).render(gaugeData);
+
+        window.gauge2 = new KeenDataviz({
+          container: ".chart-c3-gauge2",
+          title: "Percentage of awesome Gauge 2",
+          notes: "some gauge2 note 123",
+          type: "gauge",
+          theme: "custom-theme",
+          color: {
+            pattern: ["#fe6672", "#ff855c", "#73d483"],
+            threshold: {
+              values: [25, 50, 75]
+            }
+          }
+        }).render(gaugeData);
+
+        const gaugeInterval = setInterval(function() {
+          window.gauge2
+            .call(function() {
+              this.dataset.matrix[1][1] = Math.random() * (100 - 1) + 1;
+            })
+            .render();
+        }, 1000);
+
+        window.donut = new KeenDataviz({
+          container: ".chart-c3-donut",
+          title: "Mmmm, donuts...",
+          type: "donut",
+          legend: {
+            position: "bottom",
+            show: true,
+            label: {
+              textMaxLength: 100
+            }
+          },
+          sortGroups: "desc"
+        }).render({
+          result: [
+            { email: "andrew@js.ninja", value: 100 },
+            { email: "eve@hawai.travel", value: 50 }
+          ]
+        });
+
+        window.pie = new KeenDataviz({
+          container: ".chart-c3-pie",
+          title: "Mmmm, pie...",
+          type: "pie",
+          palette: "autocollector"
+        }).render({
+          result: [
+            { some_key: "john", result: 4 },
+            { some_key: "jack", result: 14 },
+            { some_key: "rob", result: 20 },
+            { some_key: "mary", result: 5 },
+            { some_key: "tod", result: 24 }
+          ]
+        });
+      }
+
+      function funnelLoad() {
+        window.funnel = new KeenDataviz({
+          container: ".chart-demo-funnel",
+          type: "funnel",
+          labelMapping: {
+            create_account: "Create account",
+            complete_profile: "Complete profile",
+            create_project: "Create project",
+            invite_teammate: "Invite teammate"
+          },
+          funnel: {
+            percents: {
+              show: true
+            }
+          }
+        }).render(funnelData);
+
+        window.funnel = new KeenDataviz({
+          container: ".chart-demo-funnel-3d",
+          type: "funnel-3d",
+          labelMapping: {
+            started_video: "Started video",
+            twenty_five_percent: "25 percent",
+            fifty_percent: "50 percent",
+            seventy_five_percent: "75 percent",
+            finish_video: "Finished video"
+          },
+          funnel: {
+            lines: false,
+            percents: {
+              show: true
+            },
+            resultValues: false
+          }
+        }).render(funnelData3d);
+
+        window.funnel = new KeenDataviz({
+          container: ".chart-demo-horizontal-funnel",
+          type: "horizontal-funnel",
+          labelMapping: {
+            purchased_device: "Purchased Device",
+            activated_device: "Activated Device",
+            first_session: "First Session",
+            invite_friend: "Invite Friend"
+          },
+          palette: "autocollector"
+        }).render(horizontalFunnelData);
+
+        window.funnel = new KeenDataviz({
+          container: ".chart-demo-horizontal-funnel-3d",
+          type: "horizontal-funnel-3d",
+          labelMapping: {
+            site_visits: "Site visits",
+            seen_ads: "Seen ads",
+            clicked_ads: "Clicked ads",
+            purchased_product: "Purchased product"
+          },
+          funnel: {
+            lines: false,
+            percents: {
+              show: true,
+              decimals: 1
+            },
+            resultValues: false
+          }
+        }).render(horizontalFunnelData3d);
+      }
+
+      function customLoad() {
+        window.spinner = new KeenDataviz({
+          container: "#chart-demo-spinner",
+          type: "spinner"
+        }).render();
+
+        window.message = new KeenDataviz({
+          container: ".chart-demo-message",
+          type: "message"
+        }).message("This is a manual message!");
 
         window.metric = new KeenDataviz({
-          container: '#nested .chart-demo-metric',
-          type: 'metric',
-          title: 'High-fives today',
-          prettyNumber: false,
+          container: "#nested .chart-demo-metric",
+          type: "metric",
+          title: "High-fives today",
+          prettyNumber: false
         })
           .prepare()
           .render(metricData);
 
         window.metric = new KeenDataviz({
-          container: '#nested .chart-demo-metric-previous-results',
-          type: 'metric',
-          title: 'High-fives today',
+          container: "#nested .chart-demo-metric-previous-results",
+          type: "metric",
+          title: "High-fives today",
           results,
           previousResults
-        })
+        });
 
         window.table = new KeenDataviz({
-          container: '.chart-demo-table',
-          type: 'table',
-          title: 'Basic table view',
-          notes: 'Footnotes for this table',
+          container: ".chart-demo-table",
+          type: "table",
+          title: "Basic table view",
+          notes: "Footnotes for this table",
           table: {
-            columns: ['keen.timestamp', 'user_agent', 'tracked_by'],
+            columns: ["keen.timestamp", "user_agent", "tracked_by"],
             pagination: {
               limit: 3
             }
           }
-        })
-          .render(tableData);
+        }).render(tableData);
 
         const emptyTable = new KeenDataviz({
-          container: '.chart-demo-empty-table',
-          type: 'table'
-        })
-          .render({ result: [] });
+          container: ".chart-demo-empty-table",
+          type: "table"
+        }).render({ result: [] });
 
         window.metricComboChart = new KeenDataviz({
-          container: '.chart-metric-combo',
-          title: 'Metric Combo',
-          type: 'metric-combo',
+          container: ".chart-metric-combo",
+          title: "Metric Combo",
+          type: "metric-combo",
           metricResults: {
             previous: metricComboChartData.previous,
-            current: metricComboChartData.current,
+            current: metricComboChartData.current
           },
           results: metricComboChartData.interval,
           tooltip: {
             format: {
-              title: (d) => new Date(d).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+              title: d =>
+                new Date(d).toLocaleString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true
+                })
             }
           }
-        })
-          .render();
+        }).render();
 
-        const heatmapResults = {"result":[{"time.hour_of_day":6,"time.day_of_week":1,"result":8},{"time.hour_of_day":8,"time.day_of_week":1,"result":4},{"time.hour_of_day":9,"time.day_of_week":1,"result":7},{"time.hour_of_day":11,"time.day_of_week":1,"result":8},{"time.hour_of_day":12,"time.day_of_week":1,"result":3},{"time.hour_of_day":13,"time.day_of_week":1,"result":15},{"time.hour_of_day":14,"time.day_of_week":1,"result":2},{"time.hour_of_day":15,"time.day_of_week":1,"result":39},{"time.hour_of_day":16,"time.day_of_week":1,"result":1},{"time.hour_of_day":17,"time.day_of_week":1,"result":25},{"time.hour_of_day":18,"time.day_of_week":1,"result":7},{"time.hour_of_day":19,"time.day_of_week":1,"result":2},{"time.hour_of_day":21,"time.day_of_week":1,"result":1},{"time.hour_of_day":22,"time.day_of_week":1,"result":1},{"time.hour_of_day":23,"time.day_of_week":1,"result":2},{"time.hour_of_day":0,"time.day_of_week":2,"result":2},{"time.hour_of_day":7,"time.day_of_week":2,"result":6},{"time.hour_of_day":8,"time.day_of_week":2,"result":45},{"time.hour_of_day":9,"time.day_of_week":2,"result":105},{"time.hour_of_day":10,"time.day_of_week":2,"result":135},{"time.hour_of_day":11,"time.day_of_week":2,"result":156},{"time.hour_of_day":12,"time.day_of_week":2,"result":98},{"time.hour_of_day":13,"time.day_of_week":2,"result":90},{"time.hour_of_day":14,"time.day_of_week":2,"result":191},{"time.hour_of_day":15,"time.day_of_week":2,"result":102},{"time.hour_of_day":16,"time.day_of_week":2,"result":53},{"time.hour_of_day":17,"time.day_of_week":2,"result":112},{"time.hour_of_day":18,"time.day_of_week":2,"result":23},{"time.hour_of_day":19,"time.day_of_week":2,"result":27},{"time.hour_of_day":21,"time.day_of_week":2,"result":13},{"time.hour_of_day":23,"time.day_of_week":2,"result":21},{"time.hour_of_day":2,"time.day_of_week":3,"result":4},{"time.hour_of_day":7,"time.day_of_week":3,"result":1},{"time.hour_of_day":8,"time.day_of_week":3,"result":20},{"time.hour_of_day":9,"time.day_of_week":3,"result":91},{"time.hour_of_day":10,"time.day_of_week":3,"result":90},{"time.hour_of_day":11,"time.day_of_week":3,"result":159},{"time.hour_of_day":12,"time.day_of_week":3,"result":52},{"time.hour_of_day":13,"time.day_of_week":3,"result":64},{"time.hour_of_day":14,"time.day_of_week":3,"result":64},{"time.hour_of_day":15,"time.day_of_week":3,"result":117},{"time.hour_of_day":16,"time.day_of_week":3,"result":71},{"time.hour_of_day":17,"time.day_of_week":3,"result":64},{"time.hour_of_day":18,"time.day_of_week":3,"result":33},{"time.hour_of_day":19,"time.day_of_week":3,"result":17},{"time.hour_of_day":20,"time.day_of_week":3,"result":1},{"time.hour_of_day":22,"time.day_of_week":3,"result":44},{"time.hour_of_day":23,"time.day_of_week":3,"result":1},{"time.hour_of_day":0,"time.day_of_week":4,"result":8},{"time.hour_of_day":1,"time.day_of_week":4,"result":9},{"time.hour_of_day":5,"time.day_of_week":4,"result":1},{"time.hour_of_day":6,"time.day_of_week":4,"result":4},{"time.hour_of_day":8,"time.day_of_week":4,"result":4},{"time.hour_of_day":9,"time.day_of_week":4,"result":36},{"time.hour_of_day":10,"time.day_of_week":4,"result":26},{"time.hour_of_day":11,"time.day_of_week":4,"result":46},{"time.hour_of_day":12,"time.day_of_week":4,"result":32},{"time.hour_of_day":13,"time.day_of_week":4,"result":41},{"time.hour_of_day":14,"time.day_of_week":4,"result":19},{"time.hour_of_day":15,"time.day_of_week":4,"result":7},{"time.hour_of_day":16,"time.day_of_week":4,"result":6},{"time.hour_of_day":17,"time.day_of_week":4,"result":10},{"time.hour_of_day":18,"time.day_of_week":4,"result":18},{"time.hour_of_day":19,"time.day_of_week":4,"result":74},{"time.hour_of_day":20,"time.day_of_week":4,"result":4},{"time.hour_of_day":21,"time.day_of_week":4,"result":3},{"time.hour_of_day":22,"time.day_of_week":4,"result":4},{"time.hour_of_day":23,"time.day_of_week":4,"result":9},{"time.hour_of_day":0,"time.day_of_week":5,"result":8},{"time.hour_of_day":1,"time.day_of_week":5,"result":1},{"time.hour_of_day":2,"time.day_of_week":5,"result":14},{"time.hour_of_day":6,"time.day_of_week":5,"result":2},{"time.hour_of_day":7,"time.day_of_week":5,"result":3},{"time.hour_of_day":8,"time.day_of_week":5,"result":59},{"time.hour_of_day":9,"time.day_of_week":5,"result":37},{"time.hour_of_day":10,"time.day_of_week":5,"result":99},{"time.hour_of_day":11,"time.day_of_week":5,"result":59},{"time.hour_of_day":12,"time.day_of_week":5,"result":99},{"time.hour_of_day":13,"time.day_of_week":5,"result":64},{"time.hour_of_day":14,"time.day_of_week":5,"result":57},{"time.hour_of_day":15,"time.day_of_week":5,"result":144},{"time.hour_of_day":16,"time.day_of_week":5,"result":60},{"time.hour_of_day":17,"time.day_of_week":5,"result":35},{"time.hour_of_day":18,"time.day_of_week":5,"result":21},{"time.hour_of_day":19,"time.day_of_week":5,"result":5},{"time.hour_of_day":20,"time.day_of_week":5,"result":2},{"time.hour_of_day":21,"time.day_of_week":5,"result":6},{"time.hour_of_day":22,"time.day_of_week":5,"result":1},{"time.hour_of_day":23,"time.day_of_week":5,"result":13},{"time.hour_of_day":1,"time.day_of_week":6,"result":2},{"time.hour_of_day":4,"time.day_of_week":6,"result":3},{"time.hour_of_day":8,"time.day_of_week":6,"result":44},{"time.hour_of_day":9,"time.day_of_week":6,"result":66},{"time.hour_of_day":10,"time.day_of_week":6,"result":60},{"time.hour_of_day":11,"time.day_of_week":6,"result":81},{"time.hour_of_day":12,"time.day_of_week":6,"result":42},{"time.hour_of_day":13,"time.day_of_week":6,"result":50},{"time.hour_of_day":14,"time.day_of_week":6,"result":48},{"time.hour_of_day":15,"time.day_of_week":6,"result":50},{"time.hour_of_day":16,"time.day_of_week":6,"result":88},{"time.hour_of_day":17,"time.day_of_week":6,"result":54},{"time.hour_of_day":18,"time.day_of_week":6,"result":11},{"time.hour_of_day":19,"time.day_of_week":6,"result":11},{"time.hour_of_day":20,"time.day_of_week":6,"result":6},{"time.hour_of_day":21,"time.day_of_week":6,"result":3},{"time.hour_of_day":22,"time.day_of_week":6,"result":6},{"time.hour_of_day":23,"time.day_of_week":6,"result":16},{"time.hour_of_day":6,"time.day_of_week":7,"result":4},{"time.hour_of_day":7,"time.day_of_week":7,"result":5},{"time.hour_of_day":8,"time.day_of_week":7,"result":12},{"time.hour_of_day":9,"time.day_of_week":7,"result":5},{"time.hour_of_day":10,"time.day_of_week":7,"result":13},{"time.hour_of_day":11,"time.day_of_week":7,"result":19},{"time.hour_of_day":12,"time.day_of_week":7,"result":4},{"time.hour_of_day":14,"time.day_of_week":7,"result":18},{"time.hour_of_day":15,"time.day_of_week":7,"result":44},{"time.hour_of_day":16,"time.day_of_week":7,"result":14},{"time.hour_of_day":17,"time.day_of_week":7,"result":3},{"time.hour_of_day":18,"time.day_of_week":7,"result":4},{"time.hour_of_day":20,"time.day_of_week":7,"result":11},{"time.hour_of_day":21,"time.day_of_week":7,"result":8},{"time.hour_of_day":22,"time.day_of_week":7,"result":1},{"time.hour_of_day":23,"time.day_of_week":7,"result":3}]};
+        const heatmapResults = {
+          result: [
+            { "time.hour_of_day": 6, "time.day_of_week": 1, result: 8 },
+            { "time.hour_of_day": 8, "time.day_of_week": 1, result: 4 },
+            { "time.hour_of_day": 9, "time.day_of_week": 1, result: 7 },
+            { "time.hour_of_day": 11, "time.day_of_week": 1, result: 8 },
+            { "time.hour_of_day": 12, "time.day_of_week": 1, result: 3 },
+            { "time.hour_of_day": 13, "time.day_of_week": 1, result: 15 },
+            { "time.hour_of_day": 14, "time.day_of_week": 1, result: 2 },
+            { "time.hour_of_day": 15, "time.day_of_week": 1, result: 39 },
+            { "time.hour_of_day": 16, "time.day_of_week": 1, result: 1 },
+            { "time.hour_of_day": 17, "time.day_of_week": 1, result: 25 },
+            { "time.hour_of_day": 18, "time.day_of_week": 1, result: 7 },
+            { "time.hour_of_day": 19, "time.day_of_week": 1, result: 2 },
+            { "time.hour_of_day": 21, "time.day_of_week": 1, result: 1 },
+            { "time.hour_of_day": 22, "time.day_of_week": 1, result: 1 },
+            { "time.hour_of_day": 23, "time.day_of_week": 1, result: 2 },
+            { "time.hour_of_day": 0, "time.day_of_week": 2, result: 2 },
+            { "time.hour_of_day": 7, "time.day_of_week": 2, result: 6 },
+            { "time.hour_of_day": 8, "time.day_of_week": 2, result: 45 },
+            { "time.hour_of_day": 9, "time.day_of_week": 2, result: 105 },
+            { "time.hour_of_day": 10, "time.day_of_week": 2, result: 135 },
+            { "time.hour_of_day": 11, "time.day_of_week": 2, result: 156 },
+            { "time.hour_of_day": 12, "time.day_of_week": 2, result: 98 },
+            { "time.hour_of_day": 13, "time.day_of_week": 2, result: 90 },
+            { "time.hour_of_day": 14, "time.day_of_week": 2, result: 191 },
+            { "time.hour_of_day": 15, "time.day_of_week": 2, result: 102 },
+            { "time.hour_of_day": 16, "time.day_of_week": 2, result: 53 },
+            { "time.hour_of_day": 17, "time.day_of_week": 2, result: 112 },
+            { "time.hour_of_day": 18, "time.day_of_week": 2, result: 23 },
+            { "time.hour_of_day": 19, "time.day_of_week": 2, result: 27 },
+            { "time.hour_of_day": 21, "time.day_of_week": 2, result: 13 },
+            { "time.hour_of_day": 23, "time.day_of_week": 2, result: 21 },
+            { "time.hour_of_day": 2, "time.day_of_week": 3, result: 4 },
+            { "time.hour_of_day": 7, "time.day_of_week": 3, result: 1 },
+            { "time.hour_of_day": 8, "time.day_of_week": 3, result: 20 },
+            { "time.hour_of_day": 9, "time.day_of_week": 3, result: 91 },
+            { "time.hour_of_day": 10, "time.day_of_week": 3, result: 90 },
+            { "time.hour_of_day": 11, "time.day_of_week": 3, result: 159 },
+            { "time.hour_of_day": 12, "time.day_of_week": 3, result: 52 },
+            { "time.hour_of_day": 13, "time.day_of_week": 3, result: 64 },
+            { "time.hour_of_day": 14, "time.day_of_week": 3, result: 64 },
+            { "time.hour_of_day": 15, "time.day_of_week": 3, result: 117 },
+            { "time.hour_of_day": 16, "time.day_of_week": 3, result: 71 },
+            { "time.hour_of_day": 17, "time.day_of_week": 3, result: 64 },
+            { "time.hour_of_day": 18, "time.day_of_week": 3, result: 33 },
+            { "time.hour_of_day": 19, "time.day_of_week": 3, result: 17 },
+            { "time.hour_of_day": 20, "time.day_of_week": 3, result: 1 },
+            { "time.hour_of_day": 22, "time.day_of_week": 3, result: 44 },
+            { "time.hour_of_day": 23, "time.day_of_week": 3, result: 1 },
+            { "time.hour_of_day": 0, "time.day_of_week": 4, result: 8 },
+            { "time.hour_of_day": 1, "time.day_of_week": 4, result: 9 },
+            { "time.hour_of_day": 5, "time.day_of_week": 4, result: 1 },
+            { "time.hour_of_day": 6, "time.day_of_week": 4, result: 4 },
+            { "time.hour_of_day": 8, "time.day_of_week": 4, result: 4 },
+            { "time.hour_of_day": 9, "time.day_of_week": 4, result: 36 },
+            { "time.hour_of_day": 10, "time.day_of_week": 4, result: 26 },
+            { "time.hour_of_day": 11, "time.day_of_week": 4, result: 46 },
+            { "time.hour_of_day": 12, "time.day_of_week": 4, result: 32 },
+            { "time.hour_of_day": 13, "time.day_of_week": 4, result: 41 },
+            { "time.hour_of_day": 14, "time.day_of_week": 4, result: 19 },
+            { "time.hour_of_day": 15, "time.day_of_week": 4, result: 7 },
+            { "time.hour_of_day": 16, "time.day_of_week": 4, result: 6 },
+            { "time.hour_of_day": 17, "time.day_of_week": 4, result: 10 },
+            { "time.hour_of_day": 18, "time.day_of_week": 4, result: 18 },
+            { "time.hour_of_day": 19, "time.day_of_week": 4, result: 74 },
+            { "time.hour_of_day": 20, "time.day_of_week": 4, result: 4 },
+            { "time.hour_of_day": 21, "time.day_of_week": 4, result: 3 },
+            { "time.hour_of_day": 22, "time.day_of_week": 4, result: 4 },
+            { "time.hour_of_day": 23, "time.day_of_week": 4, result: 9 },
+            { "time.hour_of_day": 0, "time.day_of_week": 5, result: 8 },
+            { "time.hour_of_day": 1, "time.day_of_week": 5, result: 1 },
+            { "time.hour_of_day": 2, "time.day_of_week": 5, result: 14 },
+            { "time.hour_of_day": 6, "time.day_of_week": 5, result: 2 },
+            { "time.hour_of_day": 7, "time.day_of_week": 5, result: 3 },
+            { "time.hour_of_day": 8, "time.day_of_week": 5, result: 59 },
+            { "time.hour_of_day": 9, "time.day_of_week": 5, result: 37 },
+            { "time.hour_of_day": 10, "time.day_of_week": 5, result: 99 },
+            { "time.hour_of_day": 11, "time.day_of_week": 5, result: 59 },
+            { "time.hour_of_day": 12, "time.day_of_week": 5, result: 99 },
+            { "time.hour_of_day": 13, "time.day_of_week": 5, result: 64 },
+            { "time.hour_of_day": 14, "time.day_of_week": 5, result: 57 },
+            { "time.hour_of_day": 15, "time.day_of_week": 5, result: 144 },
+            { "time.hour_of_day": 16, "time.day_of_week": 5, result: 60 },
+            { "time.hour_of_day": 17, "time.day_of_week": 5, result: 35 },
+            { "time.hour_of_day": 18, "time.day_of_week": 5, result: 21 },
+            { "time.hour_of_day": 19, "time.day_of_week": 5, result: 5 },
+            { "time.hour_of_day": 20, "time.day_of_week": 5, result: 2 },
+            { "time.hour_of_day": 21, "time.day_of_week": 5, result: 6 },
+            { "time.hour_of_day": 22, "time.day_of_week": 5, result: 1 },
+            { "time.hour_of_day": 23, "time.day_of_week": 5, result: 13 },
+            { "time.hour_of_day": 1, "time.day_of_week": 6, result: 2 },
+            { "time.hour_of_day": 4, "time.day_of_week": 6, result: 3 },
+            { "time.hour_of_day": 8, "time.day_of_week": 6, result: 44 },
+            { "time.hour_of_day": 9, "time.day_of_week": 6, result: 66 },
+            { "time.hour_of_day": 10, "time.day_of_week": 6, result: 60 },
+            { "time.hour_of_day": 11, "time.day_of_week": 6, result: 81 },
+            { "time.hour_of_day": 12, "time.day_of_week": 6, result: 42 },
+            { "time.hour_of_day": 13, "time.day_of_week": 6, result: 50 },
+            { "time.hour_of_day": 14, "time.day_of_week": 6, result: 48 },
+            { "time.hour_of_day": 15, "time.day_of_week": 6, result: 50 },
+            { "time.hour_of_day": 16, "time.day_of_week": 6, result: 88 },
+            { "time.hour_of_day": 17, "time.day_of_week": 6, result: 54 },
+            { "time.hour_of_day": 18, "time.day_of_week": 6, result: 11 },
+            { "time.hour_of_day": 19, "time.day_of_week": 6, result: 11 },
+            { "time.hour_of_day": 20, "time.day_of_week": 6, result: 6 },
+            { "time.hour_of_day": 21, "time.day_of_week": 6, result: 3 },
+            { "time.hour_of_day": 22, "time.day_of_week": 6, result: 6 },
+            { "time.hour_of_day": 23, "time.day_of_week": 6, result: 16 },
+            { "time.hour_of_day": 6, "time.day_of_week": 7, result: 4 },
+            { "time.hour_of_day": 7, "time.day_of_week": 7, result: 5 },
+            { "time.hour_of_day": 8, "time.day_of_week": 7, result: 12 },
+            { "time.hour_of_day": 9, "time.day_of_week": 7, result: 5 },
+            { "time.hour_of_day": 10, "time.day_of_week": 7, result: 13 },
+            { "time.hour_of_day": 11, "time.day_of_week": 7, result: 19 },
+            { "time.hour_of_day": 12, "time.day_of_week": 7, result: 4 },
+            { "time.hour_of_day": 14, "time.day_of_week": 7, result: 18 },
+            { "time.hour_of_day": 15, "time.day_of_week": 7, result: 44 },
+            { "time.hour_of_day": 16, "time.day_of_week": 7, result: 14 },
+            { "time.hour_of_day": 17, "time.day_of_week": 7, result: 3 },
+            { "time.hour_of_day": 18, "time.day_of_week": 7, result: 4 },
+            { "time.hour_of_day": 20, "time.day_of_week": 7, result: 11 },
+            { "time.hour_of_day": 21, "time.day_of_week": 7, result: 8 },
+            { "time.hour_of_day": 22, "time.day_of_week": 7, result: 1 },
+            { "time.hour_of_day": 23, "time.day_of_week": 7, result: 3 }
+          ]
+        };
         window.heatmapChart = new KeenDataviz({
-          container: '.chart-heatmap',
-          title: 'Heatmap chart',
-          type: 'heatmap',
+          container: ".chart-heatmap",
+          title: "Heatmap chart",
+          type: "heatmap",
           tooltip: {
-            showValueOnly: false,
+            showValueOnly: false
           },
           showSlider: true,
           // results: heatmapData()
-          results: heatmapResults,
+          results: heatmapResults
+        }).render();
+
+        window.choroplethWorld = new KeenDataviz({
+          container: ".chart-choropleth-world",
+          title: "Choropleth World",
+          type: "choropleth"
         })
-        .render();
-                          
-        window.metricComboChart = new KeenDataviz({
-          container: '.chart-choropleth-world',
-          title: 'Choropleth World',
-          type: 'choropleth',
-        })
-        .data(countries_clicks)
+          .data(countries_clicks)
           .render();
 
-          window.metricComboChart = new KeenDataviz({
-          container: '.chart-choropleth-us',
-          title: 'Choropleth United States',
-          type: 'choropleth',
+        window.choroplethUS = new KeenDataviz({
+          container: ".chart-choropleth-us",
+          title: "Choropleth United States",
+          type: "choropleth",
           choropleth: {
-            map: 'us'
+            map: "us"
           }
         })
-        .data(us_clicks)
+          .data(us_clicks)
           .render();
       }
 
@@ -1409,245 +1543,1067 @@
       const gaugeData = { result: 79 };
 
       const groupedData = [
-        [ 'Index', 'Result' ],
-        [ faker.internet.url(), faker.internet.exampleEmail(), faker.internet.exampleEmail(), 189.98 ],
-        [ faker.internet.url(), 135.83 ],
-        [ faker.internet.url(), 124.56 ],
-        [ faker.internet.url(), 117.22 ],
-        [ faker.internet.url(), 55.12  ]
+        ["Index", "Result"],
+        [
+          faker.internet.url(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          189.98
+        ],
+        [faker.internet.url(), 135.83],
+        [faker.internet.url(), 124.56],
+        [faker.internet.url(), 117.22],
+        [faker.internet.url(), 55.12]
       ];
 
-      function makeGroupedDataset(){
+      function makeGroupedDataset() {
         const ds = new Dataset();
         const len = rand(5, RAND_DATA_MAX);
         for (let i = 0; i < len; i++) {
           ds.appendRow(faker.internet.email(), [faker.random.number()]);
         }
-        ds.appendRow('null', [faker.random.number()]);
+        ds.appendRow("null", [faker.random.number()]);
         return ds;
       }
 
-      function makeGroupedIntervalDataset(){
+      function makeGroupedIntervalDataset() {
         const ds = new Dataset();
         ds.matrix = [
-          [ 'Index' ],
-          [ '2015-12-01T10:56:00.000Z' ],
-          [ '2015-12-01T10:57:00.000Z' ],
-          [ '2015-12-01T10:58:00.000Z' ],
-          [ '2015-12-01T10:59:00.000Z' ],
-          [ '2015-12-01T11:00:00.000Z' ]
+          ["Index"],
+          ["2015-12-01T10:56:00.000Z"],
+          ["2015-12-01T10:57:00.000Z"],
+          ["2015-12-01T10:58:00.000Z"],
+          ["2015-12-01T10:59:00.000Z"],
+          ["2015-12-01T11:00:00.000Z"]
         ];
 
         // Add more rows
         for (let i = 0; i < 25; i++) {
-          let val = i < 10 ? '0'+i : i;
-          ds.matrix.push([ '2015-12-01T11:' + val + ':00.000Z' ]);
+          let val = i < 10 ? "0" + i : i;
+          ds.matrix.push(["2015-12-01T11:" + val + ":00.000Z"]);
         }
 
         let len = ds.selectColumn(0).length;
         for (let i = 0; i < RAND_DATA_MAX; i++) {
-          let newCol = gen(len-1);
+          let newCol = gen(len - 1);
           if (i > 0) {
             ds.appendColumn(newCol[0], newCol.slice(1));
-          }
-          else {
+          } else {
             // Inject a null value
-            ds.appendColumn('null', newCol.slice(1));
+            ds.appendColumn("null", newCol.slice(1));
           }
         }
         return ds;
       }
 
       const groupedMultiData = [
-        [ 'Index', faker.internet.url(), faker.internet.url(), faker.internet.url()],
-        [ 'A', 189.98, 322.43, 654.44 ],
-        [ 'B', 135.83, 564.21, 622.12 ],
-        [ 'C', 124.56, 611.23, 432.11 ],
-        [ 'D', 117.22, 434.37, 488.12 ],
-        [ 'E', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.url(),
+          faker.internet.url(),
+          faker.internet.url()
+        ],
+        ["A", 189.98, 322.43, 654.44],
+        ["B", 135.83, 564.21, 622.12],
+        ["C", 124.56, 611.23, 432.11],
+        ["D", 117.22, 434.37, 488.12],
+        ["E", 55.12, 212.44, 323.55]
       ];
 
       const rangeData = [
-        [ 'Index', faker.internet.url(), faker.internet.url(),],
-        [ 'A',  322.43, 189.98,],
-        [ 'B',  564.21, 135.83,],
-        [ 'C',  611.23, 124.56,],
-        [ 'D',  434.37, 117.22,],
-        [ 'E',  212.44, 55.12,],
+        ["Index", faker.internet.url(), faker.internet.url()],
+        ["A", 322.43, 189.98],
+        ["B", 564.21, 135.83],
+        ["C", 611.23, 124.56],
+        ["D", 434.37, 117.22],
+        ["E", 212.44, 55.12]
       ];
 
       const intervalData = [
-        [ 'Index', 'Result' ],
-        [ '2014-12-01T00:00:00.000Z', 189.98 ],
-        [ '2015-01-01T00:00:00.000Z', 135.83 ],
-        [ '2015-02-01T00:00:00.000Z', 124.56 ],
-        [ '2015-03-01T00:00:00.000Z', 117.22 ],
-        [ '2015-04-01T00:00:00.000Z', 55.12  ]
+        ["Index", "Result"],
+        ["2014-12-01T00:00:00.000Z", 189.98],
+        ["2015-01-01T00:00:00.000Z", 135.83],
+        ["2015-02-01T00:00:00.000Z", 124.56],
+        ["2015-03-01T00:00:00.000Z", 117.22],
+        ["2015-04-01T00:00:00.000Z", 55.12]
       ];
 
       const intervalMultiData = [
-        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
-        [ '2014-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
-        [ '2015-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
-        [ '2015-02-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
-        [ '2015-03-01T00:00:00.000Z', 117.22, 434.37, 488.12 ],
-        [ '2015-04-01T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail()
+        ],
+        ["2014-12-01T00:00:00.000Z", 189.98, 322.43, 654.44],
+        ["2015-01-01T00:00:00.000Z", 135.83, 564.21, 622.12],
+        ["2015-02-01T00:00:00.000Z", 124.56, 611.23, 432.11],
+        ["2015-03-01T00:00:00.000Z", 117.22, 434.37, 488.12],
+        ["2015-04-01T00:00:00.000Z", 55.12, 212.44, 323.55]
       ];
-
 
       // Yearly dataset
 
       const intervalDataYearly = [
-        [ 'Index', 'Result' ],
-        [ '2011-01-01T00:00:00.000Z', 189.98 ],
-        [ '2012-01-01T00:00:00.000Z', 135.83 ],
-        [ '2013-01-01T00:00:00.000Z', 124.56 ],
-        [ '2014-01-01T00:00:00.000Z', 117.22 ],
-        [ '2015-01-01T00:00:00.000Z', 55.12  ]
+        ["Index", "Result"],
+        ["2011-01-01T00:00:00.000Z", 189.98],
+        ["2012-01-01T00:00:00.000Z", 135.83],
+        ["2013-01-01T00:00:00.000Z", 124.56],
+        ["2014-01-01T00:00:00.000Z", 117.22],
+        ["2015-01-01T00:00:00.000Z", 55.12]
       ];
 
       const intervalMultiDataYearly = [
-        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
-        [ '2011-01-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
-        [ '2012-01-01T00:00:00.000Z', 135.83, 564.21, 622.12 ],
-        [ '2013-01-01T00:00:00.000Z', 124.56, 611.23, 432.11 ],
-        [ '2014-01-01T00:00:00.000Z', 117.22, 434.37, 488.12 ],
-        [ '2015-01-01T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail()
+        ],
+        ["2011-01-01T00:00:00.000Z", 189.98, 322.43, 654.44],
+        ["2012-01-01T00:00:00.000Z", 135.83, 564.21, 622.12],
+        ["2013-01-01T00:00:00.000Z", 124.56, 611.23, 432.11],
+        ["2014-01-01T00:00:00.000Z", 117.22, 434.37, 488.12],
+        ["2015-01-01T00:00:00.000Z", 55.12, 212.44, 323.55]
       ];
 
       // Secondly dataset
 
       const intervalDataSecondly = [
-        [ 'Index', 'Result' ],
-        [ '2015-12-01T10:59:56.000Z', 189.98 ],
-        [ '2015-12-01T10:59:57.000Z', 135.83 ],
-        [ '2015-12-01T10:59:58.000Z', 124.56 ],
-        [ '2015-12-01T10:59:59.000Z', 117.22 ],
-        [ '2015-12-01T11:00:00.000Z', 55.12  ]
+        ["Index", "Result"],
+        ["2015-12-01T10:59:56.000Z", 189.98],
+        ["2015-12-01T10:59:57.000Z", 135.83],
+        ["2015-12-01T10:59:58.000Z", 124.56],
+        ["2015-12-01T10:59:59.000Z", 117.22],
+        ["2015-12-01T11:00:00.000Z", 55.12]
       ];
 
       const intervalMultiDataSecondly = [
-        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
-        [ '2015-12-01T10:59:56.000Z', 189.98, 322.43, 654.44 ],
-        [ '2015-12-01T10:59:57.000Z', 135.83, 564.21, 622.12 ],
-        [ '2015-12-01T10:59:58.000Z', 124.56, 611.23, 432.11 ],
-        [ '2015-12-01T10:59:59.000Z', 117.22, 434.37, 488.12 ],
-        [ '2015-12-01T11:00:00.000Z', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail()
+        ],
+        ["2015-12-01T10:59:56.000Z", 189.98, 322.43, 654.44],
+        ["2015-12-01T10:59:57.000Z", 135.83, 564.21, 622.12],
+        ["2015-12-01T10:59:58.000Z", 124.56, 611.23, 432.11],
+        ["2015-12-01T10:59:59.000Z", 117.22, 434.37, 488.12],
+        ["2015-12-01T11:00:00.000Z", 55.12, 212.44, 323.55]
       ];
 
       // Minutely dataset
 
       const intervalDataMinutely = [
-        [ 'Index', 'Result' ],
-        [ '2015-12-01T10:56:00.000Z', 189.98 ],
-        [ '2015-12-01T10:57:00.000Z', 135.83 ],
-        [ '2015-12-01T10:58:00.000Z', 124.56 ],
-        [ '2015-12-01T10:59:00.000Z', 117.22 ],
-        [ '2015-12-01T11:00:00.000Z', 55.12  ]
+        ["Index", "Result"],
+        ["2015-12-01T10:56:00.000Z", 189.98],
+        ["2015-12-01T10:57:00.000Z", 135.83],
+        ["2015-12-01T10:58:00.000Z", 124.56],
+        ["2015-12-01T10:59:00.000Z", 117.22],
+        ["2015-12-01T11:00:00.000Z", 55.12]
       ];
 
       const intervalMultiDataMinutely = [
-        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
-        [ '2015-12-01T10:56:00.000Z', 189.98, 322.43, 654.44 ],
-        [ '2015-12-01T10:57:00.000Z', 135.83, 564.21, 622.12 ],
-        [ '2015-12-01T10:58:00.000Z', 124.56, 611.23, 432.11 ],
-        [ '2015-12-01T10:59:00.000Z', 117.22, 434.37, 488.12 ],
-        [ '2015-12-01T11:00:00.000Z', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail()
+        ],
+        ["2015-12-01T10:56:00.000Z", 189.98, 322.43, 654.44],
+        ["2015-12-01T10:57:00.000Z", 135.83, 564.21, 622.12],
+        ["2015-12-01T10:58:00.000Z", 124.56, 611.23, 432.11],
+        ["2015-12-01T10:59:00.000Z", 117.22, 434.37, 488.12],
+        ["2015-12-01T11:00:00.000Z", 55.12, 212.44, 323.55]
       ];
-
 
       // Hourly dataset
 
       const intervalDataHourly = [
-        [ 'Index', 'Result' ],
-        [ '2015-12-01T10:00:00.000Z', 189.98 ],
-        [ '2015-12-01T11:00:00.000Z', 135.83 ],
-        [ '2015-12-01T12:00:00.000Z', 124.56 ],
-        [ '2015-12-01T13:00:00.000Z', 117.22 ],
-        [ '2015-12-01T14:00:00.000Z', 55.12  ]
+        ["Index", "Result"],
+        ["2015-12-01T10:00:00.000Z", 189.98],
+        ["2015-12-01T11:00:00.000Z", 135.83],
+        ["2015-12-01T12:00:00.000Z", 124.56],
+        ["2015-12-01T13:00:00.000Z", 117.22],
+        ["2015-12-01T14:00:00.000Z", 55.12]
       ];
 
       const intervalMultiDataHourly = [
-        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
-        [ '2015-12-01T10:00:00.000Z', 189.98, 322.43, 654.44 ],
-        [ '2015-12-01T11:00:00.000Z', 135.83, 564.21, 622.12 ],
-        [ '2015-12-01T12:00:00.000Z', 124.56, 611.23, 432.11 ],
-        [ '2015-12-01T13:00:00.000Z', 117.22, 434.37, 488.12 ],
-        [ '2015-12-01T14:00:00.000Z', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail()
+        ],
+        ["2015-12-01T10:00:00.000Z", 189.98, 322.43, 654.44],
+        ["2015-12-01T11:00:00.000Z", 135.83, 564.21, 622.12],
+        ["2015-12-01T12:00:00.000Z", 124.56, 611.23, 432.11],
+        ["2015-12-01T13:00:00.000Z", 117.22, 434.37, 488.12],
+        ["2015-12-01T14:00:00.000Z", 55.12, 212.44, 323.55]
       ];
-
 
       // Daily dataset
 
       const intervalDataDaily = [
-        [ 'Index', 'Result' ],
-        [ '2015-12-01T00:00:00.000Z', 189.98 ],
-        [ '2015-12-02T00:00:00.000Z', 135.83 ],
-        [ '2015-12-03T00:00:00.000Z', 124.56 ],
-        [ '2015-12-04T00:00:00.000Z', 117.22 ],
-        [ '2015-12-05T00:00:00.000Z', 55.12  ]
+        ["Index", "Result"],
+        ["2015-12-01T00:00:00.000Z", 189.98],
+        ["2015-12-02T00:00:00.000Z", 135.83],
+        ["2015-12-03T00:00:00.000Z", 124.56],
+        ["2015-12-04T00:00:00.000Z", 117.22],
+        ["2015-12-05T00:00:00.000Z", 55.12]
       ];
 
       const intervalMultiDataDaily = [
-        [ 'Index', faker.internet.exampleEmail(), faker.internet.exampleEmail(), faker.internet.exampleEmail() ],
-        [ '2015-12-01T00:00:00.000Z', 189.98, 322.43, 654.44 ],
-        [ '2015-12-02T00:00:00.000Z', 135.83, 564.21, 622.12 ],
-        [ '2015-12-03T00:00:00.000Z', 124.56, 611.23, 432.11 ],
-        [ '2015-12-04T00:00:00.000Z', 117.22, 434.37, 488.12 ],
-        [ '2015-12-05T00:00:00.000Z', 55.12, 212.44, 323.55  ]
+        [
+          "Index",
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail(),
+          faker.internet.exampleEmail()
+        ],
+        ["2015-12-01T00:00:00.000Z", 189.98, 322.43, 654.44],
+        ["2015-12-02T00:00:00.000Z", 135.83, 564.21, 622.12],
+        ["2015-12-03T00:00:00.000Z", 124.56, 611.23, 432.11],
+        ["2015-12-04T00:00:00.000Z", 117.22, 434.37, 488.12],
+        ["2015-12-05T00:00:00.000Z", 55.12, 212.44, 323.55]
       ];
 
-      const intervalQuery = {"query":{"analysis_type":"count","event_collection":"pageviews","timeframe":"previous_24_hours","interval":"hourly","timezone":"UTC"},"result":[{"value":10,"timeframe":{"start":"2019-03-14T11:00:00.000Z","end":"2019-03-14T12:00:00.000Z"}},{"value":50,"timeframe":{"start":"2019-03-14T12:00:00.000Z","end":"2019-03-14T13:00:00.000Z"}},{"value":30,"timeframe":{"start":"2019-03-14T13:00:00.000Z","end":"2019-03-14T14:00:00.000Z"}},{"value":60,"timeframe":{"start":"2019-03-14T14:00:00.000Z","end":"2019-03-14T15:00:00.000Z"}},{"value":30,"timeframe":{"start":"2019-03-14T15:00:00.000Z","end":"2019-03-14T16:00:00.000Z"}},{"value":20,"timeframe":{"start":"2019-03-14T16:00:00.000Z","end":"2019-03-14T17:00:00.000Z"}},{"value":50,"timeframe":{"start":"2019-03-14T17:00:00.000Z","end":"2019-03-14T18:00:00.000Z"}},{"value":40,"timeframe":{"start":"2019-03-14T18:00:00.000Z","end":"2019-03-14T19:00:00.000Z"}},{"value":10,"timeframe":{"start":"2019-03-14T19:00:00.000Z","end":"2019-03-14T20:00:00.000Z"}},{"value":40,"timeframe":{"start":"2019-03-14T20:00:00.000Z","end":"2019-03-14T21:00:00.000Z"}},{"value":20,"timeframe":{"start":"2019-03-14T21:00:00.000Z","end":"2019-03-14T22:00:00.000Z"}},{"value":30,"timeframe":{"start":"2019-03-14T22:00:00.000Z","end":"2019-03-14T23:00:00.000Z"}},{"value":30,"timeframe":{"start":"2019-03-14T23:00:00.000Z","end":"2019-03-15T00:00:00.000Z"}},{"value":50,"timeframe":{"start":"2019-03-15T00:00:00.000Z","end":"2019-03-15T01:00:00.000Z"}},{"value":100,"timeframe":{"start":"2019-03-15T01:00:00.000Z","end":"2019-03-15T02:00:00.000Z"}},{"value":40,"timeframe":{"start":"2019-03-15T02:00:00.000Z","end":"2019-03-15T03:00:00.000Z"}},{"value":10,"timeframe":{"start":"2019-03-15T03:00:00.000Z","end":"2019-03-15T04:00:00.000Z"}},{"value":20,"timeframe":{"start":"2019-03-15T04:00:00.000Z","end":"2019-03-15T05:00:00.000Z"}},{"value":60,"timeframe":{"start":"2019-03-15T05:00:00.000Z","end":"2019-03-15T06:00:00.000Z"}},{"value":20,"timeframe":{"start":"2019-03-15T06:00:00.000Z","end":"2019-03-15T07:00:00.000Z"}},{"value":20,"timeframe":{"start":"2019-03-15T07:00:00.000Z","end":"2019-03-15T08:00:00.000Z"}},{"value":50,"timeframe":{"start":"2019-03-15T08:00:00.000Z","end":"2019-03-15T09:00:00.000Z"}},{"value":20,"timeframe":{"start":"2019-03-15T09:00:00.000Z","end":"2019-03-15T10:00:00.000Z"}},{"value":30,"timeframe":{"start":"2019-03-15T10:00:00.000Z","end":"2019-03-15T11:00:00.000Z"}}]};
+      const intervalQuery = {
+        query: {
+          analysis_type: "count",
+          event_collection: "pageviews",
+          timeframe: "previous_24_hours",
+          interval: "hourly",
+          timezone: "UTC"
+        },
+        result: [
+          {
+            value: 10,
+            timeframe: {
+              start: "2019-03-14T11:00:00.000Z",
+              end: "2019-03-14T12:00:00.000Z"
+            }
+          },
+          {
+            value: 50,
+            timeframe: {
+              start: "2019-03-14T12:00:00.000Z",
+              end: "2019-03-14T13:00:00.000Z"
+            }
+          },
+          {
+            value: 30,
+            timeframe: {
+              start: "2019-03-14T13:00:00.000Z",
+              end: "2019-03-14T14:00:00.000Z"
+            }
+          },
+          {
+            value: 60,
+            timeframe: {
+              start: "2019-03-14T14:00:00.000Z",
+              end: "2019-03-14T15:00:00.000Z"
+            }
+          },
+          {
+            value: 30,
+            timeframe: {
+              start: "2019-03-14T15:00:00.000Z",
+              end: "2019-03-14T16:00:00.000Z"
+            }
+          },
+          {
+            value: 20,
+            timeframe: {
+              start: "2019-03-14T16:00:00.000Z",
+              end: "2019-03-14T17:00:00.000Z"
+            }
+          },
+          {
+            value: 50,
+            timeframe: {
+              start: "2019-03-14T17:00:00.000Z",
+              end: "2019-03-14T18:00:00.000Z"
+            }
+          },
+          {
+            value: 40,
+            timeframe: {
+              start: "2019-03-14T18:00:00.000Z",
+              end: "2019-03-14T19:00:00.000Z"
+            }
+          },
+          {
+            value: 10,
+            timeframe: {
+              start: "2019-03-14T19:00:00.000Z",
+              end: "2019-03-14T20:00:00.000Z"
+            }
+          },
+          {
+            value: 40,
+            timeframe: {
+              start: "2019-03-14T20:00:00.000Z",
+              end: "2019-03-14T21:00:00.000Z"
+            }
+          },
+          {
+            value: 20,
+            timeframe: {
+              start: "2019-03-14T21:00:00.000Z",
+              end: "2019-03-14T22:00:00.000Z"
+            }
+          },
+          {
+            value: 30,
+            timeframe: {
+              start: "2019-03-14T22:00:00.000Z",
+              end: "2019-03-14T23:00:00.000Z"
+            }
+          },
+          {
+            value: 30,
+            timeframe: {
+              start: "2019-03-14T23:00:00.000Z",
+              end: "2019-03-15T00:00:00.000Z"
+            }
+          },
+          {
+            value: 50,
+            timeframe: {
+              start: "2019-03-15T00:00:00.000Z",
+              end: "2019-03-15T01:00:00.000Z"
+            }
+          },
+          {
+            value: 100,
+            timeframe: {
+              start: "2019-03-15T01:00:00.000Z",
+              end: "2019-03-15T02:00:00.000Z"
+            }
+          },
+          {
+            value: 40,
+            timeframe: {
+              start: "2019-03-15T02:00:00.000Z",
+              end: "2019-03-15T03:00:00.000Z"
+            }
+          },
+          {
+            value: 10,
+            timeframe: {
+              start: "2019-03-15T03:00:00.000Z",
+              end: "2019-03-15T04:00:00.000Z"
+            }
+          },
+          {
+            value: 20,
+            timeframe: {
+              start: "2019-03-15T04:00:00.000Z",
+              end: "2019-03-15T05:00:00.000Z"
+            }
+          },
+          {
+            value: 60,
+            timeframe: {
+              start: "2019-03-15T05:00:00.000Z",
+              end: "2019-03-15T06:00:00.000Z"
+            }
+          },
+          {
+            value: 20,
+            timeframe: {
+              start: "2019-03-15T06:00:00.000Z",
+              end: "2019-03-15T07:00:00.000Z"
+            }
+          },
+          {
+            value: 20,
+            timeframe: {
+              start: "2019-03-15T07:00:00.000Z",
+              end: "2019-03-15T08:00:00.000Z"
+            }
+          },
+          {
+            value: 50,
+            timeframe: {
+              start: "2019-03-15T08:00:00.000Z",
+              end: "2019-03-15T09:00:00.000Z"
+            }
+          },
+          {
+            value: 20,
+            timeframe: {
+              start: "2019-03-15T09:00:00.000Z",
+              end: "2019-03-15T10:00:00.000Z"
+            }
+          },
+          {
+            value: 30,
+            timeframe: {
+              start: "2019-03-15T10:00:00.000Z",
+              end: "2019-03-15T11:00:00.000Z"
+            }
+          }
+        ]
+      };
 
-      const tableData = {"result": [{"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 679, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 20, "week": 31, "year": 2018, "month": 7, "minute": 56, "quarter_of_year": 3}, "local": {"millisecond": 678, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 20, "week": 31, "year": 2018, "month": 7, "minute": 56, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:56:20.679Z", "created_at": "2018-07-30T14:56:22.374Z", "id": "5b5f27168a33a0000103946b"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "initial": "http://localhost:8080/auto-tracking.html", "full": "http://localhost:8080/auto-tracking.html"}, "local_time_full": "2018-07-30T14:56:20.678Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "89df49b5-9c05-444b-8b43-a99abbbee097"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 536, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 12, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}, "local": {"millisecond": 536, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 12, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:41:12.536Z", "created_at": "2018-07-30T14:41:13.358Z", "id": "5b5f23899c057400010c7a43"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "initial": "http://localhost:8080/auto-tracking.html", "full": "http://localhost:8080/auto-tracking.html"}, "local_time_full": "2018-07-30T14:41:12.536Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "89df49b5-9c05-444b-8b43-a99abbbee097"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 270, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 0, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}, "local": {"millisecond": 270, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 0, "week": 31, "year": 2018, "month": 7, "minute": 41, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:41:00.270Z", "created_at": "2018-07-30T14:41:00.570Z", "id": "5b5f237c187e570001f464fe"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "initial": "http://localhost:8080/auto-tracking.html", "full": "http://localhost:8080/auto-tracking.html"}, "local_time_full": "2018-07-30T14:41:00.270Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "849b44c6-d839-4ee4-b126-e37b170ad1ff"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 670, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 27, "week": 31, "year": 2018, "month": 7, "minute": 40, "quarter_of_year": 3}, "local": {"millisecond": 670, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 27, "week": 31, "year": 2018, "month": 7, "minute": 40, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:40:27.670Z", "created_at": "2018-07-30T14:40:28.220Z", "id": "5b5f235ce3b33700012f9823"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": null, "domain": null, "protocol": null, "anchor": null}, "initial": "", "full": ""}, "local_time_full": "2018-07-30T14:40:27.670Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "849b44c6-d839-4ee4-b126-e37b170ad1ff"}}, {"extended": true, "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "tracked_by": "keen-tracking-3.0.2", "geo": {"province": "Lesser Poland Voivodeship", "city": "Krakow", "country": "Poland", "coordinates": [19.9802, 50.0575], "postal_code": null, "country_code": "PL", "continent": "Europe"}, "time": {"utc": {"millisecond": 754, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 49, "week": 31, "year": 2018, "month": 7, "minute": 39, "quarter_of_year": 3}, "local": {"millisecond": 754, "day_of_week_string": "Monday", "hour": 14, "timezone_offset": 0, "day_of_month": 30, "day_of_week": 1, "day_of_year": 211, "second": 49, "week": 31, "year": 2018, "month": 7, "minute": 39, "quarter_of_year": 3}}, "keen": {"timestamp": "2018-07-30T14:39:49.754Z", "created_at": "2018-07-30T14:39:50.050Z", "id": "5b5f23368534f6000170ee2b"}, "tech": {"device": {"family": "Other"}, "profile": {"cookies": true, "name": "Netscape", "language": "pl-PL", "screen": {"orientation": {"type": "landscape", "angle": 0}, "width": 1920, "availHeight": 1177, "height": 1200, "availWidth": 1920, "colorDepth": 24, "pixelDepth": 24}, "platform": "MacIntel", "window": {"width": 1483, "ratio": {"width": 0.77, "height": 0.36}, "scrollHeight": 9016, "height": 428}, "version": "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "online": true, "useragent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36", "codeName": "Mozilla", "description": "Keen IO Javascript SDK Unit Tests"}, "os": {"major": "10", "patch_minor": null, "minor": "13", "family": "Mac OS X", "patch": "3"}, "browser": {"major": "67", "minor": "0", "family": "Chrome", "patch": "3396"}}, "url": {"info": {"path": "/auto-tracking.html", "domain": "localhost", "protocol": "http", "anchor": null}, "full": "http://localhost:8080/auto-tracking.html"}, "referrer": {"info": {"path": null, "domain": null, "protocol": null, "anchor": null}, "initial": "", "full": ""}, "local_time_full": "2018-07-30T14:39:49.754Z", "ip_address": "93.159.134.30", "page": {"time_on_page": 0, "description": "Keen IO Javascript SDK Unit Tests", "title": "Auto-tracking test demo"}, "user": {"uuid": "849b44c6-d839-4ee4-b126-e37b170ad1ff"}}]};
+      const tableData = {
+        result: [
+          {
+            extended: true,
+            user_agent:
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+            tracked_by: "keen-tracking-3.0.2",
+            geo: {
+              province: "Lesser Poland Voivodeship",
+              city: "Krakow",
+              country: "Poland",
+              coordinates: [19.9802, 50.0575],
+              postal_code: null,
+              country_code: "PL",
+              continent: "Europe"
+            },
+            time: {
+              utc: {
+                millisecond: 679,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 20,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 56,
+                quarter_of_year: 3
+              },
+              local: {
+                millisecond: 678,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 20,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 56,
+                quarter_of_year: 3
+              }
+            },
+            keen: {
+              timestamp: "2018-07-30T14:56:20.679Z",
+              created_at: "2018-07-30T14:56:22.374Z",
+              id: "5b5f27168a33a0000103946b"
+            },
+            tech: {
+              device: { family: "Other" },
+              profile: {
+                cookies: true,
+                name: "Netscape",
+                language: "pl-PL",
+                screen: {
+                  orientation: { type: "landscape", angle: 0 },
+                  width: 1920,
+                  availHeight: 1177,
+                  height: 1200,
+                  availWidth: 1920,
+                  colorDepth: 24,
+                  pixelDepth: 24
+                },
+                platform: "MacIntel",
+                window: {
+                  width: 1483,
+                  ratio: { width: 0.77, height: 0.36 },
+                  scrollHeight: 9016,
+                  height: 428
+                },
+                version:
+                  "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                online: true,
+                useragent:
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                codeName: "Mozilla",
+                description: "Keen IO Javascript SDK Unit Tests"
+              },
+              os: {
+                major: "10",
+                patch_minor: null,
+                minor: "13",
+                family: "Mac OS X",
+                patch: "3"
+              },
+              browser: {
+                major: "67",
+                minor: "0",
+                family: "Chrome",
+                patch: "3396"
+              }
+            },
+            url: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            referrer: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              initial: "http://localhost:8080/auto-tracking.html",
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            local_time_full: "2018-07-30T14:56:20.678Z",
+            ip_address: "93.159.134.30",
+            page: {
+              time_on_page: 0,
+              description: "Keen IO Javascript SDK Unit Tests",
+              title: "Auto-tracking test demo"
+            },
+            user: { uuid: "89df49b5-9c05-444b-8b43-a99abbbee097" }
+          },
+          {
+            extended: true,
+            user_agent:
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+            tracked_by: "keen-tracking-3.0.2",
+            geo: {
+              province: "Lesser Poland Voivodeship",
+              city: "Krakow",
+              country: "Poland",
+              coordinates: [19.9802, 50.0575],
+              postal_code: null,
+              country_code: "PL",
+              continent: "Europe"
+            },
+            time: {
+              utc: {
+                millisecond: 536,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 12,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 41,
+                quarter_of_year: 3
+              },
+              local: {
+                millisecond: 536,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 12,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 41,
+                quarter_of_year: 3
+              }
+            },
+            keen: {
+              timestamp: "2018-07-30T14:41:12.536Z",
+              created_at: "2018-07-30T14:41:13.358Z",
+              id: "5b5f23899c057400010c7a43"
+            },
+            tech: {
+              device: { family: "Other" },
+              profile: {
+                cookies: true,
+                name: "Netscape",
+                language: "pl-PL",
+                screen: {
+                  orientation: { type: "landscape", angle: 0 },
+                  width: 1920,
+                  availHeight: 1177,
+                  height: 1200,
+                  availWidth: 1920,
+                  colorDepth: 24,
+                  pixelDepth: 24
+                },
+                platform: "MacIntel",
+                window: {
+                  width: 1483,
+                  ratio: { width: 0.77, height: 0.36 },
+                  scrollHeight: 9016,
+                  height: 428
+                },
+                version:
+                  "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                online: true,
+                useragent:
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                codeName: "Mozilla",
+                description: "Keen IO Javascript SDK Unit Tests"
+              },
+              os: {
+                major: "10",
+                patch_minor: null,
+                minor: "13",
+                family: "Mac OS X",
+                patch: "3"
+              },
+              browser: {
+                major: "67",
+                minor: "0",
+                family: "Chrome",
+                patch: "3396"
+              }
+            },
+            url: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            referrer: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              initial: "http://localhost:8080/auto-tracking.html",
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            local_time_full: "2018-07-30T14:41:12.536Z",
+            ip_address: "93.159.134.30",
+            page: {
+              time_on_page: 0,
+              description: "Keen IO Javascript SDK Unit Tests",
+              title: "Auto-tracking test demo"
+            },
+            user: { uuid: "89df49b5-9c05-444b-8b43-a99abbbee097" }
+          },
+          {
+            extended: true,
+            user_agent:
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+            tracked_by: "keen-tracking-3.0.2",
+            geo: {
+              province: "Lesser Poland Voivodeship",
+              city: "Krakow",
+              country: "Poland",
+              coordinates: [19.9802, 50.0575],
+              postal_code: null,
+              country_code: "PL",
+              continent: "Europe"
+            },
+            time: {
+              utc: {
+                millisecond: 270,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 0,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 41,
+                quarter_of_year: 3
+              },
+              local: {
+                millisecond: 270,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 0,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 41,
+                quarter_of_year: 3
+              }
+            },
+            keen: {
+              timestamp: "2018-07-30T14:41:00.270Z",
+              created_at: "2018-07-30T14:41:00.570Z",
+              id: "5b5f237c187e570001f464fe"
+            },
+            tech: {
+              device: { family: "Other" },
+              profile: {
+                cookies: true,
+                name: "Netscape",
+                language: "pl-PL",
+                screen: {
+                  orientation: { type: "landscape", angle: 0 },
+                  width: 1920,
+                  availHeight: 1177,
+                  height: 1200,
+                  availWidth: 1920,
+                  colorDepth: 24,
+                  pixelDepth: 24
+                },
+                platform: "MacIntel",
+                window: {
+                  width: 1483,
+                  ratio: { width: 0.77, height: 0.36 },
+                  scrollHeight: 9016,
+                  height: 428
+                },
+                version:
+                  "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                online: true,
+                useragent:
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                codeName: "Mozilla",
+                description: "Keen IO Javascript SDK Unit Tests"
+              },
+              os: {
+                major: "10",
+                patch_minor: null,
+                minor: "13",
+                family: "Mac OS X",
+                patch: "3"
+              },
+              browser: {
+                major: "67",
+                minor: "0",
+                family: "Chrome",
+                patch: "3396"
+              }
+            },
+            url: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            referrer: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              initial: "http://localhost:8080/auto-tracking.html",
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            local_time_full: "2018-07-30T14:41:00.270Z",
+            ip_address: "93.159.134.30",
+            page: {
+              time_on_page: 0,
+              description: "Keen IO Javascript SDK Unit Tests",
+              title: "Auto-tracking test demo"
+            },
+            user: { uuid: "849b44c6-d839-4ee4-b126-e37b170ad1ff" }
+          },
+          {
+            extended: true,
+            user_agent:
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+            tracked_by: "keen-tracking-3.0.2",
+            geo: {
+              province: "Lesser Poland Voivodeship",
+              city: "Krakow",
+              country: "Poland",
+              coordinates: [19.9802, 50.0575],
+              postal_code: null,
+              country_code: "PL",
+              continent: "Europe"
+            },
+            time: {
+              utc: {
+                millisecond: 670,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 27,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 40,
+                quarter_of_year: 3
+              },
+              local: {
+                millisecond: 670,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 27,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 40,
+                quarter_of_year: 3
+              }
+            },
+            keen: {
+              timestamp: "2018-07-30T14:40:27.670Z",
+              created_at: "2018-07-30T14:40:28.220Z",
+              id: "5b5f235ce3b33700012f9823"
+            },
+            tech: {
+              device: { family: "Other" },
+              profile: {
+                cookies: true,
+                name: "Netscape",
+                language: "pl-PL",
+                screen: {
+                  orientation: { type: "landscape", angle: 0 },
+                  width: 1920,
+                  availHeight: 1177,
+                  height: 1200,
+                  availWidth: 1920,
+                  colorDepth: 24,
+                  pixelDepth: 24
+                },
+                platform: "MacIntel",
+                window: {
+                  width: 1483,
+                  ratio: { width: 0.77, height: 0.36 },
+                  scrollHeight: 9016,
+                  height: 428
+                },
+                version:
+                  "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                online: true,
+                useragent:
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                codeName: "Mozilla",
+                description: "Keen IO Javascript SDK Unit Tests"
+              },
+              os: {
+                major: "10",
+                patch_minor: null,
+                minor: "13",
+                family: "Mac OS X",
+                patch: "3"
+              },
+              browser: {
+                major: "67",
+                minor: "0",
+                family: "Chrome",
+                patch: "3396"
+              }
+            },
+            url: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            referrer: {
+              info: { path: null, domain: null, protocol: null, anchor: null },
+              initial: "",
+              full: ""
+            },
+            local_time_full: "2018-07-30T14:40:27.670Z",
+            ip_address: "93.159.134.30",
+            page: {
+              time_on_page: 0,
+              description: "Keen IO Javascript SDK Unit Tests",
+              title: "Auto-tracking test demo"
+            },
+            user: { uuid: "849b44c6-d839-4ee4-b126-e37b170ad1ff" }
+          },
+          {
+            extended: true,
+            user_agent:
+              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+            tracked_by: "keen-tracking-3.0.2",
+            geo: {
+              province: "Lesser Poland Voivodeship",
+              city: "Krakow",
+              country: "Poland",
+              coordinates: [19.9802, 50.0575],
+              postal_code: null,
+              country_code: "PL",
+              continent: "Europe"
+            },
+            time: {
+              utc: {
+                millisecond: 754,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 49,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 39,
+                quarter_of_year: 3
+              },
+              local: {
+                millisecond: 754,
+                day_of_week_string: "Monday",
+                hour: 14,
+                timezone_offset: 0,
+                day_of_month: 30,
+                day_of_week: 1,
+                day_of_year: 211,
+                second: 49,
+                week: 31,
+                year: 2018,
+                month: 7,
+                minute: 39,
+                quarter_of_year: 3
+              }
+            },
+            keen: {
+              timestamp: "2018-07-30T14:39:49.754Z",
+              created_at: "2018-07-30T14:39:50.050Z",
+              id: "5b5f23368534f6000170ee2b"
+            },
+            tech: {
+              device: { family: "Other" },
+              profile: {
+                cookies: true,
+                name: "Netscape",
+                language: "pl-PL",
+                screen: {
+                  orientation: { type: "landscape", angle: 0 },
+                  width: 1920,
+                  availHeight: 1177,
+                  height: 1200,
+                  availWidth: 1920,
+                  colorDepth: 24,
+                  pixelDepth: 24
+                },
+                platform: "MacIntel",
+                window: {
+                  width: 1483,
+                  ratio: { width: 0.77, height: 0.36 },
+                  scrollHeight: 9016,
+                  height: 428
+                },
+                version:
+                  "5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                online: true,
+                useragent:
+                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+                codeName: "Mozilla",
+                description: "Keen IO Javascript SDK Unit Tests"
+              },
+              os: {
+                major: "10",
+                patch_minor: null,
+                minor: "13",
+                family: "Mac OS X",
+                patch: "3"
+              },
+              browser: {
+                major: "67",
+                minor: "0",
+                family: "Chrome",
+                patch: "3396"
+              }
+            },
+            url: {
+              info: {
+                path: "/auto-tracking.html",
+                domain: "localhost",
+                protocol: "http",
+                anchor: null
+              },
+              full: "http://localhost:8080/auto-tracking.html"
+            },
+            referrer: {
+              info: { path: null, domain: null, protocol: null, anchor: null },
+              initial: "",
+              full: ""
+            },
+            local_time_full: "2018-07-30T14:39:49.754Z",
+            ip_address: "93.159.134.30",
+            page: {
+              time_on_page: 0,
+              description: "Keen IO Javascript SDK Unit Tests",
+              title: "Auto-tracking test demo"
+            },
+            user: { uuid: "849b44c6-d839-4ee4-b126-e37b170ad1ff" }
+          }
+        ]
+      };
 
       const funnelData = {
-          result: [ 98730, 67680, 22150, 9090 ],
-          steps: [
-              { event_collection: "create_account" },
-              { event_collection: "complete_profile" },
-              { event_collection: "create_project" },
-              { event_collection: "invite_teammate" }
-          ]
+        result: [98730, 67680, 22150, 9090],
+        steps: [
+          { event_collection: "create_account" },
+          { event_collection: "complete_profile" },
+          { event_collection: "create_project" },
+          { event_collection: "invite_teammate" }
+        ]
       };
 
       const funnelData3d = {
-          result: [ 1000, 800, 600, 400, 300 ],
-          steps: [
-              { event_collection: "started_video" },
-              { event_collection: "twenty_five_percent" },
-              { event_collection: "fifty_percent" },
-              { event_collection: "seventy_five_percent" },
-              { event_collection: "finish_video" }
-          ]
+        result: [1000, 800, 600, 400, 300],
+        steps: [
+          { event_collection: "started_video" },
+          { event_collection: "twenty_five_percent" },
+          { event_collection: "fifty_percent" },
+          { event_collection: "seventy_five_percent" },
+          { event_collection: "finish_video" }
+        ]
       };
 
       const horizontalFunnelData = {
-          result: [ 23654, 15289, 10430, 5380 ],
-          steps: [
-              { event_collection: "purchased_device" },
-              { event_collection: "activated_device" },
-              { event_collection: "first_session" },
-              { event_collection: "invite_friend" }
-          ]
+        result: [23654, 15289, 10430, 5380],
+        steps: [
+          { event_collection: "purchased_device" },
+          { event_collection: "activated_device" },
+          { event_collection: "first_session" },
+          { event_collection: "invite_friend" }
+        ]
       };
 
       const horizontalFunnelData3d = {
-          result: [ 10000, 7000, 5500, 3500 ],
-          steps: [
-              { event_collection: "site_visits" },
-              { event_collection: "seen_ads" },
-              { event_collection: "clicked_ads" },
-              { event_collection: "purchased_product" }
-          ]
+        result: [10000, 7000, 5500, 3500],
+        steps: [
+          { event_collection: "site_visits" },
+          { event_collection: "seen_ads" },
+          { event_collection: "clicked_ads" },
+          { event_collection: "purchased_product" }
+        ]
       };
 
       const metricComboChartData = {
         previous: previousResults,
         current: results,
         interval: intervalQuery
-      }
-      
+      };
+
       const heatmapData = () => {
         const numberOfDays = 7;
         const numberOfHours = numberOfDays * 24;
@@ -1656,400 +2612,402 @@
         let result = [];
 
         const ds = new Dataset();
-        const startDate = timestamp - (numberOfHours * msPerHour);
+        const startDate = timestamp - numberOfHours * msPerHour;
         for (let i = 0; i <= numberOfHours; i++) {
-          const date = startDate + (i * msPerHour);
-          ds.appendRow(new Date(date).toISOString(), [faker.random.number(200)]);
+          const date = startDate + i * msPerHour;
+          ds.appendRow(new Date(date).toISOString(), [
+            faker.random.number(200)
+          ]);
         }
         return ds;
-      }
+      };
 
       const us_states = [
-                      "Alabama",
-                      "Alaska",
-                      "American Samoa",
-                      "Arizona",
-                      "Arkansas",
-                      "California",
-                      "Colorado",
-                      "Connecticut",
-                      "Delaware",
-                      "District of Columbia",
-                      "Federated States of Micronesia",
-                      "Florida",
-                      "Georgia",
-                      "Guam",
-                      "Hawaii",
-                      "Idaho",
-                      "Illinois",
-                      "Indiana",
-                      "Iowa",
-                      "Kansas",
-                      "Kentucky",
-                      "Louisiana",
-                      "Maine",
-                      "Marshall Islands",
-                      "Maryland",
-                      "Massachusetts",
-                      "Michigan",
-                      "Minnesota",
-                      "Mississippi",
-                      "Missouri",
-                      "Montana",
-                      "Nebraska",
-                      "Nevada",
-                      "New Hampshire",
-                      "New Jersey",
-                      "New Mexico",
-                      "New York",
-                      "North Carolina",
-                      "North Dakota",
-                      "Northern Mariana Islands",
-                      "Ohio",
-                      "Oklahoma",
-                      "Oregon",
-                      "Palau",
-                      "Pennsylvania",
-                      "Puerto Rico",
-                      "Rhode Island",
-                      "South Carolina",
-                      "South Dakota",
-                      "Tennessee",
-                      "Texas",
-                      "Utah",
-                      "Vermont",
-                      "Virgin Island",
-                      "Virginia",
-                      "Washington",
-                      "West Virginia",
-                      "Wisconsin",
-                      "Wyoming"
-                    ];
+        "Alabama",
+        "Alaska",
+        "American Samoa",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "District of Columbia",
+        "Federated States of Micronesia",
+        "Florida",
+        "Georgia",
+        "Guam",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Marshall Islands",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Northern Mariana Islands",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Palau",
+        "Pennsylvania",
+        "Puerto Rico",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virgin Island",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming"
+      ];
 
-                    const us_clicks = {
-                      result: []
-                    };
+      const us_clicks = {
+        result: []
+      };
 
-                    us_states.forEach(element => {
-                      us_clicks.result.push({
-                        result: faker.random.number(),
-                        state: element
-                      });
-                    });
+      us_states.forEach(element => {
+        us_clicks.result.push({
+          result: faker.random.number(),
+          state: element
+        });
+      });
 
-                    const countries = [
-"Afghanistan",
-"Albania",
-"Algeria",
-"American Samoa",
-"Andorra",
-"Angola",
-"Anguilla",
-"Antarctica",
-"Antigua and Barbuda",
-"Argentina",
-"Armenia",
-"Aruba",
-"Australia",
-"Austria",
-"Azerbaijan",
-"Bahamas",
-"Bahrain",
-"Bangladesh",
-"Barbados",
-"Belarus",
-"Belgium",
-"Belize",
-"Benin",
-"Bermuda",
-"Bhutan",
-"Bolivia",
-"Bosnia and Herzegovina",
-"Botswana",
-"Bouvet Island",
-"Brazil",
-"British Indian Ocean Territory",
-"Brunei",
-"Bulgaria",
-"Burkina Faso",
-"Burundi",
-"Cambodia",
-"Cameroon",
-"Canada",
-"Cape Verde",
-"Cayman Islands",
-"Central African Republic",
-"Chad",
-"Chile",
-"China",
-"Christmas Island",
-"Cocos (KeelingIslands",
-"Colombia",
-"Comoros",
-"Congo",
-"Democratic Republic of Congo",
-"Cook Islands",
-"Costa Rica",
-"Ivory Coast",
-"Croatia",
-"Cuba",
-"Cyprus",
-"Czech Republic",
-"Denmark",
-"Djibouti",
-"Dominica",
-"Dominican Republic",
-"East Timor",
-"Ecuador",
-"Egypt",
-"England",
-"El Salvador",
-"Equatorial Guinea",
-"Eritrea",
-"Estonia",
-"Ethiopia",
-"Falkland Islands",
-"Faroe Islands",
-"Fiji Islands",
-"Finland",
-"France",
-"French Guiana",
-"French Polynesia",
-"French Southern territories",
-"Gabon",
-"Gambia",
-"Georgia",
-"Germany",
-"Ghana",
-"Gibraltar",
-"Greece",
-"Greenland",
-"Grenada",
-"Guadeloupe",
-"Guam",
-"Guatemala",
-"Guernsey",
-"Guinea",
-"Guinea-Bissau",
-"Guyana",
-"Haiti",
-"Heard Island and McDonald Islands",
-"Holy See (Vatican City State)",
-"Honduras",
-"Hong Kong",
-"Hungary",
-"Iceland",
-"India",
-"Indonesia",
-"Iran",
-"Iraq",
-"Ireland",
-"Israel",
-"Isle of Man",
-"Italy",
-"Jamaica",
-"Japan",
-"Jersey",
-"Jordan",
-"Kazakhstan",
-"Kenya",
-"Kiribati",
-"Kosovo",
-"Kuwait",
-"Kyrgyzstan",
-"Laos",
-"Latvia",
-"Lebanon",
-"Lesotho",
-"Liberia",
-"Libya",
-"Liechtenstein",
-"Lithuania",
-"Luxembourg",
-"Macao",
-"Macedonia",
-"Madagascar",
-"Malawi",
-"Malaysia",
-"Maldives",
-"Mali",
-"Malta",
-"Marshall Islands",
-"Martinique",
-"Mauritania",
-"Mauritius",
-"Mayotte",
-"Mexico",
-"Federated States of Micronesia",
-"Moldova",
-"Monaco",
-"Mongolia",
-"Montserrat",
-"Montenegro",
-"Morocco",
-"Mozambique",
-"Myanmar",
-"Namibia",
-"Nauru",
-"Nepal",
-"Netherlands",
-"Netherlands Antilles",
-"New Caledonia",
-"New Zealand",
-"Nicaragua",
-"Niger",
-"Nigeria",
-"Niue",
-"Norfolk Island",
-"North Korea",
-"Northern Ireland",
-"Northern Mariana Islands",
-"Norway",
-"Oman",
-"Pakistan",
-"Palau",
-"Palestine",
-"Panama",
-"Papua New Guinea",
-"Paraguay",
-"Peru",
-"Philippines",
-"Pitcairn",
-"Poland",
-"Portugal",
-"Puerto Rico",
-"Qatar",
-"Reunion",
-"Romania",
-"Russia",
-"Rwanda",
-"Saint Helena",
-"Saint Kitts and Nevis",
-"Saint Lucia",
-"Saint Pierre and Miquelon",
-"Saint Vincent and the Grenadines",
-"Samoa",
-"San Marino",
-"Sao Tome and Principe",
-"Saudi Arabia",
-"Scotland",
-"Senegal",
-"Serbia",
-"Seychelles",
-"Sierra Leone",
-"Singapore",
-"Slovakia",
-"Slovenia",
-"Solomon Islands",
-"Somaliland",
-"Somalia",
-"South Africa",
-"South Georgia and the South Sandwich Islands",
-"South Korea",
-"South Sudan",
-"Spain",
-"Sri Lanka",
-"Sudan",
-"Suriname",
-"Svalbard and Jan Mayen",
-"Swaziland",
-"Sweden",
-"Switzerland",
-"Syria",
-"Taiwan",
-"Tajikistan",
-"Tanzania",
-"Thailand",
-"Timor-Leste",
-"Togo",
-"Tokelau",
-"Tonga",
-"Trinidad and Tobago",
-"Tunisia",
-"Turkey",
-"Turkmenistan",
-"Turks and Caicos Islands",
-"Tuvalu",
-"Uganda",
-"Ukraine",
-"United Arab Emirates",
-"United Kingdom",
-"United States",
-"United States Minor Outlying Islands",
-"Uruguay",
-"Uzbekistan",
-"Vanuatu",
-"Venezuela",
-"Vietnam",
-"Virgin IslandsBritish",
-"Virgin IslandsU.S.",
-"Wales",
-"Wallis and Futuna",
-"Western Sahara",
-"Yemen",
-"Yugoslavia",
-"Zambia",
-"Zimbabwe"
-]
+      const countries = [
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "American Samoa",
+        "Andorra",
+        "Angola",
+        "Anguilla",
+        "Antarctica",
+        "Antigua and Barbuda",
+        "Argentina",
+        "Armenia",
+        "Aruba",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "Bahamas",
+        "Bahrain",
+        "Bangladesh",
+        "Barbados",
+        "Belarus",
+        "Belgium",
+        "Belize",
+        "Benin",
+        "Bermuda",
+        "Bhutan",
+        "Bolivia",
+        "Bosnia and Herzegovina",
+        "Botswana",
+        "Bouvet Island",
+        "Brazil",
+        "British Indian Ocean Territory",
+        "Brunei",
+        "Bulgaria",
+        "Burkina Faso",
+        "Burundi",
+        "Cambodia",
+        "Cameroon",
+        "Canada",
+        "Cape Verde",
+        "Cayman Islands",
+        "Central African Republic",
+        "Chad",
+        "Chile",
+        "China",
+        "Christmas Island",
+        "Cocos (KeelingIslands",
+        "Colombia",
+        "Comoros",
+        "Congo",
+        "Democratic Republic of Congo",
+        "Cook Islands",
+        "Costa Rica",
+        "Ivory Coast",
+        "Croatia",
+        "Cuba",
+        "Cyprus",
+        "Czech Republic",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "East Timor",
+        "Ecuador",
+        "Egypt",
+        "England",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+        "Ethiopia",
+        "Falkland Islands",
+        "Faroe Islands",
+        "Fiji Islands",
+        "Finland",
+        "France",
+        "French Guiana",
+        "French Polynesia",
+        "French Southern territories",
+        "Gabon",
+        "Gambia",
+        "Georgia",
+        "Germany",
+        "Ghana",
+        "Gibraltar",
+        "Greece",
+        "Greenland",
+        "Grenada",
+        "Guadeloupe",
+        "Guam",
+        "Guatemala",
+        "Guernsey",
+        "Guinea",
+        "Guinea-Bissau",
+        "Guyana",
+        "Haiti",
+        "Heard Island and McDonald Islands",
+        "Holy See (Vatican City State)",
+        "Honduras",
+        "Hong Kong",
+        "Hungary",
+        "Iceland",
+        "India",
+        "Indonesia",
+        "Iran",
+        "Iraq",
+        "Ireland",
+        "Israel",
+        "Isle of Man",
+        "Italy",
+        "Jamaica",
+        "Japan",
+        "Jersey",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kiribati",
+        "Kosovo",
+        "Kuwait",
+        "Kyrgyzstan",
+        "Laos",
+        "Latvia",
+        "Lebanon",
+        "Lesotho",
+        "Liberia",
+        "Libya",
+        "Liechtenstein",
+        "Lithuania",
+        "Luxembourg",
+        "Macao",
+        "Macedonia",
+        "Madagascar",
+        "Malawi",
+        "Malaysia",
+        "Maldives",
+        "Mali",
+        "Malta",
+        "Marshall Islands",
+        "Martinique",
+        "Mauritania",
+        "Mauritius",
+        "Mayotte",
+        "Mexico",
+        "Federated States of Micronesia",
+        "Moldova",
+        "Monaco",
+        "Mongolia",
+        "Montserrat",
+        "Montenegro",
+        "Morocco",
+        "Mozambique",
+        "Myanmar",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Netherlands",
+        "Netherlands Antilles",
+        "New Caledonia",
+        "New Zealand",
+        "Nicaragua",
+        "Niger",
+        "Nigeria",
+        "Niue",
+        "Norfolk Island",
+        "North Korea",
+        "Northern Ireland",
+        "Northern Mariana Islands",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palau",
+        "Palestine",
+        "Panama",
+        "Papua New Guinea",
+        "Paraguay",
+        "Peru",
+        "Philippines",
+        "Pitcairn",
+        "Poland",
+        "Portugal",
+        "Puerto Rico",
+        "Qatar",
+        "Reunion",
+        "Romania",
+        "Russia",
+        "Rwanda",
+        "Saint Helena",
+        "Saint Kitts and Nevis",
+        "Saint Lucia",
+        "Saint Pierre and Miquelon",
+        "Saint Vincent and the Grenadines",
+        "Samoa",
+        "San Marino",
+        "Sao Tome and Principe",
+        "Saudi Arabia",
+        "Scotland",
+        "Senegal",
+        "Serbia",
+        "Seychelles",
+        "Sierra Leone",
+        "Singapore",
+        "Slovakia",
+        "Slovenia",
+        "Solomon Islands",
+        "Somaliland",
+        "Somalia",
+        "South Africa",
+        "South Georgia and the South Sandwich Islands",
+        "South Korea",
+        "South Sudan",
+        "Spain",
+        "Sri Lanka",
+        "Sudan",
+        "Suriname",
+        "Svalbard and Jan Mayen",
+        "Swaziland",
+        "Sweden",
+        "Switzerland",
+        "Syria",
+        "Taiwan",
+        "Tajikistan",
+        "Tanzania",
+        "Thailand",
+        "Timor-Leste",
+        "Togo",
+        "Tokelau",
+        "Tonga",
+        "Trinidad and Tobago",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+        "Turks and Caicos Islands",
+        "Tuvalu",
+        "Uganda",
+        "Ukraine",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States",
+        "United States Minor Outlying Islands",
+        "Uruguay",
+        "Uzbekistan",
+        "Vanuatu",
+        "Venezuela",
+        "Vietnam",
+        "Virgin IslandsBritish",
+        "Virgin IslandsU.S.",
+        "Wales",
+        "Wallis and Futuna",
+        "Western Sahara",
+        "Yemen",
+        "Yugoslavia",
+        "Zambia",
+        "Zimbabwe"
+      ];
 
-                    const countries_clicks = {
-                      result: []
-                    };
+      const countries_clicks = {
+        result: []
+      };
 
-                    countries.forEach(element => {
-                      countries_clicks.result.push({
-                        result: faker.random.number(),
-                        name: element
-                      });
-                    });
+      countries.forEach(element => {
+        countries_clicks.result.push({
+          result: faker.random.number(),
+          name: element
+        });
+      });
 
-      function rand(a, b){
-        return Math.floor((Math.random() * b) + a);
+      function rand(a, b) {
+        return Math.floor(Math.random() * b + a);
       }
-      function gen(n){
-        const arr = [ faker.internet.exampleEmail() ];
+      function gen(n) {
+        const arr = [faker.internet.exampleEmail()];
         for (let i = 0; i < n; i++) {
           arr.push(rand(0, 1000));
         }
         return arr;
       }
 
-    function changeTab(tabId){
-      let tabs = document.querySelectorAll('.tab');
-      tabs.forEach(tab => {
-        tab.className = tab.className.replace(' active', '')
-      });
-      let tabPanel = document.querySelectorAll('.tab-panel');
-      tabPanel.forEach(panel => {
-        panel.style.display = 'none';
-      })
-      document.getElementById(`${tabId}-panel`).style.display = 'block';
-      document.getElementById(`${tabId}-tab`).className += ' active';
-      localStorage.setItem('activeTab', JSON.stringify(tabId));
-      switch (tabId) {
-        case 'bar':
-          barLoad();
-          break;
-        case 'line':
-          lineLoad();
-          break;
-        case 'area':
-          areaLoad();
-          break;
-        case 'pie':
-          pieLoad();
-          break;
-        case 'funnel':
-          funnelLoad();
-          break;
-        case 'custom':
-          customLoad();
-          break;
+      function changeTab(tabId) {
+        let tabs = document.querySelectorAll(".tab");
+        tabs.forEach(tab => {
+          tab.className = tab.className.replace(" active", "");
+        });
+        let tabPanel = document.querySelectorAll(".tab-panel");
+        tabPanel.forEach(panel => {
+          panel.style.display = "none";
+        });
+        document.getElementById(`${tabId}-panel`).style.display = "block";
+        document.getElementById(`${tabId}-tab`).className += " active";
+        localStorage.setItem("activeTab", JSON.stringify(tabId));
+        switch (tabId) {
+          case "bar":
+            barLoad();
+            break;
+          case "line":
+            lineLoad();
+            break;
+          case "area":
+            areaLoad();
+            break;
+          case "pie":
+            pieLoad();
+            break;
+          case "funnel":
+            funnelLoad();
+            break;
+          case "custom":
+            customLoad();
+            break;
 
-        default:
-          break;
+          default:
+            break;
+        }
       }
-    }
     </script>
   </body>
 </html>
