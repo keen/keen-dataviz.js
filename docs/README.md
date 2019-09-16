@@ -129,6 +129,7 @@ const chart = new KeenDataviz({
     },
     showSlider: true, // turn on range slider below chart
   })
+``` 
 
 * choropleth
 
