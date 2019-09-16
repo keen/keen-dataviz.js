@@ -624,7 +624,8 @@
 }
 
 .keen-dataviz ~ .rangeable-container {
-  margin: 2rem 0;
+  margin: 2rem auto;
+  width: 75%;
 }
 .keen-dataviz ~ .rangeable-container .rangeable-track,
 .keen-dataviz ~ .rangeable-container .rangeable-progress {

@@ -1505,10 +1505,10 @@
           container: ".chart-heatmap",
           title: "Heatmap chart",
           type: "heatmap",
-          tooltip: {
-            showValueOnly: false
+          heatmap: {
+            showSlider: true,
+            simpleTooltip: false
           },
-          showSlider: true,
           // results: heatmapData()
           results: heatmapResults
         }).render();
