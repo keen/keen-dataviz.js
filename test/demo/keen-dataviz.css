@@ -288,9 +288,13 @@
   }
 .keen-dataviz-title {
     color: #4D4D4D;
-    color: #4D4D4D;
     padding-bottom: 0.8em;
   }
+.keen-dataviz-subtitle {
+  color: #4d4d4d;
+  font-size: 0.75em;
+  padding-bottom: 0.5em;
+}
 .keen-dataviz-stage {
     display: block;
   }
@@ -359,6 +363,11 @@
       font-weight: 200;
       width: 100%;
     }
+.keen-dataviz-metric-subtitle {
+  font-size: 1em;
+  font-weight: 200;
+  width: 100%;
+}
 .keen-dataviz-metric-green {
       color: #73D483;
       color: #73D483;
@@ -788,6 +797,29 @@
       width: 6em;
       margin: 0 0.25em;
     }
+.keen-c3-legend-align-left {
+  justify-content: flex-start;
+}
+
+.keen-c3-legend-align-center {
+  justify-content: center;
+}
+
+.keen-c3-legend-align-right {
+  justify-content: flex-end;
+}
+
+.keen-c3-legend-align-top {
+  justify-content: flex-start;
+}
+
+.keen-c3-legend-align-middle {
+  justify-content: center;
+}
+
+.keen-c3-legend-align-bottom {
+  justify-content: flex-end;
+}
 .keen-c3-legend .legend-item{
     display: -ms-flexbox;
     display: flex;
