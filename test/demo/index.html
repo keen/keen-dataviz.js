@@ -689,6 +689,24 @@
         window.lineMultiStacked = new KeenDataviz({
           container: ".chart-c3-line-stacked",
           title: "Stacked Line Chart",
+          legend: {
+            position: 'top',
+            alignment: 'middle',
+          },
+          axis: {
+            x: {
+              label: {
+                text: 'Your X Axis',
+                position: 'inner-center'
+              }
+            },
+            y: {
+              label: {
+                text: 'Your Y Axis',
+                position: 'outer-middle'
+              }
+            },
+          },
           type: "line",
           stacked: true,
           renderOnVisible: true

@@ -46,7 +46,8 @@ const chart = new KeenDataviz({
   container: '#my-chart-div', // querySelector
 
   // Optional:
-  title: 'New Customers per Week'
+  title: 'New Customers per Week',
+  subtitle: 'chart subtitle',
 });
 
 // use keen-analysis.js to run a query
@@ -320,6 +321,7 @@ const chart = new KeenDataviz({
   legend: {
     show: true,
     position: 'right', // top, bottom, left, right
+    alignment: 'center', // vertical alignment: ['top', 'middle', 'bottom'], horizontal alignment: ['left', 'center', 'right'];
     label: {
       textMaxLength: 12
     },
