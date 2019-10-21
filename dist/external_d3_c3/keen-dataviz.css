@@ -611,6 +611,30 @@
     pointer-events: none;
     z-index: 222;
   }
+.keen-c3-legend-align-left {
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+    }
+.keen-c3-legend-align-center {
+      -ms-flex-pack: center;
+          justify-content: center;
+    }
+.keen-c3-legend-align-right {
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+    }
+.keen-c3-legend-align-top {
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+    }
+.keen-c3-legend-align-middle {
+      -ms-flex-pack: center;
+          justify-content: center;
+    }
+.keen-c3-legend-align-bottom {
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+    }
 
 .keen-dataviz-range .c3-area-Max {
   display: none;
