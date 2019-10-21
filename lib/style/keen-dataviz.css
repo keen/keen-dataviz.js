@@ -613,6 +613,32 @@
     pointer-events: none;
     z-index: 222;
   }
+
+  &-align {
+    &-left {
+      justify-content: flex-start;
+    }
+    
+    &-center {
+      justify-content: center;
+    }
+    
+    &-right {
+      justify-content: flex-end;
+    }
+    
+    &-top {
+      justify-content: flex-start;
+    }
+    
+    &-middle {
+      justify-content: center;
+    }
+
+    &-bottom {
+      justify-content: flex-end;
+    }
+  }
 }
 
 .keen-dataviz-range .c3-area-Max {
