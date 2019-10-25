@@ -674,8 +674,8 @@
           align-self: center;
       -ms-flex-order: 1;
           order: 1;
-      -ms-flex: 1;
-          flex: 1;
+      -ms-flex: 100%;
+          flex: 100%;
     }
 .keen-dataviz-rendering .c3-chart-100-percent{
       width: 100%;
