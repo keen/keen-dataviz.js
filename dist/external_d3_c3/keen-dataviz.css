@@ -403,8 +403,8 @@
           align-self: center;
       -ms-flex-order: 1;
           order: 1;
-      -ms-flex: 1;
-          flex: 1;
+      -ms-flex: 100%;
+          flex: 100%;
     }
 .keen-dataviz-rendering .c3-chart-100-percent{
       width: 100%;
@@ -513,6 +513,8 @@
     display: flex;
     -ms-flex-direction: row;
         flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
   }
 .keen-c3-legend-horizontal-items .legend-item{
       width: 6em;
@@ -595,7 +597,7 @@
       margin-top: 0.1em;
     }
 .keen-c3-legend-pagination-icons .down {
-      margin-right: 0.1em;
+      margin-right: 1em;
     }
 .keen-c3-legend-label-overlay {
     font-size: 1em;
@@ -615,14 +617,30 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
     }
+.keen-c3-legend-align-left .keen-c3-legend-horizontal-items {
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+        margin-right: auto;
+      }
 .keen-c3-legend-align-center {
       -ms-flex-pack: center;
           justify-content: center;
     }
+.keen-c3-legend-align-center .keen-c3-legend-horizontal-items {
+        -ms-flex-pack: center;
+            justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
 .keen-c3-legend-align-right {
       -ms-flex-pack: end;
           justify-content: flex-end;
     }
+.keen-c3-legend-align-right .keen-c3-legend-horizontal-items {
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+        margin-left: auto;
+      }
 .keen-c3-legend-align-top {
       -ms-flex-pack: start;
           justify-content: flex-start;
