@@ -511,6 +511,7 @@
   &-horizontal-items{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     .legend-item{
       width: 6em;
       margin: 0 0.25em;
@@ -598,7 +599,7 @@
     }
 
     .down {
-      margin-right: 0.1em;
+      margin-right: 1em;
     }
   }
 
@@ -617,14 +618,30 @@
   &-align {
     &-left {
       justify-content: flex-start;
+
+      .keen-c3-legend-horizontal-items {
+        justify-content: flex-start;
+        margin-right: auto;
+      }
     }
     
     &-center {
       justify-content: center;
+
+      .keen-c3-legend-horizontal-items {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
     
     &-right {
       justify-content: flex-end;
+
+      .keen-c3-legend-horizontal-items {
+        justify-content: flex-end;
+        margin-left: auto;
+      }
     }
     
     &-top {
