@@ -58,8 +58,8 @@ const client = new KeenAnalysis({
 
 client
   .query({
-    analysis_type: 'count',
-    event_collection: 'pageviews',
+    analysisType: 'count',
+    eventCollection: 'pageviews',
     timeframe: 'this_7_days',
     interval: 'daily'
   })
@@ -118,8 +118,8 @@ Include [keen-dataviz.js](dist/keen-dataviz.js) and [keen-dataviz.css](dist/keen
 
       client
         .query({
-          analysis_type: 'count',
-          event_collection: 'pageviews',
+          analysisType: 'count',
+          eventCollection: 'pageviews',
           timeframe: 'this_14_days',
           interval: 'daily'
         })
@@ -197,16 +197,16 @@ const client = new KeenAnalysis({
 
 const queryPageviews = client
   .query({
-    analysis_type: 'count',
-    event_collection: 'pageviews',
+    analysisType: 'count',
+    eventCollection: 'pageviews',
     timeframe: 'this_30_days',
     interval: 'daily'
   });
 
 const queryFormSubmissions = client
   .query({
-    analysis_type: 'count',
-    event_collection: 'form_submissions',
+    analysisType: 'count',
+    eventCollection: 'form_submissions',
     timeframe: 'this_30_days',
     interval: 'daily'
   });
@@ -245,8 +245,8 @@ const chart = new KeenDataviz({
 const fetchResultsAndRender = () => {
   client
     .query({
-      analysis_type: 'count',
-      event_collection: 'pageviews',
+      analysisType: 'count',
+      eventCollection: 'pageviews',
       timeframe: 'previous_60_minutes',
       interval: 'minutely'
     })
@@ -485,8 +485,8 @@ const client = new KeenAnalysis({
 // execute some query
 client
   .query({
-    analysis_type: 'count',
-    event_collection: 'pageviews',
+    analysisType: 'count',
+    eventCollection: 'pageviews',
     timeframe: 'this_160_days'
   })
   .then(results => {
@@ -516,8 +516,8 @@ const client = new KeenAnalysis({
 // execute some query
 client
   .query({
-    analysis_type: 'count',
-    event_collection: 'pageviews',
+    analysisType: 'count',
+    eventCollection: 'pageviews',
     timeframe: 'this_30_days'
   })
   .then(results => {
@@ -565,8 +565,8 @@ const client = new KeenAnalysis({
 // execute some query
 client
   .query({
-    analysis_type: 'count',
-    event_collection: 'pageviews',
+    analysisType: 'count',
+    eventCollection: 'pageviews',
     timeframe: 'this_160_days'
   })
   .then(results => {
