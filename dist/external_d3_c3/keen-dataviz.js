@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -610,27 +610,27 @@ var _append = __webpack_require__(8);
 
 var append = _interopRequireWildcard(_append);
 
-var _delete = __webpack_require__(22);
+var _delete = __webpack_require__(23);
 
 var del = _interopRequireWildcard(_delete);
 
-var _filter = __webpack_require__(23);
+var _filter = __webpack_require__(24);
 
 var filter = _interopRequireWildcard(_filter);
 
-var _insert = __webpack_require__(24);
+var _insert = __webpack_require__(25);
 
 var insert = _interopRequireWildcard(_insert);
 
-var _select = __webpack_require__(25);
+var _select = __webpack_require__(26);
 
 var select = _interopRequireWildcard(_select);
 
-var _sort = __webpack_require__(26);
+var _sort = __webpack_require__(27);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _update = __webpack_require__(27);
+var _update = __webpack_require__(28);
 
 var update = _interopRequireWildcard(_update);
 
@@ -640,7 +640,7 @@ var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(5);
 
-var _parsers = __webpack_require__(28);
+var _parsers = __webpack_require__(29);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
@@ -839,6 +839,40 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.flatten = flatten;
+// Pure awesomeness by Will Rayner (penguinboy)
+// https://gist.github.com/penguinboy/762197
+
+function flatten(ob) {
+  var toReturn = {};
+  for (var i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
+      var flatObject = flatten(ob[i]);
+      for (var x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.stripHtmlTags = stripHtmlTags;
 /**
  * Strip html tags from string
@@ -856,7 +890,7 @@ function stripHtmlTags(inputString) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,7 +920,7 @@ function extendDeep(target) {
 }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -897,7 +931,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = renderDownloadButton;
 
-var _downloadResults = __webpack_require__(40);
+var _downloadResults = __webpack_require__(41);
 
 var _downloadResults2 = _interopRequireDefault(_downloadResults);
 
@@ -930,7 +964,7 @@ function renderDownloadButton() {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -941,11 +975,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exportImage;
 
-var _domToImage = __webpack_require__(41);
+var _domToImage = __webpack_require__(42);
 
 var _domToImage2 = _interopRequireDefault(_domToImage);
 
-var _fileSaver = __webpack_require__(42);
+var _fileSaver = __webpack_require__(43);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -969,7 +1003,7 @@ function exportImage(obj) {
 }
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1028,7 +1062,7 @@ function exportData(obj) {
 }
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -1045,7 +1079,7 @@ function exportData(obj) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1056,7 +1090,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dataset = exports.Dataviz = exports.keenGlobals = exports.extendKeenGlobalObject = undefined;
 
-var _index = __webpack_require__(21);
+var _index = __webpack_require__(22);
 
 Object.defineProperty(exports, 'Dataviz', {
   enumerable: true,
@@ -1095,7 +1129,7 @@ exports.default = _index.Dataviz;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1131,11 +1165,11 @@ var _c = __webpack_require__(10);
 
 var _c2 = _interopRequireDefault(_c);
 
-var _package = __webpack_require__(31);
+var _package = __webpack_require__(32);
 
 var _package2 = _interopRequireDefault(_package);
 
-var _data = __webpack_require__(32);
+var _data = __webpack_require__(33);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -1145,29 +1179,29 @@ var _assertDateString = __webpack_require__(11);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _stripHtmlTags = __webpack_require__(14);
+var _stripHtmlTags = __webpack_require__(15);
 
 var _escapeHtml = __webpack_require__(4);
 
-var _libraries = __webpack_require__(33);
+var _libraries = __webpack_require__(34);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
-var _extendDeep = __webpack_require__(15);
+var _extendDeep = __webpack_require__(16);
 
-var _exportSvg = __webpack_require__(17);
+var _exportSvg = __webpack_require__(18);
 
 var _exportSvg2 = _interopRequireDefault(_exportSvg);
 
-var _exportData = __webpack_require__(18);
+var _exportData = __webpack_require__(19);
 
 var _exportData2 = _interopRequireDefault(_exportData);
 
-var _renderDownloadBtn = __webpack_require__(16);
+var _renderDownloadBtn = __webpack_require__(17);
 
 var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
 
-var _renderExecutionMetadata = __webpack_require__(53);
+var _renderExecutionMetadata = __webpack_require__(54);
 
 var _renderExecutionMetadata2 = _interopRequireDefault(_renderExecutionMetadata);
 
@@ -1175,7 +1209,7 @@ var _copyToClipboard = __webpack_require__(1);
 
 var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 
-var _index = __webpack_require__(54);
+var _index = __webpack_require__(55);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2171,7 +2205,7 @@ function domReady(fn) {
 exports.default = Dataviz;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2207,7 +2241,7 @@ function deleteRow(q) {
 }
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2257,7 +2291,7 @@ function filterRows(fn) {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2359,7 +2393,7 @@ function insertRow(index, str, input) {
 }
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2396,7 +2430,7 @@ function selectRow(q) {
 }
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2466,7 +2500,7 @@ function sortRows(str, comp) {
 }
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2565,7 +2599,7 @@ function updateRow(q, input) {
 }
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2578,9 +2612,11 @@ exports.default = initialize;
 
 var _each = __webpack_require__(0);
 
-var _flatten = __webpack_require__(29);
+var _flatten = __webpack_require__(14);
 
 var _object = __webpack_require__(30);
+
+var _createExtractionKeys = __webpack_require__(31);
 
 var Dataset = void 0; /* injected */
 
@@ -2726,8 +2762,8 @@ function parseExtraction() {
   return function (res) {
     var datasetExtraction = new Dataset().type('extraction');
 
-    // get keys of the Object, static schema
-    var names = Object.keys((0, _flatten.flatten)(res.result[0]));
+    var datasetKeys = (0, _createExtractionKeys.createExtractionKeys)(res.result);
+    var names = Array.from(datasetKeys);
 
     var tableConfig = config && config.table;
     if (tableConfig && tableConfig.schema === 'dynamic') {
@@ -2801,40 +2837,6 @@ var parsers = {
 };
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.flatten = flatten;
-// Pure awesomeness by Will Rayner (penguinboy)
-// https://gist.github.com/penguinboy/762197
-
-function flatten(ob) {
-  var toReturn = {};
-  for (var i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
-    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
-      var flatObject = flatten(ob[i]);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) continue;
-        toReturn[i + '.' + x] = flatObject[x];
-      }
-    } else {
-      toReturn[i] = ob[i];
-    }
-  }
-  return toReturn;
-};
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2851,12 +2853,37 @@ function valueAtDeepKey(obj, is, value) {
 
 /***/ }),
 /* 31 */
-/***/ (function(module) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.14.4","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.7.2","d3":"^5.11.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0","rangeable":"^0.1.6"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.29.0","webpack-bundle-analyzer":"^3.3.2","webpack-cli":"^3.2.1","webpack-dev-server":"^3.3.1","xhr-mock":"^2.3.2"}};
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createExtractionKeys = createExtractionKeys;
+
+var _flatten = __webpack_require__(14);
+
+function createExtractionKeys(results) {
+  var keys = new Set();
+  results.forEach(function (result) {
+    Object.keys((0, _flatten.flatten)(result)).map(function (key) {
+      keys.add(key);
+    });
+  });
+
+  return keys;
+}
 
 /***/ }),
 /* 32 */
+/***/ (function(module) {
+
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.14.5","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.7.2","d3":"^5.11.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0","rangeable":"^0.1.6"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.29.0","webpack-bundle-analyzer":"^3.3.2","webpack-cli":"^3.2.1","webpack-dev-server":"^3.3.1","xhr-mock":"^2.3.2"}};
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2881,7 +2908,7 @@ var _dataset2 = _interopRequireDefault(_dataset);
 
 var _extend = __webpack_require__(5);
 
-var _stripHtmlTags = __webpack_require__(14);
+var _stripHtmlTags = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3099,7 +3126,7 @@ function getDefaultType(parser) {
 }
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3149,71 +3176,71 @@ var _each = __webpack_require__(0);
 
 var _extend = __webpack_require__(5);
 
-var _extendDeep = __webpack_require__(15);
+var _extendDeep = __webpack_require__(16);
 
 var _assertDateString = __webpack_require__(11);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _defaultDateFormat = __webpack_require__(34);
+var _defaultDateFormat = __webpack_require__(35);
 
 var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
 
-var _paginatingLegend = __webpack_require__(35);
+var _paginatingLegend = __webpack_require__(36);
 
 var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
 
-var _tooltipContents = __webpack_require__(36);
+var _tooltipContents = __webpack_require__(37);
 
 var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
 
-var _calculateRange = __webpack_require__(37);
+var _calculateRange = __webpack_require__(38);
 
 var _calculateRange2 = _interopRequireDefault(_calculateRange);
 
-var _calculatePercents = __webpack_require__(38);
+var _calculatePercents = __webpack_require__(39);
 
-var _message = __webpack_require__(39);
+var _message = __webpack_require__(40);
 
 var _message2 = _interopRequireDefault(_message);
 
-var _metric = __webpack_require__(43);
+var _metric = __webpack_require__(44);
 
 var _metric2 = _interopRequireDefault(_metric);
 
-var _table = __webpack_require__(44);
+var _table = __webpack_require__(45);
 
 var _table2 = _interopRequireDefault(_table);
 
-var _spinner = __webpack_require__(45);
+var _spinner = __webpack_require__(46);
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
-var _funnel = __webpack_require__(46);
+var _funnel = __webpack_require__(47);
 
 var _funnel2 = _interopRequireDefault(_funnel);
 
-var _funnel3d = __webpack_require__(47);
+var _funnel3d = __webpack_require__(48);
 
 var _funnel3d2 = _interopRequireDefault(_funnel3d);
 
-var _horizontalFunnel = __webpack_require__(48);
+var _horizontalFunnel = __webpack_require__(49);
 
 var _horizontalFunnel2 = _interopRequireDefault(_horizontalFunnel);
 
-var _horizontalFunnel3d = __webpack_require__(49);
+var _horizontalFunnel3d = __webpack_require__(50);
 
 var _horizontalFunnel3d2 = _interopRequireDefault(_horizontalFunnel3d);
 
-var _metricCombo = __webpack_require__(50);
+var _metricCombo = __webpack_require__(51);
 
 var _metricCombo2 = _interopRequireDefault(_metricCombo);
 
-var _heatmap = __webpack_require__(51);
+var _heatmap = __webpack_require__(52);
 
 var _heatmap2 = _interopRequireDefault(_heatmap);
 
-var _choropleth = __webpack_require__(52);
+var _choropleth = __webpack_require__(53);
 
 var _choropleth2 = _interopRequireDefault(_choropleth);
 
@@ -3586,7 +3613,7 @@ function bindResizeListener(fn) {
 }
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3625,7 +3652,7 @@ exports.default = function (startDate, endDate) {
 };
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3849,7 +3876,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3896,7 +3923,7 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
 var _escapeHtml = __webpack_require__(4);
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3921,7 +3948,7 @@ function calculateRange(matrix) {
 }
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3962,7 +3989,7 @@ function calculatePercents(matrix, sumArray) {
 }
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3974,7 +4001,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _escapeHtml = __webpack_require__(4);
 
-var _renderDownloadBtn = __webpack_require__(16);
+var _renderDownloadBtn = __webpack_require__(17);
 
 var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
 
@@ -4056,7 +4083,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4067,11 +4094,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = downloadResults;
 
-var _exportSvg = __webpack_require__(17);
+var _exportSvg = __webpack_require__(18);
 
 var _exportSvg2 = _interopRequireDefault(_exportSvg);
 
-var _exportData = __webpack_require__(18);
+var _exportData = __webpack_require__(19);
 
 var _exportData2 = _interopRequireDefault(_exportData);
 
@@ -4119,7 +4146,7 @@ function downloadResults(obj) {
 }
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (global) {
@@ -4894,7 +4921,7 @@ function downloadResults(obj) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
@@ -4906,7 +4933,7 @@ function downloadResults(obj) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5064,7 +5091,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5369,7 +5396,7 @@ var destroy = function destroy() {};
 exports.default = { render: render, update: update, destroy: destroy };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5412,7 +5439,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5693,7 +5720,7 @@ var Funnel = function () {
 exports.default = Funnel;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5998,7 +6025,7 @@ var Funnel3d = function () {
 exports.default = Funnel3d;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6276,7 +6303,7 @@ var HorizontalFunnel = function () {
 exports.default = HorizontalFunnel;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6585,7 +6612,7 @@ var HorizontalFunnel3d = function () {
 exports.default = HorizontalFunnel3d;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6756,7 +6783,7 @@ var MetricCombo = function () {
 exports.default = MetricCombo;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6774,7 +6801,7 @@ var _d2 = __webpack_require__(2);
 
 var d3 = _interopRequireWildcard(_d2);
 
-var _rangeable = __webpack_require__(19);
+var _rangeable = __webpack_require__(20);
 
 var _rangeable2 = _interopRequireDefault(_rangeable);
 
@@ -7017,7 +7044,7 @@ var Heatmap = function () {
 exports.default = Heatmap;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7037,7 +7064,7 @@ var _d2 = __webpack_require__(2);
 
 var d3 = _interopRequireWildcard(_d2);
 
-var _rangeable = __webpack_require__(19);
+var _rangeable = __webpack_require__(20);
 
 var _rangeable2 = _interopRequireDefault(_rangeable);
 
@@ -7248,7 +7275,7 @@ var Choropleth = function () {
 exports.default = Choropleth;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7331,7 +7358,7 @@ function renderExecutionMetadata() {
 }
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7341,15 +7368,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _autocollector = __webpack_require__(55);
+var _autocollector = __webpack_require__(56);
 
 var _autocollector2 = _interopRequireDefault(_autocollector);
 
-var _modern = __webpack_require__(56);
+var _modern = __webpack_require__(57);
 
 var _modern2 = _interopRequireDefault(_modern);
 
-var _dracula = __webpack_require__(57);
+var _dracula = __webpack_require__(58);
 
 var _dracula2 = _interopRequireDefault(_dracula);
 
@@ -7362,7 +7389,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7378,7 +7405,7 @@ var palette = {
 exports.default = palette;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7394,7 +7421,7 @@ var palette = {
 exports.default = palette;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

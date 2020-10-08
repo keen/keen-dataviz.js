@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -584,27 +584,27 @@ var _append = __webpack_require__(7);
 
 var append = _interopRequireWildcard(_append);
 
-var _delete = __webpack_require__(21);
+var _delete = __webpack_require__(22);
 
 var del = _interopRequireWildcard(_delete);
 
-var _filter = __webpack_require__(22);
+var _filter = __webpack_require__(23);
 
 var filter = _interopRequireWildcard(_filter);
 
-var _insert = __webpack_require__(23);
+var _insert = __webpack_require__(24);
 
 var insert = _interopRequireWildcard(_insert);
 
-var _select = __webpack_require__(24);
+var _select = __webpack_require__(25);
 
 var select = _interopRequireWildcard(_select);
 
-var _sort = __webpack_require__(25);
+var _sort = __webpack_require__(26);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _update = __webpack_require__(26);
+var _update = __webpack_require__(27);
 
 var update = _interopRequireWildcard(_update);
 
@@ -614,7 +614,7 @@ var _analyses2 = _interopRequireDefault(_analyses);
 
 var _extend = __webpack_require__(5);
 
-var _parsers = __webpack_require__(27);
+var _parsers = __webpack_require__(28);
 
 var _parsers2 = _interopRequireDefault(_parsers);
 
@@ -813,6 +813,40 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.flatten = flatten;
+// Pure awesomeness by Will Rayner (penguinboy)
+// https://gist.github.com/penguinboy/762197
+
+function flatten(ob) {
+  var toReturn = {};
+  for (var i in ob) {
+    if (!ob.hasOwnProperty(i)) continue;
+    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
+      var flatObject = flatten(ob[i]);
+      for (var x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) continue;
+        toReturn[i + '.' + x] = flatObject[x];
+      }
+    } else {
+      toReturn[i] = ob[i];
+    }
+  }
+  return toReturn;
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.stripHtmlTags = stripHtmlTags;
 /**
  * Strip html tags from string
@@ -830,7 +864,7 @@ function stripHtmlTags(inputString) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -860,7 +894,7 @@ function extendDeep(target) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -871,7 +905,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = renderDownloadButton;
 
-var _downloadResults = __webpack_require__(39);
+var _downloadResults = __webpack_require__(40);
 
 var _downloadResults2 = _interopRequireDefault(_downloadResults);
 
@@ -904,7 +938,7 @@ function renderDownloadButton() {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -915,11 +949,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exportImage;
 
-var _domToImage = __webpack_require__(40);
+var _domToImage = __webpack_require__(41);
 
 var _domToImage2 = _interopRequireDefault(_domToImage);
 
-var _fileSaver = __webpack_require__(41);
+var _fileSaver = __webpack_require__(42);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -943,7 +977,7 @@ function exportImage(obj) {
 }
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1002,7 +1036,7 @@ function exportData(obj) {
 }
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -1018,15 +1052,15 @@ function exportData(obj) {
 (function(i,j){ true?module.exports=j("Rangeable"):undefined})("undefined"==typeof global?this.window||this.global:global,function(){var i=function(s,t){var u=document.createElement(s);return t&&u.classList.add(t),u},j=function(s){return s&&"function"==typeof s},o=function(s,t,u){var v;return function(){if(u=u||this,!v)return s.apply(u,arguments),v=!0,setTimeout(function(){v=!1},t)}},q=function(s,t){this.plugins=["ruler"],"string"==typeof s&&(s=document.querySelector(s)),this.input=s,this.config=Object.assign({},{type:"single",tooltips:"always",updateThrottle:30,formatTooltip:function(u){return u},classes:{input:"rangeable-input",container:"rangeable-container",vertical:"rangeable-vertical",progress:"rangeable-progress",handle:"rangeable-handle",track:"rangeable-track",multiple:"rangeable-multiple",disabled:"rangeable-disabled",tooltips:"rangeable-tooltips",tooltip:"rangeable-tooltip",visible:"rangeable-tooltips--visible"}},t),this.mouseAxis={x:"clientX",y:"clientY"},this.trackSize={x:"width",y:"height"},this.trackPos={x:"left",y:"top"},this.lastPos=0,this.double="double"===this.config.type||Array.isArray(this.config.value),this.touch="ontouchstart"in window||window.DocumentTouch&&document instanceof DocumentTouch,this.version="0.1.6",this.init(),this.onInit()},r=q.prototype;return r.init=function(){if(!this.input.rangeable){var t,s={min:0,max:100,step:1,value:this.input.value};for(t in s)this.input[t]||(this.input[t]=s[t]),void 0!==this.config[t]&&(this.input[t]=this.config[t]);this.axis=this.config.vertical?"y":"x",this.input.rangeable=this,this.double?(this.input.values=this.config.value?this.config.value:[this.input.min,this.input.max],this.input.defaultValues=this.input.values.slice()):this.input.defaultValue||(this.input.defaultValue=this.input.value),this.render(),this.initialised=!0}},r.render=function(){var s=this,t=this.config,u=t.classes,v=i("div",u.container),w=i("div",u.track),x=i("div",u.progress),y=i("div",u.handle),z=i("div",u.tooltip);if(this.input.tabIndex=-1,this.double){y=[i("div",u.handle),i("div",u.handle)],z=[];for(var A=0;3>A;A++)z[A]=i("div",u.tooltip);y.forEach(function(C,D){C.index=D,x.appendChild(C),C.appendChild(z[D]),C.tabIndex=1,t.controls&&t.controls[D]&&t.controls[D].locked&&!0===t.controls[D].locked&&(C.locked=!0)}),t.vertical&&x.appendChild(y[0]),x.appendChild(z[2]),v.classList.add(u.multiple)}else x.appendChild(y),y.appendChild(z),y.tabIndex=1,t.controls&&t.controls.locked&&!0===t.controls.locked&&(y.locked=!0);if(v.appendChild(w),t.vertical&&v.classList.add(u.vertical),t.size&&(v.style[this.trackSize[this.axis]]=isNaN(t.size)?t.size:t.size+"px"),t.tooltips&&(v.classList.add(u.tooltips),"string"==typeof t.tooltips&&"always"===t.tooltips&&v.classList.add(u.visible)),this.nodes={container:v,track:w,progress:x,handle:y,tooltip:z},this.double){this.nodes.buffer=[];var B=i("div","rangeable-buffers");this.input.values.forEach(function(C,D){var E=i("div","rangeable-buffer");B.appendChild(E),s.nodes.buffer.push(E),w.appendChild(B),t.controls&&(s.limits=[{},{}],void 0!==t.controls[D].min&&(s.limits[D].min=t.controls[D].min),void 0!==t.controls[D].max&&(s.limits[D].max=t.controls[D].max))})}else y=i("div","rangeable-buffer"),w.appendChild(y),this.nodes.buffer=y,w.appendChild(y),t.controls&&(this.limits={},void 0!==t.controls.min&&(this.limits.min=t.controls.min),void 0!==t.controls.max&&(this.limits.max=t.controls.max));this.setLimits(t.controls),w.appendChild(x),this.input.parentNode.insertBefore(v,this.input),v.insertBefore(this.input,w),this.input.classList.add(u.input),this.bind(),this.update()},r.reset=function(){this.double?this.input.defaultValues.forEach(this.setValue,this):this.setValue(this.input.defaultValue),this.onEnd()},r.setValueFromPosition=function(s){var t=this.getLimits(),u=parseFloat(this.input.step),v=this.touch?s.touches[0][this.mouseAxis[this.axis]]:s[this.mouseAxis[this.axis]],w=v-this.rects.container[this.trackPos[this.axis]],x=this.rects.container[this.trackSize[this.axis]];return"mousedown"===s.type&&(!this.double&&this.nodes.handle.contains(s.target)||this.double&&(this.nodes.handle[0].contains(s.target)||this.nodes.handle[1].contains(s.target)))?!1:(s=(this.config.vertical?100*((x-w)/x):100*(w/x))*(t.max-t.min)/100+t.min,s=Math.ceil(s/u)*u,v>=this.lastPos&&(s-=u),parseFloat(s)!==parseFloat(this.startValue)&&void(u=!1,this.double&&(u=this.activeHandle.index),s=this.limit(s,u),this.setValue(s,u)))},r.start=function(s){return s.preventDefault(),this.startValue=this.getValue(),this.onStart(),this.nodes.container.classList.add("dragging"),this.recalculate(),this.activeHandle=this.getHandle(s),!!this.activeHandle&&void(this.activeHandle.classList.add("active"),this.setValueFromPosition(s),this.touch?(document.addEventListener("touchmove",this.events.move,!1),document.addEventListener("touchend",this.events.stop,!1),document.addEventListener("touchcancel",this.events.stop,!1)):(document.addEventListener("mousemove",this.events.move,!1),document.addEventListener("mouseup",this.events.stop,!1)))},r.move=function(s){this.setValueFromPosition(s),this.lastPos=this.touch?s.touches[0][this.mouseAxis[this.axis]]:s[this.mouseAxis[this.axis]]},r.stop=function(){this.stopValue=this.getValue(),this.nodes.container.classList.remove("dragging"),this.onEnd(),this.activeHandle.classList.remove("active"),this.activeHandle=!1,this.touch?(document.removeEventListener("touchmove",this.events.move),document.removeEventListener("touchend",this.events.stop),document.removeEventListener("touchcancel",this.events.stop)):(document.removeEventListener("mousemove",this.events.move),document.removeEventListener("mouseup",this.events.stop)),this.startValue!==this.stopValue&&this.input.dispatchEvent(new Event("change")),this.startValue=null},r.keydown=function(s){var t=this,u=function(v){switch(s.key){case"ArrowRight":case"ArrowUp":t.stepUp(v);break;case"ArrowLeft":case"ArrowDown":t.stepDown(v);}};this.double?this.nodes.handle.forEach(function(v){v===document.activeElement&&u(v.index)}):this.nodes.handle===document.activeElement&&u()},r.stepUp=function(s){var t=parseFloat(this.input.step),u=this.getValue();this.double&&void 0!==s&&(u=u[s]),t=this.limit(parseFloat(u)+t,s),this.setValue(t,s)},r.stepDown=function(s){var t=parseFloat(this.input.step),u=this.getValue();this.double&&void 0!==s&&(u=u[s]),t=this.limit(parseFloat(u)-t,s),this.setValue(t,s)},r.limit=function(s,t){var u=this.input,v=this.getLimits();return s=parseFloat(s),this.double&&void 0!==t?(!t&&s>u.values[1]?s=u.values[1]:0<t&&s<u.values[0]&&(s=u.values[0]),this.limits)&&(t?s>this.limits[1].max?s=this.limits[1].max:s<this.limits[1].min&&(s=this.limits[1].min):s>this.limits[0].max?s=this.limits[0].max:s<this.limits[0].min&&(s=this.limits[0].min)):this.limits&&(s>this.limits.max?s=this.limits.max:s<this.limits.min&&(s=this.limits.min)),s>v.max?s=v.max:s<v.min&&(s=v.min),s=parseFloat(s),s=s.toFixed(this.accuracy)},r.recalculate=function(){var s=[];this.double?this.nodes.handle.forEach(function(t,u){s[u]=t.getBoundingClientRect()}):s=this.nodes.handle.getBoundingClientRect(),this.rects={handle:s,container:this.nodes.container.getBoundingClientRect()}},r.update=function(){var s=this;this.recalculate(),this.accuracy=0,this.input.step.includes(".")&&(this.accuracy=(this.input.step.split(".")[1]||[]).length);var t=this.getValue(),u=this.getLimits(),v=this.rects.container[this.trackSize[this.axis]],w=function(x,y,z){x.style[s.config.vertical?"bottom":"left"]=y+"px",x.style[s.trackSize[s.axis]]=z/u.max*v-y+"px"};this.double?(this.limits&&this.limits.forEach(function(x,y){w(s.nodes.buffer[y],x.min/u.max*v,x.max)}),this.input.values.forEach(function(x,y){s.setValue(s.limit(x,y),y)})):(this.limits&&w(this.nodes.buffer,this.limits.min/u.max*v,this.limits.max),this.setValue(this.limit(t)))},r.getValue=function(){return this.double?this.input.values:this.input.value},r.setValue=function(s,t){var u=this.nodes;if(this.double&&void 0===t)return!1;void 0===s&&(s=this.input.value),s=this.limit(s,t);var v=this.initialised&&(s!==this.input.value||this.nativeEvent),w=this.config.formatTooltip;if(this.double){var x=this.input.values;if(x[t]=s,this.config.tooltips){u.tooltip[t].textContent=w.call(this,s);var y=u.tooltip[0].getBoundingClientRect(),z=u.tooltip[1].getBoundingClientRect();y=!(y.right<z.left||y.left>z.right||y.bottom<z.top||y.top>z.bottom),u.container.classList.toggle("combined-tooltip",y),y&&(u.tooltip[2].textContent=x[0]===x[1]?w.call(this,x[0]):w.call(this,x[0])+" - "+w.call(this,x[1]))}}else this.input.value=s,u.tooltip.textContent=w.call(this,s);this.setPosition(s,t),v&&(this.onChange(),this.nativeEvent||this.input.dispatchEvent(new Event("input")),this.nativeEvent=!1)},r.native=function(){this.nativeEvent=!0,this.setValue()},r.getLimits=function(){return{min:parseFloat(this.input.min),max:parseFloat(this.input.max)}},r.setLimits=function(s){var t=this;if(void 0===s)return!1;this.limits||(this.limits=s);var u=function(v,w){void 0!==w.min&&(v.min=w.min),void 0!==w.max&&(v.max=w.max)};this.double?s.forEach(function(v,w){u(t.limits[w],v)}):u(this.limits,s),this.update()},r.setPosition=function(s){if(this.double){s=this.getPosition(this.input.values[0]);var t=this.getPosition(this.input.values[1]);this.nodes.progress.style[this.config.vertical?"bottom":"left"]=s+"px",s=t-s}else s=this.getPosition();this.nodes.progress.style[this.trackSize[this.axis]]=s+"px"},r.getPosition=function(s){void 0===s&&(s=this.input.value);var t=this.getLimits();return(s-t.min)/(t.max-t.min)*this.rects.container[this.trackSize[this.axis]]},r.getHandle=function(s){if(!this.double)return!this.nodes.handle.locked&&this.nodes.handle;var t=this.rects,u=Math.abs(s[this.mouseAxis[this.axis]]-t.handle[0][this.trackPos[this.axis]]);return t=Math.abs(s[this.mouseAxis[this.axis]]-t.handle[1][this.trackPos[this.axis]]),(s=s.target.closest("."+this.config.classes.handle))||(s=u>t?this.nodes.handle[1]:this.nodes.handle[0]),!s.locked&&s},r.enable=function(){this.input.disabled&&(this.nodes.container.addEventListener(this.touch?"touchstart":"mousedown",this.events.start,!1),this.double?this.nodes.handle.forEach(function(s){return s.tabIndex=1}):this.nodes.handle.tabIndex=1,this.nodes.container.classList.remove(this.config.classes.disabled),this.input.disabled=!1)},r.disable=function(){this.input.disabled||(this.nodes.container.removeEventListener(this.touch?"touchstart":"mousedown",this.events.start),this.double?this.nodes.handle.forEach(function(s){return s.removeAttribute("tabindex")}):this.nodes.handle.removeAttribute("tabindex"),this.nodes.container.classList.add(this.config.classes.disabled),this.input.disabled=!0)},r.bind=function(){var s=this;this.events={},"start move stop update reset native keydown".split(" ").forEach(function(t){s.events[t]=s[t].bind(s)}),this.events.scroll=o(this.events.update,this.config.updateThrottle),this.events.resize=o(this.events.update,this.config.updateThrottle),document.addEventListener("scroll",this.events.scroll,!1),window.addEventListener("resize",this.events.resize,!1),document.addEventListener("keydown",this.events.keydown,!1),this.nodes.container.addEventListener(this.touch?"touchstart":"mousedown",this.events.start,!1),this.input.addEventListener("input",this.events.native,!1),this.input.form&&this.input.form.addEventListener("reset",this.events.reset,!1)},r.unbind=function(){document.removeEventListener("scroll",this.events.scroll),window.removeEventListener("resize",this.events.resize),document.removeEventListener("keydown",this.events.keydown),this.nodes.container.removeEventListener(this.touch?"touchstart":"mousedown",this.events.start),this.input.removeEventListener("input",this.events.native),this.input.form&&this.input.form.removeEventListener("reset",this.events.reset),this.events=null},r.destroy=function(){this.input.rangeable&&(this.unbind(),this.input.classList.remove(this.config.classes.input),this.nodes.container.parentNode.replaceChild(this.input,this.nodes.container),delete this.input.rangeable,this.initialised=!1)},r.onInit=function(){j(this.config.onInit)&&this.config.onInit.call(this,this.getValue())},r.onStart=function(){j(this.config.onStart)&&this.config.onStart.call(this,this.getValue())},r.onChange=function(){j(this.config.onChange)&&this.config.onChange.call(this,this.getValue())},r.onEnd=function(){j(this.config.onEnd)&&this.config.onEnd.call(this,this.getValue())},q});
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(57);
+__webpack_require__(58);
 
-var _index = __webpack_require__(20);
+var _index = __webpack_require__(21);
 
 module.exports = {
   default: _index.Dataviz,
@@ -1035,7 +1069,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1071,11 +1105,11 @@ var _c = __webpack_require__(9);
 
 var _c2 = _interopRequireDefault(_c);
 
-var _package = __webpack_require__(30);
+var _package = __webpack_require__(31);
 
 var _package2 = _interopRequireDefault(_package);
 
-var _data = __webpack_require__(31);
+var _data = __webpack_require__(32);
 
 var _data2 = _interopRequireDefault(_data);
 
@@ -1085,29 +1119,29 @@ var _assertDateString = __webpack_require__(10);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _stripHtmlTags = __webpack_require__(13);
+var _stripHtmlTags = __webpack_require__(14);
 
 var _escapeHtml = __webpack_require__(4);
 
-var _libraries = __webpack_require__(32);
+var _libraries = __webpack_require__(33);
 
 var _libraries2 = _interopRequireDefault(_libraries);
 
-var _extendDeep = __webpack_require__(14);
+var _extendDeep = __webpack_require__(15);
 
-var _exportSvg = __webpack_require__(16);
+var _exportSvg = __webpack_require__(17);
 
 var _exportSvg2 = _interopRequireDefault(_exportSvg);
 
-var _exportData = __webpack_require__(17);
+var _exportData = __webpack_require__(18);
 
 var _exportData2 = _interopRequireDefault(_exportData);
 
-var _renderDownloadBtn = __webpack_require__(15);
+var _renderDownloadBtn = __webpack_require__(16);
 
 var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
 
-var _renderExecutionMetadata = __webpack_require__(52);
+var _renderExecutionMetadata = __webpack_require__(53);
 
 var _renderExecutionMetadata2 = _interopRequireDefault(_renderExecutionMetadata);
 
@@ -1115,7 +1149,7 @@ var _copyToClipboard = __webpack_require__(1);
 
 var _copyToClipboard2 = _interopRequireDefault(_copyToClipboard);
 
-var _index = __webpack_require__(53);
+var _index = __webpack_require__(54);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2111,7 +2145,7 @@ function domReady(fn) {
 exports.default = Dataviz;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2147,7 +2181,7 @@ function deleteRow(q) {
 }
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2197,7 +2231,7 @@ function filterRows(fn) {
 }
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2299,7 +2333,7 @@ function insertRow(index, str, input) {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2336,7 +2370,7 @@ function selectRow(q) {
 }
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2406,7 +2440,7 @@ function sortRows(str, comp) {
 }
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2505,7 +2539,7 @@ function updateRow(q, input) {
 }
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2518,9 +2552,11 @@ exports.default = initialize;
 
 var _each = __webpack_require__(0);
 
-var _flatten = __webpack_require__(28);
+var _flatten = __webpack_require__(13);
 
 var _object = __webpack_require__(29);
+
+var _createExtractionKeys = __webpack_require__(30);
 
 var Dataset = void 0; /* injected */
 
@@ -2666,8 +2702,8 @@ function parseExtraction() {
   return function (res) {
     var datasetExtraction = new Dataset().type('extraction');
 
-    // get keys of the Object, static schema
-    var names = Object.keys((0, _flatten.flatten)(res.result[0]));
+    var datasetKeys = (0, _createExtractionKeys.createExtractionKeys)(res.result);
+    var names = Array.from(datasetKeys);
 
     var tableConfig = config && config.table;
     if (tableConfig && tableConfig.schema === 'dynamic') {
@@ -2741,40 +2777,6 @@ var parsers = {
 };
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.flatten = flatten;
-// Pure awesomeness by Will Rayner (penguinboy)
-// https://gist.github.com/penguinboy/762197
-
-function flatten(ob) {
-  var toReturn = {};
-  for (var i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
-    if (_typeof(ob[i]) == 'object' && ob[i] !== null) {
-      var flatObject = flatten(ob[i]);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) continue;
-        toReturn[i + '.' + x] = flatObject[x];
-      }
-    } else {
-      toReturn[i] = ob[i];
-    }
-  }
-  return toReturn;
-};
-
-/***/ }),
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2791,12 +2793,37 @@ function valueAtDeepKey(obj, is, value) {
 
 /***/ }),
 /* 30 */
-/***/ (function(module) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.14.4","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.7.2","d3":"^5.11.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0","rangeable":"^0.1.6"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.29.0","webpack-bundle-analyzer":"^3.3.2","webpack-cli":"^3.2.1","webpack-dev-server":"^3.3.1","xhr-mock":"^2.3.2"}};
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createExtractionKeys = createExtractionKeys;
+
+var _flatten = __webpack_require__(13);
+
+function createExtractionKeys(results) {
+  var keys = new Set();
+  results.forEach(function (result) {
+    Object.keys((0, _flatten.flatten)(result)).map(function (key) {
+      keys.add(key);
+    });
+  });
+
+  return keys;
+}
 
 /***/ }),
 /* 31 */
+/***/ (function(module) {
+
+module.exports = {"name":"keen-dataviz","description":"Data Visualization SDK for Keen IO","license":"MIT","version":"3.14.5","main":"dist/external_d3_c3/node/keen-dataviz.js","browser":"dist/external_d3_c3/keen-dataviz.js","style":"dist/keen-dataviz.css","scripts":{"start":"concurrently --kill-others \"NODE_ENV=development webpack-dev-server\" \"npm run postcss-watch\"","postcss-watch":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o test/demo/keen-dataviz.css --watch --config postcss.config.js","build":"NODE_ENV=production webpack -p && npm run build:css && NODE_ENV=production OPTIMIZE_MINIMIZE=1 webpack -p && npm run build:css && npm run build:css:min && npm run build:external_d3_c3 && npm run build:external_d3_c3:css && npm run build:external_d3_c3:css:min && npm run build:node","build:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.css --config postcss.config.js","build:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz-c3.css -o dist/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3:css":"node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.css --config postcss.config.js","build:external_d3_c3:css:min":"OPTIMIZE_MINIMIZE=1 node_modules/postcss-cli/bin/postcss lib/style/keen-dataviz.css -o dist/external_d3_c3/keen-dataviz.min.css --config postcss.config.js","build:external_d3_c3":"NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p && NODE_ENV=production EXTERNAL_D3_C3=1 OPTIMIZE_MINIMIZE=1 webpack -p","build:node":"TARGET=node NODE_ENV=production EXTERNAL_D3_C3=1 webpack -p","profile":"webpack --profile --json > stats.json","analyze":"webpack-bundle-analyzer stats.json /dist","version":"npm run build && git add .","postversion":"git push && git push --tags && npm publish","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch"},"repository":{"type":"git","url":"https://github.com/keen/keen-dataviz.js.git"},"bugs":"https://github.com/keen/keen-dataviz.js/issues","author":"Keen.IO <team@keen.io> (https://keen.io/)","contributors":["Dustin Larimer <dustin@keen.io> (https://github.com/dustinlarimer)","Joanne Cheng <joanne@keen.io> (https://github.com/joannecheng)","Eric Anderson <eric@keen.io> (https://github.com/aroc)","Joe Wegner <joe@keen.io> (https://github.com/josephwegner)","Sara Falkoff <sara@keen.io (https://github.com/sfalkoff)","Adam Kasprowicz <adam.kasprowicz@keen.io> (https://github.com/adamkasprowicz)","Dariusz Łacheta <dariusz.lacheta@keen.io> (https://github.com/dariuszlacheta)"],"homepage":"https://keen.io","keywords":["d3","c3","Analytics","Stats","Statistics","Visualization","Visualizations","Data Visualization","Chart","Charts","Charting","Svg","Dataviz","Plots","Graphs","Funnels"],"dependencies":{"c3":"^0.7.2","d3":"^5.11.0","dom-to-image":"^2.6.0","file-saver":"^2.0.1","promise-polyfill":"^8.0.0","rangeable":"^0.1.6"},"devDependencies":{"autoprefixer":"^8.2.0","babel-loader":"^7.1.4","babel-plugin-transform-es2015-modules-commonjs":"^6.26.2","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.7.0","concurrently":"^3.5.1","cssnano":"^3.10.0","eslint":"^4.19.1","eslint-config-airbnb":"^16.1.0","eslint-loader":"^2.0.0","eslint-plugin-import":"^2.11.0","eslint-plugin-jsx-a11y":"^6.0.3","eslint-plugin-react":"^7.7.0","html-loader":"^0.5.5","html-webpack-plugin":"^3.2.0","jest":"^22.4.3","jest-environment-jsdom-c3":"^2.0.0","nock":"^9.2.6","postcss":"^6.0.21","postcss-cli":"^5.0.0","postcss-color-function":"^4.0.1","postcss-css-variables":"^0.8.1","postcss-cssnext":"^2.4.0","postcss-import":"^8.0.2","postcss-loader":"^2.1.3","precss":"^3.1.2","regenerator-runtime":"^0.11.1","replace-in-file":"^3.4.0","style-loader":"^0.20.3","webpack":"^4.29.0","webpack-bundle-analyzer":"^3.3.2","webpack-cli":"^3.2.1","webpack-dev-server":"^3.3.1","xhr-mock":"^2.3.2"}};
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2821,7 +2848,7 @@ var _dataset2 = _interopRequireDefault(_dataset);
 
 var _extend = __webpack_require__(5);
 
-var _stripHtmlTags = __webpack_require__(13);
+var _stripHtmlTags = __webpack_require__(14);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3039,7 +3066,7 @@ function getDefaultType(parser) {
 }
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3089,71 +3116,71 @@ var _each = __webpack_require__(0);
 
 var _extend = __webpack_require__(5);
 
-var _extendDeep = __webpack_require__(14);
+var _extendDeep = __webpack_require__(15);
 
 var _assertDateString = __webpack_require__(10);
 
 var _assertDateString2 = _interopRequireDefault(_assertDateString);
 
-var _defaultDateFormat = __webpack_require__(33);
+var _defaultDateFormat = __webpack_require__(34);
 
 var _defaultDateFormat2 = _interopRequireDefault(_defaultDateFormat);
 
-var _paginatingLegend = __webpack_require__(34);
+var _paginatingLegend = __webpack_require__(35);
 
 var _paginatingLegend2 = _interopRequireDefault(_paginatingLegend);
 
-var _tooltipContents = __webpack_require__(35);
+var _tooltipContents = __webpack_require__(36);
 
 var _tooltipContents2 = _interopRequireDefault(_tooltipContents);
 
-var _calculateRange = __webpack_require__(36);
+var _calculateRange = __webpack_require__(37);
 
 var _calculateRange2 = _interopRequireDefault(_calculateRange);
 
-var _calculatePercents = __webpack_require__(37);
+var _calculatePercents = __webpack_require__(38);
 
-var _message = __webpack_require__(38);
+var _message = __webpack_require__(39);
 
 var _message2 = _interopRequireDefault(_message);
 
-var _metric = __webpack_require__(42);
+var _metric = __webpack_require__(43);
 
 var _metric2 = _interopRequireDefault(_metric);
 
-var _table = __webpack_require__(43);
+var _table = __webpack_require__(44);
 
 var _table2 = _interopRequireDefault(_table);
 
-var _spinner = __webpack_require__(44);
+var _spinner = __webpack_require__(45);
 
 var _spinner2 = _interopRequireDefault(_spinner);
 
-var _funnel = __webpack_require__(45);
+var _funnel = __webpack_require__(46);
 
 var _funnel2 = _interopRequireDefault(_funnel);
 
-var _funnel3d = __webpack_require__(46);
+var _funnel3d = __webpack_require__(47);
 
 var _funnel3d2 = _interopRequireDefault(_funnel3d);
 
-var _horizontalFunnel = __webpack_require__(47);
+var _horizontalFunnel = __webpack_require__(48);
 
 var _horizontalFunnel2 = _interopRequireDefault(_horizontalFunnel);
 
-var _horizontalFunnel3d = __webpack_require__(48);
+var _horizontalFunnel3d = __webpack_require__(49);
 
 var _horizontalFunnel3d2 = _interopRequireDefault(_horizontalFunnel3d);
 
-var _metricCombo = __webpack_require__(49);
+var _metricCombo = __webpack_require__(50);
 
 var _metricCombo2 = _interopRequireDefault(_metricCombo);
 
-var _heatmap = __webpack_require__(50);
+var _heatmap = __webpack_require__(51);
 
 var _heatmap2 = _interopRequireDefault(_heatmap);
 
-var _choropleth = __webpack_require__(51);
+var _choropleth = __webpack_require__(52);
 
 var _choropleth2 = _interopRequireDefault(_choropleth);
 
@@ -3526,7 +3553,7 @@ function bindResizeListener(fn) {
 }
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3565,7 +3592,7 @@ exports.default = function (startDate, endDate) {
 };
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3789,7 +3816,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3836,7 +3863,7 @@ exports.default = function (d, defaultTitleFormat, defaultValueFormat, color) {
 var _escapeHtml = __webpack_require__(4);
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3861,7 +3888,7 @@ function calculateRange(matrix) {
 }
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3902,7 +3929,7 @@ function calculatePercents(matrix, sumArray) {
 }
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3914,7 +3941,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _escapeHtml = __webpack_require__(4);
 
-var _renderDownloadBtn = __webpack_require__(15);
+var _renderDownloadBtn = __webpack_require__(16);
 
 var _renderDownloadBtn2 = _interopRequireDefault(_renderDownloadBtn);
 
@@ -3996,7 +4023,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4007,11 +4034,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = downloadResults;
 
-var _exportSvg = __webpack_require__(16);
+var _exportSvg = __webpack_require__(17);
 
 var _exportSvg2 = _interopRequireDefault(_exportSvg);
 
-var _exportData = __webpack_require__(17);
+var _exportData = __webpack_require__(18);
 
 var _exportData2 = _interopRequireDefault(_exportData);
 
@@ -4059,7 +4086,7 @@ function downloadResults(obj) {
 }
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (global) {
@@ -4834,7 +4861,7 @@ function downloadResults(obj) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(a,b){if(true)!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (b),
@@ -4845,7 +4872,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 //# sourceMappingURL=FileSaver.min.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5003,7 +5030,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5308,7 +5335,7 @@ var destroy = function destroy() {};
 exports.default = { render: render, update: update, destroy: destroy };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5351,7 +5378,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5632,7 +5659,7 @@ var Funnel = function () {
 exports.default = Funnel;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5937,7 +5964,7 @@ var Funnel3d = function () {
 exports.default = Funnel3d;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6215,7 +6242,7 @@ var HorizontalFunnel = function () {
 exports.default = HorizontalFunnel;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6524,7 +6551,7 @@ var HorizontalFunnel3d = function () {
 exports.default = HorizontalFunnel3d;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6695,7 +6722,7 @@ var MetricCombo = function () {
 exports.default = MetricCombo;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6713,7 +6740,7 @@ var _d2 = __webpack_require__(2);
 
 var d3 = _interopRequireWildcard(_d2);
 
-var _rangeable = __webpack_require__(18);
+var _rangeable = __webpack_require__(19);
 
 var _rangeable2 = _interopRequireDefault(_rangeable);
 
@@ -6956,7 +6983,7 @@ var Heatmap = function () {
 exports.default = Heatmap;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6976,7 +7003,7 @@ var _d2 = __webpack_require__(2);
 
 var d3 = _interopRequireWildcard(_d2);
 
-var _rangeable = __webpack_require__(18);
+var _rangeable = __webpack_require__(19);
 
 var _rangeable2 = _interopRequireDefault(_rangeable);
 
@@ -7187,7 +7214,7 @@ var Choropleth = function () {
 exports.default = Choropleth;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7270,7 +7297,7 @@ function renderExecutionMetadata() {
 }
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7280,15 +7307,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _autocollector = __webpack_require__(54);
+var _autocollector = __webpack_require__(55);
 
 var _autocollector2 = _interopRequireDefault(_autocollector);
 
-var _modern = __webpack_require__(55);
+var _modern = __webpack_require__(56);
 
 var _modern2 = _interopRequireDefault(_modern);
 
-var _dracula = __webpack_require__(56);
+var _dracula = __webpack_require__(57);
 
 var _dracula2 = _interopRequireDefault(_dracula);
 
@@ -7301,7 +7328,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7317,7 +7344,7 @@ var palette = {
 exports.default = palette;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7333,7 +7360,7 @@ var palette = {
 exports.default = palette;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7349,7 +7376,7 @@ var palette = {
 exports.default = palette;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
