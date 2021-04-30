@@ -64,6 +64,10 @@
 }
 
 /*-- Point --*/
+.c3-circle {
+  fill: currentColor;
+}
+
 .c3-circle._expanded_ {
   stroke-width: 1px;
   stroke: white;
@@ -101,6 +105,9 @@
 .c3-region {
   fill: steelblue;
   fill-opacity: 0.1;
+}
+.c3-region text {
+  fill-opacity: 1;
 }
 
 /*-- Brush --*/
@@ -511,7 +518,6 @@
         }
 .keen-dataviz-table th{
     background: white;
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 10;
